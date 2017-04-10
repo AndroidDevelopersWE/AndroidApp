@@ -16,10 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.MainActivity" />
-        <activity android:name=".UI.MobileNumActivity" />
-        <activity android:name=".UI.MobileNumVerifyActivity" />
-        <activity android:name=".UI.CareferPolicyActivity"></activity>
+        <activity android:name=".UI.Activities.MobileNumActivity" />
+        <activity android:name=".UI.Activities.MobileNumVerifyActivity" />
+        <activity android:name=".UI.Activities.CareferPolicyActivity" />
+        <activity
+            android:name=".UI.Activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

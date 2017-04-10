@@ -5,7 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import co.dtechsystem.carefer.UI.MobileNumActivity;
+import co.dtechsystem.carefer.UI.Activities.MobileNumActivity;
 
 public class SplashActivity extends AppCompatActivity {
     private final int SPLASH_DISPLAY_LENGTH = 1000;

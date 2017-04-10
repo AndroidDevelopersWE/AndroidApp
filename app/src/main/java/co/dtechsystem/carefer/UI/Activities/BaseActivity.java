@@ -1,4 +1,4 @@
-package co.dtechsystem.carefer.UI;
+package co.dtechsystem.carefer.UI.Activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
