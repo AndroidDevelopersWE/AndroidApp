@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">Carefer</string>
+
+    <string name="carefer_slogan">Sologn goes here</string>
+    <string name="enter_mobile">Enter Your Mobile Number</string>
+    <string name="btn_next">Next</string>
+    <string name="enter_verification_code">Enter Verification Code</string>
+    <string name="phone_eg">eg:+92-334-5882-589</string>
+    <string name="code_eg">eg:5589100</string>
+    <string name="btn_back">Back</string>
+    <string name="privacy_policy">Carefer Policy</string>
+    <string name="privacy_policy_details">Our Privacy Policy template lets you get
+        started with a Privacy Policy agreement. This template is free to download and use.
+        A Privacy Policy agreement is the agreement where you specify if you collect personal
+        data, what kind of personal data you collect from users and what you do with that data.
+        Our Privacy Policy template lets you get.
+
+        started with a Privacy Policy agreement. This template is free to download and use.
+        A Privacy Policy agreement is the agreement where you specify if you collect personal
+        data, what kind of personal data you collect from users and what you do with that data.
+    Our Privacy Policy template lets you get.
+
+        started with a Privacy Policy agreement. This template is free to download and use.
+        A Privacy Policy agreement is the agreement where you specify if you collect personal
+        data, what kind of personal data you collect from users and what you do with that data.
+    </string>
 </resources>
