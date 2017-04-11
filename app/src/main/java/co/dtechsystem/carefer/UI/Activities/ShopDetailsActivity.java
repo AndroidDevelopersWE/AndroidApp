@@ -5,23 +5,41 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
+import co.dtechsystem.carefer.Adapters.SimpleShopsDetailsAdapter;
+import co.dtechsystem.carefer.Adapters.SimpleShopsListAdapter;
 import co.dtechsystem.carefer.R;
 
-public class ShareActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ShopDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
+    LinearLayoutManager gridLayoutManager;
+    SimpleShopsDetailsAdapter mSimpleShopsDetailsAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_share);
+        setContentView(R.layout.activity_shop_details);
         SetUpLeftbar();
+        SetListDummy();
+    }
+
+    public void SetListDummy() {
+        RecyclerView rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
+        rv_images_shop_details.getItemAnimator().setChangeDuration(700);
+        mSimpleShopsDetailsAdapter = new SimpleShopsDetailsAdapter();
+        rv_images_shop_details.setAdapter(mSimpleShopsDetailsAdapter);
+        gridLayoutManager = new LinearLayoutManager(this);
+        gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rv_images_shop_details.setLayoutManager(gridLayoutManager);
     }
 
     public void SetUpLeftbar() {
@@ -91,4 +109,5 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

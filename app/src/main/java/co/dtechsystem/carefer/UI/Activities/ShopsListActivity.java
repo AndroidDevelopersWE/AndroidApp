@@ -5,23 +5,37 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import co.dtechsystem.carefer.Adapters.SimpleShopsListAdapter;
 import co.dtechsystem.carefer.R;
 
-public class ShareActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+    GridLayoutManager gridLayoutManager;
+    SimpleShopsListAdapter simpleShopsListAdapter;
     DrawerLayout mDrawerLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_share);
+        setContentView(R.layout.activity_shops_list);
         SetUpLeftbar();
+        SetListDummy();
+    }
+
+    public void SetListDummy() {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
+        recyclerView.getItemAnimator().setChangeDuration(700);
+        simpleShopsListAdapter = new SimpleShopsListAdapter(this);
+        recyclerView.setAdapter(simpleShopsListAdapter);
+        gridLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(gridLayoutManager);
     }
 
     public void SetUpLeftbar() {

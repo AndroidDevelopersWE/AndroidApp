@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/content_share"
+        layout="@layout/content_shop_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

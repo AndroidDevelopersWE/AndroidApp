@@ -42,6 +42,11 @@ public class MainActivity extends AppCompatActivity
         SetUpLeftbar();
     }
 
+    public void btnExploereClick(View v) {
+        Intent i = new Intent(this, ShopsListActivity.class);
+        startActivity(i);
+    }
+
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -130,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_fav_shops) {
 
         } else if (id == R.id.nav_share) {
-            Intent i = new Intent(this, MyDetailsActivity.class);
+            Intent i = new Intent(this, ShareActivity.class);
             startActivity(i);
 
         } else if (id == R.id.nav_send) {

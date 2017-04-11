@@ -36,11 +36,19 @@
     <string name="your_name">Your Name</string>
     <string name="btn_save">Save</string>
     <string name="share_app_tv">Sahre The App</string>
-    <string name="lorem_ispum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="lorem_ispum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived  </string>
     <string name="share_to_friend">Share The App To Your Firend</string>
     <string name="share_via_fb">Share via Facebook</string>
     <string name="share_via_tw">Share via Twitter</string>
     <string name="share_via_gtalk">Share via Gtalk</string>
     <string name="share_via_insta">Share via Instagram</string>
     <string name="share_via_pin">Share via Pinterest</string>
+    <string name="my_details">My Details</string>
+    <string name="shop_details">Shop Details</string>
+    <string name="shops_list">Shops List</string>
+    <string name="prompt_service">Service Type</string>
+    <string name="prompt_car_brand">Car Brand</string>
+    <string name="riyadh_saduia">Riyadh, Saudi Arabia</string>
+    <string name="dummy_text_list_item">Toyota Riadah Motors, Pvt. Ltd.</string>
+    <string name="dummy_text_list_details">Motor Computerized Wheel Allignment</string>
 </resources>

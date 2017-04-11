@@ -19,27 +19,55 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_api_key" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.Activities.MobileNumActivity" />
-        <activity android:name=".UI.Activities.MobileNumVerifyActivity" />
-        <activity android:name=".UI.Activities.CareferPolicyActivity" />
+        <activity
+            android:name=".UI.Activities.MobileNumActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.MobileNumVerifyActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.CareferPolicyActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_main"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_api_key" />
-
-        <activity android:name=".UI.Activities.MyDetailsActivity" />
-        <activity android:name=".UI.Activities.ShareActivity"></activity>
+        <activity
+            android:name=".UI.Activities.MyDetailsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.ShareActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.Activities.ShopsListActivity" />
+        <activity android:name=".UI.Activities.ShopDetailsActivity"></activity>
     </application>
 
 </manifest>
