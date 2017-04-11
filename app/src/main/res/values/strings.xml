@@ -57,4 +57,10 @@
     <string name="btn_nevegate_shop">Nevegate To The Shop!</string>
     <string name="btn_done">Done</string>
     <string name="title_navigate">Navigate</string>
+    <string name="title_shop_rating">Shop Rating</string>
+    <string name="price">Price</string>
+    <string name="quality">Quality</string>
+    <string name="time">Time</string>
+    <string name="btn_add_comment">Add Comment</string>
+    <string name="type_comments">Type Your Comments Here...</string>
 </resources>

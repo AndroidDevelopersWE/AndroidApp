@@ -58,6 +58,10 @@ public class DirectionsActivity extends BaseActivity
         mapFragment.getMapAsync(this);
 
     }
+    public void GotoRatings(View v) {
+        Intent i = new Intent(this, RatingActivity.class);
+        startActivity(i);
+    }
 
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

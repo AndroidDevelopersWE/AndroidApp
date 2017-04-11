@@ -85,7 +85,7 @@
         android:layout_marginRight="@dimen/_40sdp"
         android:background="@android:color/holo_blue_dark"
         android:clickable="true"
-        android:onClick="CloseActivity"
+        android:onClick="GotoRatings"
         android:text="@string/btn_done"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
