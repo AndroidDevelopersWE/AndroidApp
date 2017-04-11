@@ -83,9 +83,10 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_40sdp"
         android:layout_marginRight="@dimen/_40sdp"
-        android:background="@drawable/dr_corner_view"
+        android:background="@android:color/holo_blue_dark"
         android:clickable="true"
         android:onClick="btnExploereClick"
         android:text="@string/btn_explorer"
-        android:textAllCaps="false" />
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

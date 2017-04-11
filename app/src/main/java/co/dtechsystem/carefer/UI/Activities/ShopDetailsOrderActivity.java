@@ -19,33 +19,16 @@ import co.dtechsystem.carefer.Adapters.SimpleShopsDetailsAdapter;
 import co.dtechsystem.carefer.Adapters.SimpleShopsListAdapter;
 import co.dtechsystem.carefer.R;
 
-public class ShopDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
-    LinearLayoutManager gridLayoutManager;
-    SimpleShopsDetailsAdapter mSimpleShopsDetailsAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_details);
+        setContentView(R.layout.activity_shop_details_order);
         SetUpLeftbar();
-        SetListDummy();
     }
 
-    public void GotoShopDetailsOrder(View V) {
-        Intent i = new Intent(this, ShopDetailsOrderActivity.class);
-        startActivity(i);
-    }
-
-    public void SetListDummy() {
-        RecyclerView rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
-        rv_images_shop_details.getItemAnimator().setChangeDuration(700);
-        mSimpleShopsDetailsAdapter = new SimpleShopsDetailsAdapter();
-        rv_images_shop_details.setAdapter(mSimpleShopsDetailsAdapter);
-        gridLayoutManager = new LinearLayoutManager(this);
-        gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rv_images_shop_details.setLayoutManager(gridLayoutManager);
-    }
 
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
