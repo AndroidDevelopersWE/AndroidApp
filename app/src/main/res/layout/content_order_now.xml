@@ -88,6 +88,8 @@
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
                 android:background="@android:color/holo_blue_dark"
+                android:clickable="true"
+                android:onClick="CAllToShop"
                 android:text="@string/btn_call_shop"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"

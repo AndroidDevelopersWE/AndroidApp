@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import co.dtechsystem.carefer.R;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
     DrawerLayout mDrawerLayout;
     SupportMapFragment mapFragment;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
     boolean firstCAll = false;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);

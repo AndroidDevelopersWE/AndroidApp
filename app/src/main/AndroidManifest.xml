@@ -77,7 +77,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Activities.ShopDetailsOrderActivity" />
-        <activity android:name=".UI.Activities.OrderNowActivity"></activity>
+        <activity android:name=".UI.Activities.OrderNowActivity" />
+        <activity android:name=".UI.Activities.DirectionsActivity"></activity>
     </application>
 
 </manifest>

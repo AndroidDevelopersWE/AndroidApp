@@ -1,6 +1,7 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -29,9 +30,14 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         SetUpLeftbar();
     }
 
-    public void GotoOrderNow(View V) {
-        Intent i = new Intent(this, OrderNowActivity.class);
-        startActivity(i);
+    public void CAllToShop(View V) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:0123456789"));
+            startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
