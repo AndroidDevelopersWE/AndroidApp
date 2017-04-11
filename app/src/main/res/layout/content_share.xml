@@ -47,6 +47,7 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_20sdp"
+                        android:padding="@dimen/_15sdp"
                         android:gravity="center"
                         android:text="@string/share_app_tv"
                         android:textColor="@android:color/black"

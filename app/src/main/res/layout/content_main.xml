@@ -48,6 +48,7 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_20sdp"
                         android:gravity="center"
+                        android:padding="@dimen/_15sdp"
                         android:text="@string/app_name"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/_15sdp"

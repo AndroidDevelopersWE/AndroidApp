@@ -49,6 +49,7 @@
                         android:layout_marginRight="@dimen/_20sdp"
                         android:gravity="center"
                         android:text="@string/my_details"
+                        android:padding="@dimen/_15sdp"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold" />
