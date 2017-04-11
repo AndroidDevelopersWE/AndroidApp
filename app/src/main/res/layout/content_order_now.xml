@@ -104,8 +104,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:background="@android:color/holo_green_light"
-                android:text="@string/btn_call_shop"
+                android:background="@android:color/holo_green_dark"
+                android:text="@string/btn_nevegate_shop"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_15sdp" />

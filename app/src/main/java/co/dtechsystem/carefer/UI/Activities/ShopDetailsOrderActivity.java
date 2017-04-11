@@ -29,7 +29,10 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         SetUpLeftbar();
     }
 
-
+    public void GotoOrderNow(View V) {
+        Intent i = new Intent(this, OrderNowActivity.class);
+        startActivity(i);
+    }
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

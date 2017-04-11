@@ -25,7 +25,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_details);
+        setContentView(R.layout.activity_order_now);
         SetUpLeftbar();
     }
 

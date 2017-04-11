@@ -167,6 +167,8 @@
                 android:layout_marginRight="@dimen/_20sdp"
                 android:background="@android:color/holo_blue_dark"
                 android:text="@string/btn_next"
+                android:clickable="true"
+                android:onClick="GotoOrderNow"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_15sdp" />
