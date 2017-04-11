@@ -81,7 +81,8 @@ public class ShareActivity extends AppCompatActivity implements NavigationView.O
         } else if (id == R.id.nav_fav_shops) {
 
         } else if (id == R.id.nav_share) {
-
+            Intent i = new Intent(this, ShareActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_send) {
 
         }
