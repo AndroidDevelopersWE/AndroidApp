@@ -66,8 +66,17 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Activities.ShopsListActivity" />
-        <activity android:name=".UI.Activities.ShopDetailsActivity"></activity>
+        <activity
+            android:name=".UI.Activities.ShopsListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.ShopDetailsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity android:name=".UI.Activities.ShopDetailsOrderActivity"></activity>
     </application>
 
 </manifest>
