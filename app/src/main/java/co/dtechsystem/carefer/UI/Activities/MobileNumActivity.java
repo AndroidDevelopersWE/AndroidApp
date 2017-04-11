@@ -14,7 +14,7 @@ public class MobileNumActivity extends BaseActivity {
         setContentView(R.layout.activity_mobile_num);
     }
 
-    public void btn_Next_to_Verfication_Click(View v) {
+    public void ban_Next_to_Verification_Click(View v) {
         Intent i = new Intent(this, MobileNumVerifyActivity.class);
         startActivity(i);
     }

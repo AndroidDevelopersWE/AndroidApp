@@ -67,7 +67,6 @@ public class MainActivity extends BaseActivity
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
-//            Toast.makeText(this, "Permission needed for access your location", Toast.LENGTH_SHORT).show();
             return;
         }
         mMap.setMyLocationEnabled(true);

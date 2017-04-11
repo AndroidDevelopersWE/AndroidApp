@@ -16,7 +16,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,9 +53,10 @@ public class DirectionsActivity extends BaseActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directions);
+        SetUpLeftbar();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        SetUpLeftbar();
+
     }
 
     public void SetUpLeftbar() {
@@ -95,7 +95,13 @@ public class DirectionsActivity extends BaseActivity
                 }
             }
         });
-        AddMarkerForRoute(new LatLng(31.5546, 74.3572));
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                AddMarkerForRoute(latLng);
+
+            }
+        });
 
     }
 
@@ -225,7 +231,7 @@ public class DirectionsActivity extends BaseActivity
 
                     mMap.addPolyline(lineOptions);
                 } else {
-                    Toast.makeText(DirectionsActivity.this, "No specific route found.", Toast.LENGTH_SHORT).show();
+                    showToast("No specific route found.");
                 }
             } catch (Exception c) {
                 c.printStackTrace();
@@ -305,7 +311,7 @@ public class DirectionsActivity extends BaseActivity
                 mapFragment.getMapAsync(this);
             } else {
                 // User refused to grant permission. You can add AlertDialog here
-                Toast.makeText(this, "You didn't give permission to access device location", Toast.LENGTH_LONG).show();
+                showToast("You didn't give permission to access device location");
             }
         }
     }

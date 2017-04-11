@@ -40,6 +40,10 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
+    public void DirectionsToShop(View v) {
+        Intent i = new Intent(this, DirectionsActivity.class);
+        startActivity(i);
+    }
 
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

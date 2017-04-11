@@ -56,7 +56,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/_20sdp"
             android:clickable="true"
-            android:onClick="btn_Next_to_careferPolicy_Click"
+            android:onClick="ben_Next_to_carafePolicy_Click"
             android:text="@string/btn_next" />
 
 

@@ -14,7 +14,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
         setContentView(R.layout.activity_mobile_num_verification);
     }
 
-    public void btn_Next_to_careferPolicy_Click(View v) {
+    public void ben_Next_to_carafePolicy_Click(View v) {
         Intent i = new Intent(this, CareferPolicyActivity.class);
         startActivity(i);
     }

@@ -55,4 +55,6 @@
     <string name="title_care_policy">Carefer Policy</string>
     <string name="btn_call_shop">Call The Shop</string>
     <string name="btn_nevegate_shop">Nevegate To The Shop!</string>
+    <string name="btn_done">Done</string>
+    <string name="title_navigate">Navigate</string>
 </resources>

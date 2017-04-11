@@ -56,7 +56,7 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="btn_Next_to_Verfication_Click"
+            android:onClick="ban_Next_to_Verification_Click"
             android:text="@string/btn_next" />
 
     </LinearLayout>
