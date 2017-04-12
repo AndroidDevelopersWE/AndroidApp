@@ -58,7 +58,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_280sdp"
+            android:layout_height="@dimen/_275sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:scrollbars="vertical"
@@ -80,9 +80,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/dr_corner_view_brown"
             android:clickable="true"
             android:onClick="btn_Next_to_mainmenu_Click"
-            android:text="@string/btn_next" />
+            android:text="@string/btn_next"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </RelativeLayout>

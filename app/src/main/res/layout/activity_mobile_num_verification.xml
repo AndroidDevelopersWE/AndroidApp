@@ -15,8 +15,8 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
             android:layout_gravity="center"
             android:background="@drawable/dr_round_icon"
             android:gravity="center"
@@ -42,11 +42,11 @@
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:backgroundTint="@android:color/black"
             android:gravity="center"
             android:hint="@string/code_eg"
             android:inputType="phone"
             android:maxLines="1"
-            android:backgroundTint="@android:color/black"
             android:padding="@dimen/_10sdp"
             android:textColor="@android:color/black" />
 
@@ -56,12 +56,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/_20sdp"
+            android:background="@drawable/dr_corner_view_brown"
             android:clickable="true"
+            android:onClick="ben_Next_to_carafePolicy_Click"
+            android:text="@string/btn_next"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:background="@android:color/darker_gray"
-            android:onClick="ben_Next_to_carafePolicy_Click"
-            android:text="@string/btn_next" />
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>

@@ -29,17 +29,16 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:onClick="btn_drawyerMenuOpen"
-                    android:duplicateParentState="false">
+                    android:duplicateParentState="false"
+                    android:onClick="btn_drawyerMenuOpen">
 
                     <ImageView
                         android:layout_width="@dimen/_20sdp"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_margin="@dimen/_10sdp"
-                        android:clickable="false"
                         android:background="@drawable/ic_menu"
                         android:backgroundTint="@color/colorPrimaryDark"
-                        />
+                        android:clickable="false" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -91,10 +90,12 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_40sdp"
         android:layout_marginRight="@dimen/_40sdp"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@drawable/dr_corner_view_blue"
         android:clickable="true"
         android:onClick="btnExploereClick"
         android:text="@string/btn_explorer"
         android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold" />
 </RelativeLayout>
