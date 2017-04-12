@@ -45,6 +45,7 @@
             android:hint="@string/phone_eg"
             android:inputType="phone"
             android:maxLines="1"
+            android:backgroundTint="@android:color/black"
             android:padding="@dimen/_10sdp"
             android:textColor="@android:color/black" />
 
@@ -56,6 +57,9 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:clickable="true"
             android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:background="@android:color/darker_gray"
             android:onClick="ban_Next_to_Verification_Click"
             android:text="@string/btn_next" />
 
