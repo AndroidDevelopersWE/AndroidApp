@@ -91,10 +91,26 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Activities.RatingActivity" />
-        <activity android:name=".UI.Activities.MyOrdersActivity" />
-        <activity android:name=".UI.Activities.FavouriteShopsActivity" />
-        <activity android:name=".UI.Activities.AboutUsActivity"></activity>
+        <activity
+            android:name=".UI.Activities.RatingActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.MyOrdersActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.FavouriteShopsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.AboutUsActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
