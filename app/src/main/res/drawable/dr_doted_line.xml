@@ -2,6 +2,8 @@
     <item>
         <shape>
             <solid android:color="#ffffff" />
+            <corners android:radius="5dip" />
+
             <stroke
                 android:dashGap="5dp"
                 android:dashWidth="5dp"

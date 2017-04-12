@@ -35,7 +35,7 @@
     <string name="your_mobile">Your Mobile Number</string>
     <string name="your_name">Your Name</string>
     <string name="btn_save">Save</string>
-    <string name="share_app_tv">Sahre The App</string>
+    <string name="share_app_tv">Share The App</string>
     <string name="lorem_ispum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived  </string>
     <string name="share_to_friend">Share The App To Your Firend</string>
     <string name="share_via_fb">Share via Facebook</string>
@@ -43,6 +43,9 @@
     <string name="share_via_gtalk">Share via Gtalk</string>
     <string name="share_via_insta">Share via Instagram</string>
     <string name="share_via_pin">Share via Pinterest</string>
+    <string name="share_via_whats">Share via WhatsApp</string>
+    <string name="share_via_tele">Share via Telegram</string>
+    <string name="share_via_snap">Share via Snapchat</string>
     <string name="my_details">My Details</string>
     <string name="shop_details">Shop Details</string>
     <string name="shops_list">Shops List</string>

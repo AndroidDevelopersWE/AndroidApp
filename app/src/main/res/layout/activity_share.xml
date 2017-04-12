@@ -19,8 +19,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@android:color/white"
         android:fitsSystemWindows="true"
+        android:paddingLeft="@dimen/_2sdp"
         android:visibility="visible"
+        app:itemBackground="@drawable/dr_drawyer_item_bg"
         app:itemIconTint="@android:color/black"
         app:menu="@menu/activity_main_drawer" />
 

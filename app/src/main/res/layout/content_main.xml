@@ -92,6 +92,7 @@
         android:layout_marginRight="@dimen/_40sdp"
         android:background="@drawable/dr_corner_view_blue"
         android:clickable="true"
+        android:gravity="center"
         android:onClick="btnExploereClick"
         android:text="@string/btn_explorer"
         android:textAllCaps="false"
