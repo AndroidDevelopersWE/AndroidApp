@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_1sdp"
-                android:background="@color/colorAccent"
+                android:background="@drawable/dr_corner_fill"
                 android:orientation="vertical">
 
                 <TextView
@@ -114,7 +114,7 @@
 
                 <TextView
                     android:id="@+id/textView"
-                    android:layout_width="@dimen/_90sdp"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_90sdp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_10sdp"

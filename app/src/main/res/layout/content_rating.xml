@@ -208,9 +208,9 @@
 
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_150sdp"
+                android:layout_height="match_parent"
                 android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/dr_corner_view"
+                android:background="@drawable/dr_corner_view_straight"
                 android:gravity="start"
                 android:hint="@string/type_comments"
                 android:padding="@dimen/_5sdp"
