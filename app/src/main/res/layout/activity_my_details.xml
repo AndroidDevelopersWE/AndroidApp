@@ -22,6 +22,7 @@
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
         android:paddingLeft="@dimen/_2sdp"
+        app:itemTextColor="@android:color/black"
         android:visibility="visible"
         app:itemBackground="@drawable/dr_drawyer_item_bg"
         app:itemIconTint="@android:color/black"
