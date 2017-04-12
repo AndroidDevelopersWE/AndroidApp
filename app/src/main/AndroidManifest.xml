@@ -92,7 +92,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Activities.RatingActivity" />
-        <activity android:name=".UI.Activities.MyOrdersActivity"></activity>
+        <activity android:name=".UI.Activities.MyOrdersActivity" />
+        <activity android:name=".UI.Activities.FavouriteShopsActivity"></activity>
     </application>
 
 </manifest>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="co.dtechsystem.carefer.UI.Activities.DirectionsActivity">
+    tools:context="co.dtechsystem.carefer.UI.Activities.FavouriteShopsActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_main_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         app:cardElevation="@dimen/_7sdp">
 
         <LinearLayout
@@ -51,13 +51,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_20sdp"
                         android:gravity="center"
                         android:padding="@dimen/_15sdp"
-                        android:text="@string/title_navigate"
+                        android:text="@string/title_fav_shops"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold" />
@@ -74,27 +72,61 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/cv_main_top" />
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_weight="1"
+        card_view:cardCornerRadius="@dimen/_5sdp"
+        card_view:cardElevation="@dimen/_5sdp">
 
-    <Button
-        android:id="@+id/btn_explorer_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/_40sdp"
-        android:layout_marginRight="@dimen/_40sdp"
-        android:background="@android:color/holo_blue_dark"
-        android:clickable="true"
-        android:onClick="GotoRatings"
-        android:text="@string/btn_done"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white" />
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/dr_corner_view"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/_1sdp"
+                android:background="@color/colorAccent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/title_fav_shops"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="@android:color/black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:background="@drawable/dr_doted_line">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_fav_shops"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

@@ -76,4 +76,5 @@
     <string name="dummy_order_type">On Call</string>
     <string name="dummy_status">In Progress</string>
     <string name="dummy_rating">4/5</string>
+    <string name="title_fav_shops">Favourite Shops</string>
 </resources>

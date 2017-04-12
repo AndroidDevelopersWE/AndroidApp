@@ -134,6 +134,8 @@ public class MainActivity extends BaseActivity
             startActivity(i);
 
         } else if (id == R.id.nav_fav_shops) {
+            Intent i = new Intent(this, FavouriteShopsActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_share) {
             Intent i = new Intent(this, ShareActivity.class);
