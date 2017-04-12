@@ -77,4 +77,10 @@
     <string name="dummy_status">In Progress</string>
     <string name="dummy_rating">4/5</string>
     <string name="title_fav_shops">Favourite Shops</string>
+    <string name="title_about_us">About Carefer</string>
+    <string name="tv_how_it_works">How It Works!</string>
+    <string name="tv_contact_details">Contact Details</string>
+    <string name="carefer_emial">Email: info@carefer.com.sa</string>
+    <string name="carefer_phone">Phone: 966-225-2258</string>
+    <string name="carefer_site">Website: www.carefer.com.sa</string>
 </resources>

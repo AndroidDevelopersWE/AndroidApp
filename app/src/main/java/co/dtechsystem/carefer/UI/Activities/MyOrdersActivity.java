@@ -89,17 +89,23 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         if (id == R.id.nav_my_details) {
             Intent i = new Intent(this, MyDetailsActivity.class);
             startActivity(i);
+            // Handle the camera action
         } else if (id == R.id.nav_my_orders) {
+//            Intent i = new Intent(this, MyOrdersActivity.class);
+//            startActivity(i);
 
         } else if (id == R.id.nav_fav_shops) {
+            Intent i = new Intent(this, FavouriteShopsActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_share) {
             Intent i = new Intent(this, ShareActivity.class);
             startActivity(i);
-        } else if (id == R.id.nav_send) {
 
+        }else if (id == R.id.nav_about_us) {
+            Intent i = new Intent(this, AboutUsActivity.class);
+            startActivity(i);
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

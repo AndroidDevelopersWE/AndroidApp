@@ -141,8 +141,9 @@ public class MainActivity extends BaseActivity
             Intent i = new Intent(this, ShareActivity.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_about_us) {
+            Intent i = new Intent(this, AboutUsActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

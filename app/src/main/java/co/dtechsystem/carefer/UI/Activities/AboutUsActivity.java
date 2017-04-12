@@ -19,20 +19,16 @@ import co.dtechsystem.carefer.Adapters.SimpleShopsDetailsAdapter;
 import co.dtechsystem.carefer.Adapters.SimpleShopsListAdapter;
 import co.dtechsystem.carefer.R;
 
-public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AboutUsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shop_details_order);
+        setContentView(R.layout.activity_about_us);
         SetUpLeftbar();
     }
 
-    public void GotoOrderNow(View V) {
-        Intent i = new Intent(this, OrderNowActivity.class);
-        startActivity(i);
-    }
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -97,10 +93,11 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             Intent i = new Intent(this, ShareActivity.class);
             startActivity(i);
 
-        }else if (id == R.id.nav_about_us) {
-            Intent i = new Intent(this, AboutUsActivity.class);
-            startActivity(i);
+        } else if (id == R.id.nav_about_us) {
+//            Intent i = new Intent(this, ShareActivity.class);
+//            startActivity(i);
         }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

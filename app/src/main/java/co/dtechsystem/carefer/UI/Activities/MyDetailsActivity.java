@@ -72,17 +72,24 @@ public class MyDetailsActivity extends AppCompatActivity implements NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.nav_my_details) {
+//            Intent i = new Intent(this, MyDetailsActivity.class);
+//            startActivity(i);
             // Handle the camera action
         } else if (id == R.id.nav_my_orders) {
-
-        } else if (id == R.id.nav_fav_shops) {
-
-        } else if (id == R.id.nav_share) {
-            Intent i = new Intent(this, MyDetailsActivity.class);
+            Intent i = new Intent(this, MyOrdersActivity.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_fav_shops) {
+            Intent i = new Intent(this, FavouriteShopsActivity.class);
+            startActivity(i);
 
+        } else if (id == R.id.nav_share) {
+            Intent i = new Intent(this, ShareActivity.class);
+            startActivity(i);
+
+        }else if (id == R.id.nav_about_us) {
+            Intent i = new Intent(this, AboutUsActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

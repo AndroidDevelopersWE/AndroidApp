@@ -93,7 +93,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".UI.Activities.RatingActivity" />
         <activity android:name=".UI.Activities.MyOrdersActivity" />
-        <activity android:name=".UI.Activities.FavouriteShopsActivity"></activity>
+        <activity android:name=".UI.Activities.FavouriteShopsActivity" />
+        <activity android:name=".UI.Activities.AboutUsActivity"></activity>
     </application>
 
 </manifest>

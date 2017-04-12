@@ -15,8 +15,8 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
             android:layout_gravity="center"
             android:background="@drawable/dr_round_icon"
             android:gravity="center"
