@@ -91,7 +91,8 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".UI.Activities.RatingActivity"></activity>
+        <activity android:name=".UI.Activities.RatingActivity" />
+        <activity android:name=".UI.Activities.MyOrdersActivity"></activity>
     </application>
 
 </manifest>

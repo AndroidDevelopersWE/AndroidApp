@@ -63,4 +63,17 @@
     <string name="time">Time</string>
     <string name="btn_add_comment">Add Comment</string>
     <string name="type_comments">Type Your Comments Here...</string>
+    <string name="order_history">Your Order History</string>
+    <string name="title_order_history">My Orders</string>
+    <string name="tv_order_number">Order Number:</string>
+    <string name="tv_date_order">Date of Order:</string>
+    <string name="tv_shop">Shop:</string>
+    <string name="tv_order_type">Order Type:</string>
+    <string name="tv_shop_rating">Shop Rating:</string>
+    <string name="tv_status">Status:</string>
+    <string name="dummy_order_no">0052</string>
+    <string name="dummy_date">05-Feb-2017</string>
+    <string name="dummy_order_type">On Call</string>
+    <string name="dummy_status">In Progress</string>
+    <string name="dummy_rating">4/5</string>
 </resources>

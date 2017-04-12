@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_5sdp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:gravity="end"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="@string/tv_order_number"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="@string/tv_date_order"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="@string/tv_shop"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="@string/tv_order_type"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="@string/tv_shop_rating"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:singleLine="true"
+                android:text="@string/tv_status"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:background="@color/colorAccent"
+            android:orientation="vertical"
+            android:padding="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:singleLine="true"
+                android:text="@string/dummy_order_no"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:singleLine="true"
+                android:text="@string/dummy_date"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:singleLine="true"
+                android:text="@string/dummy_text_list_item"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:singleLine="true"
+                android:text="@string/dummy_order_type"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:singleLine="true"
+                android:text="@string/dummy_rating"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                
+                android:singleLine="true"
+                android:text="@string/dummy_status"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_11sdp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@android:color/black" />
+</LinearLayout>

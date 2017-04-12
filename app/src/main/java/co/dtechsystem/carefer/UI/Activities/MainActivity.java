@@ -130,6 +130,8 @@ public class MainActivity extends BaseActivity
             startActivity(i);
             // Handle the camera action
         } else if (id == R.id.nav_my_orders) {
+            Intent i = new Intent(this, MyOrdersActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_fav_shops) {
 
