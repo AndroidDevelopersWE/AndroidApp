@@ -6,17 +6,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import co.dtechsystem.carefer.Adapters.SimpleShopsDetailsAdapter;
-import co.dtechsystem.carefer.Adapters.SimpleShopsListAdapter;
 import co.dtechsystem.carefer.R;
 
 public class ShopDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {

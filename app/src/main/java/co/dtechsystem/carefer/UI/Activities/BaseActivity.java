@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.androidquery.AQuery;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     Loading loading;
     Activity activity;
     AQuery aQuery;
+    Gson gson;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
+        gson = new Gson();
         aQuery = new AQuery(this);
         activity = this;
         loading = new Loading(this, "Loading...");

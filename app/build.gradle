@@ -48,6 +48,7 @@ dependencies {
     compile 'com.google.firebase:firebase-crash:10.2.1'
     compile 'com.github.androidquery:androidquery:0.26.9'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    compile 'com.google.code.gson:gson:2.2.+'
 
 }
 apply plugin: 'com.google.firebase.firebase-crash'

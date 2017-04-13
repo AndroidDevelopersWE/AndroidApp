@@ -1,12 +1,12 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,14 +30,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.dtechsystem.carefer.Adapters.SimpleShopsListAdapter;
+import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
+import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
-import co.dtechsystem.carefer.Utils.Farsi;
 
 public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager gridLayoutManager;
-    SimpleShopsListAdapter simpleShopsListAdapter;
+    ShopsListRecycleViewAdapter shopsListRecycleViewAdapter;
     DrawerLayout mDrawerLayout;
 
     @Override
@@ -46,16 +45,14 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_list);
         SetUpLeftbar();
-        SetListDummy();
         loading.show();
         APiGetShopslistData(AppConfig.APiServiceTypeData, "Services");
     }
 
-    public void SetListDummy() {
+    public void SetListData() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
         recyclerView.getItemAnimator().setChangeDuration(700);
-        simpleShopsListAdapter = new SimpleShopsListAdapter(this);
-        recyclerView.setAdapter(simpleShopsListAdapter);
+        recyclerView.setAdapter(shopsListRecycleViewAdapter);
         gridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(gridLayoutManager);
     }
@@ -108,9 +105,18 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                 }
                                 ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
                                 aQuery.id(R.id.sp_brand_type_shop_list).adapter(StringdataAdapter);
-                                loading.close();
-
+                                APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
                             } else {
+                                ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
+                                if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+                                    shopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList());
+                                    SetListData();
+                                    loading.close();
+                                } else {
+                                    loading.close();
+                                    showToast("No shops Record found yet!");
+
+                                }
 
                             }
                         } catch (JSONException e) {
