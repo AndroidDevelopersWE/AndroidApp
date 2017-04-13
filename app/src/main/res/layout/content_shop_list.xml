@@ -87,6 +87,7 @@
             android:background="@drawable/dr_corner_view_straight">
 
             <Spinner
+                android:id="@+id/sp_service_type_shops_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:prompt="@string/prompt_service" />
@@ -100,6 +101,7 @@
             android:background="@drawable/dr_corner_view_straight">
 
             <Spinner
+                android:id="@+id/sp_brand_type_shop_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 

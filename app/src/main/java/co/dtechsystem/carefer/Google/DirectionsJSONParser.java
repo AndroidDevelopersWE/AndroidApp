@@ -1,6 +1,4 @@
-package co.dtechsystem.carefer.GoogleMaps;
-
-import android.util.Log;
+package co.dtechsystem.carefer.Google;
 
 import com.google.android.gms.maps.model.LatLng;
 

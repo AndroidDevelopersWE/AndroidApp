@@ -1,6 +1,7 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -8,13 +9,32 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import co.dtechsystem.carefer.Adapters.SimpleShopsListAdapter;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Farsi;
 
 public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager gridLayoutManager;
@@ -27,6 +47,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         setContentView(R.layout.activity_shops_list);
         SetUpLeftbar();
         SetListDummy();
+        loading.show();
+        APiGetShopslistData(AppConfig.APiServiceTypeData, "Services");
     }
 
     public void SetListDummy() {
@@ -56,6 +78,61 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void APiGetShopslistData(final String Url, final String Type) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        try {
+                            List listservices = new ArrayList();
+                            List brands = new ArrayList();
+                            if (Type.equals("Services")) {
+                                JSONArray brandsData = response.getJSONArray("serviceTypeData");
+                                for (int i = 0; i < brandsData.length(); i++) {
+                                    JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    listservices.add(jsonObject.getString("serviceTypeName"));
+                                }
+                                ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, listservices);
+                                aQuery.id(R.id.sp_service_type_shops_list).adapter(StringdataAdapter);
+                                APiGetShopslistData(AppConfig.APiBrandData, "Brands");
+                            } else if (Type.equals("Brands")) {
+                                JSONArray brandsData = response.getJSONArray("brandsData");
+                                for (int i = 0; i < brandsData.length(); i++) {
+                                    JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    brands.add(jsonObject.getString("brandName"));
+                                }
+                                ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
+                                aQuery.id(R.id.sp_brand_type_shop_list).adapter(StringdataAdapter);
+                                loading.close();
+
+                            } else {
+
+                            }
+                        } catch (JSONException e) {
+                            loading.close();
+                            showToast("Something Went Wrong Parsing.");
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast("Something Went Wrong...");
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
     }
 
     @Override

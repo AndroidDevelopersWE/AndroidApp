@@ -3,13 +3,32 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.androidquery.AQuery;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Farsi;
+import co.dtechsystem.carefer.Utils.Loading;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by DELL on 4/10/2017.
@@ -17,10 +36,21 @@ import co.dtechsystem.carefer.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
+    Loading loading;
+    Activity activity;
+    AQuery aQuery;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Tahoma.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+        aQuery = new AQuery(this);
+        activity = this;
+        loading = new Loading(this, "Loading...");
     }
 
 
@@ -59,4 +89,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             mProgressDialog = null;
         }
     }
+
+
 }

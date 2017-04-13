@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "562879189074",
+    "project_id": "carefer-164212"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:562879189074:android:21164be5df5e474a",
+        "android_client_info": {
+          "package_name": "co.dtechsystem.carefer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSH2H3AvnQNuR4IvILtY9iwYaohFAjYwY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-97296071-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

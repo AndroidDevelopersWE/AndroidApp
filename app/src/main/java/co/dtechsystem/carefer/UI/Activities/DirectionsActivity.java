@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import co.dtechsystem.carefer.GoogleMaps.DirectionsJSONParser;
+import co.dtechsystem.carefer.Google.DirectionsJSONParser;
 import co.dtechsystem.carefer.R;
 
 public class DirectionsActivity extends BaseActivity
