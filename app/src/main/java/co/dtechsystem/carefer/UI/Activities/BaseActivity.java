@@ -38,7 +38,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     Loading loading;
-    Activity activity;
+    protected Activity activity;
     AQuery aQuery;
     Gson gson;
 

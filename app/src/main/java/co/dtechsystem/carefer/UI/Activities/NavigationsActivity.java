@@ -41,7 +41,7 @@ import java.util.List;
 import co.dtechsystem.carefer.Google.DirectionsJSONParser;
 import co.dtechsystem.carefer.R;
 
-public class DirectionsActivity extends BaseActivity
+public class NavigationsActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
     DrawerLayout mDrawerLayout;
     private GoogleMap mMap;
@@ -52,7 +52,7 @@ public class DirectionsActivity extends BaseActivity
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_directions);
+        setContentView(R.layout.activity_navigations);
         SetUpLeftbar();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);

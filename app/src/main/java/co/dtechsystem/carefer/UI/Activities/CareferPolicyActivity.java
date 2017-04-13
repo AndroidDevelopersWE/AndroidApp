@@ -67,6 +67,7 @@ public class CareferPolicyActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         showToast("Something Went Wrong...");
+                        loading.close();
                         Log.d("Error.Response", String.valueOf(error));
                     }
                 }

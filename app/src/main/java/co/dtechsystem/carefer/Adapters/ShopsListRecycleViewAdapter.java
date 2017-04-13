@@ -44,19 +44,29 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     @Override
     public void onBindViewHolder(ShopsListRecycleViewAdapter.ViewHolder holder, final int position) {
 //        List<String> serviceType = Arrays.asList(_ShopslistRecordList.get(position).getServiceType().split(","));
-        String serviceType = _ShopslistRecordList.get(position).getServiceType().replaceAll(",", "\u2022");
+//        String serviceType = _ShopslistRecordList.get(position).getServiceType().replaceAll(",", " \u2022");
+        String stringTypeArr[] = _ShopslistRecordList.get(position).getServiceType().split(",");
+        if (stringTypeArr != null) {
+            holder.tv_service_type_shop_list.setText(stringTypeArr[0]);
+        }
         holder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
         holder.rb_shop_shop_list.setRating((Float.parseFloat(_ShopslistRecordList.get(position).getShopRating())));
-        holder.tv_service_type_shop_list.setText(serviceType);
         holder.tv_desc_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
         holder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
-
+        holder.lay_shop_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, ShopDetailsActivity.class);
+                activity.startActivity(i);
+            }
+        });
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_shop_name_shop_list, tv_service_type_shop_list, tv_desc_shop_list;
         public RatingBar rb_shop_shop_list;
+        LinearLayout lay_shop_item;
 
         public ViewHolder(View v) {
 
@@ -65,6 +75,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             tv_service_type_shop_list = (TextView) v.findViewById(R.id.tv_service_type_shop_list);
             tv_desc_shop_list = (TextView) v.findViewById(R.id.tv_desc_shop_list);
             rb_shop_shop_list = (RatingBar) v.findViewById(R.id.rb_shop_shop_list);
+            lay_shop_item = (LinearLayout) v.findViewById(R.id.lay_shop_item);
 
 
         }

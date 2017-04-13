@@ -35,7 +35,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     }
 
     public void DirectionsToShop(View v) {
-        Intent i = new Intent(this, DirectionsActivity.class);
+        Intent i = new Intent(this, NavigationsActivity.class);
         startActivity(i);
     }
 
