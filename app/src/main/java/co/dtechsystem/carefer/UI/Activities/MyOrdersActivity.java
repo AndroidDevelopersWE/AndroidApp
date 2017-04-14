@@ -17,7 +17,7 @@ import co.dtechsystem.carefer.Adapters.SimpleMyOrdersAdapter;
 import co.dtechsystem.carefer.R;
 
 public class MyOrdersActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    GridLayoutManager gridLayoutManager;
+    GridLayoutManager mgridLayoutManager;
     SimpleMyOrdersAdapter mSimpleMyOrdersAdapter;
     DrawerLayout mDrawerLayout;
 
@@ -34,8 +34,8 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         recyclerView.getItemAnimator().setChangeDuration(700);
         mSimpleMyOrdersAdapter = new SimpleMyOrdersAdapter();
         recyclerView.setAdapter(mSimpleMyOrdersAdapter);
-        gridLayoutManager = new GridLayoutManager(this, 1);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        mgridLayoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(mgridLayoutManager);
     }
 
     public void SetUpLeftbar() {

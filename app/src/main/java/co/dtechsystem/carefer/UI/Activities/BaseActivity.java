@@ -3,6 +3,7 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -41,6 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Activity activity;
     AQuery aQuery;
     Gson gson;
+    Intent intent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         aQuery = new AQuery(this);
         activity = this;
         loading = new Loading(this, "Loading...");
+        intent=getIntent();
     }
 
 

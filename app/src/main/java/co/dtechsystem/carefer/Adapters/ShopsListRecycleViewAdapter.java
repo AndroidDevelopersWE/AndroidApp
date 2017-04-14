@@ -56,8 +56,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         holder.lay_shop_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(activity, ShopDetailsActivity.class);
-                activity.startActivity(i);
+                Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
+                mIntent.putExtra("ShopID", _ShopslistRecordList.get(position).getID().toString());
+                activity.startActivity(mIntent);
             }
         });
     }

@@ -93,6 +93,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_shop_name_shop_details_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_3sdp"
@@ -106,6 +107,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_shop_type_shop_details_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_3sdp"
@@ -118,12 +120,13 @@
                     android:textStyle="bold" />
 
                 <RatingBar
+                    android:id="@+id/rb_shop_rating_shop_details_order"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_gravity="left"
                     android:layout_marginLeft="@dimen/_12sdp"
-                    android:numStars="5"
                     android:isIndicator="true"
+                    android:numStars="5"
                     android:progressDrawable="@drawable/dr_rating_bar"
                     android:rating="5"
                     android:stepSize="0.5" />
@@ -135,8 +138,9 @@
                     android:background="@drawable/dr_corner_view_straight">
 
                     <Spinner
+                        android:id="@+id/sp_srvice_type_shop_details_order"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_30sdp"
                         android:prompt="@string/prompt_service" />
                 </RelativeLayout>
 
@@ -154,8 +158,9 @@
                         android:background="@drawable/dr_corner_view_straight">
 
                         <Spinner
+                            android:id="@+id/sp_models_shop_details_order"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_30sdp"
                             android:prompt="@string/prompt_service" />
                     </RelativeLayout>
 
@@ -167,8 +172,9 @@
                         android:background="@drawable/dr_corner_view_straight">
 
                         <Spinner
+                            android:id="@+id/sp_car_model_order"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_30sdp"
 
                             android:prompt="@string/prompt_service" />
                     </RelativeLayout>

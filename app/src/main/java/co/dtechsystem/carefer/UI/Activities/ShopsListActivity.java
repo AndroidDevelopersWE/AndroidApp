@@ -36,7 +36,7 @@ import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    GridLayoutManager gridLayoutManager;
+    GridLayoutManager mgridLayoutManager;
     ShopsListRecycleViewAdapter shopsListRecycleViewAdapter;
     DrawerLayout mDrawerLayout;
 
@@ -53,8 +53,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
         recyclerView.getItemAnimator().setChangeDuration(700);
         recyclerView.setAdapter(shopsListRecycleViewAdapter);
-        gridLayoutManager = new GridLayoutManager(this, 2);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        mgridLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(mgridLayoutManager);
     }
 
     public void SetUpLeftbar() {

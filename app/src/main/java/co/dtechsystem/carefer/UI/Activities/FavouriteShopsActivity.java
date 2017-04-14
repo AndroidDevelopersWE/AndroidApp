@@ -17,7 +17,7 @@ import co.dtechsystem.carefer.Adapters.SimpleFavShopsAdapter;
 import co.dtechsystem.carefer.R;
 
 public class FavouriteShopsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    GridLayoutManager gridLayoutManager;
+    GridLayoutManager mgridLayoutManager;
     SimpleFavShopsAdapter mSimpleFavShopsAdapter;
     DrawerLayout mDrawerLayout;
 
@@ -34,8 +34,8 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
         recyclerView.getItemAnimator().setChangeDuration(700);
         mSimpleFavShopsAdapter = new SimpleFavShopsAdapter();
         recyclerView.setAdapter(mSimpleFavShopsAdapter);
-        gridLayoutManager = new GridLayoutManager(this, 1);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        mgridLayoutManager = new GridLayoutManager(this, 1);
+        recyclerView.setLayoutManager(mgridLayoutManager);
     }
 
     public void SetUpLeftbar() {

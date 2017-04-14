@@ -8,46 +8,129 @@ import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import co.dtechsystem.carefer.Adapters.ShopsImagesRecycleViewAdapter;
+import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
 import co.dtechsystem.carefer.Adapters.SimpleShopsDetailsAdapter;
+import co.dtechsystem.carefer.Models.ShopsDetailsModel;
+import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
-    LinearLayoutManager gridLayoutManager;
-    SimpleShopsDetailsAdapter mSimpleShopsDetailsAdapter;
+    LinearLayoutManager mgridLayoutManager;
+    ShopsImagesRecycleViewAdapter mShopsImagesRecycleViewAdapter;
+    ShopsDetailsModel mShopsDetailsModel;
+    String mShopID;
+    Intent mIntent;
 
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details);
         SetUpLeftbar();
-        SetListDummy();
+        mIntent = getIntent();
+        if (mIntent != null) {
+            mShopID = mIntent.getStringExtra("ShopID");
+            loading.show();
+            APiGetShopsDetailsData(mShopID);
+        }
+
+
     }
 
     public void GotoShopDetailsOrder(View V) {
         Intent i = new Intent(this, ShopDetailsOrderActivity.class);
+        i.putExtra("shopName", mShopsDetailsModel.getShopsDetail().get(0).getShopName());
+        i.putExtra("shopType", mShopsDetailsModel.getShopsDetail().get(0).getShopType());
+        i.putExtra("shopRating", mShopsDetailsModel.getShopsDetail().get(0).getShopRating());
+        i.putExtra("serviceType", mShopsDetailsModel.getShopsDetail().get(0).getServiceType());
+        i.putExtra("brands", mShopsDetailsModel.getShopsDetail().get(0).getBrands());
         startActivity(i);
-    }
-
-    public void SetListDummy() {
-        RecyclerView rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
-        rv_images_shop_details.getItemAnimator().setChangeDuration(700);
-        mSimpleShopsDetailsAdapter = new SimpleShopsDetailsAdapter();
-        rv_images_shop_details.setAdapter(mSimpleShopsDetailsAdapter);
-        gridLayoutManager = new LinearLayoutManager(this);
-        gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rv_images_shop_details.setLayoutManager(gridLayoutManager);
     }
 
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void APiGetShopsDetailsData(final String ShopID) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsDetailsData + ShopID, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+
+                        mShopsDetailsModel = gson.fromJson(response.toString(), ShopsDetailsModel.class);
+                        if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
+                            mShopsImagesRecycleViewAdapter = new ShopsImagesRecycleViewAdapter(activity, mShopsDetailsModel.getShopImages(), ShopID);
+                            SetImagesListData();
+                        }
+//                        else {
+//                            loading.close();
+//                            showToast("No Images Record found yet!");
+//                        }
+                        if (mShopsDetailsModel.getShopsDetail() != null && mShopsDetailsModel.getShopsDetail().size() > 0) {
+                            SetShopsDetailsData();
+                            loading.close();
+                        }
+                        loading.close();
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast("Something Went Wrong...");
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
+    }
+
+    public void SetImagesListData() {
+        RecyclerView rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
+        rv_images_shop_details.getItemAnimator().setChangeDuration(700);
+        rv_images_shop_details.setAdapter(mShopsImagesRecycleViewAdapter);
+        mgridLayoutManager = new LinearLayoutManager(this);
+        mgridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        rv_images_shop_details.setLayoutManager(mgridLayoutManager);
+    }
+
+    public void SetShopsDetailsData() {
+        aQuery.id(R.id.tv_shop_name_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopName());
+        aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
+        aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
+        aQuery.id(R.id.tv_shop_des_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
     }
 
     public void btn_drawyerMenuOpen(View v) {
@@ -108,7 +191,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
             Intent i = new Intent(this, ShareActivity.class);
             startActivity(i);
 
-        }else if (id == R.id.nav_about_us) {
+        } else if (id == R.id.nav_about_us) {
             Intent i = new Intent(this, AboutUsActivity.class);
             startActivity(i);
         }

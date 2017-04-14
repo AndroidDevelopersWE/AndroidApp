@@ -93,6 +93,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_shop_name_shop_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_3sdp"
@@ -106,6 +107,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tv_shop_service_shop_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_3sdp"
@@ -118,12 +120,13 @@
                     android:textStyle="bold" />
 
                 <RatingBar
+                    android:id="@+id/rb_shop_rating_shop_details"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="left"
                     android:layout_marginLeft="@dimen/_12sdp"
-                    android:numStars="5"
                     android:isIndicator="true"
+                    android:numStars="5"
                     android:progressDrawable="@drawable/dr_rating_bar"
                     android:rating="5"
                     android:stepSize="0.5" />
@@ -139,8 +142,8 @@
                     android:id="@+id/rv_images_shop_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp" />
 
                 <ScrollView
@@ -149,6 +152,7 @@
                     android:layout_marginTop="@dimen/_5sdp">
 
                     <TextView
+                        android:id="@+id/tv_shop_des_shop_details"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_10sdp"
