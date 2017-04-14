@@ -1,13 +1,17 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,14 +21,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
+import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -70,6 +97,7 @@ public class MainActivity extends BaseActivity
             return;
         }
         mMap.setMyLocationEnabled(true);
+        APiGetShopslistData();
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
             @Override
@@ -81,6 +109,108 @@ public class MainActivity extends BaseActivity
                 }
             }
         });
+    }
+
+    public void APiGetShopslistData() {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsListData, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+
+                        ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
+                        if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+                            SetShopsPointMap(mShopsListModel.getShopsList());
+                            loading.close();
+                        } else {
+                            loading.close();
+                            showToast("No shops Record found yet!");
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast("Something Went Wrong...");
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
+    }
+
+    public void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList) {
+        for (int i = 0; i < shopsList.size(); i++) {
+
+
+            // adding a marker on map with image from  drawable
+//            mMap.addMarker(new MarkerOptions()
+//                    .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
+//                            Double.parseDouble(shopsList.get(i).getLongitude())))
+//                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
+                            Double.parseDouble(shopsList.get(i).getLongitude()))));
+        }
+        // Setting a custom info window adapter for the google map
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            // Use default InfoWindow frame
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            // Defines the contents of the InfoWindow
+            @Override
+            public View getInfoContents(Marker arg0) {
+                View customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_shops, null);
+                String id = "";
+                for (int i = 0; i < shopsList.size(); i++) {
+                    double latmap = arg0.getPosition().latitude;
+                    double latmy = Double.parseDouble(shopsList.get(i).getLatitude());
+                    if (latmap == latmy) {
+                        TextView tv_shop_name_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_shop_name_shop_list);
+                        TextView tv_service_type_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_service_type_shop_list);
+                        TextView tv_desc_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_desc_shop_list);
+                        RatingBar rb_shop_shop_list = (RatingBar) customMarkerView.findViewById(R.id.rb_shop_shop_list);
+//                        aQuery.id(R.id.tv_shop_name_shop_list).text(shopsList.get(i).getShopName());
+//                        aQuery.id(R.id.tv_service_type_shop_list).text(shopsList.get(i).getServiceType());
+//                        aQuery.id(R.id.tv_desc_shop_list).text(shopsList.get(i).getShopDescription());
+//                        aQuery.id(R.id.rb_shop_shop_list).rating(Float.parseFloat(shopsList.get(i).getShopRating()));
+
+                        tv_shop_name_shop_list.setText(shopsList.get(i).getShopName());
+                        tv_service_type_shop_list.setText(shopsList.get(i).getServiceType());
+                        tv_desc_shop_list.setText(shopsList.get(i).getShopDescription());
+                        rb_shop_shop_list.setRating(Float.parseFloat(shopsList.get(i).getShopRating()));
+                        id = shopsList.get(i).getID();
+
+                        break;
+                    }
+                }
+                final String finalId = id;
+                mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+                    @Override
+                    public void onInfoWindowClick(Marker arg0) {
+                        Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
+                        mIntent.putExtra("ShopID", finalId);
+                        activity.startActivity(mIntent);
+                    }
+                });
+
+                return customMarkerView;
+
+            }
+        });
+
     }
 
     public void btn_drawyerMenuOpen(View v) {

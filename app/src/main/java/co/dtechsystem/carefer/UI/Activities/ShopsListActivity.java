@@ -14,7 +14,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,14 +42,22 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     GridLayoutManager mgridLayoutManager;
     ShopsListRecycleViewAdapter shopsListRecycleViewAdapter;
     DrawerLayout mDrawerLayout;
+    Spinner sp_service_type_shops_list;
+    Spinner sp_brand_type_shop_list;
+    LinearLayout lay_content_shops_list;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_list);
+        lay_content_shops_list=(LinearLayout)findViewById(R.id.lay_content_shops_list);
+        sp_service_type_shops_list = (Spinner) lay_content_shops_list.findViewById(R.id.sp_service_type_shops_list);
+        sp_brand_type_shop_list = (Spinner) lay_content_shops_list.findViewById(R.id.sp_brand_type_shop_list);
+
         SetUpLeftbar();
         loading.show();
         APiGetShopslistData(AppConfig.APiServiceTypeData, "Services");
+
     }
 
     public void SetListData() {
@@ -55,6 +66,62 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         recyclerView.setAdapter(shopsListRecycleViewAdapter);
         mgridLayoutManager = new GridLayoutManager(this, 2);
         recyclerView.setLayoutManager(mgridLayoutManager);
+    }
+
+    public void setSpinnerFilter() {
+        try {
+            sp_service_type_shops_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedItemService = sp_service_type_shops_list.getSelectedItem().toString();
+                    String selectedItemBrand = sp_brand_type_shop_list.getSelectedItem().toString();
+
+                    if (selectedItemService
+                            != null && !selectedItemService.equals("Service Type") && selectedItemBrand != null &&
+                            selectedItemBrand.equals("Brand")) {
+                        shopsListRecycleViewAdapter.filterShops("Service", "No", selectedItemService, "");
+                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+                    } else if (selectedItemService
+                            != null && !selectedItemService.equals("Service Type") &&
+                            selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
+                        shopsListRecycleViewAdapter.filterShops("Service", "Yes", selectedItemService, selectedItemBrand);
+
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            sp_brand_type_shop_list.setOnItemSelectedListener((new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selectedItemBrand = sp_brand_type_shop_list.getSelectedItem().toString();
+                    String selectedItemService = sp_service_type_shops_list.getSelectedItem().toString();
+
+                    if (selectedItemService != null && selectedItemService.equals("Service Type") &&
+                            selectedItemBrand != null && selectedItemBrand.equals("Brand")) {
+                        shopsListRecycleViewAdapter.filterShops("Brand", "No", selectedItemBrand, "");
+                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+                    } else if (selectedItemService
+                            != null && !selectedItemService.equals("Service Type") &&
+                            selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
+                        shopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
+
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            }));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void SetUpLeftbar() {
@@ -87,7 +154,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                         // display response
                         try {
                             List listservices = new ArrayList();
+                            listservices.add(0, "Service Type");
                             List brands = new ArrayList();
+                            brands.add(0, "Brand");
                             if (Type.equals("Services")) {
                                 JSONArray brandsData = response.getJSONArray("serviceTypeData");
                                 for (int i = 0; i < brandsData.length(); i++) {
@@ -95,7 +164,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     listservices.add(jsonObject.getString("serviceTypeName"));
                                 }
                                 ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, listservices);
-                                aQuery.id(R.id.sp_service_type_shops_list).adapter(StringdataAdapter);
+                                sp_service_type_shops_list.setAdapter(StringdataAdapter);
                                 APiGetShopslistData(AppConfig.APiBrandData, "Brands");
                             } else if (Type.equals("Brands")) {
                                 JSONArray brandsData = response.getJSONArray("brandsData");
@@ -104,7 +173,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     brands.add(jsonObject.getString("brandName"));
                                 }
                                 ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
-                                aQuery.id(R.id.sp_brand_type_shop_list).adapter(StringdataAdapter);
+                                sp_brand_type_shop_list.setAdapter(StringdataAdapter);
                                 APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
                             } else {
                                 ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
@@ -119,6 +188,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                 }
 
                             }
+                            setSpinnerFilter();
                         } catch (JSONException e) {
                             loading.close();
                             showToast("Something Went Wrong Parsing.");

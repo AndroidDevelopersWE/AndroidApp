@@ -14,7 +14,9 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
@@ -22,12 +24,15 @@ import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
 
 
 public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListRecycleViewAdapter.ViewHolder> {
-    private List<ShopsListModel.ShopslistRecord> _ShopslistRecordList;
+    private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordList;
+    private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter;
     private int lastPosition;
     Activity activity;
 
     public ShopsListRecycleViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList) {
         this._ShopslistRecordList = _ShopslistRecordList;
+        this._ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
+        this._ShopslistRecordListFilter.addAll(_ShopslistRecordList);
         this.activity = activity;
     }
 
@@ -100,5 +105,42 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         }
     }
 
+    // Filter Class
+    public static void filterShops(String Type, String Both, String service, String Brand) {
+        service = service.toLowerCase(Locale.getDefault());
+        Brand = Brand.toLowerCase(Locale.getDefault());
+
+        _ShopslistRecordList.clear();
+        if (service.length() == 0 && Brand.length() == 0) {
+            _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
+        } else {
+            if (Type.equals("Service") && Both.equals("No")) {
+                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                    if (_ShopslistRecordListFilter.get(i).getServiceType().toLowerCase(Locale.getDefault())
+                            .contains(service)) {
+                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                    }
+                }
+            } else if (Type.equals("Brand") && Both.equals("No")) {
+                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                    if (_ShopslistRecordListFilter.get(i).getBrands().toLowerCase(Locale.getDefault())
+                            .contains(Brand)) {
+                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                    }
+                }
+            } else if (Both.equals("Yes")) {
+                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                    if (_ShopslistRecordListFilter.get(i).getBrands().toLowerCase(Locale.getDefault())
+                            .contains(service) || _ShopslistRecordListFilter.get(i).getServiceType().toLowerCase(Locale.getDefault())
+                            .contains(Brand)) {
+                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                    }
+                }
+            }
+
+
+        }
+
+    }
 
 }

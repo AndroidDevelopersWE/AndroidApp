@@ -158,6 +158,9 @@
                                 android:layout_marginLeft="@dimen/_40sdp"
                                 android:layout_marginRight="@dimen/_40sdp"
                                 android:background="@drawable/dr_corner_view_blue_dark"
+                                android:drawableLeft="@drawable/ic_fb_share"
+                                android:paddingLeft="@dimen/_20sdp"
+                                android:paddingRight="@dimen/_30sdp"
                                 android:text="@string/share_via_fb"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white" />
@@ -169,6 +172,9 @@
                                 android:layout_marginLeft="@dimen/_40sdp"
                                 android:layout_marginRight="@dimen/_40sdp"
                                 android:background="@drawable/dr_corner_view_blue_light"
+                                android:drawableLeft="@drawable/ic_twitter_share"
+                                android:paddingLeft="@dimen/_20sdp"
+                                android:paddingRight="@dimen/_30sdp"
                                 android:text="@string/share_via_tw"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white" />
@@ -180,6 +186,9 @@
                                 android:layout_marginLeft="@dimen/_40sdp"
                                 android:layout_marginRight="@dimen/_40sdp"
                                 android:background="@drawable/dr_corner_view_red"
+                                android:drawableLeft="@drawable/ic_g_plus_share"
+                                android:paddingLeft="@dimen/_20sdp"
+                                android:paddingRight="@dimen/_30sdp"
                                 android:text="@string/share_via_gtalk"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white" />
@@ -191,6 +200,9 @@
                                 android:layout_marginLeft="@dimen/_40sdp"
                                 android:layout_marginRight="@dimen/_40sdp"
                                 android:background="@drawable/dr_corner_view_light_red"
+                                android:drawableLeft="@drawable/ic_insta_share"
+                                android:paddingLeft="@dimen/_20sdp"
+                                android:paddingRight="@dimen/_30sdp"
                                 android:text="@string/share_via_insta"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white" />
@@ -202,6 +214,9 @@
                                 android:layout_marginLeft="@dimen/_40sdp"
                                 android:layout_marginRight="@dimen/_40sdp"
                                 android:background="@drawable/dr_corner_view_velvet"
+                                android:drawableLeft="@drawable/ic_pinterest_share"
+                                android:paddingLeft="@dimen/_20sdp"
+                                android:paddingRight="@dimen/_30sdp"
                                 android:text="@string/share_via_pin"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white" />
@@ -213,6 +228,9 @@
                                 android:layout_marginLeft="@dimen/_40sdp"
                                 android:layout_marginRight="@dimen/_40sdp"
                                 android:background="@drawable/dr_corner_view_green"
+                                android:drawableLeft="@drawable/ic_whatsap_share"
+                                android:paddingLeft="@dimen/_20sdp"
+                                android:paddingRight="@dimen/_30sdp"
                                 android:text="@string/share_via_whats"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white" />
@@ -224,6 +242,9 @@
                                 android:layout_marginLeft="@dimen/_40sdp"
                                 android:layout_marginRight="@dimen/_40sdp"
                                 android:background="@drawable/dr_corner_view_light_velvet_light"
+                                android:drawableLeft="@drawable/ic_telegram_share"
+                                android:paddingLeft="@dimen/_20sdp"
+                                android:paddingRight="@dimen/_30sdp"
                                 android:text="@string/share_via_tele"
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/white" />
@@ -235,7 +256,11 @@
                                 android:layout_marginLeft="@dimen/_40sdp"
                                 android:layout_marginRight="@dimen/_40sdp"
                                 android:background="@drawable/dr_corner_view_yellow"
+                                android:drawableLeft="@drawable/ic_snapchat_share"
+                                android:paddingLeft="@dimen/_20sdp"
+                                android:paddingRight="@dimen/_30sdp"
                                 android:text="@string/share_via_snap"
+
                                 android:textAllCaps="false"
                                 android:textColor="@android:color/black" />
                         </LinearLayout>

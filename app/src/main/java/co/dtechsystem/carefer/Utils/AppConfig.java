@@ -9,6 +9,7 @@ public class AppConfig {
     public static String APiServiceTypeData = BaseUrl + "service-type/get-service-types";
     public static String APiShopsListData = BaseUrl + "shops/shops-data";
     public static String APiShopsDetailsData = BaseUrl + "shops/shop-details/id/";
+    public static String APiShopsDetailsOrderModel = BaseUrl + "models/get-models";
 
 }
 

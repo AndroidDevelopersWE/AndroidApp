@@ -6,18 +6,33 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
+import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
@@ -46,17 +61,18 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 
     // Set views data
     public void SetDataTOViews() {
+        loading.show();
+        APiGetModelsYears();
         aQuery.id(R.id.tv_shop_name_shop_details_order).text(mshopName);
         aQuery.id(R.id.tv_shop_type_shop_details_order).text(mshopType);
         aQuery.id(R.id.rb_shop_rating_shop_details_order).rating(Float.parseFloat(mshopRating));
 
-        ArrayList<String> years = new ArrayList<String>();
-        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-        for (int i = 1900; i <= thisYear; i++) {
-            years.add(Integer.toString(i));
-        }
-        ArrayAdapter<String> modelyearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
-        aQuery.id(R.id.sp_car_model_order).adapter(modelyearAdapter);
+//        ArrayList<String> years = new ArrayList<String>();
+//        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+//        for (int i = 1900; i <= thisYear; i++) {
+//            years.add(Integer.toString(i));
+//        }
+//        ArrayAdapter<String> modelyearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
         List<String> serviceType = Arrays.asList(mserviceType.split(","));
         ArrayAdapter<String> servicetypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, serviceType);
         aQuery.id(R.id.sp_srvice_type_shop_details_order).adapter(servicetypeAdapter);
@@ -64,6 +80,47 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         ArrayAdapter<String> brandsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, brands);
         aQuery.id(R.id.sp_models_shop_details_order).adapter(brandsAdapter);
 
+    }
+
+    public void APiGetModelsYears() {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsDetailsOrderModel, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        try {
+                            List models = new ArrayList();
+
+                            JSONArray brandsData = response.getJSONArray("modelData");
+                            for (int i = 0; i < brandsData.length(); i++) {
+                                JSONObject jsonObject = brandsData.getJSONObject(i);
+                                models.add(jsonObject.getString("modelName"));
+                            }
+                            ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, models);
+                            aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                            loading.close();
+                        } catch (JSONException e) {
+                            loading.close();
+                            showToast("Something Went Wrong Parsing.");
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast("Something Went Wrong...");
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
     }
 
     public void GotoOrderNow(View V) {

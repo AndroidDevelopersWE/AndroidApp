@@ -48,12 +48,8 @@ public class CareferPolicyActivity extends BaseActivity {
                         try {
                             JSONArray policyData = response.getJSONArray("policyData");
                             JSONObject jsonObject = policyData.getJSONObject(0);
-                            Typeface tf = Farsi.GetFarsiFont(activity);
-//                            TextView textView = (TextView) findViewById(R.id.tv_carefer_policy_details);
+//                            Typeface tf = Farsi.GetFarsiFont(activity);
                             aQuery.id(R.id.tv_carefer_policy_details).text(jsonObject.getString("policyContent"));
-//                            textView.setTypeface(tf);
-//                            textView.setText(jsonObject.getString("policyContent"));
-                            Log.d("Response", response.toString());
                             loading.close();
                         } catch (JSONException e) {
                             loading.close();
