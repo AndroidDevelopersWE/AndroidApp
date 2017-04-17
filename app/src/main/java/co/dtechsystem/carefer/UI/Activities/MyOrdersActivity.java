@@ -8,34 +8,90 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import co.dtechsystem.carefer.Adapters.MyOrdersRecycleViewAdapter;
+import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
 import co.dtechsystem.carefer.Adapters.SimpleMyOrdersAdapter;
+import co.dtechsystem.carefer.Models.MyOrdersModel;
+import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class MyOrdersActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
-    SimpleMyOrdersAdapter mSimpleMyOrdersAdapter;
     DrawerLayout mDrawerLayout;
+    MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         SetUpLeftbar();
-        SetListDummy();
+        APiGetShopslistData();
     }
 
-    public void SetListDummy() {
+    public void SetListData() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_my_orders);
         recyclerView.getItemAnimator().setChangeDuration(700);
-        mSimpleMyOrdersAdapter = new SimpleMyOrdersAdapter();
-        recyclerView.setAdapter(mSimpleMyOrdersAdapter);
+        recyclerView.setAdapter(mMyOrdersRecycleViewAdapter);
         mgridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mgridLayoutManager);
+    }
+
+    public void APiGetShopslistData() {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiMyOrdersList + "1", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+
+                        MyOrdersModel mMyOrdersModel = gson.fromJson(response.toString(), MyOrdersModel.class);
+                        if (mMyOrdersModel.getOrdersData() != null && mMyOrdersModel.getOrdersData().size() > 0) {
+                            mMyOrdersRecycleViewAdapter = new MyOrdersRecycleViewAdapter(activity, mMyOrdersModel.getOrdersData());
+                            SetListData();
+                            loading.close();
+                        } else {
+                            loading.close();
+                            showToast("No shops Record found yet!");
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast("Something Went Wrong...");
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
     }
 
     public void SetUpLeftbar() {
@@ -102,7 +158,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
             Intent i = new Intent(this, ShareActivity.class);
             startActivity(i);
 
-        }else if (id == R.id.nav_about_us) {
+        } else if (id == R.id.nav_about_us) {
             Intent i = new Intent(this, AboutUsActivity.class);
             startActivity(i);
         }

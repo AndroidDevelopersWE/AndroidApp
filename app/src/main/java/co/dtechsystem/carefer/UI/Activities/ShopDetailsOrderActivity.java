@@ -36,7 +36,7 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
-    private String mshopName, mshopType, mshopRating, mserviceType, mbrands;
+    private String mshopName, mshopType, mshopRating, mserviceType, mbrands, mlatitude, mlongitude;
 
     @Override
 
@@ -56,6 +56,8 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             mshopRating = intent.getStringExtra("shopRating");
             mserviceType = intent.getStringExtra("serviceType");
             mbrands = intent.getStringExtra("brands");
+            mlatitude = intent.getStringExtra("latitude");
+            mlongitude = intent.getStringExtra("longitude");
         }
     }
 
@@ -125,6 +127,8 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 
     public void GotoOrderNow(View V) {
         Intent i = new Intent(this, OrderNowActivity.class);
+        i.putExtra("latitude", mlatitude);
+        i.putExtra("longitude", mlongitude);
         startActivity(i);
     }
 

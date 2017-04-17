@@ -48,6 +48,8 @@ public class NavigationsActivity extends BaseActivity
     ArrayList markerPoints = new ArrayList();
     boolean firstCAll = false;
     SupportMapFragment mapFragment;
+    String mlatitude, mlongitude;
+    LatLng mShopLatlng;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,22 @@ public class NavigationsActivity extends BaseActivity
         SetUpLeftbar();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        GetDataForViews();
 
     }
+
+    // Get Views Data
+    public void GetDataForViews() {
+        if (intent != null) {
+            mlatitude = intent.getStringExtra("latitude");
+            mlongitude = intent.getStringExtra("longitude");
+            if (mlatitude != null && mlongitude != null) {
+
+                mShopLatlng = new LatLng(Double.parseDouble(mlatitude), Double.parseDouble(mlongitude));
+            }
+        }
+    }
+
     public void GotoRatings(View v) {
         Intent i = new Intent(this, RatingActivity.class);
         startActivity(i);
@@ -75,15 +91,7 @@ public class NavigationsActivity extends BaseActivity
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
-//            Toast.makeText(this, "Permission needed for access your location", Toast.LENGTH_SHORT).show();
             return;
         }
         mMap.setMyLocationEnabled(true);
@@ -96,6 +104,7 @@ public class NavigationsActivity extends BaseActivity
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 13));
                     firstCAll = true;
                     AddMarkerForRoute(new LatLng(arg0.getLatitude(), arg0.getLongitude()));
+                    AddMarkerForRoute(mShopLatlng);
                 }
             }
         });

@@ -2,6 +2,7 @@ package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.renderscript.Double2;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,16 +13,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import co.dtechsystem.carefer.R;
 
 public class OrderNowActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
+    String mlatitude, mlongitude;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_now);
         SetUpLeftbar();
+        GetDataForViews();
+    }
+
+    // Get Views Data
+    public void GetDataForViews() {
+        if (intent != null) {
+            mlatitude = intent.getStringExtra("latitude");
+            mlongitude = intent.getStringExtra("longitude");
+        }
     }
 
     public void CAllToShop(View V) {
@@ -36,6 +49,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 
     public void DirectionsToShop(View v) {
         Intent i = new Intent(this, NavigationsActivity.class);
+        i.putExtra("latitude", mlatitude);
+        i.putExtra("longitude", mlongitude);
         startActivity(i);
     }
 

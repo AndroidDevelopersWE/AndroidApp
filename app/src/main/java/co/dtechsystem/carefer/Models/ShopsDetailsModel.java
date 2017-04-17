@@ -38,7 +38,8 @@ public class ShopsDetailsModel {
         private String shopRating = "";
         private String shopType = "";
         private String brands = "";
-
+        private String latitude = "";
+        private String longitude = "";
 
         public String getID() {
             return ID;
@@ -96,6 +97,21 @@ public class ShopsDetailsModel {
 
         public void setBrands(String brands) {
             this.brands = brands;
+        }
+        public String getLatitude() {
+            return latitude;
+        }
+
+        public void setLatitude(String latitude) {
+            this.latitude = latitude;
+        }
+
+        public String getLongitude() {
+            return longitude;
+        }
+
+        public void setLongitude(String longitude) {
+            this.longitude = longitude;
         }
 
     }

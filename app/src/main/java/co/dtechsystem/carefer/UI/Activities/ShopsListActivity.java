@@ -96,7 +96,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedItemBrand = sp_brand_type_shop_list.getSelectedItem().toString();
                     String selectedItemService = "";
-                        selectedItemService = sp_service_type_shops_list.getSelectedItem().toString();
+                    selectedItemService = sp_service_type_shops_list.getSelectedItem().toString();
 
                     if (selectedItemService != null && selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && selectedItemBrand.equals("Brand")) {
@@ -106,7 +106,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                             != null && !selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
                         shopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
-
+                        shopsListRecycleViewAdapter.notifyDataSetChanged();
                     }
                 }
 
