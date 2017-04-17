@@ -97,21 +97,23 @@ public class MainActivity extends BaseActivity
             return;
         }
         mMap.setMyLocationEnabled(true);
-        APiGetShopslistData();
+
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
             @Override
-            public void onMyLocationChange(Location arg0) {
+            public void onMyLocationChange(Location location) {
                 // TODO Auto-generated method stub
                 if (firstCAll != true) {
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 13));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
                     firstCAll = true;
                 }
+                APiGetShopslistData(location);
+
             }
         });
     }
 
-    public void APiGetShopslistData() {
+    public void APiGetShopslistData(final Location location) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsListData, null,
@@ -122,7 +124,7 @@ public class MainActivity extends BaseActivity
 
                         ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                         if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-                            SetShopsPointMap(mShopsListModel.getShopsList());
+                            SetShopsPointMap(mShopsListModel.getShopsList(), location);
                             loading.close();
                         } else {
                             loading.close();
@@ -146,7 +148,7 @@ public class MainActivity extends BaseActivity
         queue.add(getRequest);
     }
 
-    public void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList) {
+    public void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {
         for (int i = 0; i < shopsList.size(); i++) {
 
 
@@ -155,12 +157,19 @@ public class MainActivity extends BaseActivity
 //                    .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
 //                            Double.parseDouble(shopsList.get(i).getLongitude())))
 //                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
-                            Double.parseDouble(shopsList.get(i).getLongitude()))));
+            Location target = new Location("Target");
+            target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
+            target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
+            if (location.distanceTo(target) < 5000) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
+                                Double.parseDouble(shopsList.get(i).getLongitude()))));
+            }
         }
         // Setting a custom info window adapter for the google map
-        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+        mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
+
+        {
 
             // Use default InfoWindow frame
             @Override

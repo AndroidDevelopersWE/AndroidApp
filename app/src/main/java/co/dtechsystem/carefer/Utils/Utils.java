@@ -1,8 +1,11 @@
 package co.dtechsystem.carefer.Utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -18,7 +21,7 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract  class Utils {
+public abstract class Utils {
     public static void savePreferences(Activity activity, String key, String value) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         SharedPreferences.Editor editor = sp.edit();
@@ -30,6 +33,7 @@ public abstract  class Utils {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         return sp.getString(key, defaultValue);
     }
+
     public static String formattedDateFromString(String inputFormat, String outputFormat, String inputDate) {
         if (inputFormat.equals("")) { // if inputFormat = "", set a default input format.
             inputFormat = "yyyy-MM-dd hh:mm:ss";
@@ -56,20 +60,38 @@ public abstract  class Utils {
         return outputDate;
 
     }
+
+    //Share Data To public on clicks
+    public static void SharePublic(Activity activity, String url, String packagename) {
+        String message = "Hey check out my app at: https://play.google.com/store/apps/details?id=" + activity.getApplication().getPackageName();
+        try {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, message);
+            sendIntent.setPackage(packagename);
+            sendIntent.setType("text/plain");
+            activity.startActivity(sendIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
+//            Log.e("In Exception", e.printStackTrace());
+            Intent i = new Intent();
+            i.putExtra(Intent.EXTRA_TEXT, message);
+            i.setAction(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            activity.startActivity(i);
+        }
+    }
+
     public void makeToast(Activity activity, String message) {
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }
-    public RequestQueue getRequestQueue(Activity activity, RequestQueue mRequestQueue) {
-        if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(activity);
-        }
 
-        return mRequestQueue;
-    }
     public boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() == 0;
     }
-    public static String ValidateNumberFromLibPhone(Context context, String number){
+
+    @SuppressLint("LongLogTag")
+    public static String ValidateNumberFromLibPhone(Context context, String number) {
         PhoneNumberUtil phoneUtil = PhoneNumberUtil
                 .getInstance();
         Phonenumber.PhoneNumber phNumberProto = null;
@@ -77,9 +99,9 @@ public abstract  class Utils {
         try {
             TelephonyManager tm = (TelephonyManager) context
                     .getSystemService(Context.TELEPHONY_SERVICE);
-            Log.e("********   Value ********" + tm.getNetworkCountryIso(),"");
-            String CountryCode =tm.getNetworkCountryIso() ;
-            Log.e("********   Upper Value ********" + CountryCode.toUpperCase(),"");
+            Log.e("********   Value ********" + tm.getNetworkCountryIso(), "");
+            String CountryCode = tm.getNetworkCountryIso();
+            Log.e("********   Upper Value ********" + CountryCode.toUpperCase(), "");
             // I set the default region to IN (Indian)
             // You can find your country code here http://www.iso.org/iso/country_names_and_code_elements
             phNumberProto = phoneUtil.parse(number, "IN");
@@ -103,7 +125,7 @@ public abstract  class Utils {
 
 
             System.out.println("Validation" + internationalFormat);
-            Log.e("Validate Number" + internationalFormat,"");
+            Log.e("Validate Number" + internationalFormat, "");
             return internationalFormat;
 
         } else {
@@ -116,6 +138,7 @@ public abstract  class Utils {
         }
         return "";
     }
+
     public static boolean isValidPhoneNumber(String mobile) {
         String regEx = "^[0-9]{10}$";
         return mobile.matches(regEx);

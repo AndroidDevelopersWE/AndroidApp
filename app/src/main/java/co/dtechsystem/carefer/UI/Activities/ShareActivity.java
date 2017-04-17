@@ -1,20 +1,23 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.Utils;
 
-public class ShareActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ShareActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     DrawerLayout mDrawerLayout;
 
     @Override
@@ -22,7 +25,21 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
         SetUpLeftbar();
+        setlistenrstosharebtns();
     }
+
+    public void setlistenrstosharebtns() {
+        aQuery.find(R.id.btn_share_fb).clicked(this);
+        aQuery.find(R.id.btn_share_twitter).clicked(this);
+        aQuery.find(R.id.btn_share_gtalk).clicked(this);
+        aQuery.find(R.id.btn_share_insta).clicked(this);
+        aQuery.find(R.id.btn_share_pintrest).clicked(this);
+        aQuery.find(R.id.btn_share_whatsap).clicked(this);
+        aQuery.find(R.id.btn_share_telegram).clicked(this);
+        aQuery.find(R.id.btn_share_snapchat).clicked(this);
+
+    }
+
 
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -88,7 +105,7 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
 //            Intent i = new Intent(this, ShareActivity.class);
 //            startActivity(i);
 
-        }else if (id == R.id.nav_about_us) {
+        } else if (id == R.id.nav_about_us) {
             Intent i = new Intent(this, AboutUsActivity.class);
             startActivity(i);
         }
@@ -96,5 +113,43 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.btn_share_fb:
+                Utils.SharePublic(activity, "https://m.facebook.com/sharer.php", "com.facebook.katana");
+                break;
+            case R.id.btn_share_twitter:
+                Utils.SharePublic(activity, "https://mobile.twitter.com/compose/tweet", "com.twitter.android");
+                break;
+            case R.id.btn_share_gtalk:
+                Utils.SharePublic(activity, "https://developers.google.com/+/", "com.google.android.apps.plus");
+                break;
+
+            case R.id.btn_share_insta:
+                Utils.SharePublic(activity, "https://www.instagram.com/", "com.instagram.android");
+
+                break;
+            case R.id.btn_share_pintrest:
+                Utils.SharePublic(activity, "http://pinterest.com/pin/create", "com.pinterest");
+                break;
+
+            case R.id.btn_share_whatsap:
+                Utils.SharePublic(activity, "https://web.whatsapp.com/", "com.whatsapp");
+
+                break;
+            case R.id.btn_share_telegram:
+                Utils.SharePublic(activity, "https://web.telegram.org", "org.telegram.messenger");
+                break;
+
+            case R.id.btn_share_snapchat:
+                Utils.SharePublic(activity, "https://www.snap.com", "com.snapchat.android");
+                break;
+
+        }
+
     }
 }
