@@ -76,13 +76,17 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") && selectedItemBrand != null &&
                             selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Service", "No", selectedItemService, "");
+                        shopsListRecycleViewAdapter.filterShops("Service", "No", selectedItemService, selectedItemBrand);
                         shopsListRecycleViewAdapter.notifyDataSetChanged();
                     } else if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Service", "Yes", selectedItemService, selectedItemBrand);
+                        shopsListRecycleViewAdapter.filterShops("Service Type", "Yes", selectedItemService, selectedItemBrand);
+                        shopsListRecycleViewAdapter.notifyDataSetChanged();
 
+                    } else if (selectedItemService.equals("Service Type") && selectedItemBrand.equals("Brand")) {
+                        shopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
+                        shopsListRecycleViewAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -99,13 +103,19 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     selectedItemService = sp_service_type_shops_list.getSelectedItem().toString();
 
                     if (selectedItemService != null && selectedItemService.equals("Service Type") &&
-                            selectedItemBrand != null && selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Brand", "No", selectedItemBrand, "");
+                            selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
+                        shopsListRecycleViewAdapter.filterShops("Brand", "No", selectedItemService, selectedItemBrand);
                         shopsListRecycleViewAdapter.notifyDataSetChanged();
+
                     } else if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
                         shopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
+                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+
+                    }
+                    else if (selectedItemService.equals("Service Type") && selectedItemBrand.equals("Brand")) {
+                        shopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
                         shopsListRecycleViewAdapter.notifyDataSetChanged();
                     }
                 }

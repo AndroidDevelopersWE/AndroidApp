@@ -109,9 +109,6 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     public static void filterShops(String Type, String Both, String service, String Brand) {
         service = service.toLowerCase(Locale.getDefault());
         Brand = Brand.toLowerCase(Locale.getDefault());
-        if (service.equals("Service Type") && Brand.equals("Brand")) {
-            return;
-        }
         _ShopslistRecordList.clear();
         if (service.length() == 0 && Brand.length() == 0) {
             _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
@@ -143,6 +140,8 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
                     }
                 }
+            } else if (Type.equals("Default") && Both.equals("No")) {
+                _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
             }
 
 

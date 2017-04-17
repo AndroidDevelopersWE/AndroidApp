@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import co.dtechsystem.carefer.R;
 
 
-public class SimpleMyOrdersAdapter extends RecyclerView.Adapter<SimpleMyOrdersAdapter.SimpleViewHolder> {
+public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.SimpleViewHolder> {
 
     @Override
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -11,6 +11,7 @@ public class AppConfig {
     public static String APiShopsDetailsData = BaseUrl + "shops/shop-details/id/";
     public static String APiShopsDetailsOrderModel = BaseUrl + "models/get-models";
     public static String APiMyOrdersList = BaseUrl + "orders/get-customer-orders/id/";
+    public static String APiMyFavouriteShopsList = BaseUrl + "shops/user-favourite-shops/id/";
 
 }
 

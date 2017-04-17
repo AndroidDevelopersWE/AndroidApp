@@ -8,17 +8,32 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
+import co.dtechsystem.carefer.Adapters.FavouriteShopsRecycleViewAdapter;
+import co.dtechsystem.carefer.Adapters.MyOrdersRecycleViewAdapter;
 import co.dtechsystem.carefer.Adapters.SimpleFavShopsAdapter;
+import co.dtechsystem.carefer.Models.FavouriteShopsModel;
+import co.dtechsystem.carefer.Models.MyOrdersModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class FavouriteShopsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
-    SimpleFavShopsAdapter mSimpleFavShopsAdapter;
+    FavouriteShopsRecycleViewAdapter mFavouriteShopsRecycleViewAdapter;
     DrawerLayout mDrawerLayout;
 
     @Override
@@ -26,14 +41,50 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_shops);
         SetUpLeftbar();
-        SetListDummy();
+        loading.show();
+        APiGetFavShopslistData();
     }
 
-    public void SetListDummy() {
+    public void APiGetFavShopslistData() {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiMyFavouriteShopsList + "1", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+
+                        FavouriteShopsModel mFavouriteShopsModel = gson.fromJson(response.toString(), FavouriteShopsModel.class);
+                        if (mFavouriteShopsModel.getFavouriteShops() != null && mFavouriteShopsModel.getFavouriteShops().size() > 0) {
+                            mFavouriteShopsRecycleViewAdapter = new FavouriteShopsRecycleViewAdapter(activity, mFavouriteShopsModel.getFavouriteShops());
+                            SetListData();
+                            loading.close();
+                        } else {
+                            loading.close();
+                            showToast("No Favourite shops Record found yet!");
+
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast("Something Went Wrong...");
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
+    }
+
+    public void SetListData() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_fav_shops);
         recyclerView.getItemAnimator().setChangeDuration(700);
-        mSimpleFavShopsAdapter = new SimpleFavShopsAdapter();
-        recyclerView.setAdapter(mSimpleFavShopsAdapter);
+        recyclerView.setAdapter(mFavouriteShopsRecycleViewAdapter);
         mgridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mgridLayoutManager);
     }

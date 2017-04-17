@@ -13,7 +13,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,18 +21,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import co.dtechsystem.carefer.Adapters.MyOrdersRecycleViewAdapter;
-import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
-import co.dtechsystem.carefer.Adapters.SimpleMyOrdersAdapter;
 import co.dtechsystem.carefer.Models.MyOrdersModel;
-import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
@@ -47,6 +38,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         SetUpLeftbar();
+        loading.show();
         APiGetShopslistData();
     }
 
@@ -74,7 +66,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
                             loading.close();
                         } else {
                             loading.close();
-                            showToast("No shops Record found yet!");
+                            showToast("No Orders Record found yet!");
 
                         }
 
