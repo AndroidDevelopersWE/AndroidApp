@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
 import com.android.volley.Request;
@@ -44,15 +43,13 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     DrawerLayout mDrawerLayout;
     Spinner sp_service_type_shops_list;
     Spinner sp_brand_type_shop_list;
-    LinearLayout lay_content_shops_list;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_list);
-        lay_content_shops_list=(LinearLayout)findViewById(R.id.lay_content_shops_list);
-        sp_service_type_shops_list = (Spinner) lay_content_shops_list.findViewById(R.id.sp_service_type_shops_list);
-        sp_brand_type_shop_list = (Spinner) lay_content_shops_list.findViewById(R.id.sp_brand_type_shop_list);
+        sp_service_type_shops_list = (Spinner) findViewById(R.id.sp_service_type_shops_list);
+        sp_brand_type_shop_list = (Spinner) findViewById(R.id.sp_brand_type_shop_list);
 
         SetUpLeftbar();
         loading.show();
@@ -98,7 +95,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedItemBrand = sp_brand_type_shop_list.getSelectedItem().toString();
-                    String selectedItemService = sp_service_type_shops_list.getSelectedItem().toString();
+                    String selectedItemService = "";
+                        selectedItemService = sp_service_type_shops_list.getSelectedItem().toString();
 
                     if (selectedItemService != null && selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && selectedItemBrand.equals("Brand")) {
@@ -172,8 +170,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     JSONObject jsonObject = brandsData.getJSONObject(i);
                                     brands.add(jsonObject.getString("brandName"));
                                 }
-                                ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
-                                sp_brand_type_shop_list.setAdapter(StringdataAdapter);
+                                ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
+                                sp_brand_type_shop_list.setAdapter(StringdataAdapterbrands);
                                 APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
                             } else {
                                 ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
@@ -186,9 +184,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     showToast("No shops Record found yet!");
 
                                 }
-
+                                setSpinnerFilter();
                             }
-                            setSpinnerFilter();
+
                         } catch (JSONException e) {
                             loading.close();
                             showToast("Something Went Wrong Parsing.");
