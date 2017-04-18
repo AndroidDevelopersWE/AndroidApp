@@ -2,16 +2,17 @@ package co.dtechsystem.carefer.Utils;
 
 
 public class AppConfig {
-    public static String BaseUrl = "http://carefer.dtechsystems.co/en/public/";
+    public static String BaseUrl = "http://carefer.dtechsystems.co/en/public/api/";
     public static String BaseUrlImages = "http://carefer.dtechsystems.co/en/public/uploads/";
-    public static String APiCareferPolicy = BaseUrl + "app-policy/policy-data";
-    public static String APiBrandData = BaseUrl + "brands/get-brands-data";
-    public static String APiServiceTypeData = BaseUrl + "service-type/get-service-types";
-    public static String APiShopsListData = BaseUrl + "shops/shops-data";
-    public static String APiShopsDetailsData = BaseUrl + "shops/shop-details/id/";
-    public static String APiShopsDetailsOrderModel = BaseUrl + "models/get-models";
-    public static String APiMyOrdersList = BaseUrl + "orders/get-customer-orders/id/";
-    public static String APiMyFavouriteShopsList = BaseUrl + "shops/user-favourite-shops/id/";
+    public static String APiCareferPolicy = BaseUrl + "policy-data";
+    public static String APiBrandData = BaseUrl + "get-brands-data";
+    public static String APiServiceTypeData = BaseUrl + "get-service-types";
+    public static String APiShopsListData = BaseUrl + "shops-data";
+    public static String APiShopsDetailsData = BaseUrl + "shop-details/id/";
+    public static String APiShopsDetailsOrderModel = BaseUrl + "get-models";
+    public static String APiMyOrdersList = BaseUrl + "get-customer-orders/id/";
+    public static String APiMyFavouriteShopsList = BaseUrl + "user-favourite-shops/id/";
+    public static String APiRatingShop = BaseUrl + "user-favourite-shops/id/";
 
 }
 

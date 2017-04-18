@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.android.volley.Request;
@@ -36,7 +37,11 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
-    private String mshopName, mshopType, mshopRating, mserviceType, mbrands, mlatitude, mlongitude;
+    private String mshopID, mshopName, mshopType, mshopRating, mlatitude, mlongitude;
+    ArrayList<String> mServicesIdArray = new ArrayList<>();
+    ArrayList<String> mBrandsIdArray = new ArrayList<>();
+    ArrayList<String> mModelsIdArray = new ArrayList<>();
+    String mServicesId, mBrandsId, mModelsId;
 
     @Override
 
@@ -51,11 +56,10 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     // Get Views Data
     public void GetDataForViews() {
         if (intent != null) {
+            mshopID = intent.getStringExtra("shopID");
             mshopName = intent.getStringExtra("shopName");
             mshopType = intent.getStringExtra("shopType");
             mshopRating = intent.getStringExtra("shopRating");
-            mserviceType = intent.getStringExtra("serviceType");
-            mbrands = intent.getStringExtra("brands");
             mlatitude = intent.getStringExtra("latitude");
             mlongitude = intent.getStringExtra("longitude");
         }
@@ -64,7 +68,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     // Set views data
     public void SetDataTOViews() {
         loading.show();
-        APiGetModelsYears();
+        APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsData + mshopID, "Services & Brands");
         aQuery.id(R.id.tv_shop_name_shop_details_order).text(mshopName);
         aQuery.id(R.id.tv_shop_type_shop_details_order).text(mshopType);
         aQuery.id(R.id.rb_shop_rating_shop_details_order).rating(Float.parseFloat(mshopRating));
@@ -75,34 +79,59 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 //            years.add(Integer.toString(i));
 //        }
 //        ArrayAdapter<String> modelyearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
-        List<String> serviceType = Arrays.asList(mserviceType.split(","));
-        ArrayAdapter<String> servicetypeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, serviceType);
-        aQuery.id(R.id.sp_srvice_type_shop_details_order).adapter(servicetypeAdapter);
-        List<String> brands = Arrays.asList(mbrands.split(","));
-        ArrayAdapter<String> brandsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, brands);
-        aQuery.id(R.id.sp_models_shop_details_order).adapter(brandsAdapter);
 
     }
 
-    public void APiGetModelsYears() {
+    public void APiGetBrandsServiceModelsData(final String Url, final String Type) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsDetailsOrderModel, null,
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
                         try {
-                            List models = new ArrayList();
+                            List listservices = new ArrayList();
+                            listservices.add(0, "Service Type");
+                            List brands = new ArrayList();
+                            brands.add(0, "Brand");
+                            mServicesIdArray.add(0, "0");
+                            mBrandsIdArray.add(0, "0");
+                            mModelsIdArray.add(0, "0");
+                            if (Type.equals("Services & Brands")) {
+                                JSONArray shopServiceTypes = response.getJSONArray("shopServiceTypes");
+                                for (int i = 0; i < shopServiceTypes.length(); i++) {
+                                    JSONObject jsonObject = shopServiceTypes.getJSONObject(i);
+                                    listservices.add(jsonObject.getString("serviceTypeName"));
+                                    mServicesIdArray.add(jsonObject.getString("ID"));
 
-                            JSONArray brandsData = response.getJSONArray("modelData");
-                            for (int i = 0; i < brandsData.length(); i++) {
-                                JSONObject jsonObject = brandsData.getJSONObject(i);
-                                models.add(jsonObject.getString("modelName"));
+                                }
+                                ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, listservices);
+                                aQuery.id(R.id.sp_srvice_type_shop_details_order).adapter(StringdataAdapter);
+                                JSONArray brandsData = response.getJSONArray("shopBrands");
+                                for (int i = 0; i < brandsData.length(); i++) {
+                                    JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    brands.add(jsonObject.getString("brandName"));
+                                    mBrandsIdArray.add(jsonObject.getString("ID"));
+                                }
+                                ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
+                                aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
+                                APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsOrderModel, "ModelYear");
+                            } else {
+                                List models = new ArrayList();
+                                models.add(0, "Model");
+                                JSONArray brandsData = response.getJSONArray("modelData");
+                                for (int i = 0; i < brandsData.length(); i++) {
+                                    JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    models.add(jsonObject.getString("modelName"));
+                                    mModelsIdArray.add(jsonObject.getString("ID"));
+                                }
+                                ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, models);
+                                aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                                loading.close();
+                                SetSpinnerListener();
                             }
-                            ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, models);
-                            aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
-                            loading.close();
+
                         } catch (JSONException e) {
                             loading.close();
                             showToast("Something Went Wrong Parsing.");
@@ -125,11 +154,59 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         queue.add(getRequest);
     }
 
+    public void SetSpinnerListener() {
+        aQuery.id(R.id.sp_srvice_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mServicesId = mServicesIdArray.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        aQuery.id(R.id.sp_brand_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mBrandsId = mBrandsIdArray.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        aQuery.id(R.id.sp_brand_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mModelsId = mModelsIdArray.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+
     public void GotoOrderNow(View V) {
-        Intent i = new Intent(this, OrderNowActivity.class);
-        i.putExtra("latitude", mlatitude);
-        i.putExtra("longitude", mlongitude);
-        startActivity(i);
+        String spServiceTypeText = aQuery.id(R.id.sp_srvice_type_shop_details_order).getSelectedItem().toString();
+        String spbrandTypeText = aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString();
+        String spmodelTypeText = aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString();
+        if (spServiceTypeText.equals("Service Type") || spbrandTypeText.equals("Brand") || spmodelTypeText.equals("Model")) {
+            showToast("Please select one from dropdown!");
+        } else {
+            Intent i = new Intent(this, OrderNowActivity.class);
+            i.putExtra("latitude", mlatitude);
+            i.putExtra("longitude", mlongitude);
+            i.putExtra("shopID", mshopID);
+            i.putExtra("serviceID", mServicesId);
+            i.putExtra("brandID", mBrandsId);
+            i.putExtra("modelID", mModelsId);
+            startActivity(i);
+        }
     }
 
     public void SetUpLeftbar() {

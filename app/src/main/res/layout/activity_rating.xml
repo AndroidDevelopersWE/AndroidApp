@@ -146,6 +146,7 @@
                                 android:textStyle="bold" />
 
                             <RatingBar
+                                android:id="@+id/rb_price_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_gravity="center_vertical"
@@ -175,6 +176,7 @@
                                 android:textStyle="bold" />
 
                             <RatingBar
+                                android:id="@+id/rb_quality_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_gravity="center_vertical"
@@ -204,6 +206,7 @@
                                 android:textStyle="bold" />
 
                             <RatingBar
+                                android:id="@+id/rb_time_rate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_gravity="center_vertical"
@@ -229,6 +232,7 @@
                             android:textStyle="bold" />
 
                         <EditText
+                            android:id="@+id/et_coments_rate"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_10sdp"

@@ -41,7 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cv_main_top"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="2">
 
         <TextView
             android:id="@+id/textView"
@@ -58,10 +59,11 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_275sdp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:scrollbars="vertical"
+            android:layout_marginBottom="@dimen/_50sdp"
             android:textColor="@android:color/black">
 
             <TextView
@@ -69,28 +71,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:textDirection="anyRtl"
                 android:scrollbars="vertical"
                 android:text="@string/privacy_policy_details"
                 android:textColor="@android:color/black"
+                android:textDirection="anyRtl"
                 android:textSize="@dimen/_14sdp" />
 
         </ScrollView>
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_5sdp"
-            android:background="@drawable/dr_corner_view_brown"
-            android:clickable="true"
-            android:onClick="btn_Next_to_mainmenu_Click"
-            android:text="@string/btn_next"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_15sdp"
-            android:textStyle="bold" />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="@drawable/dr_corner_view_brown"
+        android:clickable="true"
+        android:onClick="btn_Next_to_mainmenu_Click"
+        android:text="@string/btn_next"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold" />
 </RelativeLayout>

@@ -16,7 +16,14 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,6 +33,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -37,9 +46,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import co.dtechsystem.carefer.Google.DirectionsJSONParser;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class NavigationsActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -48,7 +59,7 @@ public class NavigationsActivity extends BaseActivity
     ArrayList markerPoints = new ArrayList();
     boolean firstCAll = false;
     SupportMapFragment mapFragment;
-    String mlatitude, mlongitude;
+    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType;
     LatLng mShopLatlng;
 
     @Override
@@ -67,6 +78,11 @@ public class NavigationsActivity extends BaseActivity
         if (intent != null) {
             mlatitude = intent.getStringExtra("latitude");
             mlongitude = intent.getStringExtra("longitude");
+            mshopID = intent.getStringExtra("shopID");
+            mServicesId = intent.getStringExtra("serviceID");
+            mBrandsId = intent.getStringExtra("brandID");
+            mModelsId = intent.getStringExtra("modelID");
+            morderType = intent.getStringExtra("orderType");
             if (mlatitude != null && mlongitude != null) {
 
                 mShopLatlng = new LatLng(Double.parseDouble(mlatitude), Double.parseDouble(mlongitude));
@@ -77,6 +93,57 @@ public class NavigationsActivity extends BaseActivity
     public void GotoRatings(View v) {
         Intent i = new Intent(this, RatingActivity.class);
         startActivity(i);
+    }
+
+    public void APiPlaceOrder(final String UserId, final String shopID, final String serviceID, final String brandID,
+                              final String modelID, final String orderType) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsDetailsOrderModel, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        try {
+                            List models = new ArrayList();
+
+                            JSONArray brandsData = response.getJSONArray("modelData");
+                            for (int i = 0; i < brandsData.length(); i++) {
+                                JSONObject jsonObject = brandsData.getJSONObject(i);
+                                models.add(jsonObject.getString("modelName"));
+                            }
+                            ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, models);
+                            aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                            loading.close();
+                        } catch (JSONException e) {
+                            loading.close();
+                            showToast("Something Went Wrong Parsing.");
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast("Something Went Wrong...");
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("name", "Alif");
+
+                return params;
+            }
+        };
+
+// add it to the RequestQueue
+        queue.add(getRequest);
     }
 
     public void SetUpLeftbar() {

@@ -19,7 +19,7 @@ import co.dtechsystem.carefer.R;
 
 public class OrderNowActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
-    String mlatitude, mlongitude;
+    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,11 +34,17 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         if (intent != null) {
             mlatitude = intent.getStringExtra("latitude");
             mlongitude = intent.getStringExtra("longitude");
+            mshopID = intent.getStringExtra("shopID");
+            mServicesId = intent.getStringExtra("serviceID");
+            mBrandsId = intent.getStringExtra("brandID");
+            mModelsId = intent.getStringExtra("modelID");
+
         }
     }
 
     public void CAllToShop(View V) {
         try {
+            morderType = "call";
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:0123456789"));
             startActivity(intent);
@@ -48,9 +54,19 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     }
 
     public void DirectionsToShop(View v) {
+        if (morderType != null && !morderType.equals("")) {
+        } else {
+            morderType = "navigate";
+        }
+
         Intent i = new Intent(this, NavigationsActivity.class);
         i.putExtra("latitude", mlatitude);
         i.putExtra("longitude", mlongitude);
+        i.putExtra("shopID", mshopID);
+        i.putExtra("serviceID", mServicesId);
+        i.putExtra("brandID", mBrandsId);
+        i.putExtra("modelID", mModelsId);
+        i.putExtra("orderType", morderType);
         startActivity(i);
     }
 

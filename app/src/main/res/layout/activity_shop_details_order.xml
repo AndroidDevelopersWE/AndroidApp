@@ -166,7 +166,7 @@
                             android:background="@drawable/dr_corner_view_straight">
 
                             <Spinner
-                                android:id="@+id/sp_models_shop_details_order"
+                                android:id="@+id/sp_brand_type_shop_details_order"
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_30sdp"
                                 android:prompt="@string/prompt_service" />
