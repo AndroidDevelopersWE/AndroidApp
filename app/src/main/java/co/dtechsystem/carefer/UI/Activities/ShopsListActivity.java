@@ -113,8 +113,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                         shopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
                         shopsListRecycleViewAdapter.notifyDataSetChanged();
 
-                    }
-                    else if (selectedItemService.equals("Service Type") && selectedItemBrand.equals("Brand")) {
+                    } else if (selectedItemService.equals("Service Type") && selectedItemBrand.equals("Brand")) {
                         shopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
                         shopsListRecycleViewAdapter.notifyDataSetChanged();
                     }
@@ -191,7 +190,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     loading.close();
                                 } else {
                                     loading.close();
-                                    showToast("No shops Record found yet!");
+                                    showToast(getResources().getString(R.string.no_record_found));
 
                                 }
                                 setSpinnerFilter();
@@ -199,7 +198,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                         } catch (JSONException e) {
                             loading.close();
-                            showToast("Something Went Wrong Parsing.");
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
 
@@ -209,7 +208,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast("Something Went Wrong...");
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                     }
                 }

@@ -108,7 +108,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast("Something Went Wrong...");
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                     }
                 }

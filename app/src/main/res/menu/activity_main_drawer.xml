@@ -5,23 +5,23 @@
         <item
             android:id="@+id/nav_my_details"
             android:icon="@drawable/ic_my_details_nav"
-            android:title="My Details" />
+            android:title="@string/nav_my_details" />
         <item
             android:id="@+id/nav_my_orders"
             android:icon="@drawable/ic_my_order_nav"
-            android:title="My Orders" />
+            android:title="@string/nav_my_orders" />
         <item
             android:id="@+id/nav_fav_shops"
             android:icon="@drawable/ic_fav_shops_nav"
-            android:title="Fav Shops" />
+            android:title="@string/nav_fav_shop" />
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_share_nav"
-            android:title="Share" />
+            android:title="@string/nav_share" />
         <item
             android:id="@+id/nav_about_us"
             android:icon="@drawable/ic_about_nav"
-            android:title="About Us" />
+            android:title="@string/nav_about_us" />
     </group>
 
     <!--<item android:title="Communicate">-->

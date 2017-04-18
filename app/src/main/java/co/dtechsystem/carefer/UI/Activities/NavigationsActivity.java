@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -59,7 +60,7 @@ public class NavigationsActivity extends BaseActivity
     ArrayList markerPoints = new ArrayList();
     boolean firstCAll = false;
     SupportMapFragment mapFragment;
-    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType;
+    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType, morderNo;
     LatLng mShopLatlng;
 
     @Override
@@ -91,59 +92,59 @@ public class NavigationsActivity extends BaseActivity
     }
 
     public void GotoRatings(View v) {
-        Intent i = new Intent(this, RatingActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(this, RatingActivity.class);
+//        startActivity(i);
+        loading.show();
+        APiPlaceOrder("1", mshopID, mServicesId, mBrandsId, mModelsId, morderType);
     }
+
 
     public void APiPlaceOrder(final String UserId, final String shopID, final String serviceID, final String brandID,
                               final String modelID, final String orderType) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsDetailsOrderModel, null,
-                new Response.Listener<JSONObject>() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiSaveOrder,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        // display response
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        showToast("Your Order Placed.");
                         try {
-                            List models = new ArrayList();
-
-                            JSONArray brandsData = response.getJSONArray("modelData");
-                            for (int i = 0; i < brandsData.length(); i++) {
-                                JSONObject jsonObject = brandsData.getJSONObject(i);
-                                models.add(jsonObject.getString("modelName"));
-                            }
-                            ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, models);
-                            aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
-                            loading.close();
+                            JSONObject jsonObject = new JSONObject(response);
+                            morderNo = jsonObject.getString("orderNo");
                         } catch (JSONException e) {
-                            loading.close();
-                            showToast("Something Went Wrong Parsing.");
+
                             e.printStackTrace();
                         }
-
+                        loading.close();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast("Something Went Wrong...");
-                        Log.d("Error.Response", String.valueOf(error));
+                        showToast(error.toString());
+                        // error
+                        Log.d("Error.Response", error.toString());
                     }
                 }
-
         ) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name", "Alif");
+                params.put("customerID", UserId);
+                params.put("shopID", shopID);
+                params.put("serviceTypeID", serviceID);
+                params.put("brandID", brandID);
+                params.put("modelID", modelID);
+                params.put("orderType", orderType);
 
                 return params;
             }
         };
-
 // add it to the RequestQueue
-        queue.add(getRequest);
+        queue.add(postRequest);
     }
 
     public void SetUpLeftbar() {

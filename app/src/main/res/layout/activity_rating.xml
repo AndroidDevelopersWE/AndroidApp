@@ -180,7 +180,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="@dimen/_20sdp"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="@dimen/_3sdp"
+                                android:layout_marginLeft="@dimen/_12sdp"
                                 android:numStars="5"
                                 android:progressDrawable="@drawable/dr_rating_bar"
                                 android:rating="5"

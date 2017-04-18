@@ -5,45 +5,31 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.androidquery.AQuery;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Locale;
 
 import co.dtechsystem.carefer.R;
-import co.dtechsystem.carefer.Utils.AppConfig;
-import co.dtechsystem.carefer.Utils.Farsi;
 import co.dtechsystem.carefer.Utils.Loading;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -70,8 +56,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         gson = new Gson();
         aQuery = new AQuery(this);
         activity = this;
-        loading = new Loading(this, "Loading...");
+        loading = new Loading(this, getResources().getString(R.string.loading));
         intent = getIntent();
+//        Locale locale = new Locale("ar");
+//        Resources resources = getResources();
+//        Configuration configuration = resources.getConfiguration();
+//        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+//        configuration.setLocale(locale);
+//        resources.updateConfiguration(configuration, displayMetrics);
     }
 
 

@@ -55,7 +55,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void APiRatingShop(final String price_rate,final String quality_rate,final String time_rate) {
+    public void APiRatingShop(final String price_rate, final String quality_rate, final String time_rate) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiRatingShop + "1", null,
@@ -81,7 +81,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast("Something Went Wrong...");
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                     }
                 }

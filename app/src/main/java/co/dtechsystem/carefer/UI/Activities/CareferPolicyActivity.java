@@ -1,12 +1,9 @@
 package co.dtechsystem.carefer.UI.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -14,7 +11,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.androidquery.AQuery;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,7 +18,6 @@ import org.json.JSONObject;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
-import co.dtechsystem.carefer.Utils.Farsi;
 
 public class CareferPolicyActivity extends BaseActivity {
 
@@ -53,7 +48,7 @@ public class CareferPolicyActivity extends BaseActivity {
                             loading.close();
                         } catch (JSONException e) {
                             loading.close();
-                            showToast("Something Went Wrong Parsing.");
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
 
@@ -62,7 +57,7 @@ public class CareferPolicyActivity extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        showToast("Something Went Wrong...");
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         loading.close();
                         Log.d("Error.Response", String.valueOf(error));
                     }

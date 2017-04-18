@@ -42,6 +42,8 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     ArrayList<String> mBrandsIdArray = new ArrayList<>();
     ArrayList<String> mModelsIdArray = new ArrayList<>();
     String mServicesId, mBrandsId, mModelsId;
+    List listservices = new ArrayList();
+    List brands = new ArrayList();
 
     @Override
 
@@ -73,6 +75,17 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         aQuery.id(R.id.tv_shop_type_shop_details_order).text(mshopType);
         aQuery.id(R.id.rb_shop_rating_shop_details_order).rating(Float.parseFloat(mshopRating));
 
+        //Lists initilization
+        listservices.clear();
+        listservices.add(0, "Service Type");
+        brands.clear();
+        brands.add(0, "Brand");
+        mServicesIdArray.clear();
+        mBrandsIdArray.clear();
+        mModelsIdArray.clear();
+        mServicesIdArray.add(0, "0");
+        mBrandsIdArray.add(0, "0");
+        mModelsIdArray.add(0, "0");
 //        ArrayList<String> years = new ArrayList<String>();
 //        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
 //        for (int i = 1900; i <= thisYear; i++) {
@@ -91,13 +104,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                     public void onResponse(JSONObject response) {
                         // display response
                         try {
-                            List listservices = new ArrayList();
-                            listservices.add(0, "Service Type");
-                            List brands = new ArrayList();
-                            brands.add(0, "Brand");
-                            mServicesIdArray.add(0, "0");
-                            mBrandsIdArray.add(0, "0");
-                            mModelsIdArray.add(0, "0");
+
                             if (Type.equals("Services & Brands")) {
                                 JSONArray shopServiceTypes = response.getJSONArray("shopServiceTypes");
                                 for (int i = 0; i < shopServiceTypes.length(); i++) {
@@ -134,7 +141,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 
                         } catch (JSONException e) {
                             loading.close();
-                            showToast("Something Went Wrong Parsing.");
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
 
@@ -144,7 +151,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast("Something Went Wrong...");
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                     }
                 }
@@ -177,7 +184,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 
             }
         });
-        aQuery.id(R.id.sp_brand_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
+        aQuery.id(R.id.sp_car_model_order).itemSelected(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mModelsId = mModelsIdArray.get(position);

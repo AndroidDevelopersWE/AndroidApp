@@ -66,7 +66,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
                             loading.close();
                         } else {
                             loading.close();
-                            showToast("No Orders Record found yet!");
+                            showToast(getResources().getString(R.string.no_record_found));
 
                         }
 
@@ -76,7 +76,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast("Something Went Wrong...");
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                     }
                 }

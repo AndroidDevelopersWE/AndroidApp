@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">Carefer</string>
+    <!--Google Maps APi Key-->
+    <string name="google_maps_api_key">AIzaSyAlzla9VxTkmEw0PrIiloOpEBf4VSkZXQc</string>
+    <string name="carefer_slogan">شعار يذهب هنا</string>
+    <string name="enter_mobile">أدخل رقم هاتفك المحمول</string>
+    <string name="btn_next">التالى</string>
+    <string name="enter_verification_code">أدخل رمز التحقق</string>
+    <string name="phone_eg">على سبيل المثال:٩١٠٠٠-٣٣٥-٠٠٩٦</string>
+    <string name="code_eg">على سبيل المثال:٨٧٦٧٩</string>
+    <string name="btn_back">الى الخلف</string>
+    <string name="privacy_policy">سياسة كيرفر</string>
+    <string name="privacy_policy_details">يتيح لك نموذج سياسة الخصوصية الحصول عليه
+         مع اتفاقية سياسة الخصوصية. هذا القالب مجاني لتحميل واستخدام.
+         اتفاقية سياسة الخصوصية هي الاتفاقية التي تحددها إذا قمت بجمع الشخصية
+         البيانات، أي نوع من البيانات الشخصية التي تجمعها من المستخدمين وما تفعله مع تلك البيانات.
+         يتيح لك نموذج سياسة الخصوصية الحصول عليه.
+
+         مع اتفاقية سياسة الخصوصية. هذا القالب مجاني لتحميل واستخدام.
+         اتفاقية سياسة الخصوصية هي الاتفاقية التي تحددها إذا قمت بجمع الشخصية
+         البيانات، أي نوع من البيانات الشخصية التي تجمعها من المستخدمين وما تفعله مع تلك البيانات.
+     يتيح لك نموذج سياسة الخصوصية الحصول عليه.
+
+         مع اتفاقية سياسة الخصوصية. هذا القالب مجاني لتحميل واستخدام.
+         اتفاقية سياسة الخصوصية هي الاتفاقية التي تحددها إذا قمت بجمع الشخصية
+         البيانات، أي نوع من البيانات الشخصية التي تجمعها من المستخدمين وما تفعله مع تلك البيانات.
+    </string>
+    <string name="title_activity_main">القائمة الرئيسية</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="btn_explorer">إكسبلورر</string>
+    <string name="your_mobile">رقم هاتفك</string>
+    <string name="your_name">اسمك</string>
+    <string name="btn_save">حفظ</string>
+    <string name="share_app_tv">مشاركة التطبيق</string>
+    <string name="lorem_ispum">أبجد هوز هو مجرد دمية النص من صناعة الطباعة والتنضيد. كان معيار الصناعة القياسية دمية من أي وقت مضى منذ 1500s، عندما استغرقت طابعة غير معروفة مطبخ من نوع وسارعت لجعل كتاب عينة نوع. وقد نجا </string>
+    <string name="share_to_friend">مشاركة التطبيق لصديقك</string>
+    <string name="share_via_fb">Share via Facebook</string>
+    <string name="share_via_tw">Share via Twitter</string>
+    <string name="share_via_gtalk">Share via Gtalk</string>
+    <string name="share_via_insta">Share via Instagram</string>
+    <string name="share_via_pin">Share via Pinterest</string>
+    <string name="share_via_whats">Share via WhatsApp</string>
+    <string name="share_via_tele">Share via Telegram</string>
+    <string name="share_via_snap">Share via Snapchat</string>
+    <string name="my_details">تفاصيلي</string>
+    <string name="shop_details">تسوق التفاصيل</string>
+    <string name="shops_list">قائمة المحلات</string>
+    <string name="prompt_service">نوع الخدمة</string>
+    <string name="prompt_car_brand">ماركة السيارة</string>
+    <string name="riyadh_saduia">رياض, سعودي عربية</string>
+    <string name="dummy_text_list_item">تويوتا ريادة موتورز، خاصة. محدودة.</string>
+    <string name="dummy_text_list_details">موتور المحوسبة عجلة المحاذاة</string>
+    <string name="btn_order">اطلب الان</string>
+    <string name="title_care_policy">سياسة كيرفر</string>
+    <string name="btn_call_shop">اتصل بالمتجر</string>
+    <string name="btn_nevegate_shop">نيفيغيت إلى المحل!</string>
+    <string name="btn_done">فعله</string>
+    <string name="title_navigate">أبحر</string>
+    <string name="title_shop_rating">متجر تصنيف</string>
+    <string name="price">السعر</string>
+    <string name="quality">جودة</string>
+    <string name="time">زمن</string>
+    <string name="btn_add_comment">أضف تعليق</string>
+    <string name="type_comments">اكتب تعليقاتك هنا ...</string>
+    <string name="order_history">أمر التاريخ</string>
+    <string name="title_order_history"> لي أوامر</string>
+    <string name="tv_order_number">رقم الأمر:</string>
+    <string name="tv_date_order">تاريخ الترتيب:</string>
+    <string name="tv_shop">متجر:</string>
+    <string name="tv_order_type">نوع الطلب:</string>
+    <string name="tv_shop_rating">متجر تصنيف:</string>
+    <string name="tv_status">الحالة:</string>
+    <string name="dummy_order_no">٠٠٥٢</string>
+    <string name="dummy_date">05-فبراير -2017</string>
+    <string name="dummy_order_type">على المكالمة</string>
+    <string name="dummy_status">في تَقَدم</string>
+    <string name="dummy_rating">٤/٥</string>
+    <string name="title_fav_shops">المحلات المفضلة</string>
+    <string name="title_about_us">حول كيرفر</string>
+    <string name="tv_how_it_works">كيف تعمل!</string>
+    <string name="tv_contact_details">بيانات المتصل</string>
+    <string name="carefer_emial">البريد الإلكتروني: info@carefer.com.sa</string>
+    <string name="carefer_phone">هاتف:٢٢٥٨٩-٢٢٥-٩٦٦</string>
+    <string name="carefer_site">موقع: www.carefer.com.sa</string>
+    <string name="title_order_now">اطلب الان</string>
+    <string name="nav_my_details">لي تفاصيل</string>
+    <string name="nav_my_orders"> لي أوامر</string>
+    <string name="nav_fav_shop">المحلات المفضلة</string>
+    <string name="nav_share">شارك</string>
+    <string name="nav_about_us">معلومات عنا</string>
+    <string name="loading">جار التحميل...</string>
+    <string name="some_went_wrong_parsing">حدث خطأ في التحليل!</string>
+    <string name="some_went_wrong">هناك خطأ ما...!</string>
+    <string name="no_record_found">لم يتم العثور على أي سجل حتى الآن!</string>
+
+
+
+</resources>

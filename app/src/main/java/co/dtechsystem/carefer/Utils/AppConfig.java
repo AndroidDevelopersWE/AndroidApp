@@ -13,6 +13,7 @@ public class AppConfig {
     public static String APiMyOrdersList = BaseUrl + "get-customer-orders/id/";
     public static String APiMyFavouriteShopsList = BaseUrl + "user-favourite-shops/id/";
     public static String APiRatingShop = BaseUrl + "user-favourite-shops/id/";
+    public static String APiSaveOrder = BaseUrl + "save-api-order";
 
 }
 

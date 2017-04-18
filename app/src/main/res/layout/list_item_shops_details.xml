@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_2sdp"
     android:orientation="horizontal">
 
-
-    <ImageView
-        android:id="@+id/iv_shop_image_details"
-        android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_90sdp"
-        android:layout_margin="@dimen/_2sdp"
-        android:background="@drawable/dr_corner_view_straight"
-        android:scaleType="center" />
-
-    <ProgressBar
-        android:id="@+id/pg_image_load"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_gravity="center" />
-</RelativeLayout>
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="@dimen/_92sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dr_corner_view_straight">
+            <ProgressBar
+                android:id="@+id/pg_image_load"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
+            <ImageView
+                android:id="@+id/iv_shop_image_details"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_90sdp"
+                android:layout_margin="@dimen/_2sdp"
+                android:scaleType="centerCrop" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
