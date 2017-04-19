@@ -276,7 +276,38 @@
                                     android:paddingLeft="@dimen/_20sdp"
                                     android:paddingRight="@dimen/_30sdp"
                                     android:text="@string/share_via_snap"
+                                    android:textAllCaps="false"
+                                    android:textColor="@android:color/black" />
 
+                                <Button
+                                    android:id="@+id/btn_ar_lang"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:layout_marginLeft="@dimen/_40sdp"
+                                    android:layout_marginRight="@dimen/_40sdp"
+                                    android:background="@drawable/dr_corner_view_blue"
+                                    android:clickable="true"
+                                    android:onClick="changetoAr"
+                                    android:paddingLeft="@dimen/_20sdp"
+                                    android:paddingRight="@dimen/_30sdp"
+                                    android:text="Arabic"
+                                    android:textAllCaps="false"
+                                    android:textColor="@android:color/black" />
+
+                                <Button
+                                    android:id="@+id/btn_en_lang"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:layout_marginLeft="@dimen/_40sdp"
+                                    android:layout_marginRight="@dimen/_40sdp"
+                                    android:background="@drawable/dr_corner_view_green"
+                                    android:clickable="true"
+                                    android:onClick="changetoEn"
+                                    android:paddingLeft="@dimen/_20sdp"
+                                    android:paddingRight="@dimen/_30sdp"
+                                    android:text="English"
                                     android:textAllCaps="false"
                                     android:textColor="@android:color/black" />
                             </LinearLayout>

@@ -18,9 +18,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import co.dtechsystem.carefer.Adapters.MyOrdersRecycleViewAdapter;
 import co.dtechsystem.carefer.Models.MyOrdersModel;
@@ -29,12 +35,15 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class RatingActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
+    String mshopID, morderNo;
 
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
         SetUpLeftbar();
+        GetDataForViews();
     }
 
     public void GotoOrderNow(View V) {
@@ -42,11 +51,23 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         startActivity(i);
     }
 
-    public void RatingbtnClick() {
+    // Get Views Data
+    public void GetDataForViews() {
+        if (intent != null) {
+            mshopID = intent.getStringExtra("shopID");
+            morderNo = intent.getStringExtra("orderNo");
+
+        }
+    }
+
+    public void RatingbtnClick(View v) {
         float price_rate = aQuery.find(R.id.rb_price_rate).getRatingBar().getRating();
         float quality_rate = aQuery.find(R.id.rb_quality_rate).getRatingBar().getRating();
         float time_rate = aQuery.find(R.id.rb_time_rate).getRatingBar().getRating();
-//        APiRatingShop(){}
+        String et_coments_rate = aQuery.find(R.id.et_coments_rate).getText().toString();
+        loading.show();
+        APiPlaceOrder("1", mshopID, morderNo, String.valueOf(price_rate), String.valueOf(quality_rate),
+                String.valueOf(time_rate), et_coments_rate);
     }
 
     public void SetUpLeftbar() {
@@ -55,40 +76,58 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void APiRatingShop(final String price_rate, final String quality_rate, final String time_rate) {
+
+    public void APiPlaceOrder(final String UserId, final String shopID, final String orderID, final String priceRating,
+                              final String qualityRating, final String timeRating, final String comments) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiRatingShop + "1", null,
-                new Response.Listener<JSONObject>() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiRatingShop,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        // display response
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+//                            morderNo = jsonObject.getString("orderNo");
+                            Intent i = new Intent(activity, MainActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                            showToast("Comments Added...");
+                        } catch (JSONException e) {
 
-//                        MyOrdersModel mMyOrdersModel = gson.fromJson(response.toString(), MyOrdersModel.class);
-//                        if (mMyOrdersModel.getOrdersData() != null && mMyOrdersModel.getOrdersData().size() > 0) {
-//                            mMyOrdersRecycleViewAdapter = new MyOrdersRecycleViewAdapter(activity, mMyOrdersModel.getOrdersData());
-//                            SetListData();
-//                            loading.close();
-//                        } else {
-//                            loading.close();
-//                            showToast("No Orders Record found yet!");
-//
-//                        }
-
+                            e.printStackTrace();
+                        }
+                        loading.close();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast(getResources().getString(R.string.some_went_wrong));
-                        Log.d("Error.Response", String.valueOf(error));
+                        showToast(error.toString());
+                        // error
+                        Log.d("Error.Response", error.toString());
                     }
                 }
-        );
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("customerID", UserId);
+                params.put("shopID", shopID);
+                params.put("orderID", orderID);
+                params.put("comments", comments);
+                params.put("priceRating", priceRating);
+                params.put("qualityRating", qualityRating);
+                params.put("timeRating", timeRating);
 
+
+                return params;
+            }
+        };
 // add it to the RequestQueue
-        queue.add(getRequest);
+        queue.add(postRequest);
     }
 
     public void btn_drawyerMenuOpen(View v) {

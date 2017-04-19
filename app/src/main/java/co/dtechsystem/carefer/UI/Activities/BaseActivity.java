@@ -25,12 +25,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import java.util.Locale;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Loading;
+import co.dtechsystem.carefer.Utils.Utils;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -45,27 +47,47 @@ public abstract class BaseActivity extends AppCompatActivity {
     Gson gson;
     Intent intent;
 
+    public static String sRegId;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Tahoma.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
-        );
+//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+//                .setDefaultFontPath("fonts/arabic.ttf")
+//                .setFontAttrId(R.attr.fontPath)
+//                .build()
+//        );
         gson = new Gson();
         aQuery = new AQuery(this);
         activity = this;
         loading = new Loading(this, getResources().getString(R.string.loading));
         intent = getIntent();
-//        Locale locale = new Locale("ar");
-//        Resources resources = getResources();
-//        Configuration configuration = resources.getConfiguration();
-//        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-//        configuration.setLocale(locale);
-//        resources.updateConfiguration(configuration, displayMetrics);
+        sRegId = Utils.readPreferences(activity, "regId", "");
+        if (sRegId != null && !sRegId.equals("")) {
+        } else {
+            String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+            Utils.savePreferences(activity, "regId", refreshedToken);
+        }
+
     }
 
+    public void changetoAr(View v) {
+        Locale locale = new Locale("ar");
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, displayMetrics);
+    }
+
+    public void changetoEn(View v) {
+        Locale locale = new Locale("en");
+        Resources resources = getResources();
+        Configuration configuration = resources.getConfiguration();
+        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
+        configuration.setLocale(locale);
+        resources.updateConfiguration(configuration, displayMetrics);
+    }
 
     protected void CloseActivity(View v) {
         finish();

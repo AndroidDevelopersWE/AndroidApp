@@ -224,7 +224,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:background="@drawable/dr_corner_view_blue"
                             android:clickable="true"
-                            android:onClick="CloseActivity"
+                            android:onClick="RatingbtnClick"
                             android:text="@string/btn_add_comment"
                             android:textAllCaps="false"
                             android:textColor="@android:color/white"

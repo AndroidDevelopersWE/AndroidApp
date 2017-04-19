@@ -92,8 +92,7 @@ public class NavigationsActivity extends BaseActivity
     }
 
     public void GotoRatings(View v) {
-//        Intent i = new Intent(this, RatingActivity.class);
-//        startActivity(i);
+
         loading.show();
         APiPlaceOrder("1", mshopID, mServicesId, mBrandsId, mModelsId, morderType);
     }
@@ -113,8 +112,12 @@ public class NavigationsActivity extends BaseActivity
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             morderNo = jsonObject.getString("orderNo");
+                            Intent i = new Intent(activity, RatingActivity.class);
+                            i.putExtra("shopID", mshopID);
+                            i.putExtra("orderNo", morderNo);
+                            startActivity(i);
                         } catch (JSONException e) {
-
+                            loading.close();
                             e.printStackTrace();
                         }
                         loading.close();
