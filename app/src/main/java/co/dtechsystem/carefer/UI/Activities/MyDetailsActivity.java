@@ -85,6 +85,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
                         } catch (JSONException e) {
 
+                            loading.close();
                             e.printStackTrace();
                         }
                         loading.close();
@@ -94,7 +95,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast(error.toString());
+//                        showToast(error.toString());
                         // error
                         Log.d("Error.Response", error.toString());
                     }

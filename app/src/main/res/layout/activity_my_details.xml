@@ -161,6 +161,7 @@
                             android:background="@android:color/black" />
 
                         <EditText
+                            android:id="@+id/et_user_name_my_details"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/_10sdp"
@@ -173,7 +174,6 @@
                             android:textColor="@android:color/black" />
 
                         <Button
-                            android:id="@+id/et_user_name_my_details"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_10sdp"
