@@ -25,7 +25,7 @@
         A Privacy Policy agreement is the agreement where you specify if you collect personal
         data, what kind of personal data you collect from users and what you do with that data.
     </string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Main Menu</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

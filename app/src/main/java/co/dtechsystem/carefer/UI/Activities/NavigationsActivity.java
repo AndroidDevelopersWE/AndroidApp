@@ -108,13 +108,14 @@ public class NavigationsActivity extends BaseActivity
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
-                        showToast("Your Order Placed.");
+
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             morderNo = jsonObject.getString("orderNo");
                             Intent i = new Intent(activity, RatingActivity.class);
                             i.putExtra("shopID", mshopID);
                             i.putExtra("orderNo", morderNo);
+                            showToast("Your Order Placed.");
                             startActivity(i);
                         } catch (JSONException e) {
                             loading.close();
@@ -127,7 +128,7 @@ public class NavigationsActivity extends BaseActivity
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast(error.toString());
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         Log.d("Error.Response", error.toString());
                     }

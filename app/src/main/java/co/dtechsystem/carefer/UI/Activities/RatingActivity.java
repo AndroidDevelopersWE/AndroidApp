@@ -105,7 +105,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-                        showToast(error.toString());
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         Log.d("Error.Response", error.toString());
                     }

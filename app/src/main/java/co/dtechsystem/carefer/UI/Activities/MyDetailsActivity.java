@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,13 +50,14 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     }
 
     public void submitUserData(View v) {
-        loading.show();
+
         String customerName = aQuery.find(R.id.et_user_name_my_details).getText().toString();
         String customerMobile = aQuery.find(R.id.et_mobile_my_details).getText().toString();
         if (customerName.equals("") || customerMobile.equals("")) {
             showToast("Please enter values");
         } else {
-            APiMyDetails(AppConfig.APisetCustomerDetails + "1", "setUserDetails", customerName, customerMobile, "1");
+            loading.show();
+            APiMyDetails(AppConfig.APisetCustomerDetails, "setUserDetails", customerName, customerMobile, "1");
         }
     }
 
@@ -80,6 +82,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                 loading.close();
                             } else {
                                 showToast("Updated your record...");
+                                finish();
                             }
 
 
@@ -95,8 +98,9 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
-//                        showToast(error.toString());
+                        showToast(getResources().getString(R.string.some_went_wrong));
                         // error
+                        error.printStackTrace();
                         Log.d("Error.Response", error.toString());
                     }
                 }
@@ -115,6 +119,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             }
         };
 // add it to the RequestQueue
+//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(postRequest);
     }
 
