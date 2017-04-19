@@ -60,7 +60,8 @@ public class NavigationsActivity extends BaseActivity
     ArrayList markerPoints = new ArrayList();
     boolean firstCAll = false;
     SupportMapFragment mapFragment;
-    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType, morderNo;
+    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType;
+    int morderID;
     LatLng mShopLatlng;
 
     @Override
@@ -92,7 +93,6 @@ public class NavigationsActivity extends BaseActivity
     }
 
     public void GotoRatings(View v) {
-
         loading.show();
         APiPlaceOrder("1", mshopID, mServicesId, mBrandsId, mModelsId, morderType);
     }
@@ -111,10 +111,10 @@ public class NavigationsActivity extends BaseActivity
 
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            morderNo = jsonObject.getString("orderNo");
+                            morderID = jsonObject.getInt("orderID");
                             Intent i = new Intent(activity, RatingActivity.class);
                             i.putExtra("shopID", mshopID);
-                            i.putExtra("orderNo", morderNo);
+                            i.putExtra("orderID", String.valueOf(morderID));
                             showToast("Your Order Placed.");
                             startActivity(i);
                         } catch (JSONException e) {

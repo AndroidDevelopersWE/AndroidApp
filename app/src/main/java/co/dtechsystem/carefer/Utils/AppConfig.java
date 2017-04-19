@@ -15,7 +15,8 @@ public class AppConfig {
     public static String APiRatingShop = BaseUrl + "save-api-comments";
     public static String APiSaveOrder = BaseUrl + "save-api-order";
     public static String APiGetCustomerDetails = BaseUrl + "get-customer-detail/id/";
-    public static String APisetCustomerDetails = BaseUrl + "save-customer-detail";
+    public static String APisetCustomerDetails = BaseUrl + "edit-customer-detail/id/";
+    public static String APiRegisterCustomer = BaseUrl + "save-customer-detail";
 
 }
 

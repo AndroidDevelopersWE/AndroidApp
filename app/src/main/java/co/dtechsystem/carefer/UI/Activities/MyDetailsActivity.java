@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -57,7 +55,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             showToast("Please enter values");
         } else {
             loading.show();
-            APiMyDetails(AppConfig.APisetCustomerDetails, "setUserDetails", customerName, customerMobile, "1");
+            APiMyDetails(AppConfig.APisetCustomerDetails+"1", "setUserDetails", customerName, customerMobile, "1");
         }
     }
 

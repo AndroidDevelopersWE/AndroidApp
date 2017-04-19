@@ -1,12 +1,11 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -17,10 +16,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,14 +25,12 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import co.dtechsystem.carefer.Adapters.MyOrdersRecycleViewAdapter;
-import co.dtechsystem.carefer.Models.MyOrdersModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class RatingActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
-    String mshopID, morderNo;
+    String mshopID, morderID;
 
     @Override
 
@@ -55,7 +50,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
     public void GetDataForViews() {
         if (intent != null) {
             mshopID = intent.getStringExtra("shopID");
-            morderNo = intent.getStringExtra("orderNo");
+            morderID = intent.getStringExtra("orderID");
 
         }
     }
@@ -66,7 +61,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         float time_rate = aQuery.find(R.id.rb_time_rate).getRatingBar().getRating();
         String et_coments_rate = aQuery.find(R.id.et_coments_rate).getText().toString();
         loading.show();
-        APiPlaceOrder("1", mshopID, morderNo, String.valueOf(price_rate), String.valueOf(quality_rate),
+        APisendRating("1", mshopID, morderID, String.valueOf(price_rate), String.valueOf(quality_rate),
                 String.valueOf(time_rate), et_coments_rate);
     }
 
@@ -77,7 +72,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
     }
 
 
-    public void APiPlaceOrder(final String UserId, final String shopID, final String orderID, final String priceRating,
+    public void APisendRating(final String UserId, final String shopID, final String orderID, final String priceRating,
                               final String qualityRating, final String timeRating, final String comments) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
