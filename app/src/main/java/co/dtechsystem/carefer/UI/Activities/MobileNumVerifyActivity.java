@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class MobileNumVerifyActivity extends BaseActivity {
 
@@ -15,7 +16,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
     }
 
     public void ben_Next_to_carafePolicy_Click(View v) {
+        Utils.savePreferences(activity, "User_Mobile_varify", "1");
         Intent i = new Intent(this, CareferPolicyActivity.class);
         startActivity(i);
+        finish();
     }
 }

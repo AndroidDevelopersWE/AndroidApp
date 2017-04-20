@@ -18,6 +18,7 @@ public class AppConfig {
     public static String APisetCustomerDetails = BaseUrl + "edit-customer-detail/id/";
     public static String APiRegisterCustomer = BaseUrl + "save-customer-detail";
 
+
 }
 
 

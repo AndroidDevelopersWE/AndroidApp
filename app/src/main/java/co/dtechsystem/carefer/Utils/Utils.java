@@ -12,8 +12,6 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
@@ -91,7 +89,7 @@ public abstract class Utils {
     }
 
     @SuppressLint("LongLogTag")
-    public static String ValidateNumberFromLibPhone(Context context, String number) {
+    public static boolean ValidateNumberFromLibPhone(Context context, String number) {
         PhoneNumberUtil phoneUtil = PhoneNumberUtil
                 .getInstance();
         Phonenumber.PhoneNumber phNumberProto = null;
@@ -104,7 +102,7 @@ public abstract class Utils {
             Log.e("********   Upper Value ********" + CountryCode.toUpperCase(), "");
             // I set the default region to IN (Indian)
             // You can find your country code here http://www.iso.org/iso/country_names_and_code_elements
-            phNumberProto = phoneUtil.parse(number, "IN");
+            phNumberProto = phoneUtil.parse(number, "SA");
 
         } catch (NumberParseException e) {
             // if there's any error
@@ -126,17 +124,19 @@ public abstract class Utils {
 
             System.out.println("Validation" + internationalFormat);
             Log.e("Validate Number" + internationalFormat, "");
-            return internationalFormat;
+            return true;
 
         } else {
 
             // prompt the user when the number is invalid
+
             Toast.makeText(context,
                     "Phone number is INVALID: " + number,
                     Toast.LENGTH_SHORT).show();
+            return false;
 
         }
-        return "";
+
     }
 
     public static boolean isValidPhoneNumber(String mobile) {

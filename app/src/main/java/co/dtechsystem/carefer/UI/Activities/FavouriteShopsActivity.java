@@ -24,10 +24,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 import co.dtechsystem.carefer.Adapters.FavouriteShopsRecycleViewAdapter;
-import co.dtechsystem.carefer.Adapters.MyOrdersRecycleViewAdapter;
-import co.dtechsystem.carefer.Adapters.SimpleFavShopsAdapter;
 import co.dtechsystem.carefer.Models.FavouriteShopsModel;
-import co.dtechsystem.carefer.Models.MyOrdersModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
@@ -42,13 +39,13 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
         setContentView(R.layout.activity_favourite_shops);
         SetUpLeftbar();
         loading.show();
-        APiGetFavShopslistData();
+        APiGetFavShopslistData(sUser_ID);
     }
 
-    public void APiGetFavShopslistData() {
+    public void APiGetFavShopslistData(String User_ID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiMyFavouriteShopsList + "1", null,
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiMyFavouriteShopsList + User_ID, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

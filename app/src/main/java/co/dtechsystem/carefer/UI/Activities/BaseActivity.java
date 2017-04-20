@@ -12,9 +12,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -33,7 +31,6 @@ import java.util.Locale;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Loading;
 import co.dtechsystem.carefer.Utils.Utils;
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
  * Created by DELL on 4/10/2017.
@@ -46,8 +43,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     AQuery aQuery;
     Gson gson;
     Intent intent;
-
     public static String sRegId;
+    public static String sUser_Mobile="", sUser_Mobile_Varify="", sPrivacy_check="",sUser_ID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,7 +65,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Utils.savePreferences(activity, "regId", refreshedToken);
         }
-
+        sUser_Mobile = Utils.readPreferences(activity, "User_Mobile", "");
+        sUser_Mobile_Varify = Utils.readPreferences(activity, "User_Mobile_varify", "");
+        sPrivacy_check = Utils.readPreferences(activity, "User_privacy_check", "");
+        sUser_ID=Utils.readPreferences(activity, "User_ID", "");
     }
 
     public void changetoAr(View v) {

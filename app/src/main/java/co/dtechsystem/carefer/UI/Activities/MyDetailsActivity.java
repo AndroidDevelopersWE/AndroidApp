@@ -38,7 +38,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         setContentView(R.layout.activity_my_details);
         SetUpLeftbar();
         loading.show();
-        APiMyDetails(AppConfig.APiGetCustomerDetails + "1", "getUserDetails", "", "", "");
+        APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "");
     }
 
     public void SetUpLeftbar() {
@@ -55,7 +55,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             showToast("Please enter values");
         } else {
             loading.show();
-            APiMyDetails(AppConfig.APisetCustomerDetails+"1", "setUserDetails", customerName, customerMobile, "1");
+            APiMyDetails(AppConfig.APisetCustomerDetails+sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify);
         }
     }
 

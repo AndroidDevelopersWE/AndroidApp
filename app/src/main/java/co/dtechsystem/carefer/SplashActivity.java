@@ -4,21 +4,21 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CallLog;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import java.util.Date;
 import java.util.HashMap;
 
-import co.dtechsystem.carefer.Google.AnalyticsApplication;
 import co.dtechsystem.carefer.UI.Activities.BaseActivity;
+import co.dtechsystem.carefer.UI.Activities.CareferPolicyActivity;
+import co.dtechsystem.carefer.UI.Activities.MainActivity;
 import co.dtechsystem.carefer.UI.Activities.MobileNumActivity;
+import co.dtechsystem.carefer.UI.Activities.MobileNumVerifyActivity;
 
 public class SplashActivity extends BaseActivity {
     private final int SPLASH_DISPLAY_LENGTH = 1000;
@@ -40,7 +40,20 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(SplashActivity.this, MobileNumActivity.class);
+                Intent mainIntent = null;
+                if (sUser_Mobile != null && !sUser_Mobile.equals("") && sUser_Mobile_Varify != null &&
+                        sUser_Mobile_Varify.equals("1") && sPrivacy_check != null && sPrivacy_check.equals("verified")) {
+                    mainIntent = new Intent(SplashActivity.this, MainActivity.class);
+                } else if (sUser_Mobile != null && sUser_Mobile.equals("")) {
+                    mainIntent = new Intent(SplashActivity.this, MobileNumActivity.class);
+
+                } else if (sUser_Mobile_Varify != null && sUser_Mobile_Varify.equals("")) {
+                    mainIntent = new Intent(SplashActivity.this, MobileNumVerifyActivity.class);
+                } else if (sPrivacy_check != null && sPrivacy_check.equals("")) {
+                    mainIntent = new Intent(SplashActivity.this, CareferPolicyActivity.class);
+                } else {
+                    mainIntent = new Intent(SplashActivity.this, MobileNumActivity.class);
+                }
                 SplashActivity.this.startActivity(mainIntent);
                 SplashActivity.this.finish();
 //                mTracker.setScreenName("Image~" + "SplashActivity");

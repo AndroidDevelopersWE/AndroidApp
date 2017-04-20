@@ -35,7 +35,7 @@
             android:textSize="@dimen/_18sdp" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/et_mobile_number_amobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_20sdp"
