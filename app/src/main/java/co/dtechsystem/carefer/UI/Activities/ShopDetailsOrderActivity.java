@@ -1,11 +1,11 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -26,12 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
-import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
-import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
@@ -70,7 +66,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     // Set views data
     public void SetDataTOViews() {
         loading.show();
-        APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsData + mshopID, "Services & Brands");
+        APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsData + mshopID + "/cusid/" + sUser_ID, "Services & Brands");
         aQuery.id(R.id.tv_shop_name_shop_details_order).text(mshopName);
         aQuery.id(R.id.tv_shop_type_shop_details_order).text(mshopType);
         aQuery.id(R.id.rb_shop_rating_shop_details_order).rating(Float.parseFloat(mshopRating));

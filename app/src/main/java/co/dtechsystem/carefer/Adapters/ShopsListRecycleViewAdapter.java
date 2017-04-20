@@ -8,11 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-import com.androidquery.AQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     @Override
-    public void onBindViewHolder(ShopsListRecycleViewAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ShopsListRecycleViewAdapter.ViewHolder holder, final int position) {
 //        List<String> serviceType = Arrays.asList(_ShopslistRecordList.get(position).getServiceType().split(","));
 //        String serviceType = _ShopslistRecordList.get(position).getServiceType().replaceAll(",", " \u2022");
         String stringTypeArr[] = _ShopslistRecordList.get(position).getServiceType().split(",");
@@ -66,6 +65,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 activity.startActivity(mIntent);
             }
         });
+
     }
 
 
@@ -73,6 +73,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         public TextView tv_shop_name_shop_list, tv_service_type_shop_list, tv_desc_shop_list;
         public RatingBar rb_shop_shop_list;
         LinearLayout lay_shop_item;
+        ImageView iv_fav_shop_list;
 
         public ViewHolder(View v) {
 
@@ -82,6 +83,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             tv_desc_shop_list = (TextView) v.findViewById(R.id.tv_desc_shop_list);
             rb_shop_shop_list = (RatingBar) v.findViewById(R.id.rb_shop_shop_list);
             lay_shop_item = (LinearLayout) v.findViewById(R.id.lay_shop_item);
+            iv_fav_shop_list = (ImageView) v.findViewById(R.id.iv_fav_shop_list);
 
 
         }

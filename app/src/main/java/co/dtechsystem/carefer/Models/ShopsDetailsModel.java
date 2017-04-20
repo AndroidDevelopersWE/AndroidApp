@@ -40,6 +40,7 @@ public class ShopsDetailsModel {
         private String brands = "";
         private String latitude = "";
         private String longitude = "";
+        private String favourite = "";
 
         public String getID() {
             return ID;
@@ -112,6 +113,14 @@ public class ShopsDetailsModel {
 
         public void setLongitude(String longitude) {
             this.longitude = longitude;
+        }
+
+        public String getFavourite() {
+            return favourite;
+        }
+
+        public void setFavourite(String favourite) {
+            this.favourite = favourite;
         }
 
     }

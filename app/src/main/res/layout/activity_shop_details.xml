@@ -100,19 +100,35 @@
                     android:background="@drawable/dr_corner_fill"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_shop_name_shop_details"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_3sdp"
-                        android:background="@drawable/dr_corner_list_item"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:padding="@dimen/_10sdp"
-                        android:text="@string/dummy_text_list_item"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
+                        android:background="@drawable/dr_corner_list_item">
+
+                        <TextView
+                            android:id="@+id/tv_shop_name_shop_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_3sdp"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:padding="@dimen/_10sdp"
+                            android:text="@string/dummy_text_list_item"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_14sdp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/iv_fav_shop_list"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:background="@drawable/ic_fav_star_empty" />
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tv_shop_service_shop_details"

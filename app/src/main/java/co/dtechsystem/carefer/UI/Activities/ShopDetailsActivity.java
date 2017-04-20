@@ -1,11 +1,11 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,27 +13,24 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import co.dtechsystem.carefer.Adapters.ShopsImagesRecycleViewAdapter;
-import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
-import co.dtechsystem.carefer.Adapters.SimpleShopsDetailsAdapter;
 import co.dtechsystem.carefer.Models.ShopsDetailsModel;
-import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
@@ -44,6 +41,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     ShopsDetailsModel mShopsDetailsModel;
     String mShopID;
     Intent mIntent;
+    int mStatus = 0;
 
     @Override
 
@@ -57,7 +55,31 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
             loading.show();
             APiGetShopsDetailsData(mShopID);
         }
+        favouriteClicks();
 
+    }
+
+    public void favouriteClicks() {
+        aQuery.find(R.id.iv_fav_shop_list).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (mStatus) {
+                    case 0:
+                        loading.show();
+                        APiShopFavourite(sUser_ID, mShopID, "add");
+                        mStatus = 1;
+                        break;
+                    case 1:
+                        loading.show();
+                        APiShopFavourite(sUser_ID, mShopID, "del");
+                        mStatus = 0;
+                        break;
+                }
+
+
+            }
+
+        });
 
     }
 
@@ -81,7 +103,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     public void APiGetShopsDetailsData(final String ShopID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsDetailsData + ShopID, null,
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsDetailsData + ShopID + "/cusid/" + sUser_ID, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -118,6 +140,65 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         queue.add(getRequest);
     }
 
+    public void APiShopFavourite(final String UserId, final String shopID, final String action) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiShopFavourite,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if (action.equals("del")) {
+                                String success = jsonObject.getString("success");
+                                if (success != null && success.equals("true")) {
+                                    aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_empty);
+                                    showToast("Shop deleted from favourite...");
+                                }
+                            } else {
+                                JSONArray jsonArray = jsonObject.getJSONArray("userFavouriteShop");
+                                JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+                                String ID = jsonObject1.getString("ID");
+                                if (ID != null && !ID.equals("")) {
+                                    aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_fill);
+                                    showToast("Shop Added in your favourite list...");
+                                }
+                            }
+                            loading.close();
+                        } catch (JSONException e) {
+                            loading.close();
+                            e.printStackTrace();
+                        }
+                        loading.close();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("customerID", UserId);
+                params.put("shopID", shopID);
+                params.put("action", action);
+
+
+                return params;
+            }
+        };
+// add it to the RequestQueue
+        queue.add(postRequest);
+    }
+
     public void SetImagesListData() {
         RecyclerView rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
         rv_images_shop_details.getItemAnimator().setChangeDuration(700);
@@ -125,6 +206,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         mgridLayoutManager = new LinearLayoutManager(this);
         mgridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rv_images_shop_details.setLayoutManager(mgridLayoutManager);
+        aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_fill);
     }
 
     public void SetShopsDetailsData() {
@@ -132,6 +214,11 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
         aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
         aQuery.id(R.id.tv_shop_des_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
+        if (mShopsDetailsModel.getShopsDetail().get(0).getFavourite() != null &&
+                mShopsDetailsModel.getShopsDetail().get(0).getFavourite().equals("true")) {
+        mStatus=1;
+
+        }
     }
 
     public void btn_drawyerMenuOpen(View v) {
