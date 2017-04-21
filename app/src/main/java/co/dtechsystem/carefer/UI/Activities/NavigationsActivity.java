@@ -177,13 +177,13 @@ public class NavigationsActivity extends BaseActivity
                 }
             }
         });
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                AddMarkerForRoute(latLng);
-
-            }
-        });
+//        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//            @Override
+//            public void onMapClick(LatLng latLng) {
+//                AddMarkerForRoute(latLng);
+//
+//            }
+//        });
 
     }
 
