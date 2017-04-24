@@ -13,6 +13,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,12 +44,14 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     String mShopID;
     Intent mIntent;
     int mStatus = 0;
+    ImageView iv_full_image;
 
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details);
+        iv_full_image = (ImageView) findViewById(R.id.iv_full_image);
         SetUpLeftbar();
         mIntent = getIntent();
         if (mIntent != null) {
@@ -111,7 +115,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
                         mShopsDetailsModel = gson.fromJson(response.toString(), ShopsDetailsModel.class);
                         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
-                            mShopsImagesRecycleViewAdapter = new ShopsImagesRecycleViewAdapter(activity, mShopsDetailsModel.getShopImages(), ShopID);
+                            mShopsImagesRecycleViewAdapter = new ShopsImagesRecycleViewAdapter(activity, mShopsDetailsModel.getShopImages(), ShopID, iv_full_image);
                             SetImagesListData();
                         }
 //                        else {
@@ -201,12 +205,14 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     public void SetImagesListData() {
         RecyclerView rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
+
         rv_images_shop_details.getItemAnimator().setChangeDuration(700);
         rv_images_shop_details.setAdapter(mShopsImagesRecycleViewAdapter);
         mgridLayoutManager = new LinearLayoutManager(this);
         mgridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rv_images_shop_details.setLayoutManager(mgridLayoutManager);
         aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_fill);
+        loadImagesSliderbulits();
     }
 
     public void SetShopsDetailsData() {
@@ -216,13 +222,31 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         aQuery.id(R.id.tv_shop_des_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
         if (mShopsDetailsModel.getShopsDetail().get(0).getFavourite() != null &&
                 mShopsDetailsModel.getShopsDetail().get(0).getFavourite().equals("true")) {
-        mStatus=1;
+            mStatus = 1;
 
         }
     }
 
+    public void loadImagesSliderbulits() {
+        LinearLayout myLayout = (LinearLayout) findViewById(R.id.lay_builts_images);
+
+        if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
+            for (int i = 0; i < mShopsDetailsModel.getShopImages().size(); i++) {
+
+                ImageView myButton = new ImageView(this);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20, 20);
+                params.setMargins(10, 10, 10, 10);
+                myButton.setLayoutParams(params);
+                myButton.setBackgroundResource(R.drawable.dr_round_about_us);
+                myLayout.addView(myButton);
+            }
+        }
+
+
+    }
+
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override
@@ -231,7 +255,11 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (iv_full_image.getVisibility() == View.VISIBLE) {
+                iv_full_image.setVisibility(View.GONE);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 

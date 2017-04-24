@@ -210,7 +210,7 @@ public class MainActivity extends BaseActivity
     }
 
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override

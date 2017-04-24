@@ -219,7 +219,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     }
 
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override

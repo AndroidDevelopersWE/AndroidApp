@@ -55,7 +55,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             showToast("Please enter values");
         } else {
             loading.show();
-            APiMyDetails(AppConfig.APisetCustomerDetails+sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify);
+            APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify);
         }
     }
 
@@ -122,7 +122,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     }
 
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override

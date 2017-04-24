@@ -1,34 +1,26 @@
 package co.dtechsystem.carefer.Adapters;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.ceylonlabs.imageviewpopup.ImagePopup;
 
 import java.util.List;
 
 import co.dtechsystem.carefer.Models.ShopsDetailsModel;
-import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
-import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.OnSwipeTouchListener;
 
 
 public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsImagesRecycleViewAdapter.ViewHolder> {
@@ -36,11 +28,15 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
     private int lastPosition;
     private Activity activity;
     private String ShopID;
+    ImageView iv_full_image;
 
-    public ShopsImagesRecycleViewAdapter(Activity activity, List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails, String ShopID) {
+    public ShopsImagesRecycleViewAdapter(Activity activity,
+                                         List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails, String ShopID
+            , ImageView iv_full_image) {
         this._ShopsImagesDetails = _ShopsImagesDetails;
         this.activity = activity;
         this.ShopID = ShopID;
+        this.iv_full_image = iv_full_image;
     }
 
     @Override
@@ -74,21 +70,64 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
                         }
                     })
                     .into(holder.iv_shop_image_details);
-            final ImagePopup imagePopup = new ImagePopup(activity);
-            int width = activity.getResources().getDimensionPixelSize(R.dimen._300sdp);
-            int height = activity.getResources().getDimensionPixelSize(R.dimen._300sdp);
-            imagePopup.setBackgroundColor(activity.getResources().getColor(R.color.colorAccent));
-//            imagePopup.setBackground(activity.getResources().getDrawable(R.drawable.dr_corner_fill));
-            imagePopup.setWindowWidth(width);
-            imagePopup.setWindowHeight(height);
-            imagePopup.setHideCloseIcon(true);
-            imagePopup.setImageOnClickClose(true);
+//            final ImagePopup imagePopup = new ImagePopup(activity);
+//            int width = activity.getResources().getDimensionPixelSize(R.dimen._300sdp);
+//            int height = activity.getResources().getDimensionPixelSize(R.dimen._300sdp);
+//            imagePopup.setBackgroundColor(activity.getResources().getColor(R.color.colorAccent));
+////            imagePopup.setBackground(activity.getResources().getDrawable(R.drawable.dr_corner_fill));
+//            imagePopup.setWindowWidth(width);
+//            imagePopup.setWindowHeight(height);
+//            imagePopup.setHideCloseIcon(true);
+//            imagePopup.setImageOnClickClose(true);
+            final String Url = AppConfig.BaseUrlImages + "shop-" + ShopID + "/";
+            final int[] Clickedposition = new int[1];
             holder.iv_shop_image_details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     /** Initiate Popup view **/
-                    imagePopup.initiatePopup(holder.iv_shop_image_details.getDrawable());
+                    iv_full_image.setVisibility(View.VISIBLE);
+                    Glide.with(activity).load(Url + _ShopsImagesDetails.get(position)
+                            .getImageName()).into(iv_full_image);
+                    Clickedposition[0] = position;
+//                    imagePopup.initiatePopup(holder.iv_shop_image_details.getDrawable());
                 }
+            });
+            final int[] counter = {Clickedposition[0]};
+            iv_full_image.setOnTouchListener(new OnSwipeTouchListener(activity) {
+
+                int bckto;
+
+                public void onSwipeLeft() {
+                    iv_full_image.setVisibility(View.VISIBLE);
+                    if (counter[0] < _ShopsImagesDetails.size()) {
+
+                        String UrlAfter = Url + _ShopsImagesDetails.get(counter[0]++).getImageName();
+                        Glide.with(activity).load(UrlAfter).into(iv_full_image);
+                        if (_ShopsImagesDetails.size() == counter[0]) {
+                            counter[0]--;
+                            bckto = counter[0];
+                        }
+                    }
+                }
+
+                public void onSwipeRight() {
+                    if (counter[0] < _ShopsImagesDetails.size()) {
+                        if (counter[0] > -1) {
+                            iv_full_image.setVisibility(View.VISIBLE);
+                            if (bckto == counter[0]) {
+                                String UrlAfter = Url + _ShopsImagesDetails.get(counter[0]--).getImageName();
+                                Glide.with(activity).load(UrlAfter).into(iv_full_image);
+                            } else {
+                                String UrlAfter = Url + _ShopsImagesDetails.get(counter[0]--).getImageName();
+                                Glide.with(activity).load(UrlAfter).into(iv_full_image);
+                            }
+                            if (counter[0] == -1) {
+                                counter[0] = 0;
+                            }
+                        }
+                    }
+                }
+
             });
         }
     }

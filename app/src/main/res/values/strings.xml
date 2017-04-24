@@ -6,8 +6,10 @@
     <string name="enter_mobile">Enter Your Mobile Number</string>
     <string name="btn_next">Next</string>
     <string name="enter_verification_code">Enter Verification Code</string>
+    <string name="confirm_mobile_number">Confirm Your Mobile Number</string>
+    <string name="check_now">Check Now</string>
     <string name="phone_eg">eg:+92-334-5882-589</string>
-    <string name="code_eg">eg:5589100</string>
+    <string name="code_eg">8</string>
     <string name="btn_back">Back</string>
     <string name="privacy_policy">Carefer Policy</string>
     <string name="privacy_policy_details">Our Privacy Policy template lets you get

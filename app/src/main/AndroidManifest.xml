@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
 
 
-
     <permission
         android:name="com.example.mapdemo.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -41,10 +40,12 @@
         <activity
             android:name=".UI.Activities.MobileNumActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".UI.Activities.MobileNumVerifyActivity"
+            android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />

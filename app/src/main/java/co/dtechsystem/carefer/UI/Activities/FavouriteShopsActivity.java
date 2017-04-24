@@ -93,7 +93,7 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
     }
 
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override

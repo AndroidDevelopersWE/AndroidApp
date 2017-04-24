@@ -60,12 +60,11 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         float quality_rate = aQuery.find(R.id.rb_quality_rate).getRatingBar().getRating();
         float time_rate = aQuery.find(R.id.rb_time_rate).getRatingBar().getRating();
         String et_coments_rate = aQuery.find(R.id.et_coments_rate).getText().toString();
-        if(price_rate!=0.0||quality_rate!=0.0||time_rate!=0.0) {
+        if (price_rate != 0.0 || quality_rate != 0.0 || time_rate != 0.0) {
             loading.show();
             APisendRating(sUser_ID, mshopID, morderID, String.valueOf(price_rate), String.valueOf(quality_rate),
                     String.valueOf(time_rate), et_coments_rate);
-        }
-        else {
+        } else {
             showToast("Please give at least one rating .");
         }
     }
@@ -131,7 +130,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
     }
 
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override

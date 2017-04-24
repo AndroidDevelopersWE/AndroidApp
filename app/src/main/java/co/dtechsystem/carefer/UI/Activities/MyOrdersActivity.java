@@ -93,7 +93,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     }
 
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override

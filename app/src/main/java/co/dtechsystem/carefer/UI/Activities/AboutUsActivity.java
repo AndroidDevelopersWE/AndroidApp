@@ -30,7 +30,7 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
     }
 
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
     @Override

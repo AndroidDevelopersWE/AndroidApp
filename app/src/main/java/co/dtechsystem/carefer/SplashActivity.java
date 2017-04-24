@@ -21,7 +21,7 @@ import co.dtechsystem.carefer.UI.Activities.MobileNumActivity;
 import co.dtechsystem.carefer.UI.Activities.MobileNumVerifyActivity;
 
 public class SplashActivity extends BaseActivity {
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
+    private final int SPLASH_DISPLAY_LENGTH = 3000;
     Tracker mTracker;
 
     @Override

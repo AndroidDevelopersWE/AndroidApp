@@ -25,15 +25,10 @@
                 android:gravity="center"
                 android:padding="@dimen/_15sdp"
                 android:text="@string/title_care_policy"
-                android:textColor="@android:color/black"
+                android:textColor="@color/colorGrey"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_2sdp"
-                android:background="@android:color/black" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
@@ -41,29 +36,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cv_main_top"
-        android:orientation="vertical"
-        android:weightSum="2">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/_8sdp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/dr_round_icon"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/_20sdp" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
+            android:layout_weight="1"
             android:scrollbars="vertical"
-            android:layout_marginBottom="@dimen/_50sdp"
             android:textColor="@android:color/black">
 
             <TextView
@@ -71,29 +53,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
+                android:padding="@dimen/_10sdp"
                 android:scrollbars="vertical"
+                android:text="@string/privacy_policy_details"
                 android:textColor="@android:color/black"
                 android:textDirection="anyRtl"
-                android:textSize="@dimen/_14sdp" />
+                android:textSize="@dimen/_12sdp" />
 
         </ScrollView>
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="0"
+            android:background="@drawable/dr_btn_orange"
+            android:clickable="true"
+            android:onClick="btn_Next_to_mainmenu_Click"
+            android:text="@string/btn_next"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="0" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/_5sdp"
-        android:background="@drawable/dr_corner_view_brown"
-        android:clickable="true"
-        android:onClick="btn_Next_to_mainmenu_Click"
-        android:text="@string/btn_next"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/_15sdp"
-        android:textStyle="bold" />
+
 </RelativeLayout>
