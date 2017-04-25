@@ -2,4 +2,7 @@
 <resources>
     <color name="colorGrey">#bdbdbd</color>
     <color name="colorCream">#fdfdfd</color>
+    <color name="colorGreylight">#eee6e5</color>
+    <color name="colorLightBlue">#ecf4f7</color>
+    <color name="colorCreamDark">#f8f8f8</color>
 </resources>

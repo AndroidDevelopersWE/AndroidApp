@@ -281,7 +281,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             startActivity(i);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

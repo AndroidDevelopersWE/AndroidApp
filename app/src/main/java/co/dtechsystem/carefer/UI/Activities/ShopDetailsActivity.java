@@ -45,6 +45,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     Intent mIntent;
     int mStatus = 0;
     ImageView iv_full_image;
+    LinearLayout lay_full_image, lay_shop_details;
 
     @Override
 
@@ -52,6 +53,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details);
         iv_full_image = (ImageView) findViewById(R.id.iv_full_image);
+        lay_full_image = (LinearLayout) findViewById(R.id.lay_full_image);
+        lay_shop_details = (LinearLayout) findViewById(R.id.lay_shop_details);
         SetUpLeftbar();
         mIntent = getIntent();
         if (mIntent != null) {
@@ -115,7 +118,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
                         mShopsDetailsModel = gson.fromJson(response.toString(), ShopsDetailsModel.class);
                         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
-                            mShopsImagesRecycleViewAdapter = new ShopsImagesRecycleViewAdapter(activity, mShopsDetailsModel.getShopImages(), ShopID, iv_full_image);
+                            mShopsImagesRecycleViewAdapter = new ShopsImagesRecycleViewAdapter(activity,
+                                    mShopsDetailsModel.getShopImages(), ShopID, iv_full_image, lay_full_image, lay_shop_details);
                             SetImagesListData();
                         }
 //                        else {
@@ -255,8 +259,9 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if (iv_full_image.getVisibility() == View.VISIBLE) {
-                iv_full_image.setVisibility(View.GONE);
+            if (lay_full_image.getVisibility() == View.VISIBLE) {
+                lay_full_image.setVisibility(View.GONE);
+                lay_shop_details.setVisibility(View.VISIBLE);
             } else {
                 super.onBackPressed();
             }
@@ -313,7 +318,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

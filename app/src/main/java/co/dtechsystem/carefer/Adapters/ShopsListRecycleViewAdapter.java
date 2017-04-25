@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.Adapters;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -20,6 +23,7 @@ import java.util.Locale;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
+import co.dtechsystem.carefer.UI.Activities.ShopsListActivity;
 
 
 public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListRecycleViewAdapter.ViewHolder> {
@@ -27,12 +31,14 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter;
     private int lastPosition;
     Activity activity;
+    Boolean expand;
 
     public ShopsListRecycleViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList) {
         this._ShopslistRecordList = _ShopslistRecordList;
         this._ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
         this._ShopslistRecordListFilter.addAll(_ShopslistRecordList);
         this.activity = activity;
+        this.expand = false;
     }
 
     @Override
@@ -57,7 +63,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         holder.rb_shop_shop_list.setRating((Float.parseFloat(_ShopslistRecordList.get(position).getShopRating())));
         holder.tv_desc_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
         holder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
-        holder.lay_shop_item.setOnClickListener(new View.OnClickListener() {
+        holder.btn_details_shops_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
@@ -66,14 +72,34 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             }
         });
 
+        holder.lay_shopsnames.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (expand) {
+                    holder.lay_shopsnames.setBackgroundColor(activity.getResources().getColor(R.color.colorCreamDark));
+                    holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));
+                    collapse(holder.lay_details, 1000, 0);
+                    expand = false;
+                } else {
+                    ShopsListActivity.expandedRefresh();
+                    holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_up_float));
+                    holder.lay_shopsnames.setBackgroundColor(activity.getResources().getColor(R.color.colorLightBlue));
+                    expand = true;
+                    int i = (int) activity.getResources().getDimension(R.dimen._100sdp);
+                    expand(holder.lay_details, 1000, i);
+
+                }
+            }
+        });
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_shop_name_shop_list, tv_service_type_shop_list, tv_desc_shop_list;
         public RatingBar rb_shop_shop_list;
-        LinearLayout lay_shop_item;
-        ImageView iv_fav_shop_list;
+        LinearLayout lay_shop_item, lay_shopsnames, lay_details;
+        ImageView iv_fav_shop_list, iv_drop_shop_details;
+        Button btn_details_shops_list;
 
         public ViewHolder(View v) {
 
@@ -84,6 +110,10 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             rb_shop_shop_list = (RatingBar) v.findViewById(R.id.rb_shop_shop_list);
             lay_shop_item = (LinearLayout) v.findViewById(R.id.lay_shop_item);
             iv_fav_shop_list = (ImageView) v.findViewById(R.id.iv_fav_shop_list);
+            lay_shopsnames = (LinearLayout) v.findViewById(R.id.lay_shopsnames);
+            lay_details = (LinearLayout) v.findViewById(R.id.lay_details);
+            btn_details_shops_list = (Button) v.findViewById(R.id.btn_details_shops_list);
+            iv_drop_shop_details = (ImageView) v.findViewById(R.id.iv_drop_shop_details);
 
 
         }
@@ -105,6 +135,40 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
+    }
+
+    public static void expand(final View v, int duration, int targetHeight) {
+
+        int prevHeight = v.getHeight();
+
+        v.setVisibility(View.VISIBLE);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                v.getLayoutParams().height = (int) animation.getAnimatedValue();
+                v.requestLayout();
+            }
+        });
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
+    }
+
+    public static void collapse(final View v, int duration, int targetHeight) {
+        int prevHeight = v.getHeight();
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                v.getLayoutParams().height = (int) animation.getAnimatedValue();
+                v.requestLayout();
+            }
+        });
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
     }
 
     // Filter Class

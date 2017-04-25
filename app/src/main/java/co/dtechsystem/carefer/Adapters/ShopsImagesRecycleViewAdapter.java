@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
@@ -28,15 +29,19 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
     private int lastPosition;
     private Activity activity;
     private String ShopID;
-    ImageView iv_full_image;
+    private ImageView iv_full_image;
+    private LinearLayout lay_full_image, lay_shop_details;
+
 
     public ShopsImagesRecycleViewAdapter(Activity activity,
                                          List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails, String ShopID
-            , ImageView iv_full_image) {
+            , ImageView iv_full_image, LinearLayout lay_full_image, LinearLayout lay_shop_details) {
         this._ShopsImagesDetails = _ShopsImagesDetails;
         this.activity = activity;
         this.ShopID = ShopID;
         this.iv_full_image = iv_full_image;
+        this.lay_full_image = lay_full_image;
+        this.lay_shop_details = lay_shop_details;
     }
 
     @Override
@@ -85,7 +90,8 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
                 @Override
                 public void onClick(View view) {
                     /** Initiate Popup view **/
-                    iv_full_image.setVisibility(View.VISIBLE);
+                    lay_full_image.setVisibility(View.VISIBLE);
+                    lay_shop_details.setVisibility(View.GONE);
                     Glide.with(activity).load(Url + _ShopsImagesDetails.get(position)
                             .getImageName()).into(iv_full_image);
                     Clickedposition[0] = position;
@@ -98,7 +104,8 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
                 int bckto;
 
                 public void onSwipeLeft() {
-                    iv_full_image.setVisibility(View.VISIBLE);
+                    lay_full_image.setVisibility(View.VISIBLE);
+                    lay_shop_details.setVisibility(View.GONE);
                     if (counter[0] < _ShopsImagesDetails.size()) {
 
                         String UrlAfter = Url + _ShopsImagesDetails.get(counter[0]++).getImageName();
@@ -113,7 +120,8 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
                 public void onSwipeRight() {
                     if (counter[0] < _ShopsImagesDetails.size()) {
                         if (counter[0] > -1) {
-                            iv_full_image.setVisibility(View.VISIBLE);
+                            lay_full_image.setVisibility(View.VISIBLE);
+                            lay_shop_details.setVisibility(View.GONE);
                             if (bckto == counter[0]) {
                                 String UrlAfter = Url + _ShopsImagesDetails.get(counter[0]--).getImageName();
                                 Glide.with(activity).load(UrlAfter).into(iv_full_image);

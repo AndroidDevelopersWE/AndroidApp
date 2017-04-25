@@ -31,7 +31,7 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 public class MyOrdersActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
     DrawerLayout mDrawerLayout;
-    MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
+    static MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,9 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
+    public static void expandedRefresh() {
+        mMyOrdersRecycleViewAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onBackPressed() {
@@ -155,7 +158,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
             startActivity(i);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 }

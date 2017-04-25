@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/colorGreylight"
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -77,30 +77,28 @@
 
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_2sdp"
-            android:background="@android:color/black" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_margin="@dimen/_15sdp"
             android:layout_weight="1"
-            card_view:cardCornerRadius="@dimen/_5sdp"
             card_view:cardElevation="@dimen/_5sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/dr_corner_view"
                 android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_120sdp"
+                    android:background="@color/colorLightBlue" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/_1sdp"
-                    android:background="@drawable/dr_corner_fill"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -110,7 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
-                        android:background="@drawable/dr_corner_view_blue"
+                        android:background="@drawable/dr_btn_orange"
                         android:clickable="true"
                         android:onClick="CAllToShop"
                         android:text="@string/btn_call_shop"
@@ -119,20 +117,18 @@
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:background="@android:color/black" />
 
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
-                        android:background="@drawable/dr_corner_view_green"
+                        android:layout_marginTop="@dimen/_30sdp"
+                        android:background="@android:color/black"
                         android:clickable="true"
+                        android:drawableLeft="@android:drawable/ic_dialog_map"
                         android:onClick="DirectionsToShop"
+                        android:paddingLeft="@dimen/_10sdp"
                         android:text="@string/btn_nevegate_shop"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
@@ -150,7 +146,7 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="end"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
         android:paddingLeft="@dimen/_2sdp"

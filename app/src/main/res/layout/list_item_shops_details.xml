@@ -12,7 +12,7 @@
         <RelativeLayout
             android:layout_width="@dimen/_92sdp"
             android:layout_height="wrap_content"
-            android:background="@drawable/dr_corner_view_straight">
+           >
             <ProgressBar
                 android:id="@+id/pg_image_load"
                 android:layout_width="wrap_content"

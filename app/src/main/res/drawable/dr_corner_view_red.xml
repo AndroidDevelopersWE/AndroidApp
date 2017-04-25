@@ -2,23 +2,23 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#060606" />
+            <solid android:color="#cf2b29" />
             <!--<corners android:radius="2dp" />-->
 
         </shape>
     </item>
 
-    <item
-        android:bottom="@dimen/_3sdp"
-        android:left="0dp"
-        android:right="@dimen/_2sdp"
-        android:top="0dp">
-        <shape android:shape="rectangle">
-            <solid android:color="#cf2b29" />
-            <corners android:radius="@dimen/_2sdp" />
-            <stroke
-                android:width="@dimen/_2sdp"
-                android:color="#000000" />
-        </shape>
-    </item>
+    <!--<item-->
+        <!--android:bottom="@dimen/_3sdp"-->
+        <!--android:left="0dp"-->
+        <!--android:right="@dimen/_2sdp"-->
+        <!--android:top="0dp">-->
+        <!--<shape android:shape="rectangle">-->
+            <!--<solid android:color="#cf2b29" />-->
+            <!--<corners android:radius="@dimen/_2sdp" />-->
+            <!--<stroke-->
+                <!--android:width="@dimen/_2sdp"-->
+                <!--android:color="#000000" />-->
+        <!--</shape>-->
+    <!--</item>-->
 </layer-list>

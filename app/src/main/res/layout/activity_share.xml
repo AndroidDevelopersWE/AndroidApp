@@ -78,10 +78,6 @@
 
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_2sdp"
-            android:background="@android:color/black" />
 
         <LinearLayout
             android:id="@+id/lay_main_top"
@@ -91,230 +87,222 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/card_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:elevation="3dp"
-                app:cardElevation="@dimen/_7sdp"
-                card_view:cardCornerRadius="@dimen/_5sdp">
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_weight="1"
+                card_view:cardElevation="@dimen/_5sdp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/dr_corner_view"
+                    android:background="@color/colorPrimary"
                     android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@string/share_app_tv"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_18sdp"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/_1sdp"
-                        android:background="@drawable/dr_corner_fill"
-                        android:orientation="vertical">
+                        android:layout_height="1dp"
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/share_app_tv"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold" />
+                        android:background="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/lorem_ispum"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_10sdp" />
+
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:background="@android:color/black" />
-
-                        <TextView
-                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/_10sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/lorem_ispum"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_10sdp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="@dimen/_10sdp"
-
-                            android:text="@string/share_to_friend"
-                            android:textColor="@android:color/holo_blue_dark"
-                            android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold" />
-
-                        <ScrollView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_5sdp">
+                            android:layout_marginBottom="@dimen/_30sdp"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
 
-                                <Button
-                                    android:id="@+id/btn_share_fb"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
-                                    android:background="@drawable/dr_corner_view_blue_dark"
-                                    android:drawableLeft="@drawable/ic_fb_share"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
-                                    android:text="@string/share_via_fb"
-                                    android:textAllCaps="false"
-                                    android:textColor="@android:color/white" />
+                                android:layout_weight="2"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_5sdp">
+
 
                                 <Button
                                     android:id="@+id/btn_share_twitter"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginLeft="@dimen/_5sdp"
+                                    android:layout_weight="1"
                                     android:background="@drawable/dr_corner_view_blue_light"
                                     android:drawableLeft="@drawable/ic_twitter_share"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
+                                    android:paddingRight="@dimen/_5sdp"
                                     android:text="@string/share_via_tw"
                                     android:textAllCaps="false"
-                                    android:textColor="@android:color/white" />
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/_6sdp" />
 
                                 <Button
-                                    android:id="@+id/btn_share_gtalk"
+                                    android:id="@+id/btn_share_fb"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
-                                    android:background="@drawable/dr_corner_view_red"
-                                    android:drawableLeft="@drawable/ic_g_plus_share"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
-                                    android:text="@string/share_via_gtalk"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/dr_corner_view_blue_dark"
+                                    android:drawableLeft="@drawable/ic_fb_share"
+                                    android:paddingLeft="@dimen/_5sdp"
+                                    android:paddingRight="@dimen/_5sdp"
+                                    android:text="@string/share_via_fb"
                                     android:textAllCaps="false"
-                                    android:textColor="@android:color/white" />
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/_6sdp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:layout_weight="2"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_5sdp">
+
 
                                 <Button
                                     android:id="@+id/btn_share_insta"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
-                                    android:background="@drawable/dr_corner_view_light_red"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginLeft="@dimen/_5sdp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/dr_corner_view_dark_valvet"
                                     android:drawableLeft="@drawable/ic_insta_share"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
+                                    android:paddingRight="@dimen/_5sdp"
                                     android:text="@string/share_via_insta"
                                     android:textAllCaps="false"
-                                    android:textColor="@android:color/white" />
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/_6sdp" />
 
                                 <Button
-                                    android:id="@+id/btn_share_pintrest"
+                                    android:id="@+id/btn_share_gtalk"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
-                                    android:background="@drawable/dr_corner_view_velvet"
-                                    android:drawableLeft="@drawable/ic_pinterest_share"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
-                                    android:text="@string/share_via_pin"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/dr_corner_view_red"
+                                    android:drawableLeft="@drawable/ic_g_plus_share"
+                                    android:paddingLeft="@dimen/_5sdp"
+
+                                    android:paddingRight="@dimen/_5sdp"
+                                    android:text="@string/share_via_gtalk"
                                     android:textAllCaps="false"
-                                    android:textColor="@android:color/white" />
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/_6sdp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:layout_weight="2"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_5sdp">
+
 
                                 <Button
+
                                     android:id="@+id/btn_share_whatsap"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginLeft="@dimen/_5sdp"
+                                    android:layout_weight="1"
                                     android:background="@drawable/dr_corner_view_green"
                                     android:drawableLeft="@drawable/ic_whatsap_share"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
+                                    android:paddingLeft="@dimen/_5sdp"
+                                    android:paddingRight="@dimen/_5sdp"
                                     android:text="@string/share_via_whats"
                                     android:textAllCaps="false"
-                                    android:textColor="@android:color/white" />
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/_6sdp" />
 
                                 <Button
-                                    android:id="@+id/btn_share_telegram"
+
+                                    android:id="@+id/btn_share_pintrest"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
-                                    android:background="@drawable/dr_corner_view_light_velvet_light"
-                                    android:drawableLeft="@drawable/ic_telegram_share"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
-                                    android:text="@string/share_via_tele"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/dr_corner_view_velvet"
+                                    android:drawableLeft="@drawable/ic_pinterest_share"
+                                    android:paddingLeft="@dimen/_5sdp"
+                                    android:paddingRight="@dimen/_5sdp"
+                                    android:text="@string/share_via_pin"
                                     android:textAllCaps="false"
-                                    android:textColor="@android:color/white" />
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/_6sdp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:layout_weight="2"
+                                android:orientation="horizontal"
+                                android:padding="@dimen/_5sdp">
+
 
                                 <Button
                                     android:id="@+id/btn_share_snapchat"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_marginLeft="@dimen/_5sdp"
+                                    android:layout_weight="1"
                                     android:background="@drawable/dr_corner_view_yellow"
                                     android:drawableLeft="@drawable/ic_snapchat_share"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
+                                    android:paddingLeft="@dimen/_5sdp"
+                                    android:paddingRight="@dimen/_5sdp"
                                     android:text="@string/share_via_snap"
                                     android:textAllCaps="false"
-                                    android:textColor="@android:color/black" />
+                                    android:textColor="@android:color/black"
+
+                                    android:textSize="@dimen/_6sdp" />
 
                                 <Button
-                                    android:id="@+id/btn_ar_lang"
+                                    android:id="@+id/btn_share_telegram"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
-                                    android:background="@drawable/dr_corner_view_blue"
-                                    android:clickable="true"
-                                    android:onClick="changetoAr"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
-                                    android:text="Arabic"
+                                    android:layout_height="@dimen/_25sdp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/dr_corner_view_light_velvet_light"
+                                    android:drawableLeft="@drawable/ic_telegram_share"
+                                    android:paddingLeft="@dimen/_5sdp"
+                                    android:paddingRight="@dimen/_5sdp"
+                                    android:text="@string/share_via_tele"
                                     android:textAllCaps="false"
-                                    android:textColor="@android:color/black" />
-
-                                <Button
-                                    android:id="@+id/btn_en_lang"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/_5sdp"
-                                    android:layout_marginLeft="@dimen/_40sdp"
-                                    android:layout_marginRight="@dimen/_40sdp"
-                                    android:background="@drawable/dr_corner_view_green"
-                                    android:clickable="true"
-                                    android:onClick="changetoEn"
-                                    android:paddingLeft="@dimen/_20sdp"
-                                    android:paddingRight="@dimen/_30sdp"
-                                    android:text="English"
-                                    android:textAllCaps="false"
-                                    android:textColor="@android:color/black" />
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/_6sdp" />
                             </LinearLayout>
-                        </ScrollView>
-                    </LinearLayout>
+
+                        </LinearLayout>
+                    </ScrollView>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
@@ -328,7 +316,7 @@
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="end"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
         android:paddingLeft="@dimen/_2sdp"

@@ -38,7 +38,7 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
-    ShopsListRecycleViewAdapter shopsListRecycleViewAdapter;
+    static ShopsListRecycleViewAdapter shopsListRecycleViewAdapter;
     DrawerLayout mDrawerLayout;
     Spinner sp_service_type_shops_list;
     Spinner sp_brand_type_shop_list;
@@ -60,8 +60,12 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
         recyclerView.getItemAnimator().setChangeDuration(700);
         recyclerView.setAdapter(shopsListRecycleViewAdapter);
-        mgridLayoutManager = new GridLayoutManager(this, 2);
+        mgridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mgridLayoutManager);
+    }
+
+    public static void expandedRefresh() {
+        shopsListRecycleViewAdapter.notifyDataSetChanged();
     }
 
     public void setSpinnerFilter() {
@@ -267,7 +271,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 }

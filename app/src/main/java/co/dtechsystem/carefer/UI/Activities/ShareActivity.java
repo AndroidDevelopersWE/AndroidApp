@@ -108,7 +108,7 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 
