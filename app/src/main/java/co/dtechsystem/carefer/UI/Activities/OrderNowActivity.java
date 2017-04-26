@@ -1,6 +1,9 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,19 +14,38 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import co.dtechsystem.carefer.R;
+import de.hdodenhof.circleimageview.CircleImageView;
+import jp.wasabeef.blurry.Blurry;
 
 public class OrderNowActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
-    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType;
+    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType, mshopImage;
+    ImageView iv_shop_image_blur;
+    CircleImageView iv_shop_profile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_now);
+        iv_shop_image_blur = (ImageView) findViewById(R.id.iv_shop_image_blur);
+        iv_shop_profile = (CircleImageView) findViewById(R.id.iv_shop_profile);
+
         SetUpLeftbar();
         GetDataForViews();
+        SetdataToViews();
     }
 
     // Get Views Data
@@ -35,7 +57,68 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             mServicesId = intent.getStringExtra("serviceID");
             mBrandsId = intent.getStringExtra("brandID");
             mModelsId = intent.getStringExtra("modelID");
+            mshopImage = intent.getStringExtra("shopImage");
+        }
+    }
 
+    public void SetdataToViews() {
+        if (mshopImage != null && !mModelsId.equals("")) {
+//            Glide.with(this).load(mshopImage)
+//                    .into(iv_shop_image_blur);
+            aQuery.find(R.id.pg_shop_image_blur).visibility(View.VISIBLE);
+            Glide.with(activity).load(mshopImage)
+                    .into(iv_shop_profile);
+            Glide.with(activity)
+                    .load(mshopImage)
+                    .asBitmap()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(new SimpleTarget<Bitmap>() {
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                            // Do something with bitmap here.
+                            aQuery.find(R.id.pg_shop_image_blur).visibility(View.GONE);
+                            Blurry.with(activity).from(bitmap).into(iv_shop_image_blur);
+                        }
+
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            aQuery.find(R.id.pg_shop_image_blur).visibility(View.GONE);
+                            super.onLoadFailed(e, errorDrawable);
+                        }
+                    });
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // Do network action in this function
+//                    getBitmapFromURL(mshopImage);
+//                }
+//            }).start();
+
+
+        }
+    }
+
+    public Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            final Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    aQuery.find(R.id.pg_shop_image_blur).visibility(View.GONE);
+                    Blurry.with(activity).from(myBitmap).into(iv_shop_image_blur);
+                }
+            });
+
+            return myBitmap;
+        } catch (IOException e) {
+            aQuery.find(R.id.pg_shop_image_blur).visibility(View.GONE);
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -80,8 +163,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }

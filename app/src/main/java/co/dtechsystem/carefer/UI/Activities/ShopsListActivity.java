@@ -42,6 +42,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     DrawerLayout mDrawerLayout;
     Spinner sp_service_type_shops_list;
     Spinner sp_brand_type_shop_list;
+    private String mplaceName;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,8 +53,22 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
         SetUpLeftbar();
         loading.show();
+        getDataForView();
+        setDataToView();
         APiGetShopslistData(AppConfig.APiServiceTypeData, "Services");
 
+    }
+
+    public void getDataForView() {
+        if (intent != null) {
+            mplaceName = intent.getStringExtra("placeName");
+        }
+    }
+
+    public void setDataToView() {
+        if (mplaceName != null && !mplaceName.equals("")) {
+            aQuery.find(R.id.tv_location_name_shops_list).text(mplaceName);
+        }
     }
 
     public void SetListData() {
@@ -147,8 +162,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }

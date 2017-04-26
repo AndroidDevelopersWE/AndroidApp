@@ -33,7 +33,7 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
-    private String mshopID, mshopName, mshopType, mshopRating, mlatitude, mlongitude;
+    private String mshopID, mshopName, mshopType, mshopRating, mlatitude, mlongitude, mshopImage;
     ArrayList<String> mServicesIdArray = new ArrayList<>();
     ArrayList<String> mBrandsIdArray = new ArrayList<>();
     ArrayList<String> mModelsIdArray = new ArrayList<>();
@@ -60,6 +60,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             mshopRating = intent.getStringExtra("shopRating");
             mlatitude = intent.getStringExtra("latitude");
             mlongitude = intent.getStringExtra("longitude");
+            mshopImage = intent.getStringExtra("shopImage");
         }
     }
 
@@ -208,6 +209,8 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             i.putExtra("serviceID", mServicesId);
             i.putExtra("brandID", mBrandsId);
             i.putExtra("modelID", mModelsId);
+            i.putExtra("shopImage", mshopImage);
+
             startActivity(i);
         }
     }
@@ -225,8 +228,8 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }

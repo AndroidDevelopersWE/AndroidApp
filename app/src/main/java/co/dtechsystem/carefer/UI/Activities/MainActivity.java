@@ -3,6 +3,8 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -34,7 +36,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
@@ -46,8 +50,10 @@ public class MainActivity extends BaseActivity
     SupportMapFragment mapFragment;
     private GoogleMap mMap;
     boolean firstCAll = false;
+    String mplaceName="";
 
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -58,6 +64,7 @@ public class MainActivity extends BaseActivity
 
     public void btnExploereClick(View v) {
         Intent i = new Intent(this, ShopsListActivity.class);
+        i.putExtra("placeName",mplaceName);
         startActivity(i);
     }
 
@@ -93,6 +100,20 @@ public class MainActivity extends BaseActivity
                 if (firstCAll != true) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
                     firstCAll = true;
+                }
+                Locale locale=new Locale("ar");
+                Geocoder gcd = new Geocoder(getBaseContext(), locale);
+                try {
+                    List<Address> addresses;
+                    addresses=gcd.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                    if(addresses.size()>0){
+                        String city=addresses.get(0).getLocality().toString();
+                        String Country=addresses.get(0).getCountryName().toString();
+//                        String locationname=addresses.get(0).getSubLocality().toString();
+                        mplaceName = city+", "+Country;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 APiGetShopslistData(location);
 
@@ -216,8 +237,8 @@ public class MainActivity extends BaseActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }

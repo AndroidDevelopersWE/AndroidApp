@@ -83,11 +83,14 @@
     <string name="type_comments">اكتب تعليقاتك هنا ...</string>
     <string name="order_history">أمر التاريخ</string>
     <string name="title_order_history"> لي أوامر</string>
-    <string name="tv_order_number">رقم الأمر:</string>
+    <string name="tv_order_number"> الطلب #</string>
+    <string name="tv_date">بتاريخ :</string>
+    <string name="tv_completed_status">منجز</string>
+    <string name="tv_pending_status">تحت المعالجة</string>
     <string name="tv_date_order">تاريخ الترتيب:</string>
     <string name="tv_shop">متجر:</string>
     <string name="tv_order_type">نوع الطلب:</string>
-    <string name="tv_shop_rating">متجر تصنيف:</string>
+    <string name="tv_shop_rating">متجر التقيمات:</string>
     <string name="tv_status">الحالة:</string>
     <string name="dummy_order_no">٠٠٥٢</string>
     <string name="dummy_date">05-فبراير -2017</string>

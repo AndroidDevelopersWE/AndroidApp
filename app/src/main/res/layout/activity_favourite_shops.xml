@@ -90,56 +90,54 @@
                 android:orientation="vertical">
 
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/title_fav_shops"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
 
-                    <TextView
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+
+                    android:background="@color/colorGrey" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_fav_shops"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_3sdp"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:padding="@dimen/_10sdp"
-                        android:text="@string/title_fav_shops"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-
-                        android:background="@color/colorGrey" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/_5sdp">
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/rv_fav_shops"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
 
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
-        android:paddingLeft="@dimen/_2sdp"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
-        app:itemBackground="@drawable/dr_drawyer_item_bg"
-        app:itemIconTint="@android:color/black"
+        app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
+        app:itemIconTint="@color/colorHeliotrope"
         app:itemTextColor="@android:color/black"
         app:menu="@menu/activity_main_drawer" />
-
 </android.support.v4.widget.DrawerLayout>

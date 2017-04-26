@@ -95,6 +95,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
+
     public static void expandedRefresh() {
         mMyOrdersRecycleViewAdapter.notifyDataSetChanged();
     }
@@ -102,8 +103,8 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }

@@ -50,11 +50,12 @@
             android:layout_marginLeft="@dimen/_50sdp"
             android:layout_marginRight="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="end"
             android:orientation="horizontal"
             android:weightSum="4">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/et_4_varify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,7 +65,7 @@
                 android:hint="@string/code_eg"
                 android:imeOptions="actionDone"
                 android:inputType="phone"
-                android:maxEms="1"
+                android:maxLength="1"
                 android:maxLines="1"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@color/colorPrimary"
@@ -72,7 +73,7 @@
                 android:textStyle="bold" />
 
             <EditText
-
+                android:id="@+id/et_3_varify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -82,15 +83,16 @@
                 android:hint="@string/code_eg"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
-                android:maxEms="1"
+                android:maxLength="1"
                 android:maxLines="1"
+                android:nextFocusLeft="@+id/et_4_varify"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_18sdp"
                 android:textStyle="bold" />
 
             <EditText
-
+                android:id="@+id/et_2_varify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -100,15 +102,16 @@
                 android:hint="@string/code_eg"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
-                android:maxEms="1"
+                android:maxLength="1"
                 android:maxLines="1"
+                android:nextFocusLeft="@+id/et_3_varify"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_18sdp"
                 android:textStyle="bold" />
 
             <EditText
-
+                android:id="@+id/et_1_varify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -118,8 +121,9 @@
                 android:hint="@string/code_eg"
                 android:imeOptions="actionNext"
                 android:inputType="phone"
-                android:maxEms="1"
+                android:maxLength="1"
                 android:maxLines="1"
+                android:nextFocusLeft="@+id/et_2_varify"
                 android:padding="@dimen/_10sdp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_18sdp"
@@ -146,6 +150,7 @@
 
 
     </LinearLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

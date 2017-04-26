@@ -6,8 +6,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="false"
     android:background="@color/colorGreylight"
+    android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".UI.Activities.MyDetailsActivity">
@@ -123,9 +123,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10sdp"
-                        android:gravity="left"
                         android:background="@drawable/dr_corner_view_straight"
                         android:drawableRight="@drawable/ic_edit"
+                        android:gravity="left"
                         android:hint="@string/phone_eg"
                         android:inputType="phone"
                         android:maxLines="1"
@@ -144,15 +144,14 @@
                         android:textStyle="bold" />
 
 
-
                     <EditText
                         android:id="@+id/et_user_name_my_details"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10sdp"
-                        android:gravity="left"
                         android:background="@drawable/dr_corner_view_straight"
                         android:drawableRight="@drawable/ic_edit"
+                        android:gravity="left"
                         android:hint="@string/your_name"
                         android:inputType="text"
                         android:maxLines="1"
@@ -183,20 +182,19 @@
 
     </RelativeLayout>
 
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
-        android:paddingLeft="@dimen/_2sdp"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
-        app:itemBackground="@drawable/dr_drawyer_item_bg"
-        app:itemIconTint="@android:color/black"
+        app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
+        app:itemIconTint="@color/colorHeliotrope"
         app:itemTextColor="@android:color/black"
         app:menu="@menu/activity_main_drawer" />
-
 </android.support.v4.widget.DrawerLayout>

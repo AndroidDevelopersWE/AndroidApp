@@ -26,6 +26,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
     private int lastPosition;
     private Activity activity;
     Boolean expand;
+
     public MyOrdersRecycleViewAdapter(Activity activity, List<MyOrdersModel.MyOrdersRecord> _MyOrdersRecords) {
         this._MyOrdersRecords = _MyOrdersRecords;
         this.activity = activity;
@@ -45,20 +46,23 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
     @Override
     public void onBindViewHolder(final MyOrdersRecycleViewAdapter.ViewHolder holder, final int position) {
         if (_MyOrdersRecords.get(position).getOrderStatus().equals("1")) {
-            holder.tv_my_order_status.setText("In Process");
+            holder.tv_my_order_status.setText(activity.getResources().getString(R.string.tv_completed_status));
         } else {
-            holder.tv_my_order_status.setText("Completed");
+            holder.tv_my_order_status.setText(activity.getResources().getString(R.string.tv_pending_status));
         }
-        if (_MyOrdersRecords.get(position).getOrderType().equals("call")) {
-            holder.tv_my_order_type.setText("On Call");
-        } else {
-            holder.tv_my_order_type.setText("Navigate");
-
-        }
+//        if (_MyOrdersRecords.get(position).getOrderType().equals("call")) {
+//            holder.tv_my_order_type.setText("On Call");
+//        } else {
+//            holder.tv_my_order_type.setText("Navigate");
+//
+//        }
+        holder.tv_my_order_type.setText(_MyOrdersRecords.get(position).getOrderType());
         holder.tv_my_order_number.setText(_MyOrdersRecords.get(position).getOrderNo());
         holder.tv_my_order_date.setText(Utils.formattedDateFromString("yyyy-mm-dd", "dd-MMM-yyyy", _MyOrdersRecords.get(position).getOrderDate()));
         holder.tv_my_order_shop_name.setText(_MyOrdersRecords.get(position).getShopName());
         holder.tv_my_order_shop_rating.setText(_MyOrdersRecords.get(position).getShopRating() + "/5");
+        holder.tv_date_order_top.setText(activity.getResources().getString(R.string.tv_date) + Utils.formattedDateFromString("yyyy-mm-dd", "dd-MM-yyyy", _MyOrdersRecords.get(position).getOrderDate()));
+        holder.tv_order_number_top.setText(activity.getResources().getString(R.string.tv_order_number) + _MyOrdersRecords.get(position).getOrderNo());
 
         holder.lay_top_my_order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +75,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
                     MyOrdersActivity.expandedRefresh();
                     holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_up_float));
                     expand = true;
-                    int i = (int) activity.getResources().getDimension(R.dimen._120sdp);
+                    int i = (int) activity.getResources().getDimension(R.dimen._140sdp);
                     expand(holder.lay_bottom_my_order, 1000, i);
 
                 }
@@ -82,7 +86,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_my_order_number, tv_my_order_date, tv_my_order_shop_name, tv_my_order_type,
-                tv_my_order_shop_rating, tv_my_order_status;
+                tv_my_order_shop_rating, tv_my_order_status, tv_date_order_top, tv_order_number_top;
         LinearLayout lay_top_my_order, lay_bottom_my_order;
         ImageView iv_drop_shop_details;
 
@@ -95,6 +99,8 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
             tv_my_order_type = (TextView) v.findViewById(R.id.tv_my_order_type);
             tv_my_order_shop_rating = (TextView) v.findViewById(R.id.tv_my_order_shop_rating);
             tv_my_order_status = (TextView) v.findViewById(R.id.tv_my_order_status);
+            tv_date_order_top = (TextView) v.findViewById(R.id.tv_date_order_top);
+            tv_order_number_top = (TextView) v.findViewById(R.id.tv_order_number_top);
             lay_top_my_order = (LinearLayout) v.findViewById(R.id.lay_top_my_order);
             lay_bottom_my_order = (LinearLayout) v.findViewById(R.id.lay_bottom_my_order);
             iv_drop_shop_details = (ImageView) v.findViewById(R.id.iv_drop_shop_details);

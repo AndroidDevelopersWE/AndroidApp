@@ -90,10 +90,47 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp"
-                    android:background="@color/colorLightBlue" />
+                    android:layout_height="@dimen/_160sdp">
+
+                    <ImageView
+                        android:id="@+id/iv_shop_image_blur"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_120sdp"
+                        android:background="@color/colorCreamDark"
+                        android:clickable="false"
+                        android:scaleType="centerCrop" />
+
+                    <ProgressBar
+                        android:id="@+id/pg_shop_image_blur"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_30sdp" />
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/view2"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_70sdp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_2sdp"
+                        android:innerRadius="0dp"
+                        android:shape="ring"
+                        android:thicknessRatio="1.9"
+                        app:cardCornerRadius="@dimen/_35sdp"
+                        app:cardElevation="@dimen/_5sdp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/iv_shop_profile"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_large_app"
+                            app:civ_border_width="0dp" />
+                    </android.support.v7.widget.CardView>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -141,20 +178,19 @@
 
     </LinearLayout>
 
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
-        android:paddingLeft="@dimen/_2sdp"
+        android:layoutDirection="locale"
+        android:textDirection="locale"
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
-        app:itemBackground="@drawable/dr_drawyer_item_bg"
-        app:itemIconTint="@android:color/black"
+        app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
+        app:itemIconTint="@color/colorHeliotrope"
         app:itemTextColor="@android:color/black"
         app:menu="@menu/activity_main_drawer" />
-
 </android.support.v4.widget.DrawerLayout>
