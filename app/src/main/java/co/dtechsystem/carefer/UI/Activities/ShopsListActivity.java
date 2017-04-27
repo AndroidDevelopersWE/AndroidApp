@@ -8,6 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.android.volley.Request;
@@ -38,11 +41,12 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
-    static ShopsListRecycleViewAdapter shopsListRecycleViewAdapter;
+    static ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter;
     DrawerLayout mDrawerLayout;
     Spinner sp_service_type_shops_list;
     Spinner sp_brand_type_shop_list;
     private String mplaceName;
+    EditText et_search_shops_main;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,12 +54,34 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         setContentView(R.layout.activity_shops_list);
         sp_service_type_shops_list = (Spinner) findViewById(R.id.sp_service_type_shops_list);
         sp_brand_type_shop_list = (Spinner) findViewById(R.id.sp_brand_type_shop_list);
-
+        et_search_shops_main = (EditText) findViewById(R.id.et_search_shops_main);
         SetUpLeftbar();
         loading.show();
         getDataForView();
         setDataToView();
         APiGetShopslistData(AppConfig.APiServiceTypeData, "Services");
+        setDataToViews();
+    }
+
+    public void setDataToViews() {
+        et_search_shops_main.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mshopsListRecycleViewAdapter.filterShopsName(s.toString());
+                mshopsListRecycleViewAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
     }
 
@@ -74,13 +100,13 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     public void SetListData() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
         recyclerView.getItemAnimator().setChangeDuration(700);
-        recyclerView.setAdapter(shopsListRecycleViewAdapter);
+        recyclerView.setAdapter(mshopsListRecycleViewAdapter);
         mgridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mgridLayoutManager);
     }
 
     public static void expandedRefresh() {
-        shopsListRecycleViewAdapter.notifyDataSetChanged();
+        mshopsListRecycleViewAdapter.notifyDataSetChanged();
     }
 
     public void setSpinnerFilter() {
@@ -94,17 +120,17 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") && selectedItemBrand != null &&
                             selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Service", "No", selectedItemService, selectedItemBrand);
-                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+                        mshopsListRecycleViewAdapter.filterShops("Service", "No", selectedItemService, selectedItemBrand);
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     } else if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Service Type", "Yes", selectedItemService, selectedItemBrand);
-                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+                        mshopsListRecycleViewAdapter.filterShops("Service Type", "Yes", selectedItemService, selectedItemBrand);
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
 
                     } else if (selectedItemService.equals("Service Type") && selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
-                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+                        mshopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -122,18 +148,18 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                     if (selectedItemService != null && selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Brand", "No", selectedItemService, selectedItemBrand);
-                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+                        mshopsListRecycleViewAdapter.filterShops("Brand", "No", selectedItemService, selectedItemBrand);
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
 
                     } else if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
-                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+                        mshopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
 
                     } else if (selectedItemService.equals("Service Type") && selectedItemBrand.equals("Brand")) {
-                        shopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
-                        shopsListRecycleViewAdapter.notifyDataSetChanged();
+                        mshopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -203,7 +229,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                             } else {
                                 ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                                 if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-                                    shopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList());
+                                    mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList());
                                     SetListData();
                                     loading.close();
                                 } else {

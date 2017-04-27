@@ -45,6 +45,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
     @Override
     public void onBindViewHolder(final MyOrdersRecycleViewAdapter.ViewHolder holder, final int position) {
+        setAnimation(holder.itemView, position);
         if (_MyOrdersRecords.get(position).getOrderStatus().equals("1")) {
             holder.tv_my_order_status.setText(activity.getResources().getString(R.string.tv_completed_status));
         } else {
@@ -155,6 +156,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(activity, android.R.anim.fade_in);
+            animation.setDuration(1000);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }

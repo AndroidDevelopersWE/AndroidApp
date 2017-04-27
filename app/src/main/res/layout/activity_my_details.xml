@@ -168,7 +168,7 @@
                         android:background="@drawable/dr_btn_orange"
                         android:clickable="true"
                         android:onClick="submitUserData"
-                        android:text="@string/btn_save"
+                        android:text="@string/btn_save_changes"
                         android:textAllCaps="false"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/_17sdp"

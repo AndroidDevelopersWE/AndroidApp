@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity
     SupportMapFragment mapFragment;
     private GoogleMap mMap;
     boolean firstCAll = false;
-    String mplaceName="";
+    String mplaceName = "";
 
     @Override
 
@@ -60,11 +60,13 @@ public class MainActivity extends BaseActivity
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         SetUpLeftbar();
+
     }
+
 
     public void btnExploereClick(View v) {
         Intent i = new Intent(this, ShopsListActivity.class);
-        i.putExtra("placeName",mplaceName);
+        i.putExtra("placeName", mplaceName);
         startActivity(i);
     }
 
@@ -101,16 +103,16 @@ public class MainActivity extends BaseActivity
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
                     firstCAll = true;
                 }
-                Locale locale=new Locale("ar");
+                Locale locale = new Locale("ar");
                 Geocoder gcd = new Geocoder(getBaseContext(), locale);
                 try {
                     List<Address> addresses;
-                    addresses=gcd.getFromLocation(location.getLatitude(),location.getLongitude(),1);
-                    if(addresses.size()>0){
-                        String city=addresses.get(0).getLocality().toString();
-                        String Country=addresses.get(0).getCountryName().toString();
+                    addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    if (addresses.size() > 0) {
+                        String city = addresses.get(0).getLocality().toString();
+                        String Country = addresses.get(0).getCountryName().toString();
 //                        String locationname=addresses.get(0).getSubLocality().toString();
-                        mplaceName = city+", "+Country;
+                        mplaceName = city + ", " + Country;
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

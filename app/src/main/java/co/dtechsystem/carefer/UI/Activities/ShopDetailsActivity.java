@@ -46,7 +46,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     int mStatus = 0;
     ImageView iv_full_image;
     LinearLayout lay_full_image, lay_shop_details;
-
+    LinearLayout lay_builts_images;
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         iv_full_image = (ImageView) findViewById(R.id.iv_full_image);
         lay_full_image = (LinearLayout) findViewById(R.id.lay_full_image);
         lay_shop_details = (LinearLayout) findViewById(R.id.lay_shop_details);
+        lay_builts_images = (LinearLayout) findViewById(R.id.lay_builts_images);
         SetUpLeftbar();
         mIntent = getIntent();
         if (mIntent != null) {
@@ -126,7 +127,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                         mShopsDetailsModel = gson.fromJson(response.toString(), ShopsDetailsModel.class);
                         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
                             mShopsImagesRecycleViewAdapter = new ShopsImagesRecycleViewAdapter(activity,
-                                    mShopsDetailsModel.getShopImages(), ShopID, iv_full_image, lay_full_image, lay_shop_details);
+                                    mShopsDetailsModel.getShopImages(), ShopID, iv_full_image, lay_full_image,
+                                    lay_shop_details,lay_builts_images);
                             SetImagesListData();
                         }
 //                        else {
@@ -234,13 +236,14 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         if (mShopsDetailsModel.getShopsDetail().get(0).getFavourite() != null &&
                 mShopsDetailsModel.getShopsDetail().get(0).getFavourite().equals("true")) {
             mStatus = 1;
-
+            aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_fill);
+        } else {
+            mStatus = 0;
+            aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_empty);
         }
     }
 
     public void loadImagesSliderbulits() {
-        LinearLayout myLayout = (LinearLayout) findViewById(R.id.lay_builts_images);
-
         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
             for (int i = 0; i < mShopsDetailsModel.getShopImages().size(); i++) {
 
@@ -248,8 +251,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20, 20);
                 params.setMargins(10, 10, 10, 10);
                 myButton.setLayoutParams(params);
-                myButton.setBackgroundResource(R.drawable.dr_round_about_us);
-                myLayout.addView(myButton);
+                myButton.setBackgroundResource(R.drawable.dr_round_icon);
+                lay_builts_images.addView(myButton);
             }
         }
 

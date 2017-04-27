@@ -65,7 +65,7 @@
                             android:layout_marginRight="@dimen/_20sdp"
                             android:gravity="center"
                             android:padding="@dimen/_15sdp"
-                            android:text="@string/title_order_history"
+                            android:text="@string/nav_my_orders"
                             android:textColor="@color/colorGrey"
                             android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />

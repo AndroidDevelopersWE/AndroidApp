@@ -7,22 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.ceylonlabs.imageviewpopup.ImagePopup;
 
 import java.util.List;
 
 import co.dtechsystem.carefer.Models.FavouriteShopsModel;
-import co.dtechsystem.carefer.Models.ShopsDetailsModel;
 import co.dtechsystem.carefer.R;
-import co.dtechsystem.carefer.Utils.AppConfig;
 
 
 public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<FavouriteShopsRecycleViewAdapter.ViewHolder> {
@@ -48,7 +38,7 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
     @Override
     public void onBindViewHolder(final FavouriteShopsRecycleViewAdapter.ViewHolder holder, final int position) {
         holder.tv_fav_shop_name.setText(_FavouriteShopsDetails.get(position).getShopName());
-
+        setAnimation(holder.itemView,position);
     }
 
 
@@ -75,6 +65,7 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(activity, android.R.anim.fade_in);
+            animation.setDuration(1000);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }

@@ -27,7 +27,7 @@
         A Privacy Policy agreement is the agreement where you specify if you collect personal
         data, what kind of personal data you collect from users and what you do with that data.
     </string>
-    <string name="title_activity_main">Main Menu</string>
+    <string name="title_activity_main">Shopping Shops</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -37,6 +37,7 @@
     <string name="your_mobile">Your Mobile Number</string>
     <string name="your_name">Your Name</string>
     <string name="btn_save">Save</string>
+    <string name="btn_save_changes">Save Changes</string>
     <string name="share_app_tv">Share The App</string>
     <string name="lorem_ispum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived  </string>
     <string name="share_via_fb">Share via Facebook</string>
@@ -100,5 +101,6 @@
     <string name="some_went_wrong_parsing">Something went wrong parsing!</string>
     <string name="some_went_wrong">Something went wrong...!</string>
     <string name="no_record_found">No record found yet!</string>
+    <string name="et_search_shop">Enter shop name...</string>
 
 </resources>

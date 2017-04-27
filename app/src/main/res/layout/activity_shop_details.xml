@@ -95,6 +95,10 @@
                 android:elevation="3dp"
                 app:cardElevation="@dimen/_7sdp">
 
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
 
                 <ImageView
                     android:id="@+id/iv_full_image"
@@ -223,38 +227,43 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@color/colorPrimary">
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:orientation="vertical">
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_images_shop_details"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="0">
+
+                        <TextView
+                            android:id="@+id/tv_shop_des_shop_details"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_10sdp"
+                            android:text="@string/privacy_policy_details"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_12sdp" />
+                    </ScrollView>
                 </LinearLayout>
 
                 <!--</android.support.v7.widget.CardView>-->
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp">
-
-                    <TextView
-                        android:id="@+id/tv_shop_des_shop_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_10sdp"
-                        android:text="@string/privacy_policy_details"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_12sdp" />
-                </ScrollView>
 
             </LinearLayout>
 
             <Button
+                android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
 
+                android:layout_gravity="bottom"
                 android:layout_marginBottom="@dimen/_20sdp"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginRight="@dimen/_20sdp"

@@ -54,6 +54,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:visibility="gone"
                         android:layout_toRightOf="@+id/lay_dr_btn"
                         android:orientation="vertical">
 
@@ -73,15 +74,54 @@
 
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_toRightOf="@+id/lay_dr_btn"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_weight="0"
+                            android:visibility="gone"
+                            android:background="@android:drawable/ic_menu_search" />
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_weight="0"
+                            android:background="@android:drawable/ic_menu_close_clear_cancel" />
+
+                        <EditText
+                            android:id="@+id/et_search_shops_main"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:imeOptions="actionDone"
+                            android:padding="@dimen/_15sdp"
+                            android:hint="@string/et_search_shop"
+                            android:textColor="@color/colorGrey"
+                            android:textSize="@dimen/_15sdp"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_2sdp"
-            android:background="@android:color/black" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

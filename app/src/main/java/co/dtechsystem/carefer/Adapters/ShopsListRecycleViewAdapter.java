@@ -55,6 +55,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     public void onBindViewHolder(final ShopsListRecycleViewAdapter.ViewHolder holder, final int position) {
 //        List<String> serviceType = Arrays.asList(_ShopslistRecordList.get(position).getServiceType().split(","));
 //        String serviceType = _ShopslistRecordList.get(position).getServiceType().replaceAll(",", " \u2022");
+        setAnimation(holder.itemView, position);
         String stringTypeArr[] = _ShopslistRecordList.get(position).getServiceType().split(",");
         if (stringTypeArr != null) {
             holder.tv_service_type_shop_list.setText(stringTypeArr[0]);
@@ -132,6 +133,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(activity, android.R.anim.fade_in);
+//            ScaleAnimation animation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//            ScaleAnimation animation = new ScaleAnimation(0.0f, 1.0f, 0.0f, 1.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            animation.setDuration(1000);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
@@ -215,4 +219,21 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
     }
 
+    // Filter for Shops Names Class
+    public static void filterShopsName(String Text) {
+
+        _ShopslistRecordList.clear();
+        if (Text.length() == 0) {
+            _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
+        } else {
+
+            for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                if (_ShopslistRecordListFilter.get(i).getShopName().toLowerCase(Locale.getDefault())
+                        .contains(Text)) {
+                    _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                }
+            }
+        }
+
+    }
 }

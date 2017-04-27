@@ -27,6 +27,7 @@
             <ImageView
                 android:id="@+id/iv_shop_image_details"
                 android:layout_width="@dimen/_92sdp"
+                android:adjustViewBounds="true"
                 android:layout_height="@dimen/_92sdp"
                 android:contentDescription="iv_shop_image_details"
                 android:scaleType="centerCrop" />

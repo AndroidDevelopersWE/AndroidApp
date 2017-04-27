@@ -9,7 +9,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -34,45 +33,6 @@ public class CareferPolicyActivity extends BaseActivity {
 
         loading.show();
         APiCareferPolicyDataSaveUser(AppConfig.APiCareferPolicy, "Policy", "", "");
-    }
-
-
-    public void APiCareferPolicyDataSaveUse1r(String Url, final String Type, String customerMobile) {
-        // prepare the Request
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.POST, Url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // display response
-                        try {
-                            if (Type.equals("Policy")) {
-                                JSONArray policyData = response.getJSONArray("policyData");
-                                JSONObject jsonObject = policyData.getJSONObject(0);
-//                            Typeface tf = Farsi.GetFarsiFont(activity);
-                                aQuery.id(R.id.tv_carefer_policy_details).text(jsonObject.getString("policyContent"));
-                                loading.close();
-                            }
-                        } catch (JSONException e) {
-                            loading.close();
-                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        showToast(getResources().getString(R.string.some_went_wrong));
-                        loading.close();
-                        Log.d("Error.Response", String.valueOf(error));
-                    }
-                }
-        );
-
-// add it to the RequestQueue
-        queue.add(getRequest);
     }
 
     public void APiCareferPolicyDataSaveUser(String URL, final String Type, final String customerMobile, final String isVerified) {
