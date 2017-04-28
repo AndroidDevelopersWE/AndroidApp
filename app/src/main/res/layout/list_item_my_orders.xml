@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/dr_border_fav"
+        android:clickable="false"
         android:orientation="vertical"
         android:padding="@dimen/_1sdp">
 
@@ -18,6 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_1sdp"
             android:background="@android:color/white"
+            android:clickable="true"
+            android:duplicateParentState="false"
             android:orientation="horizontal"
             android:visibility="visible"
             android:weightSum="2">

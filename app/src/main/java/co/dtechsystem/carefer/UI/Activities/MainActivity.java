@@ -3,8 +3,6 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -34,11 +32,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
@@ -82,13 +80,6 @@ public class MainActivity extends BaseActivity
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
             return;
         }
@@ -102,25 +93,63 @@ public class MainActivity extends BaseActivity
                 if (firstCAll != true) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
                     firstCAll = true;
+                    APiGetCurrentAddress(location);
                 }
-                Locale locale = new Locale("ar");
-                Geocoder gcd = new Geocoder(getBaseContext(), locale);
-                try {
-                    List<Address> addresses;
-                    addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                    if (addresses.size() > 0) {
-                        String city = addresses.get(0).getLocality().toString();
-                        String Country = addresses.get(0).getCountryName().toString();
-//                        String locationname=addresses.get(0).getSubLocality().toString();
-                        mplaceName = city + ", " + Country;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                APiGetShopslistData(location);
+//                Locale locale = new Locale("ar");
+//                Geocoder gcd = new Geocoder(getBaseContext(), locale);
+//                try {
+//                    List<Address> addresses;
+//                    addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+//                    if (addresses.size() > 0) {
+//                        String city = addresses.get(0).getLocality().toString();
+//                        String Country = addresses.get(0).getCountryName().toString();
+////                        String locationname=addresses.get(0).getSubLocality().toString();
+//                        mplaceName = city + ", " + Country;
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+
 
             }
         });
+    }
+
+    public void APiGetCurrentAddress(final Location location) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET,
+                "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + location.getLatitude() + "," + location.getLongitude()
+                        + "&sensor=true&language=ar", null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        try {
+                            JSONArray results = response.getJSONArray("results");
+                            JSONObject jsonObject = results.getJSONObject(0);
+                            mplaceName = jsonObject.getString("formatted_address");
+                            APiGetShopslistData(location);
+                        } catch (JSONException e) {
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
     }
 
     public void APiGetShopslistData(final Location location) {

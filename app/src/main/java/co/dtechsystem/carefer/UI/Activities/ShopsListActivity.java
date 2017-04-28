@@ -84,6 +84,20 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
             }
         });
+        aQuery.find(R.id.iv_search_shops_list).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aQuery.find(R.id.lay_title_shops_list).visibility(View.GONE);
+                aQuery.find(R.id.lay_et_search_shops_list).visibility(View.VISIBLE);
+            }
+        });
+        aQuery.find(R.id.iv_search_close_shops_list).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aQuery.find(R.id.lay_title_shops_list).visibility(View.VISIBLE);
+                aQuery.find(R.id.lay_et_search_shops_list).visibility(View.GONE);
+            }
+        });
 
     }
 

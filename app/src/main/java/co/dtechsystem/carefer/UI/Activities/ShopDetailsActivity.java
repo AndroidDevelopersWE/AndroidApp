@@ -93,7 +93,6 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 //                            mShopsImagesPagerAdapter.notifyDataSetChanged();
                             final CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
                             indicator.setViewPager(mViewPager);
-
 //                            mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 //                                @Override
 //                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
