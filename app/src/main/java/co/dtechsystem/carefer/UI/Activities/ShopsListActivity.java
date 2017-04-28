@@ -72,8 +72,10 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mshopsListRecycleViewAdapter.filterShopsName(s.toString());
-                mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                if (s.length() > 0) {
+                    mshopsListRecycleViewAdapter.filterShopsName(s.toString());
+                    mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                }
 
             }
 

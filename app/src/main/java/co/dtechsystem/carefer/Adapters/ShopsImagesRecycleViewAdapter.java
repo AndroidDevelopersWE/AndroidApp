@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +20,6 @@ import java.util.List;
 import co.dtechsystem.carefer.Models.ShopsDetailsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
-import co.dtechsystem.carefer.Utils.OnSwipeTouchListener;
 
 
 public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsImagesRecycleViewAdapter.ViewHolder> {
@@ -29,20 +27,14 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
     private int lastPosition;
     private Activity activity;
     private String ShopID;
-    private ImageView iv_full_image;
-    private LinearLayout lay_full_image, lay_shop_details, lay_builts_images;
-
 
     public ShopsImagesRecycleViewAdapter(Activity activity,
                                          List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails, String ShopID
-            , ImageView iv_full_image, LinearLayout lay_full_image, LinearLayout lay_shop_details, LinearLayout lay_builts_images) {
+        ) {
         this._ShopsImagesDetails = _ShopsImagesDetails;
         this.activity = activity;
         this.ShopID = ShopID;
-        this.iv_full_image = iv_full_image;
-        this.lay_full_image = lay_full_image;
-        this.lay_shop_details = lay_shop_details;
-        this.lay_builts_images = lay_builts_images;
+
     }
 
     @Override
@@ -79,62 +71,6 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
                         }
                     })
                     .into(holder.iv_shop_image_details);
-
-            final String Url = AppConfig.BaseUrlImages + "shop-" + ShopID + "/";
-            final int[] Clickedposition = new int[1];
-            holder.iv_shop_image_details.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    /** Initiate Popup view **/
-                    lay_full_image.setVisibility(View.VISIBLE);
-                    lay_shop_details.setVisibility(View.GONE);
-                    Glide.with(activity).load(Url + _ShopsImagesDetails.get(position)
-                            .getImageName()).into(iv_full_image);
-                    Clickedposition[0] = position;
-                    setBuiltColor(Clickedposition[0]);
-                }
-            });
-            final int[] counter = {Clickedposition[0]};
-            iv_full_image.setOnTouchListener(new OnSwipeTouchListener(activity) {
-
-                int bckto;
-
-                public void onSwipeRight() {
-                    lay_full_image.setVisibility(View.VISIBLE);
-                    lay_shop_details.setVisibility(View.GONE);
-                    if (counter[0] < _ShopsImagesDetails.size()) {
-                        String UrlAfter = Url + _ShopsImagesDetails.get(counter[0]++).getImageName();
-                        setBuiltColor(counter[0]);
-                        Glide.with(activity).load(UrlAfter).into(iv_full_image);
-                        if (_ShopsImagesDetails.size() == counter[0]) {
-                            counter[0]--;
-                            bckto = counter[0];
-                        }
-                    }
-                }
-
-                public void onSwipeLeft() {
-                    if (counter[0] < _ShopsImagesDetails.size()) {
-                        if (counter[0] > -1) {
-                            lay_full_image.setVisibility(View.VISIBLE);
-                            lay_shop_details.setVisibility(View.GONE);
-                            if (bckto == counter[0]) {
-                                String UrlAfter = Url + _ShopsImagesDetails.get(counter[0]--).getImageName();
-                                setBuiltColor(counter[0]);
-                                Glide.with(activity).load(UrlAfter).into(iv_full_image);
-                            } else {
-                                String UrlAfter = Url + _ShopsImagesDetails.get(counter[0]--).getImageName();
-                                setBuiltColor(counter[0]);
-                                Glide.with(activity).load(UrlAfter).into(iv_full_image);
-                            }
-                            if (counter[0] == -1) {
-                                counter[0] = 0;
-                            }
-                        }
-                    }
-                }
-
-            });
         }
     }
 
@@ -167,26 +103,6 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
             animation.setDuration(1000);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
-        }
-    }
-
-    public void setBuiltColor(int selectedPosition) {
-
-        if (_ShopsImagesDetails != null && _ShopsImagesDetails.size() > 0) {
-            lay_builts_images.removeAllViews();
-            for (int i = 0; i < _ShopsImagesDetails.size(); i++) {
-                ImageView myButton = new ImageView(activity);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20, 20);
-                params.setMargins(10, 10, 10, 10);
-                myButton.setLayoutParams(params);
-                if (selectedPosition==i) {
-                    myButton.setBackgroundResource(R.drawable.dr_round_about_us);
-                }
-                else {
-                    myButton.setBackgroundResource(R.drawable.dr_round_icon);
-                }
-                lay_builts_images.addView(myButton);
-            }
         }
     }
 

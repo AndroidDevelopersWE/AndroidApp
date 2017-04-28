@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +14,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.Request;
@@ -31,10 +31,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import co.dtechsystem.carefer.Adapters.RecyclerImagesItemClickListener;
+import co.dtechsystem.carefer.Adapters.ShopsImagesPagerAdapter;
 import co.dtechsystem.carefer.Adapters.ShopsImagesRecycleViewAdapter;
 import co.dtechsystem.carefer.Models.ShopsDetailsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import me.relex.circleindicator.CircleIndicator;
 
 public class ShopDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
@@ -44,18 +47,22 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     String mShopID;
     Intent mIntent;
     int mStatus = 0;
-    ImageView iv_full_image;
     LinearLayout lay_full_image, lay_shop_details;
-    LinearLayout lay_builts_images;
+    RecyclerView rv_images_shop_details;
+
+    ShopsImagesPagerAdapter mShopsImagesPagerAdapter;
+    ViewPager mViewPager;
+    String responsePublic;
+
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details);
-        iv_full_image = (ImageView) findViewById(R.id.iv_full_image);
         lay_full_image = (LinearLayout) findViewById(R.id.lay_full_image);
         lay_shop_details = (LinearLayout) findViewById(R.id.lay_shop_details);
-        lay_builts_images = (LinearLayout) findViewById(R.id.lay_builts_images);
+         rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
+
         SetUpLeftbar();
         mIntent = getIntent();
         if (mIntent != null) {
@@ -66,6 +73,58 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         favouriteClicks();
 
     }
+
+//    public static void getRecylerPosition(int position) {
+//        ShopDetailsActivity shopDetailsActivit = new ShopDetailsActivity();
+//        shopDetailsActivit.initPagerImages(position);
+//    }
+
+    public void initPagerImages() {
+        rv_images_shop_details.addOnItemTouchListener(
+                new RecyclerImagesItemClickListener(activity, new   RecyclerImagesItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
+                            lay_full_image.setVisibility(View.VISIBLE);
+                            lay_shop_details.setVisibility(View.GONE);
+                            mShopsImagesPagerAdapter = new ShopsImagesPagerAdapter(activity, mShopsDetailsModel.getShopImages(), mShopID, position);
+                            mViewPager = (ViewPager) findViewById(R.id.pager);
+                            mViewPager.setAdapter(mShopsImagesPagerAdapter);
+//                            mShopsImagesPagerAdapter.notifyDataSetChanged();
+                            final CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+                            indicator.setViewPager(mViewPager);
+//                            mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//                                @Override
+//                                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                                    mShopsImagesPagerAdapter = new ShopsImagesPagerAdapter(activity, mShopsDetailsModel.getShopImages(), mShopID, 121);
+//                                    mViewPager = (ViewPager) findViewById(R.id.pager);
+//                                    mViewPager.setAdapter(mShopsImagesPagerAdapter);
+////                            mShopsImagesPagerAdapter.notifyDataSetChanged();
+//                                    final CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+//                                    indicator.setViewPager(mViewPager);
+//                                }
+//
+//                                @Override
+//                                public void onPageSelected(int position) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onPageScrollStateChanged(int state) {
+//
+//                                }
+//                            });
+                        } else {
+                            lay_full_image.setVisibility(View.GONE);
+                            lay_shop_details.setVisibility(View.VISIBLE);
+                        }
+
+                    }
+                })
+        );
+
+    }
+
 
     public void favouriteClicks() {
         aQuery.find(R.id.iv_fav_shop_list).clicked(new View.OnClickListener() {
@@ -123,12 +182,11 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-
+                       responsePublic = response.toString();
                         mShopsDetailsModel = gson.fromJson(response.toString(), ShopsDetailsModel.class);
                         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
                             mShopsImagesRecycleViewAdapter = new ShopsImagesRecycleViewAdapter(activity,
-                                    mShopsDetailsModel.getShopImages(), ShopID, iv_full_image, lay_full_image,
-                                    lay_shop_details,lay_builts_images);
+                                    mShopsDetailsModel.getShopImages(), ShopID);
                             SetImagesListData();
                         }
 //                        else {
@@ -217,15 +275,13 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     }
 
     public void SetImagesListData() {
-        RecyclerView rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
-
         rv_images_shop_details.getItemAnimator().setChangeDuration(700);
         rv_images_shop_details.setAdapter(mShopsImagesRecycleViewAdapter);
         mgridLayoutManager = new LinearLayoutManager(this);
         mgridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rv_images_shop_details.setLayoutManager(mgridLayoutManager);
         aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_fill);
-        loadImagesSliderbulits();
+        initPagerImages();
     }
 
     public void SetShopsDetailsData() {
@@ -243,21 +299,21 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         }
     }
 
-    public void loadImagesSliderbulits() {
-        if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
-            for (int i = 0; i < mShopsDetailsModel.getShopImages().size(); i++) {
-
-                ImageView myButton = new ImageView(this);
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20, 20);
-                params.setMargins(10, 10, 10, 10);
-                myButton.setLayoutParams(params);
-                myButton.setBackgroundResource(R.drawable.dr_round_icon);
-                lay_builts_images.addView(myButton);
-            }
-        }
-
-
-    }
+//    public void loadImagesSliderbulits() {
+//        if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
+//            for (int i = 0; i < mShopsDetailsModel.getShopImages().size(); i++) {
+//
+//                ImageView myButton = new ImageView(this);
+//                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(20, 20);
+//                params.setMargins(10, 10, 10, 10);
+//                myButton.setLayoutParams(params);
+//                myButton.setBackgroundResource(R.drawable.dr_round_icon);
+//                lay_builts_images.addView(myButton);
+//            }
+//        }
+//
+//
+//    }
 
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
