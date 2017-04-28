@@ -105,7 +105,6 @@ public class NavigationsActivity extends BaseActivity
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
-
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             morderID = jsonObject.getInt("orderID");
