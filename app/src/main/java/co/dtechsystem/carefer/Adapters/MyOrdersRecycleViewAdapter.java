@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,20 +18,19 @@ import java.util.List;
 
 import co.dtechsystem.carefer.Models.MyOrdersModel;
 import co.dtechsystem.carefer.R;
-import co.dtechsystem.carefer.UI.Activities.MyOrdersActivity;
 import co.dtechsystem.carefer.Utils.Utils;
 
 
 public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRecycleViewAdapter.ViewHolder> {
-    private List<MyOrdersModel.MyOrdersRecord> _MyOrdersRecords;
+    private final List<MyOrdersModel.MyOrdersRecord> _MyOrdersRecords;
     private int lastPosition;
-    private Activity activity;
-    Boolean expand;
+    private final Activity activity;
+    private Boolean mExpand;
 
     public MyOrdersRecycleViewAdapter(Activity activity, List<MyOrdersModel.MyOrdersRecord> _MyOrdersRecords) {
         this._MyOrdersRecords = _MyOrdersRecords;
         this.activity = activity;
-        this.expand = false;
+        this.mExpand = false;
     }
 
     @Override
@@ -68,25 +68,76 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         holder.lay_top_my_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (expand) {
+                if (mExpand) {
                     holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));
-                    collapse(holder.lay_bottom_my_order, 1000, 0);
-                    expand = false;
+                    mExpand = false;
+                    collapse(holder.lay_bottom_my_order);
                 } else {
-                    MyOrdersActivity.expandedRefresh();
                     holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_up_float));
-                    expand = true;
-                    int i = (int) activity.getResources().getDimension(R.dimen._140sdp);
-                    expand(holder.lay_bottom_my_order, 1000, i);
+                    mExpand = true;
+                    mExpand(holder.lay_bottom_my_order);
 
                 }
             }
         });
     }
 
+    public static void mExpand(final View v) {
+        v.measure(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
+        final int targetHeight = v.getMeasuredHeight();
+
+        // Older versions of android (pre API 21) cancel animations for views with a height of 0.
+        v.getLayoutParams().height = 1;
+        v.setVisibility(View.VISIBLE);
+        Animation a = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                v.getLayoutParams().height = interpolatedTime == 1
+                        ? RecyclerView.LayoutParams.WRAP_CONTENT
+                        : (int) (targetHeight * interpolatedTime);
+                v.requestLayout();
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+//        a.setDuration((int)(targetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration(500);
+        v.startAnimation(a);
+    }
+
+    public static void collapse(final View v) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation() {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if (interpolatedTime == 1) {
+                    v.setVisibility(View.GONE);
+                } else {
+                    v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
+            }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        // 1dp/ms
+//        a.setDuration((int)(initialHeight / v.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration(500);
+        v.startAnimation(a);
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_my_order_number, tv_my_order_date, tv_my_order_shop_name, tv_my_order_type,
+        public final TextView tv_my_order_number, tv_my_order_date, tv_my_order_shop_name, tv_my_order_type,
                 tv_my_order_shop_rating, tv_my_order_status, tv_date_order_top, tv_order_number_top;
         LinearLayout lay_top_my_order, lay_bottom_my_order;
         ImageView iv_drop_shop_details;
@@ -110,7 +161,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
     }
 
-    public static void expand(final View v, int duration, int targetHeight) {
+    public static void mExpand(final View v, int duration, int targetHeight) {
 
         int prevHeight = v.getHeight();
 

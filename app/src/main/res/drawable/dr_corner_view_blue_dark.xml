@@ -2,9 +2,15 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#0a5495" />
-            <!--<corners android:radius="2dp" />-->
-
+            <stroke
+                android:width="@dimen/_1sdp"
+                android:color="#236e9e" />
+            <gradient
+                android:angle="360"
+                android:startColor="#2f86bb"
+                android:centerColor="#2d80b4"
+                android:endColor="#2372a5"
+                android:type="linear" />
         </shape>
     </item>
 

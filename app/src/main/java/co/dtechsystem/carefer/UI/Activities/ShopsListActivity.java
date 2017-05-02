@@ -72,11 +72,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    mshopsListRecycleViewAdapter.filterShopsName(s.toString());
-                    mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                }
-
+                mshopsListRecycleViewAdapter.filterShopsName(s.toString());
+                mshopsListRecycleViewAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -121,9 +118,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         recyclerView.setLayoutManager(mgridLayoutManager);
     }
 
-    public static void expandedRefresh() {
-        mshopsListRecycleViewAdapter.notifyDataSetChanged();
-    }
+//    public static void expandedRefresh() {
+//        mshopsListRecycleViewAdapter.notifyDataSetChanged();
+//    }
 
     public void setSpinnerFilter() {
         try {

@@ -23,7 +23,6 @@ import java.util.Locale;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
-import co.dtechsystem.carefer.UI.Activities.ShopsListActivity;
 
 
 public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListRecycleViewAdapter.ViewHolder> {
@@ -73,21 +72,20 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             }
         });
 
-        holder.lay_shopsnames.setOnClickListener(new View.OnClickListener() {
+        holder.lay_shops_names.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (expand) {
-                    holder.lay_shopsnames.setBackgroundColor(activity.getResources().getColor(R.color.colorCreamDark));
+                    holder.lay_shops_names.setBackgroundColor(activity.getResources().getColor(R.color.colorCreamDark));
                     holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));
-                    collapse(holder.lay_details, 1000, 0);
+                    collapse(holder.lay_details, 500, 0);
                     expand = false;
                 } else {
-                    ShopsListActivity.expandedRefresh();
                     holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_up_float));
-                    holder.lay_shopsnames.setBackgroundColor(activity.getResources().getColor(R.color.colorLightBlue));
+                    holder.lay_shops_names.setBackgroundColor(activity.getResources().getColor(R.color.colorLightBlue));
                     expand = true;
                     int i = (int) activity.getResources().getDimension(R.dimen._100sdp);
-                    expand(holder.lay_details, 1000, i);
+                    expand(holder.lay_details, 500, i);
 
                 }
             }
@@ -98,7 +96,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_shop_name_shop_list, tv_service_type_shop_list, tv_desc_shop_list;
         public RatingBar rb_shop_shop_list;
-        LinearLayout lay_shop_item, lay_shopsnames, lay_details;
+        LinearLayout lay_shop_item, lay_shops_names, lay_details;
         ImageView iv_fav_shop_list, iv_drop_shop_details;
         Button btn_details_shops_list;
 
@@ -111,7 +109,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             rb_shop_shop_list = (RatingBar) v.findViewById(R.id.rb_shop_shop_list);
             lay_shop_item = (LinearLayout) v.findViewById(R.id.lay_shop_item);
             iv_fav_shop_list = (ImageView) v.findViewById(R.id.iv_fav_shop_list);
-            lay_shopsnames = (LinearLayout) v.findViewById(R.id.lay_shopsnames);
+            lay_shops_names = (LinearLayout) v.findViewById(R.id.lay_shops_names);
             lay_details = (LinearLayout) v.findViewById(R.id.lay_details);
             btn_details_shops_list = (Button) v.findViewById(R.id.btn_details_shops_list);
             iv_drop_shop_details = (ImageView) v.findViewById(R.id.iv_drop_shop_details);
@@ -221,7 +219,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
     // Filter for Shops Names Class
     public static void filterShopsName(String Text) {
-
+        Text = Text.toLowerCase(Locale.getDefault());
         _ShopslistRecordList.clear();
         if (Text.length() == 0) {
             _ShopslistRecordList.addAll(_ShopslistRecordListFilter);

@@ -50,12 +50,11 @@
             android:layout_marginLeft="@dimen/_50sdp"
             android:layout_marginRight="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="end"
             android:orientation="horizontal"
             android:weightSum="4">
 
             <EditText
-                android:id="@+id/et_4_varify"
+                android:id="@+id/et_4_verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -73,7 +72,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_3_varify"
+                android:id="@+id/et_3_verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -92,7 +91,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_2_varify"
+                android:id="@+id/et_2_verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -111,7 +110,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/et_1_varify"
+                android:id="@+id/et_1_verify"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

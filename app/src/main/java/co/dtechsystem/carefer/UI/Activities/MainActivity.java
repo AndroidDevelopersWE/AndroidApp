@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity
     SupportMapFragment mapFragment;
     private GoogleMap mMap;
     boolean firstCAll = false;
-    String mplaceName = "";
+    String mPlaceName = "";
 
     @Override
 
@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity
 
     public void btnExploereClick(View v) {
         Intent i = new Intent(this, ShopsListActivity.class);
-        i.putExtra("placeName", mplaceName);
+        i.putExtra("placeName", mPlaceName);
         startActivity(i);
     }
 
@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity
                         try {
                             JSONArray results = response.getJSONArray("results");
                             JSONObject jsonObject = results.getJSONObject(0);
-                            mplaceName = jsonObject.getString("formatted_address");
+                            mPlaceName = jsonObject.getString("formatted_address");
                             APiGetShopslistData(location);
                         } catch (JSONException e) {
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
@@ -329,5 +329,24 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 123: {
 
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mapFragment.getMapAsync(this);
+
+                } else {
+                    // User refused to grant permission. You can add AlertDialog here
+                    showToast("You didn't give permission to access device location");
+                }
+                return;
+            }
+
+        }
+    }
 }

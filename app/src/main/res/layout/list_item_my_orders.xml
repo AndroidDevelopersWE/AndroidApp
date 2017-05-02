@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="@dimen/_5sdp"
+                android:clickable="false"
                 android:text="@string/tv_date_order"
                 android:textColor="@color/colorGrey"
                 android:textSize="@dimen/_14sdp" />
@@ -46,6 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:clickable="false"
                 android:padding="@dimen/_5sdp"
                 android:text="@string/tv_order_number"
                 android:textColor="@color/colorGrey"

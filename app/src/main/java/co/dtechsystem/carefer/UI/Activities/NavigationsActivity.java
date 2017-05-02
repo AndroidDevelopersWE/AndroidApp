@@ -108,9 +108,6 @@ public class NavigationsActivity extends BaseActivity
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             morderID = jsonObject.getInt("orderID");
-//                            Intent i = new Intent(activity, RatingActivity.class);
-//                            i.putExtra("shopID", mshopID);
-//                            i.putExtra("orderID", String.valueOf(morderID));
                             if (morderID != 0) {
                                 Intent i = new Intent(activity, MainActivity.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
