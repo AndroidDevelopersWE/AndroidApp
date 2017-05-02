@@ -234,4 +234,29 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         }
 
     }
+
+    // Filter Class
+    public static void filterShopsWithProviders(ArrayList<String> selectedItems) {
+        if (selectedItems.size() > 0) {
+            _ShopslistRecordList.clear();
+            for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                for (int j = 0; j < selectedItems.size(); j++) {
+                    if (_ShopslistRecordListFilter.get(i).getShopType().toLowerCase(Locale.getDefault())
+                            .contains(selectedItems.get(j).toString())) {
+                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                    }
+//                    else if (_ShopslistRecordListFilter.get(i).getProvideReplaceParts().toLowerCase(Locale.getDefault())
+//                            .contains(selectedItems.get(j).toString())) {
+//                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+//                    }
+                }
+            }
+
+        } else {
+            _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
+        }
+
+
+    }
+
 }

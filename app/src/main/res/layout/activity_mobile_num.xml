@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorCream"
+    android:background="@drawable/img_bg_app"
     tools:context="co.dtechsystem.carefer.UI.Activities.MobileNumActivity">
 
     <LinearLayout
@@ -32,48 +32,67 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/enter_mobile"
-            android:textColor="@color/colorGrey"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/_18sdp" />
 
-        <EditText
-            android:id="@+id/et_mobile_number_amobile"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/white"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:backgroundTint="@color/colorGrey"
-            android:gravity="center"
-            android:hint="@string/phone_eg"
-            android:inputType="phone"
-            android:maxLines="1"
-            android:padding="@dimen/_10sdp"
-            android:textColor="@android:color/black" />
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:id="@+id/et_mobile_number_amobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:backgroundTint="@android:color/white"
+                android:gravity="center"
+                android:hint="@string/phone_eg"
+                android:textColorHint="@android:color/black"
+                android:inputType="phone"
+                android:maxLines="1"
+                android:padding="@dimen/_10sdp"
+                android:textColor="@android:color/black" />
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/ccp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                app:ccpLanguage="ARABIC"
+                android:layout_gravity="center"
+                app:defaultCode="54"
+                app:hideNameCode="true" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/_50sdp"
-            android:layout_marginLeft="@dimen/_50sdp"
-            android:layout_marginRight="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_80sdp"
+            android:layout_marginRight="@dimen/_80sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/dr_btn_orange"
+            android:background="@drawable/dr_button_round"
             android:clickable="true"
             android:gravity="center"
             android:onClick="ban_Next_to_Verification_Click"
+            android:padding="@dimen/_15sdp"
             android:text="@string/btn_next"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/ic_bottom_bar" />
+
 </RelativeLayout>

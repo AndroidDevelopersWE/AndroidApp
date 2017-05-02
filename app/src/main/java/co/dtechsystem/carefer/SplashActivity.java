@@ -8,8 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CallLog;
 import android.support.v4.app.ActivityCompat;
-
-import com.google.android.gms.analytics.Tracker;
+import android.widget.ImageView;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -22,17 +21,21 @@ import co.dtechsystem.carefer.UI.Activities.MobileNumVerifyActivity;
 
 public class SplashActivity extends BaseActivity {
     private final int SPLASH_DISPLAY_LENGTH = 3000;
-    Tracker mTracker;
+
+    ImageView iv_splash;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        iv_splash=(ImageView)findViewById(R.id.iv_splash);
         // Obtain the shared Tracker instance.
 //        AnalyticsApplication application = (AnalyticsApplication) getApplication().getApplicationContext();
 //        mTracker = application.getDefaultTracker();
         SplashScreenThread();
+        mScaler.scaleImage(R.drawable.img_splash_screen,iv_splash );
 //        getCallDetails();
+
     }
 
     public void SplashScreenThread() {

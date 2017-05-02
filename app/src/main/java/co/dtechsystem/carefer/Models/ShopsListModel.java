@@ -29,6 +29,11 @@ public class ShopsListModel {
         private String latitude = "";
         private String longitude = "";
         private String brands = "";
+        private String provideWarranty = "";
+        private String shopType = "";
+        private String provideReplaceParts = "";
+
+
 
 
         public String getID() {
@@ -95,6 +100,30 @@ public class ShopsListModel {
 
         public void setBrands(String brands) {
             this.brands = brands;
+        }
+
+        public String getProvideWarranty() {
+            return provideWarranty;
+        }
+
+        public void setProvideWarranty(String provideWarranty) {
+            this.provideWarranty = provideWarranty;
+        }
+
+        public String getShopType() {
+            return shopType;
+        }
+
+        public void setShopType(String shopType) {
+            this.shopType = shopType;
+        }
+
+        public String getProvideReplaceParts() {
+            return provideReplaceParts;
+        }
+
+        public void setProvideReplaceParts(String provideReplaceParts) {
+            this.provideReplaceParts = provideReplaceParts;
         }
 
     }

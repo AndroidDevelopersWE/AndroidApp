@@ -34,6 +34,7 @@ import java.util.Locale;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Loading;
+import co.dtechsystem.carefer.Utils.Scaler;
 import co.dtechsystem.carefer.Utils.Utils;
 
 /**
@@ -49,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     Intent intent;
     public static String sRegId;
     public static String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID;
+    protected Scaler mScaler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,12 +60,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 //                .setFontAttrId(R.attr.fontPath)
 //                .build()
 //        );
+
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         gson = new Gson();
         aQuery = new AQuery(this);
         activity = this;
         loading = new Loading(this, getResources().getString(R.string.loading));
         intent = getIntent();
+        mScaler = new Scaler(activity, 720, 1280);
         sRegId = Utils.readPreferences(activity, "regId", "");
         if (sRegId != null && !sRegId.equals("")) {
         } else {
@@ -168,6 +172,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Utils.hideKeyboard(activity);
         return true;
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();
@@ -177,7 +182,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             float x = ev.getRawX() + view.getLeft() - scrcoords[0];
             float y = ev.getRawY() + view.getTop() - scrcoords[1];
             if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
-                ((InputMethodManager)this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+                ((InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
         }
         return super.dispatchTouchEvent(ev);
     }

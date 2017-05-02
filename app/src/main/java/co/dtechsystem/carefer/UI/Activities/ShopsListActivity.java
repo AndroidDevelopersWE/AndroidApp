@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,15 +39,18 @@ import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Widget.MultiSpinner;
 
 public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
     static ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter;
     DrawerLayout mDrawerLayout;
     Spinner sp_service_type_shops_list;
-    Spinner sp_brand_type_shop_list;
+    Spinner sp_brand_type_shop_list, sp_cities_shops_list;
     private String mplaceName;
+    MultiSpinner sp_providers_shop_list;
     EditText et_search_shops_main;
+    ArrayAdapter<String> adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         setContentView(R.layout.activity_shops_list);
         sp_service_type_shops_list = (Spinner) findViewById(R.id.sp_service_type_shops_list);
         sp_brand_type_shop_list = (Spinner) findViewById(R.id.sp_brand_type_shop_list);
+        sp_providers_shop_list = (MultiSpinner) findViewById(R.id.sp_providers_shop_list);
+        sp_cities_shops_list = (Spinner) findViewById(R.id.sp_cities_shops_list);
         et_search_shops_main = (EditText) findViewById(R.id.et_search_shops_main);
         SetUpLeftbar();
         loading.show();
@@ -181,12 +187,52 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                 }
             }));
+            // create spinner list elements
+            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+            adapter.add("Provide Warranty");
+            adapter.add("Provide Replace Parts");
+            adapter.add("نوع الاختيار");
+            adapter.add("فيتنيس كلوثينغ");
+            sp_providers_shop_list.setAdapter(adapter, false, onSelectedListener);
+            // set initial selection
+            boolean[] selectedItems = new boolean[adapter.getCount()];
+            sp_providers_shop_list.setSelected(selectedItems);
+            aQuery.find(R.id.tv_providers_shop_list).text("Providers");
+            aQuery.find(R.id.tv_providers_shop_list).clicked(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sp_providers_shop_list.performClick();
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
+    private MultiSpinner.MultiSpinnerListener onSelectedListener = new MultiSpinner.MultiSpinnerListener() {
+
+        public void onItemsSelected(boolean[] selected) {
+            // Do something here with the selected items
+
+            StringBuilder builder = new StringBuilder();
+            ArrayList<String> selectedItems = new ArrayList<>();
+            for (int i = 0; i < selected.length; i++) {
+                if (selected[i]) {
+                    selectedItems.add(adapter.getItem(i).toString());
+                    builder.append(adapter.getItem(i)).append(" ");
+                }
+            }
+            if (builder.toString().equals("")) {
+                aQuery.find(R.id.tv_providers_shop_list).text("Providers");
+            } else {
+                aQuery.find(R.id.tv_providers_shop_list).text(builder.toString());
+            }
+            ShopsListRecycleViewAdapter.filterShopsWithProviders(selectedItems);
+            Toast.makeText(activity, builder.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
 
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

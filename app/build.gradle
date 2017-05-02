@@ -56,6 +56,8 @@ dependencies {
     compile 'jp.wasabeef:blurry:2.1.1'
     compile 'com.ms-square:etsyblur:0.2.1'
     compile 'me.relex:circleindicator:1.2.2@aar'
+    //country code picker lib
+    compile 'com.hbb20:ccp:1.7.4'
 }
 apply plugin: 'com.google.firebase.firebase-crash'
 apply plugin: 'com.google.gms.google-services'
