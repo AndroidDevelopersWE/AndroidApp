@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/carefer.iml" filepath="$PROJECT_DIR$/carefer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/country-flags-drop-lib/country-flags-drop-lib.iml" filepath="$PROJECT_DIR$/country-flags-drop-lib/country-flags-drop-lib.iml" />
     </modules>
   </component>
 </project>

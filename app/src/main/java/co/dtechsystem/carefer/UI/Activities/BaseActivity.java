@@ -36,6 +36,8 @@ import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Loading;
 import co.dtechsystem.carefer.Utils.Scaler;
 import co.dtechsystem.carefer.Utils.Utils;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by DELL on 4/10/2017.
@@ -55,12 +57,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-//                .setDefaultFontPath("fonts/arabic.ttf")
-//                .setFontAttrId(R.attr.fontPath)
-//                .build()
-//        );
-
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/shahd.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         gson = new Gson();
         aQuery = new AQuery(this);
@@ -83,6 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         configuration.setLocale(locale);
+        configuration.setLayoutDirection(new Locale("en"));
         resources.updateConfiguration(configuration, displayMetrics);
     }
 
@@ -185,5 +187,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 ((InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
         }
         return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

@@ -9,7 +9,7 @@
     <string name="enter_verification_code">ادخل رمز التحقيق</string>
     <string name="confirm_mobile_number">تأكيد رقم هاتفك المحمول</string>
     <string name="phone_eg">على سبيل المثال:٩١٠٠٠-٣٣٥-٠٠٩٦</string>
-    <string name="code_eg">٨</string>
+    <string name="code_eg">8</string>
     <string name="btn_back">الى الخلف</string>
     <string name="privacy_policy">سياسة كاريفر</string>
     <string name="privacy_policy_details">يتيح لك نموذج سياسة الخصوصية الحصول عليه
@@ -116,6 +116,6 @@
     <string name="some_went_wrong">هناك خطأ ما…!</string>
     <string name="no_record_found">لم يتم العثور على أي سجل حتى الآن!</string>
     <string name="et_search_shop">أدخل اسم المحل…</string>
-
-
+    <string name="phone_hint">رقم الهاتف المحمول</string>
+    <string name="invalid_phone_number">يرجى إدخال رقم هاتف صالح</string>
 </resources>

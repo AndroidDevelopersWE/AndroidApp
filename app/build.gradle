@@ -58,6 +58,7 @@ dependencies {
     compile 'me.relex:circleindicator:1.2.2@aar'
     //country code picker lib
     compile 'com.hbb20:ccp:1.7.4'
+    compile project(path: ':country-flags-drop-lib')
 }
 apply plugin: 'com.google.firebase.firebase-crash'
 apply plugin: 'com.google.gms.google-services'

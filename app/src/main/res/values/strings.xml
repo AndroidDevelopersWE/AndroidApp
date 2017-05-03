@@ -103,4 +103,8 @@
     <string name="no_record_found">No record found yet!</string>
     <string name="et_search_shop">Enter shop name...</string>
 
+    <string name="phone_hint">Phone Number</string>
+
+    <string name="invalid_phone_number">Please enter a valid phone number</string>
+
 </resources>

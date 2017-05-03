@@ -91,12 +91,12 @@ public class NavigationsActivity extends BaseActivity
 
     public void GotoRatings(View v) {
         loading.show();
-        APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType,sUser_Mobile);
+        APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
     }
 
 
     public void APiPlaceOrder(final String UserId, final String shopID, final String serviceID, final String brandID,
-                              final String modelID, final String orderType,final String customerMobileNo) {
+                              final String modelID, final String orderType, final String customerMobileNo) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiSaveOrder,
@@ -408,8 +408,8 @@ public class NavigationsActivity extends BaseActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.END)) {
-            drawer.closeDrawer(GravityCompat.END);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
         }
@@ -465,7 +465,7 @@ public class NavigationsActivity extends BaseActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.END);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

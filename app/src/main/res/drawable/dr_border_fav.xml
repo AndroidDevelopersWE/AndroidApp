@@ -7,9 +7,9 @@
         android:width="@dimen/_1sdp"
         android:color="@color/colorGrey" />
     <gradient
-        android:angle="90"
-        android:startColor="#e4e4e4"
-        android:centerColor="#fafafa"
-        android:endColor="#f9f9f9"
+        android:angle="360"
+        android:startColor="#ff5b02"
+        android:centerColor="#ff7c02"
+        android:endColor="#ff8602"
         android:type="linear" />
 </shape>

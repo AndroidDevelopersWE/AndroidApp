@@ -3,29 +3,54 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+
+import com.lamudi.phonefield.PhoneEditText;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Utils;
 
 public class MobileNumActivity extends BaseActivity {
+    PhoneEditText phoneEditText;
+    Button submit_button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_num);
+        submit_button = (Button) findViewById(R.id.submit_button);
+        phoneEditText = (PhoneEditText) findViewById(R.id.edit_text);
+        phoneDropAndValid();
     }
 
-    public void ban_Next_to_Verification_Click(View v) {
-        if(aQuery.find(R.id.et_mobile_number_amobile).getText().length()>0) {
-            if (Utils.ValidateNumberFromLibPhone(activity, aQuery.find(R.id.et_mobile_number_amobile).getText().toString())) {
-                Utils.savePreferences(activity, "User_Mobile", aQuery.find(R.id.et_mobile_number_amobile).getText().toString());
-                Intent i = new Intent(this, MobileNumVerifyActivity.class);
-                startActivity(i);
-                finish();
+    public void phoneDropAndValid() {
+
+        assert phoneEditText != null;
+        assert submit_button != null;
+
+        phoneEditText.setHint(R.string.phone_hint);
+        phoneEditText.setDefaultCountry("SA");
+
+        submit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (phoneEditText.getPhoneNumber() != null && !phoneEditText.getPhoneNumber().equals("")) {
+                    String Phone = phoneEditText.getPhoneNumber();
+                    if (Phone != null && !Phone.equals("")) {
+                        if (phoneEditText.isValid()) {
+                            Utils.savePreferences(activity, "User_Mobile", phoneEditText.getPhoneNumber().toString());
+                            Intent i = new Intent(activity, MobileNumVerifyActivity.class);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            showToast(getResources().getString(R.string.invalid_phone_number));
+                        }
+                    }
+                } else {
+                    showToast(getResources().getString(R.string.enter_mobile));
+                }
             }
-        }
-        else {
-            showToast("Please Enter mobile number first");
-        }
+        });
+
     }
 }

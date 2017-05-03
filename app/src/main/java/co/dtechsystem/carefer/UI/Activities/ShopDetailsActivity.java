@@ -61,7 +61,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         setContentView(R.layout.activity_shop_details);
         lay_full_image = (LinearLayout) findViewById(R.id.lay_full_image);
         lay_shop_details = (LinearLayout) findViewById(R.id.lay_shop_details);
-         rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
+        rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
 
         SetUpLeftbar();
         mIntent = getIntent();
@@ -81,7 +81,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     public void initPagerImages() {
         rv_images_shop_details.addOnItemTouchListener(
-                new RecyclerImagesItemClickListener(activity, new   RecyclerImagesItemClickListener.OnItemClickListener() {
+                new RecyclerImagesItemClickListener(activity, new RecyclerImagesItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
@@ -182,7 +182,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                       responsePublic = response.toString();
+                        responsePublic = response.toString();
                         mShopsDetailsModel = gson.fromJson(response.toString(), ShopsDetailsModel.class);
                         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
                             mShopsImagesRecycleViewAdapter = new ShopsImagesRecycleViewAdapter(activity,
@@ -384,7 +384,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.END);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

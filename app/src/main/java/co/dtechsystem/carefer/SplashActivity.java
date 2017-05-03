@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CallLog;
 import android.support.v4.app.ActivityCompat;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import java.util.Date;
@@ -29,11 +30,13 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         iv_splash=(ImageView)findViewById(R.id.iv_splash);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // Obtain the shared Tracker instance.
 //        AnalyticsApplication application = (AnalyticsApplication) getApplication().getApplicationContext();
 //        mTracker = application.getDefaultTracker();
         SplashScreenThread();
-        mScaler.scaleImage(R.drawable.img_splash_screen,iv_splash );
+//        mScaler.scaleImage(R.drawable.img_splash_screen,iv_splash );
 //        getCallDetails();
 
     }

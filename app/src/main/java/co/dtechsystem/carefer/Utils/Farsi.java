@@ -474,7 +474,7 @@ public final class Farsi {
             try {
                 typeface = Typeface.createFromAsset(context.getAssets(),
                         // "DroidSansFallback.ttf");
-                        "fonts/Tahoma.ttf");
+                        "fonts/shahd.ttf");
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -26,6 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -195,6 +196,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
                             android:layout_weight="1"
                             android:background="@drawable/dr_corner_view_straight"
                             android:padding="@dimen/_5sdp">
@@ -232,7 +234,7 @@
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="end"
+        android:layout_gravity="left"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
         android:layoutDirection="locale"

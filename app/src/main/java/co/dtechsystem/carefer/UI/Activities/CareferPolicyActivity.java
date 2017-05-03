@@ -50,14 +50,14 @@ public class CareferPolicyActivity extends BaseActivity {
                             if (Type.equals("Policy")) {
                                 JSONArray policyData = jsonObject.getJSONArray("policyData");
                                 JSONObject jsonObject1 = policyData.getJSONObject(0);
-//                            Typeface tf = Farsi.GetFarsiFont(activity);
+//                                Typeface tf = Farsi.GetFarsiFont(activity);
                                 aQuery.id(R.id.tv_carefer_policy_details).text(jsonObject1.getString("policyContent"));
                                 loading.close();
                             } else {
                                 JSONArray customerDetails = jsonObject.getJSONArray("customerDetails");
                                 JSONObject jsonObject1 = customerDetails.getJSONObject(0);
                                 String ID = jsonObject1.getString("ID");
-                                Utils.savePreferences(activity,"User_ID",ID);
+                                Utils.savePreferences(activity, "User_ID", ID);
                                 Utils.savePreferences(activity, "User_privacy_check", "verified");
                                 Intent i = new Intent(activity, MainActivity.class);
                                 startActivity(i);
