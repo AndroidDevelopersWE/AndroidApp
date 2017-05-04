@@ -8,8 +8,8 @@
         android:color="@color/colorGrey" />
     <!--<gradient-->
         <!--android:angle="90"-->
-        <!--android:startColor="#e4e4e4"-->
-        <!--android:centerColor="#fafafa"-->
-        <!--android:endColor="#f9f9f9"-->
+        <!--android:startColor="#ff5a00"-->
+        <!--android:centerColor="#ff5a00"-->
+        <!--android:endColor="#ff8400"-->
         <!--android:type="linear" />-->
 </shape>

@@ -3,6 +3,9 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -24,10 +28,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -36,11 +46,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -49,6 +61,8 @@ public class MainActivity extends BaseActivity
     private GoogleMap mMap;
     boolean firstCAll = false;
     String mPlaceName = "";
+    TextView tv_title_main;
+    ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
 
     @Override
 
@@ -58,9 +72,13 @@ public class MainActivity extends BaseActivity
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         SetUpLeftbar();
-
+        tv_title_main = (TextView) findViewById(R.id.tv_title_main);
+        SetShaderToViews();
     }
 
+    public void SetShaderToViews() {
+        Utils.gradientTextView(tv_title_main, activity);
+    }
 
     public void btnExploereClick(View v) {
         Intent i = new Intent(this, ShopsListActivity.class);
@@ -188,6 +206,8 @@ public class MainActivity extends BaseActivity
     }
 
     public void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_map);
+
         for (int i = 0; i < shopsList.size(); i++) {
 
 
@@ -199,10 +219,35 @@ public class MainActivity extends BaseActivity
             Location target = new Location("Target");
             target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
             target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
-            if (location.distanceTo(target) < 5000) {
+            if (location.distanceTo(target) < 10000) {
+                double angle = 130.0;
+                double x = Math.sin(-angle * Math.PI / 180) * 0.5 + 0.5;
+                double y = -(Math.cos(-angle * Math.PI / 180) * 0.5 - 0.5);
+//                marker.setInfoWindowAnchor((float)x, (float)y);
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
-                                Double.parseDouble(shopsList.get(i).getLongitude()))));
+                                Double.parseDouble(shopsList.get(i).getLongitude()))).anchor((float) x, (float) y).icon(icon));
+                Glide.with(activity)
+                        .load(AppConfig.BaseUrlImages + "shop-" + shopsList.get(i).getID() + "/" + shopsList.get(i).getShopImage())
+                        .asBitmap()
+                        .override((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp))
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(new SimpleTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                                // Do something with bitmap here.
+                                mImagesMaps.add(bitmap);
+                            }
+
+                            @Override
+                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                                super.onLoadFailed(e, errorDrawable);
+                                Bitmap bmp = Bitmap.createBitmap((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp), Bitmap.Config.ARGB_8888);
+                                Canvas canvas = new Canvas(bmp);
+                                canvas.drawColor(getResources().getColor(R.color.colorOrange));
+                                mImagesMaps.add(bmp);
+                            }
+                        });
             }
         }
         // Setting a custom info window adapter for the google map
@@ -213,13 +258,7 @@ public class MainActivity extends BaseActivity
             // Use default InfoWindow frame
             @Override
             public View getInfoWindow(Marker arg0) {
-                return null;
-            }
-
-            // Defines the contents of the InfoWindow
-            @Override
-            public View getInfoContents(Marker arg0) {
-                View customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_shops, null);
+                View customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_google_map_shop, null);
                 String id = "";
                 for (int i = 0; i < shopsList.size(); i++) {
                     double latmap = arg0.getPosition().latitude;
@@ -229,15 +268,21 @@ public class MainActivity extends BaseActivity
                         TextView tv_service_type_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_service_type_shop_list);
                         TextView tv_desc_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_desc_shop_list);
                         RatingBar rb_shop_shop_list = (RatingBar) customMarkerView.findViewById(R.id.rb_shop_shop_list);
-//                        aQuery.id(R.id.tv_shop_name_shop_list).text(shopsList.get(i).getShopName());
-//                        aQuery.id(R.id.tv_service_type_shop_list).text(shopsList.get(i).getServiceType());
-//                        aQuery.id(R.id.tv_desc_shop_list).text(shopsList.get(i).getShopDescription());
-//                        aQuery.id(R.id.rb_shop_shop_list).rating(Float.parseFloat(shopsList.get(i).getShopRating()));
-
+                        ImageView iv_shop_map_item = (ImageView) customMarkerView.findViewById(R.id.iv_shop_map_item);
                         tv_shop_name_shop_list.setText(shopsList.get(i).getShopName());
                         tv_service_type_shop_list.setText(shopsList.get(i).getServiceType());
                         tv_desc_shop_list.setText(shopsList.get(i).getShopDescription());
                         rb_shop_shop_list.setRating(Float.parseFloat(shopsList.get(i).getShopRating()));
+                        try {
+                            iv_shop_map_item.setImageBitmap(mImagesMaps.get(i));
+                        } catch (Exception e) {
+                            Bitmap bmp = Bitmap.createBitmap((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp), Bitmap.Config.ARGB_8888);
+                            Canvas canvas = new Canvas(bmp);
+                            canvas.drawColor(getResources().getColor(R.color.colorOrange));
+                            mImagesMaps.add(i, bmp);
+                            e.printStackTrace();
+                        }
+//                        }
                         id = shopsList.get(i).getID();
 
                         break;
@@ -253,8 +298,15 @@ public class MainActivity extends BaseActivity
                         activity.startActivity(mIntent);
                     }
                 });
-
                 return customMarkerView;
+            }
+
+            // Defines the contents of the InfoWindow
+            @Override
+            public View getInfoContents(Marker arg0) {
+
+
+                return null;
 
             }
         });

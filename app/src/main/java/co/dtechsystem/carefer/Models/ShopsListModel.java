@@ -32,8 +32,7 @@ public class ShopsListModel {
         private String provideWarranty = "";
         private String shopType = "";
         private String provideReplaceParts = "";
-
-
+        private String shopImage = "";
 
 
         public String getID() {
@@ -126,5 +125,12 @@ public class ShopsListModel {
             this.provideReplaceParts = provideReplaceParts;
         }
 
+        public String getShopImage() {
+            return shopImage;
+        }
+
+        public void setShopImage(String shopImage) {
+            this.shopImage = shopImage;
+        }
     }
 }

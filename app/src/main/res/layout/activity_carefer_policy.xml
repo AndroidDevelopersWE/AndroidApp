@@ -65,32 +65,38 @@
 
         </ScrollView>
 
-        <Button
-            android:id="@+id/button"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:layout_marginLeft="@dimen/_50sdp"
-            android:layout_marginRight="@dimen/_50sdp"
-            android:layout_marginTop="@dimen/_10sdp"
             android:layout_weight="0"
-            android:background="@drawable/dr_btn_orange"
-            android:clickable="true"
-            android:onClick="btn_Next_to_mainmenu_Click"
-            android:text="@string/btn_next"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_15sdp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/ic_bottom_bar" />
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/cb_accept_policy" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_80sdp"
+                android:layout_marginRight="@dimen/_80sdp"
+                android:background="@drawable/dr_btn_orange_angle_90"
+                android:clickable="true"
+                android:onClick="btn_Next_to_mainmenu_Click"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/btn_next"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
 
 

@@ -5,6 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.LinearGradient;
+import android.graphics.Matrix;
+import android.graphics.Shader;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.i18n.phonenumbers.NumberParseException;
@@ -20,6 +24,8 @@ import com.google.i18n.phonenumbers.Phonenumber;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import co.dtechsystem.carefer.R;
 
 public abstract class Utils {
     public static void savePreferences(Activity activity, String key, String value) {
@@ -156,4 +162,25 @@ public abstract class Utils {
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    public static void gradientTextView(TextView textView, Activity activity) {
+        int[] rainbow = getRainbowColors(activity);
+        Shader shader = new LinearGradient(100, 110, 0, 0, rainbow,
+                null, Shader.TileMode.MIRROR);
+
+        Matrix matrix = new Matrix();
+        matrix.setRotate(360);
+        shader.setLocalMatrix(matrix);
+        textView.getPaint().setShader(shader);
+    }
+
+    private static int[] getRainbowColors(Activity activity) {
+        return new int[]{
+                activity.getResources().getColor(R.color.colorMandy),
+                activity.getResources().getColor(R.color.colorPrimary),
+//                activity.getResources().getColor(R.color.colorGreylight),
+//                activity.getResources().getColor(R.color.colorPrimary),
+        };
+    }
+
 }
