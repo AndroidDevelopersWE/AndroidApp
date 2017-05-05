@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:background="@drawable/country_flag_ad"
+            android:layout_marginRight="10dp"
+            android:popupBackground="@color/pf_white"
+            android:tag="@string/com_lamudi_phonefield_flag_spinner" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="phone"
+            android:backgroundTint="@android:color/transparent"
+            android:tag="@string/com_lamudi_phonefield_edittext"
+            android:textColor="@color/pf_grey" />
+
+    </LinearLayout>
+</merge>
