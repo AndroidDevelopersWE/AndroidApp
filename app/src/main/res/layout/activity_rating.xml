@@ -155,7 +155,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_12sdp"
                                 android:numStars="5"
-                                android:progressDrawable="@drawable/dr_rating_bar"
+                                android:progressDrawable="@drawable/dr_rating_bar_black"
                                 android:rating="5"
                                 android:stepSize="0.5" />
                         </LinearLayout>
@@ -185,7 +185,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_12sdp"
                                 android:numStars="5"
-                                android:progressDrawable="@drawable/dr_rating_bar"
+                                android:progressDrawable="@drawable/dr_rating_bar_black"
                                 android:rating="5"
                                 android:stepSize="0.5" />
                         </LinearLayout>
@@ -215,7 +215,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_12sdp"
                                 android:numStars="5"
-                                android:progressDrawable="@drawable/dr_rating_bar"
+                                android:progressDrawable="@drawable/dr_rating_bar_black"
                                 android:rating="5"
                                 android:stepSize="0.5" />
                         </LinearLayout>

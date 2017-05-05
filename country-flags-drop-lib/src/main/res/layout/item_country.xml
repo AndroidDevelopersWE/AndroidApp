@@ -15,7 +15,7 @@
         android:layout_height="@dimen/flag_size"
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
-        android:background="@drawable/country_flag_ai" />
+        />
 
     <TextView
         android:id="@+id/name"

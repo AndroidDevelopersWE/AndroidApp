@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,15 +25,21 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 
 public class CareferPolicyActivity extends BaseActivity {
-
+    TextView tv_title_policy;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carefer_policy);
-
+        tv_title_policy = (TextView) findViewById(R.id.tv_title_policy);
+        SetShaderToViews();
         loading.show();
         APiCareferPolicyDataSaveUser(AppConfig.APiCareferPolicy, "Policy", "", "");
+
+    }
+
+    public void SetShaderToViews() {
+        Utils.gradientTextView(tv_title_policy, activity);
     }
 
     public void APiCareferPolicyDataSaveUser(String URL, final String Type, final String customerMobile, final String isVerified) {

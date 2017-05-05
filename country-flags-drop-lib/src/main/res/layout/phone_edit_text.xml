@@ -8,11 +8,10 @@
         android:orientation="horizontal">
 
         <Spinner
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0"
-            android:background="@drawable/country_flag_ad"
             android:layout_marginRight="10dp"
             android:popupBackground="@color/pf_white"
             android:tag="@string/com_lamudi_phonefield_flag_spinner" />

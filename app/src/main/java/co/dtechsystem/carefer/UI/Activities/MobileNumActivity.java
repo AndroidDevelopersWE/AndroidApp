@@ -30,7 +30,7 @@ public class MobileNumActivity extends BaseActivity {
 
         phoneEditText.setHint(R.string.phone_hint);
         phoneEditText.setDefaultCountry("SA");
-
+        Utils.gradientTextView(submit_button, activity);
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

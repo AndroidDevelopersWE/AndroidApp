@@ -5,17 +5,20 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Utils;
 
 public class MobileNumVerifyActivity extends BaseActivity {
+    Button btn_verify_pin;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_num_verification);
+        btn_verify_pin=(Button)findViewById(R.id.btn_verify_pin);
         SetFocusForEdit();
 
     }
@@ -28,6 +31,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
     }
 
     public void SetFocusForEdit() {
+        Utils.gradientTextView(btn_verify_pin, activity);
         final EditText et_1_verify = (EditText) findViewById(R.id.et_1_verify);
         final EditText et_2_verify = (EditText) findViewById(R.id.et_2_verify);
         final EditText et_3_verify = (EditText) findViewById(R.id.et_3_verify);

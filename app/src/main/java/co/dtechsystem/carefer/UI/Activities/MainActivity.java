@@ -220,13 +220,11 @@ public class MainActivity extends BaseActivity
             target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
             target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
             if (location.distanceTo(target) < 10000) {
-                double angle = 130.0;
-                double x = Math.sin(-angle * Math.PI / 180) * 0.5 + 0.5;
-                double y = -(Math.cos(-angle * Math.PI / 180) * 0.5 - 0.5);
+
 //                marker.setInfoWindowAnchor((float)x, (float)y);
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
-                                Double.parseDouble(shopsList.get(i).getLongitude()))).anchor((float) x, (float) y).icon(icon));
+                                Double.parseDouble(shopsList.get(i).getLongitude()))).icon(icon));
                 Glide.with(activity)
                         .load(AppConfig.BaseUrlImages + "shop-" + shopsList.get(i).getID() + "/" + shopsList.get(i).getShopImage())
                         .asBitmap()
@@ -284,7 +282,6 @@ public class MainActivity extends BaseActivity
                         }
 //                        }
                         id = shopsList.get(i).getID();
-
                         break;
                     }
                 }

@@ -12,85 +12,151 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
         android:layout_weight="1"
-
         card_view:cardElevation="@dimen/_5sdp">
 
         <LinearLayout
-            android:id="@+id/lay_shop_item"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <LinearLayout
-                android:id="@+id/lay_shops_names"
+                android:id="@+id/lay_shop_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorCreamDark"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
+                <RelativeLayout
+                    android:layout_width="@dimen/_110sdp"
+                    android:layout_height="match_parent">
 
-                <RatingBar
-                    android:id="@+id/rb_shop_shop_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="0"
-                    android:clickable="false"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:progressDrawable="@drawable/dr_rating_bar"
-                    android:rating="5"
-                    android:stepSize="0.5" />
+                    <ProgressBar
+                        android:id="@+id/pg_image_load"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true" />
 
-                <TextView
-                    android:id="@+id/tv_shop_name_shop_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
-                    android:text="@string/dummy_text_list_item"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
-
+                    <ImageView
+                        android:id="@+id/iv_item_top_shops_list"
+                        android:layout_width="@dimen/_110sdp"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+                </RelativeLayout>
 
                 <LinearLayout
-                    android:layout_width="@dimen/_1sdp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:background="@color/colorGrey" />
-
-                <ImageView
-                    android:id="@+id/iv_drop_shop_details"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:background="@android:drawable/arrow_down_float" />
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/lay_shops_names"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
 
+                        <RatingBar
+                            android:id="@+id/rb_shop_shop_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="0"
+                            android:clickable="false"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressDrawable="@drawable/dr_rating_bar_yellow"
+                            android:rating="2"
+                            android:stepSize="0.5" />
+
+                        <TextView
+                            android:id="@+id/tv_shop_name_shop_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:maxLines="1"
+                            android:padding="@dimen/_10sdp"
+                            android:text="@string/dummy_text_list_item"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:background="@color/colorGrey" />
+
+                        <LinearLayout
+                            android:id="@+id/lay_expand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/iv_drop_shop_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:background="@android:drawable/arrow_down_float" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/colorDustyGrey" />
+
+                    <TextView
+                        android:id="@+id/tv_service_type_shop_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="right"
+                        android:maxLines="1"
+                        android:text="@string/prompt_service"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_13sdp"
+                        android:textStyle="normal"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tv_type_shop_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:background="@color/colorCreamDark"
+                        android:maxLength="18"
+                        android:maxLines="1"
+                        android:padding="@dimen/_2sdp"
+                        android:scrollHorizontally="true"
+                        android:text="@string/lorem_ispum"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_8sdp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_2sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:gravity="top"
+                        android:text="2.5 km"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
             </LinearLayout>
 
-
-            <TextView
-                android:id="@+id/tv_service_type_shop_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="@dimen/_2sdp"
-                android:layout_marginRight="@dimen/_2sdp"
-                android:gravity="center"
-                android:maxLines="1"
-                android:text="@string/prompt_service"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/_13sdp"
-                android:textStyle="normal"
-                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/lay_details"
@@ -99,28 +165,149 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/tv_desc_shop_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="@color/colorCreamDark"
-                    android:maxLines="6"
-                    android:padding="@dimen/_10sdp"
-                    android:scrollHorizontally="true"
-                    android:text="@string/lorem_ispum"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_8sdp" />
-
-                <Button
-                    android:id="@+id/btn_details_shops_list"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:background="@color/colorPrimary"
-                    android:text="@string/shop_details"
-                    android:textSize="@dimen/_15sdp" />
+                    android:background="@color/colorCreamDark"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorLightBlue"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_2sdp">
+
+
+                        <RatingBar
+                            android:id="@+id/rb_shop_large__shop_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="0"
+                            android:clickable="false"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressDrawable="@drawable/dr_rating_bar_yellow"
+                            android:rating="2"
+                            android:stepSize="0.5" />
+
+                        <TextView
+                            android:id="@+id/tv_shop_name_large_shop_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:maxLines="1"
+                            android:padding="@dimen/_10sdp"
+                            android:text="@string/dummy_text_list_item"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_13sdp"
+                            android:textStyle="bold" />
+
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:background="@color/colorGrey" />
+
+                        <LinearLayout
+                            android:id="@+id/lay_collapse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/iv_drop_details_shop_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:background="@android:drawable/arrow_down_float" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_130sdp"
+                            android:layout_height="match_parent">
+
+                            <ProgressBar
+                                android:id="@+id/pg_image_load_large_shops"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true" />
+
+                            <ImageView
+                                android:id="@+id/iv_shop_detail_large_expand"
+                                android:layout_width="@dimen/_130sdp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/_5sdp"
+                                android:scaleType="centerCrop" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_desc_shop_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_weight="1"
+                                android:background="@color/colorCreamDark"
+                                android:maxLines="6"
+                                android:padding="@dimen/_5sdp"
+                                android:scrollHorizontally="true"
+                                android:text="@string/lorem_ispum"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="@dimen/_2sdp"
+                                    android:gravity="center"
+                                    android:text="2.5 km"
+                                    android:textSize="@dimen/_12sdp"
+                                    android:textStyle="bold" />
+
+                                <Button
+                                    android:id="@+id/btn_details_shops_list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_gravity="right"
+                                    android:layout_marginBottom="@dimen/_10sdp"
+                                    android:layout_marginLeft="@dimen/_15sdp"
+                                    android:layout_marginRight="@dimen/_10sdp"
+                                    android:background="@drawable/dr_btn_orange"
+                                    android:text="@string/shop_details"
+                                    android:textColor="@android:color/white"
+                                    android:textSize="@dimen/_10sdp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

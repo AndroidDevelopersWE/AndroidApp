@@ -150,7 +150,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:isIndicator="true"
                             android:numStars="5"
-                            android:progressDrawable="@drawable/dr_rating_bar"
+                            android:progressDrawable="@drawable/dr_rating_bar_black"
                             android:rating="5"
                             android:stepSize="0.5" />
                     </LinearLayout>

@@ -27,21 +27,21 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import co.dtechsystem.carefer.R;
-import de.hdodenhof.circleimageview.CircleImageView;
+import co.dtechsystem.carefer.Utils.CircleTransform;
 import jp.wasabeef.blurry.Blurry;
 
 public class OrderNowActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
     String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType, mshopImage;
     ImageView iv_shop_image_blur;
-    CircleImageView iv_shop_profile;
+    ImageView iv_shop_profile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_now);
         iv_shop_image_blur = (ImageView) findViewById(R.id.iv_shop_image_blur);
-        iv_shop_profile = (CircleImageView) findViewById(R.id.iv_shop_profile);
+        iv_shop_profile = (ImageView) findViewById(R.id.iv_shop_profile);
 
         SetUpLeftbar();
         GetDataForViews();
@@ -67,6 +67,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 //                    .into(iv_shop_image_blur);
             aQuery.find(R.id.pg_shop_image_blur).visibility(View.VISIBLE);
             Glide.with(activity).load(mshopImage)
+                    .transform(new CircleTransform(activity))
                     .into(iv_shop_profile);
             Glide.with(activity)
                     .load(mshopImage)

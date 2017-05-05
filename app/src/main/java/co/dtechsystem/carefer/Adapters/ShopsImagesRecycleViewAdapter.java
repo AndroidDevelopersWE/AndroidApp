@@ -21,7 +21,6 @@ import co.dtechsystem.carefer.Models.ShopsDetailsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
-
 public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsImagesRecycleViewAdapter.ViewHolder> {
     private List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails;
     private int lastPosition;
