@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@android:color/white"
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -60,6 +60,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_title_shop_details"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -82,30 +83,23 @@
             android:id="@+id/lay_full_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
             android:orientation="vertical"
             android:visibility="gone">
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:elevation="3dp"
-                app:cardElevation="@dimen/_7sdp">
 
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center" />
+
+
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
 
-
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center" />
                     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
                         android:id="@+id/pager"
                         android:layout_width="match_parent"
@@ -113,14 +107,14 @@
 
 
                 </RelativeLayout>
-            </android.support.v7.widget.CardView>
+
 
 
             <HorizontalScrollView
                 android:id="@+id/hor_scr"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicator"
@@ -165,7 +159,7 @@
                             android:maxLines="1"
 
                             android:text="@string/dummy_text_list_item"
-                            android:textColor="@android:color/white"
+                            android:textColor="@android:color/black"
                             android:textSize="@dimen/_14sdp"
                             android:textStyle="bold" />
 
@@ -186,7 +180,7 @@
                         android:gravity="right"
                         android:maxLines="1"
                         android:text="@string/dummy_text_list_details"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@android:color/black"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold" />
 
@@ -199,7 +193,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:progressDrawable="@drawable/dr_rating_bar_white"
+                        android:progressDrawable="@drawable/dr_rating_bar_yellow"
                         android:rating="5"
                         android:stepSize="0.5" />
                 </LinearLayout>
@@ -229,7 +223,6 @@
                     android:layout_marginRight="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="1"
-                    android:background="@color/colorPrimary"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.RecyclerView
@@ -249,7 +242,7 @@
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp"
                             android:text="@string/privacy_policy_details"
-                            android:textColor="@android:color/white"
+                            android:textColor="@android:color/black"
                             android:textSize="@dimen/_12sdp" />
                     </ScrollView>
                 </LinearLayout>
@@ -265,19 +258,25 @@
                 android:layout_height="wrap_content"
 
                 android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_70sdp"
+                android:layout_marginRight="@dimen/_70sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:layout_weight="0"
-                android:background="@android:color/white"
+                android:padding="@dimen/_10sdp"
+                android:background="@drawable/dr_btn_orange_angle_90"
                 android:clickable="true"
                 android:onClick="GotoShopDetailsOrder"
                 android:text="@string/btn_order"
                 android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/dr_grey_bottom" />
         </LinearLayout>
 
     </LinearLayout>

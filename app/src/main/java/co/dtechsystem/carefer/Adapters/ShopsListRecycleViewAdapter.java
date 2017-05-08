@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +43,16 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     private int lastPosition;
     Activity activity;
     Boolean expand;
+    LatLng mLatlngCurrent;
 
-    public ShopsListRecycleViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList) {
+    public ShopsListRecycleViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList,
+                                       LatLng mLatlngCurrent) {
         this._ShopslistRecordList = _ShopslistRecordList;
         this._ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
         this._ShopslistRecordListFilter.addAll(_ShopslistRecordList);
         this.activity = activity;
         this.expand = false;
+        this.mLatlngCurrent = mLatlngCurrent;
     }
 
     @Override
@@ -93,13 +98,13 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 //                    collapse(holder.lay_details);
 //                    expand = false;
 //                } else {
-                holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_up_float));
-                holder.iv_drop_details_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_up_float));
+                holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(R.drawable.ic_arrow_up));
+                holder.iv_drop_details_shop_details.setBackground(activity.getResources().getDrawable(R.drawable.ic_arrow_up));
                 holder.lay_shop_item.setVisibility(View.GONE);
 //                    holder.lay_shops_names.setBackgroundColor(activity.getResources().getColor(R.color.colorLightBlue));
                 expand = true;
                 int i = (int) activity.getResources().getDimension(R.dimen._150sdp);
-                expand(holder.lay_details, 1000, i,holder);
+                expand(holder.lay_details, 1000, i, holder);
 
 //                }
             }
@@ -109,9 +114,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             public void onClick(View v) {
 //                if (expand) {
 //                    holder.lay_shops_names.setBackgroundColor(activity.getResources().getColor(R.color.colorCreamDark));
-                holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));
-                holder.iv_drop_details_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));
-                int i = (int) activity.getResources().getDimension(R.dimen._150sdp);
+                holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(R.drawable.ic_arrow_down));
+                holder.iv_drop_details_shop_details.setBackground(activity.getResources().getDrawable(R.drawable.ic_arrow_down));
+//                int i = (int) activity.getResources().getDimension(R.dimen._150sdp);
                 collapse(holder.lay_details, holder);
 
 //                holder.lay_details.setVisibility(View.GONE);
@@ -134,6 +139,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/" + _ShopslistRecordList.get(position)
                     .getShopImage())
                     .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
+                    .error(activity.getResources().getDrawable(R.drawable.ic_img_place_holder))
 //                    .placeholder(android.R.drawable.progress_indeterminate_horizontal)
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
@@ -159,10 +165,12 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/" + _ShopslistRecordList.get(position)
                     .getShopImage())
                     .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
+                    .error(activity.getResources().getDrawable(R.drawable.ic_img_place_holder))
 //                    .placeholder(android.R.drawable.progress_indeterminate_horizontal)
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                            e.printStackTrace();
                             holder.pg_image_load_large_shops.setVisibility(View.GONE);
                             return false;
                         }
@@ -174,13 +182,37 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                         }
                     })
                     .into(holder.iv_shop_detail_large_expand);
+            try {
+
+                if (mLatlngCurrent != null) {
+                    Location curentLocation = new Location("");
+                    curentLocation.setLatitude(mLatlngCurrent.latitude);
+                    curentLocation.setLongitude(mLatlngCurrent.longitude);
+
+                    Location destination = new Location("");
+                    destination.setLatitude(Double.parseDouble(_ShopslistRecordList.get(position).getLatitude()));
+                    destination.setLongitude(Double.parseDouble(_ShopslistRecordList.get(position).getLongitude()));
+
+                    double distanceInMeters = curentLocation.distanceTo(destination)/1000;
+//                    DecimalFormat newFormat = new DecimalFormat("#####");
+//                    double kmInDec = Float.valueOf(newFormat.format(distanceInMeters));
+                    distanceInMeters = Math.round(distanceInMeters*10)/10.0d;
+                    holder.tv_distance_item.setText(distanceInMeters + " km");
+                    holder.tv_distance_details.setText(distanceInMeters + " km");
+                }
+            } catch (Exception e) {
+                holder.tv_distance_item.setText("0 km");
+                holder.tv_distance_details.setText("0 km");
+                e.printStackTrace();
+            }
 
         }
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_shop_name_shop_list, tv_service_type_shop_list, tv_desc_shop_list, tv_shop_name_large_shop_list;
+        public TextView tv_shop_name_shop_list, tv_service_type_shop_list, tv_desc_shop_list, tv_shop_name_large_shop_list,
+                tv_distance_item, tv_distance_details;
         public RatingBar rb_shop_shop_list, rb_shop_large__shop_list;
         LinearLayout lay_shop_item, lay_shops_names, lay_details, lay_expand, lay_collpase;
         ImageView iv_fav_shop_list, iv_drop_shop_details, iv_item_top_shops_list, iv_drop_details_shop_details,
@@ -210,7 +242,8 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             pg_image_load = (ProgressBar) v.findViewById(R.id.pg_image_load);
             pg_image_load_large_shops = (ProgressBar) v.findViewById(R.id.pg_image_load_large_shops);
             tv_shop_name_large_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_large_shop_list);
-
+            tv_distance_item = (TextView) v.findViewById(R.id.tv_distance_item);
+            tv_distance_details = (TextView) v.findViewById(R.id.tv_distance_details);
 
         }
 
@@ -322,11 +355,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         });
         valueAnimator.setInterpolator(new DecelerateInterpolator());
         valueAnimator.setDuration(duration);
-        valueAnimator.addListener(new AnimatorListenerAdapter()
-        {
+        valueAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationEnd(Animator animation)
-            {
+            public void onAnimationEnd(Animator animation) {
                 holder.lay_shop_item.setVisibility(View.GONE);
             }
         });

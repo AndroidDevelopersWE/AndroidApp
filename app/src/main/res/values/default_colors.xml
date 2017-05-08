@@ -5,9 +5,10 @@
     <color name="colorGreylight">#eee6e5</color>
     <color name="colorLightBlue">#ecf4f7</color>
     <color name="colorCreamDark">#f8f8f8</color>
-    <color name="colorHeliotrope">#b867fd</color>
+    <color name="colorHeliotrope">#705406</color>
     <color name="colorMandy">#ed5c74</color>
     <color name="colorDustyGrey">#a59c9d</color>
     <color name="colorOrange">#ff5702</color>
     <color name="colorDarkOrange">#d06900</color>
+    <color name="colorChelseaGem">#955a02</color>
 </resources>

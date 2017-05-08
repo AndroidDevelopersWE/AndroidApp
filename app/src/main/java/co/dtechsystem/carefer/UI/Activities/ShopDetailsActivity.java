@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,6 +38,7 @@ import co.dtechsystem.carefer.Adapters.ShopsImagesRecycleViewAdapter;
 import co.dtechsystem.carefer.Models.ShopsDetailsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 import me.relex.circleindicator.CircleIndicator;
 
 public class ShopDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,6 +55,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     ShopsImagesPagerAdapter mShopsImagesPagerAdapter;
     ViewPager mViewPager;
     String responsePublic;
+    TextView tv_title_shop_details;
 
     @Override
 
@@ -62,8 +65,10 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         lay_full_image = (LinearLayout) findViewById(R.id.lay_full_image);
         lay_shop_details = (LinearLayout) findViewById(R.id.lay_shop_details);
         rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
+        tv_title_shop_details = (TextView) findViewById(R.id.tv_title_shop_details);
 
         SetUpLeftbar();
+        SetShaderToViews();
         mIntent = getIntent();
         if (mIntent != null) {
             mShopID = mIntent.getStringExtra("ShopID");
@@ -74,6 +79,9 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     }
 
+    public void SetShaderToViews() {
+        Utils.gradientTextView(tv_title_shop_details, activity);
+    }
 //    public static void getRecylerPosition(int position) {
 //        ShopDetailsActivity shopDetailsActivit = new ShopDetailsActivity();
 //        shopDetailsActivit.initPagerImages(position);

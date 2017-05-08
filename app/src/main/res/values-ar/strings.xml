@@ -64,7 +64,7 @@
     <string name="share_via_snap">شارك على سناب شات</string>
     <string name="my_details">تفاصيلي</string>
     <string name="shop_details">تسوق التفاصيل</string>
-    <string name="shops_list">قائمة التسوق</string>
+    <string name="shops_list">قائمة المحلات</string>
     <string name="prompt_service">نوع الخدمة</string>
     <string name="prompt_car_brand">ماركة السيارة</string>
     <string name="riyadh_saduia">رياض, سعودي عربية</string>
@@ -119,4 +119,7 @@
     <string name="phone_hint">رقم الهاتف المحمول</string>
     <string name="invalid_phone_number">يرجى إدخال رقم هاتف صالح</string>
     <string name="cb_accept_policy">Accept Policy/قبول السياسة</string>
+    <string name="tv_total_results"> عدد النتائج</string>
+    <string name="tv_sorting">فرز</string>
+    <string name="tv_filter">منقي</string>
 </resources>

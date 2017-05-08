@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreylight"
+    android:background="@android:color/white"
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -58,10 +58,12 @@
                         android:layout_gravity="center"
                         android:layout_toRightOf="@+id/lay_dr_btn"
                         android:orientation="horizontal"
+                        android:paddingRight="@dimen/_10sdp"
                         android:visibility="visible">
 
 
                         <TextView
+                            android:id="@+id/tv_title_shops_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
@@ -75,56 +77,46 @@
                             android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
-                        <ImageView
-                            android:id="@+id/iv_search_shops_list"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:layout_weight="0"
-                            android:background="@android:drawable/ic_menu_search"
-                            android:visibility="visible" />
-
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/lay_et_search_shops_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_toRightOf="@+id/lay_dr_btn"
-                        android:orientation="horizontal"
-                        android:visibility="gone">
+                    <!--<LinearLayout-->
+                    <!--android:id="@+id/lay_et_search_shops_list"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_toRightOf="@+id/lay_dr_btn"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:visibility="gone">-->
 
-                        <ImageView
-                            android:id="@+id/iv_search_close_shops_list"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:layout_weight="0"
-                            android:background="@android:drawable/ic_menu_close_clear_cancel" />
+                    <!--<ImageView-->
+                    <!--android:id="@+id/iv_search_close_shops_list"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginRight="@dimen/_10sdp"-->
+                    <!--android:layout_weight="0"-->
+                    <!--android:background="@android:drawable/ic_menu_close_clear_cancel" />-->
 
-                        <EditText
-                            android:id="@+id/et_search_shops_main"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:hint="@string/et_search_shop"
-                            android:imeOptions="actionDone"
-                            android:maxLines="1"
-                            android:padding="@dimen/_15sdp"
-                            android:textColor="@color/colorGrey"
-                            android:textSize="@dimen/_15sdp"
-                            android:textStyle="bold" />
+                    <!--<EditText-->
+                    <!--android:id="@+id/et_search_shops_main"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:gravity="center"-->
+                    <!--android:hint="@string/et_search_shop"-->
+                    <!--android:imeOptions="actionDone"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:padding="@dimen/_15sdp"-->
+                    <!--android:textColor="@color/colorGrey"-->
+                    <!--android:textSize="@dimen/_15sdp"-->
+                    <!--android:textStyle="bold" />-->
 
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
                 </RelativeLayout>
             </LinearLayout>
 
@@ -234,49 +226,181 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="@dimen/_30sdp"
                 android:layout_margin="@dimen/_5sdp"
                 android:background="@drawable/dr_btn_orange_angle_90"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:id="@+id/tv_location_name_shops_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:padding="@dimen/_10sdp"
-                    android:text="@string/riyadh_saduia"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_15sdp" />
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_10sdp">
 
                 <LinearLayout
-                    android:layout_width="@dimen/_1sdp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_weight="0"
-                    android:background="@color/colorGrey" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_weight="0"
-                    android:background="@android:drawable/ic_dialog_map" />
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/tv_total_results_shops_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:maxLines="2"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@string/tv_total_results"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:id="@+id/tv_location_name_shops_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:maxLines="2"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@string/riyadh_saduia"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="0"
+                        android:background="@color/colorGrey" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_weight="0"
+                        android:background="@drawable/ic_my_location" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/colorChelseaGem" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_weight="0"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:drawableRight="@drawable/ic_sorting"
+                        android:gravity="center"
+                        android:text="@string/tv_sorting"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_13sdp" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_weight="0"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:drawableRight="@drawable/ic_filter"
+                        android:gravity="center"
+                        android:text="@string/tv_filter"
+                        android:textColor="@color/colorChelseaGem"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <LinearLayout
+                        android:id="@+id/lay_et_search_shops_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/lay_dr_btn"
+                        android:background="@color/colorChelseaGem"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+
+                        <EditText
+                            android:id="@+id/et_search_shops_main"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:backgroundTint="@android:color/transparent"
+                            android:gravity="center"
+                            android:hint="@string/et_search_shop"
+                            android:imeOptions="actionDone"
+                            android:maxLines="1"
+                            android:padding="@dimen/_8sdp"
+                            android:textColor="@android:color/white"
+                            android:textColorHint="@android:color/white"
+                            android:textSize="@dimen/_11sdp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/iv_search_close_shops_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_weight="0"
+                            android:background="@android:drawable/ic_menu_close_clear_cancel"
+                            android:visibility="gone" />
+
+                        <ImageView
+                            android:id="@+id/iv_search_shops_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:layout_weight="0"
+                            android:background="@drawable/ic_search"
+                            android:visibility="visible" />
+
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_shop_list"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@android:color/white" />
+                android:layout_height="match_parent">
+
+                <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/lay_pull_refresh_shops_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                   >
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_shop_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@android:color/white" />
+                </android.support.v4.widget.SwipeRefreshLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/dr_grey_bottom" />
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

@@ -63,6 +63,7 @@ public class MainActivity extends BaseActivity
     String mPlaceName = "";
     TextView tv_title_main;
     ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
+    LatLng mLatLngCurrent;
 
     @Override
 
@@ -81,8 +82,11 @@ public class MainActivity extends BaseActivity
     }
 
     public void btnExploereClick(View v) {
+        Bundle args = new Bundle();
+        args.putParcelable("LatLngCurrent", mLatLngCurrent);
         Intent i = new Intent(this, ShopsListActivity.class);
         i.putExtra("placeName", mPlaceName);
+        i.putExtra("bundle", args);
         startActivity(i);
     }
 
@@ -112,6 +116,7 @@ public class MainActivity extends BaseActivity
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
                     firstCAll = true;
                     APiGetCurrentAddress(location);
+                    mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
                 }
 //                Locale locale = new Locale("ar");
 //                Geocoder gcd = new Geocoder(getBaseContext(), locale);

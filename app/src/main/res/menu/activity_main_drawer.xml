@@ -9,11 +9,11 @@
             android:title="@string/nav_my_details" />
         <item
             android:id="@+id/nav_my_orders"
-            android:icon="@drawable/ic_my_order_nav"
+            android:icon="@drawable/ic_orders_details_nav"
             android:title="@string/nav_my_orders" />
         <item
             android:id="@+id/nav_fav_shops"
-            android:icon="@drawable/ic_fav_shops_nav"
+            android:icon="@drawable/ic_favorite_nav"
             android:title="@string/nav_fav_shop" />
         <item
             android:id="@+id/nav_share"

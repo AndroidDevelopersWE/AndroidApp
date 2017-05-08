@@ -107,5 +107,8 @@
 
     <string name="invalid_phone_number">Please enter a valid phone number</string>
     <string name="cb_accept_policy">Accept Policy</string>
+    <string name="tv_total_results">Total Results 60</string>
+    <string name="tv_sorting">Sort</string>
+    <string name="tv_filter">Filter</string>
 
 </resources>
