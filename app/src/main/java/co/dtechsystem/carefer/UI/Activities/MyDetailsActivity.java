@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,18 +28,53 @@ import java.util.Map;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class MyDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
     String mcustomerName, mcustomerMobile;
 
+    TextView tv_title_my_details, tv_mobile_number_my_details, tv_name_my_details, tv_car_brand_my_details,
+            tv_car_model_my_details, tv_last_oil_my_details;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_details);
+        initializeViews();
         SetUpLeftbar();
         loading.show();
         APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "");
+    }
+
+    public void SetData() {
+        String et_car_brand_my_details = Utils.readPreferences(activity, "CustomerCarBrand", "");
+        String et_car_model_my_details = Utils.readPreferences(activity, "CustomerCarModel", "");
+        String et_last_oil_my_details = Utils.readPreferences(activity, "CustomerCarOilChange", "");
+        aQuery.find(R.id.et_car_brand_my_details).text(et_car_brand_my_details);
+        aQuery.find(R.id.et_car_model_my_details).text(et_car_model_my_details);
+        aQuery.find(R.id.et_last_oil_my_details).text(et_last_oil_my_details);
+    }
+
+    public void initializeViews() {
+        tv_title_my_details = (TextView) findViewById(R.id.tv_title_my_details);
+        tv_mobile_number_my_details = (TextView) findViewById(R.id.tv_mobile_number_my_details);
+        tv_name_my_details = (TextView) findViewById(R.id.tv_name_my_details);
+        tv_car_brand_my_details = (TextView) findViewById(R.id.tv_car_brand_my_details);
+        tv_car_model_my_details = (TextView) findViewById(R.id.tv_car_model_my_details);
+        tv_last_oil_my_details = (TextView) findViewById(R.id.tv_last_oil_my_details);
+
+        SetShaderToViews();
+
+    }
+
+    public void SetShaderToViews() {
+        Utils.gradientTextViewLong(tv_title_my_details, activity);
+        Utils.gradientTextViewShort(tv_mobile_number_my_details, activity);
+        Utils.gradientTextViewShort(tv_name_my_details, activity);
+        Utils.gradientTextViewShort(tv_car_brand_my_details, activity);
+        Utils.gradientTextViewShort(tv_car_model_my_details, activity);
+        Utils.gradientTextViewShort(tv_last_oil_my_details, activity);
     }
 
     public void SetUpLeftbar() {
@@ -51,9 +87,17 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
         String customerName = aQuery.find(R.id.et_user_name_my_details).getText().toString();
         String customerMobile = aQuery.find(R.id.et_mobile_my_details).getText().toString();
-        if (customerName.equals("") || customerMobile.equals("")) {
+
+        String et_car_brand_my_details = aQuery.find(R.id.et_car_brand_my_details).getText().toString();
+        String et_car_model_my_details = aQuery.find(R.id.et_car_model_my_details).getText().toString();
+        String et_last_oil_my_details = aQuery.find(R.id.et_last_oil_my_details).getText().toString();
+        if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
+                et_car_model_my_details.equals("") || et_last_oil_my_details.equals("")) {
             showToast("Please enter values");
         } else {
+            Utils.savePreferences(activity, "CustomerCarBrand", et_car_brand_my_details);
+            Utils.savePreferences(activity, "CustomerCarModel", et_car_model_my_details);
+            Utils.savePreferences(activity, "CustomerCarOilChange", et_last_oil_my_details);
             loading.show();
             APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify);
         }
@@ -77,6 +121,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                 mcustomerMobile = jsonObject1.getString("customerMobile");
                                 aQuery.find(R.id.et_user_name_my_details).text(mcustomerName);
                                 aQuery.find(R.id.et_mobile_my_details).text(mcustomerMobile);
+                                SetData();
                                 loading.close();
                             } else {
                                 showToast("Updated your record...");

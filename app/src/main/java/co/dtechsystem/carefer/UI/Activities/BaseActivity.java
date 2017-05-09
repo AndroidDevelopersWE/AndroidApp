@@ -63,6 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .build()
         );
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         gson = new Gson();
         aQuery = new AQuery(this);
         activity = this;
@@ -88,23 +89,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         resources.updateConfiguration(configuration, displayMetrics);
     }
 
-    public void changetoAr(View v) {
-        Locale locale = new Locale("ar");
-        Resources resources = getResources();
-        Configuration configuration = resources.getConfiguration();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        configuration.setLocale(locale);
-        resources.updateConfiguration(configuration, displayMetrics);
-    }
-
-    public void changetoEn(View v) {
-        Locale locale = new Locale("en");
-        Resources resources = getResources();
-        Configuration configuration = resources.getConfiguration();
-        DisplayMetrics displayMetrics = resources.getDisplayMetrics();
-        configuration.setLocale(locale);
-        resources.updateConfiguration(configuration, displayMetrics);
-    }
 
     protected void CloseActivity(View v) {
         finish();

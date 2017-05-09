@@ -37,7 +37,7 @@
     <string name="your_mobile">Your Mobile Number</string>
     <string name="your_name">Your Name</string>
     <string name="btn_save">Save</string>
-    <string name="btn_save_changes">Save Changes</string>
+    <string name="btn_save_changes">Save</string>
     <string name="share_app_tv">Share The App</string>
     <string name="lorem_ispum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived  </string>
     <string name="share_via_fb">Share via Facebook</string>
@@ -110,5 +110,9 @@
     <string name="tv_total_results">Total Results 60</string>
     <string name="tv_sorting">Sort</string>
     <string name="tv_filter">Filter</string>
+    <string name="tv_car_brand">Car Brand</string>
+    <string name="tv_car_model">Car Model</string>
+    <string name="tv_last_changed_oil">Last Changed Oil</string>
+    <string name="tv_title_top_a_map">Map</string>
 
 </resources>

@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreylight"
+    android:background="@android:color/white"
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -57,15 +57,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_toRightOf="@+id/lay_dr_btn"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
+
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_title_my_details"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/_20sdp"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_15sdp"
                             android:text="@string/my_details"
@@ -73,6 +75,19 @@
                             android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="right"
+                            android:layout_weight="0"
+                            android:gravity="right"
+                            android:padding="@dimen/_15sdp"
+                            android:text="@string/tv_title_top_a_map"
+                            android:textColor="@color/colorGrey"
+                            android:textSize="@dimen/_15sdp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -88,99 +103,170 @@
             android:layout_below="@+id/cv_main_top"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/dr_btn_orange_angle_90"
+                android:gravity="center"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/my_details"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp" />
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_10sdp"
-                android:layout_weight="1"
                 android:background="@android:color/white"
-                card_view:cardElevation="@dimen/_5sdp">
+                android:orientation="vertical">
 
-                <LinearLayout
+
+                <TextView
+                    android:id="@+id/tv_mobile_number_my_details"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/white"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/your_mobile"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <EditText
+                    android:id="@+id/et_mobile_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_corner_black"
+                    android:drawableRight="@drawable/ic_edit"
+                    android:gravity="left"
+                    android:hint="@string/phone_eg"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:padding="@dimen/_7sdp"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/tv_name_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/your_name"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
 
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="@dimen/_10sdp"
-                        android:text="@string/your_mobile"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_18sdp"
-                        android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/et_user_name_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_corner_black"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:gravity="right"
+                    android:hint="@string/your_name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_7sdp"
+                    android:textColor="@android:color/black" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorGrey" />
-
-                    <EditText
-                        android:id="@+id/et_mobile_my_details"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:background="@drawable/dr_corner_view_straight"
-                        android:drawableRight="@drawable/ic_edit"
-                        android:gravity="left"
-                        android:hint="@string/phone_eg"
-                        android:inputType="phone"
-                        android:maxLines="1"
-                        android:padding="@dimen/_5sdp"
-                        android:textColor="@android:color/black" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/your_name"
-
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_18sdp"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_car_brand_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/tv_car_brand"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
 
 
-                    <EditText
-                        android:id="@+id/et_user_name_my_details"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_10sdp"
-                        android:background="@drawable/dr_corner_view_straight"
-                        android:drawableRight="@drawable/ic_edit"
-                        android:gravity="left"
-                        android:hint="@string/your_name"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:padding="@dimen/_5sdp"
-                        android:textColor="@android:color/black" />
+                <EditText
+                    android:id="@+id/et_car_brand_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_corner_black"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:gravity="right"
+                    android:hint="@string/tv_car_brand"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_7sdp"
+                    android:textColor="@android:color/black" />
 
-                    <Button
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_40sdp"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:background="@drawable/dr_btn_orange"
-                        android:clickable="true"
-                        android:onClick="submitUserData"
-                        android:text="@string/btn_save_changes"
-                        android:textAllCaps="false"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_17sdp"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/tv_car_model_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/tv_car_model"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
 
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
+
+                <EditText
+                    android:id="@+id/et_car_model_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_corner_black"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:gravity="right"
+                    android:hint="@string/tv_car_model"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_7sdp"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/tv_last_oil_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/tv_last_changed_oil"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+
+                <EditText
+                    android:id="@+id/et_last_oil_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_corner_black"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:gravity="right"
+                    android:editable="false"
+                    android:hint="@string/tv_last_changed_oil"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:padding="@dimen/_7sdp"
+                    android:textColor="@android:color/black" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_80sdp"
+                    android:layout_marginRight="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/dr_btn_orange_angle_180"
+                    android:clickable="true"
+                    android:onClick="submitUserData"
+                    android:text="@string/btn_save_changes"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_17sdp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_15sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="0"
+            android:background="@drawable/dr_grey_bottom" />
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView

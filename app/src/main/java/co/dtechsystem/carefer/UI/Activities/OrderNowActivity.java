@@ -2,7 +2,6 @@ package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,42 +9,62 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import co.dtechsystem.carefer.R;
-import co.dtechsystem.carefer.Utils.CircleTransform;
+import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
+import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.blurry.Blurry;
 
 public class OrderNowActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
     String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType, mshopImage;
     ImageView iv_shop_image_blur;
-    ImageView iv_shop_profile;
+    CircleImageView iv_shop_profile;
+    TextView tv_title_order_now;
+    int morderID;
+    boolean mOrderPlaced;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_now);
         iv_shop_image_blur = (ImageView) findViewById(R.id.iv_shop_image_blur);
-        iv_shop_profile = (ImageView) findViewById(R.id.iv_shop_profile);
-
+        iv_shop_profile = (CircleImageView) findViewById(R.id.iv_shop_profile);
+        tv_title_order_now = (TextView) findViewById(R.id.tv_title_order_now);
+        mOrderPlaced = false;
+        SetShaderToViews();
         SetUpLeftbar();
         GetDataForViews();
         SetdataToViews();
+    }
+
+    public void SetShaderToViews() {
+        Utils.gradientTextViewLong(tv_title_order_now, activity);
     }
 
     // Get Views Data
@@ -63,11 +82,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 
     public void SetdataToViews() {
         if (mshopImage != null && !mModelsId.equals("")) {
-//            Glide.with(this).load(mshopImage)
-//                    .into(iv_shop_image_blur);
             aQuery.find(R.id.pg_shop_image_blur).visibility(View.VISIBLE);
             Glide.with(activity).load(mshopImage)
-                    .transform(new CircleTransform(activity))
                     .into(iv_shop_profile);
             Glide.with(activity)
                     .load(mshopImage)
@@ -99,33 +115,72 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
-    public Bitmap getBitmapFromURL(String src) {
-        try {
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            final Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    aQuery.find(R.id.pg_shop_image_blur).visibility(View.GONE);
-                    Blurry.with(activity).from(myBitmap).into(iv_shop_image_blur);
-                }
-            });
+    public void APiPlaceOrder(final String UserId, final String shopID, final String serviceID, final String brandID,
+                              final String modelID, final String orderType, final String customerMobileNo) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiSaveOrder,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            morderID = jsonObject.getInt("orderID");
+                            if (morderID != 0) {
 
-            return myBitmap;
-        } catch (IOException e) {
-            aQuery.find(R.id.pg_shop_image_blur).visibility(View.GONE);
-            e.printStackTrace();
-            return null;
-        }
+                                showToast("Your Order Placed.");
+                                mOrderPlaced = true;
+                            }
+                        } catch (JSONException e) {
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            loading.close();
+                            e.printStackTrace();
+                        }
+                        loading.close();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        // error
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("customerID", UserId);
+                params.put("shopID", shopID);
+                params.put("serviceTypeID", serviceID);
+                params.put("brandID", brandID);
+                params.put("modelID", modelID);
+                params.put("orderType", orderType);
+                params.put("customerMobileNo", customerMobileNo);
+
+
+                return params;
+            }
+        };
+// add it to the RequestQueue
+        queue.add(postRequest);
     }
 
     public void CAllToShop(View V) {
+
+        if (mOrderPlaced == false) {
+            if (morderType != null && morderType.equals("navigate")) {
+            } else {
+                morderType = "call";
+            }
+            loading.show();
+            APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
+        }
         try {
-            morderType = "call";
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:0123456789"));
             startActivity(intent);
@@ -135,19 +190,18 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     }
 
     public void DirectionsToShop(View v) {
-        if (morderType != null && !morderType.equals("")) {
-        } else {
-            morderType = "navigate";
+        if (mOrderPlaced == false) {
+            if (morderType != null && !morderType.equals("navigate")) {
+            } else {
+                morderType = "navigate";
+            }
+            loading.show();
+            APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
         }
-
         Intent i = new Intent(this, NavigationsActivity.class);
         i.putExtra("latitude", mlatitude);
         i.putExtra("longitude", mlongitude);
         i.putExtra("shopID", mshopID);
-        i.putExtra("serviceID", mServicesId);
-        i.putExtra("brandID", mBrandsId);
-        i.putExtra("modelID", mModelsId);
-        i.putExtra("orderType", morderType);
         startActivity(i);
     }
 

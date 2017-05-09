@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,6 +31,7 @@ import java.util.List;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
@@ -40,15 +42,21 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     String mServicesId, mBrandsId, mModelsId;
     List listservices = new ArrayList();
     List brands = new ArrayList();
+    TextView tv_title_shops_details_order;
 
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details_order);
+        tv_title_shops_details_order=(TextView)findViewById(R.id.tv_title_shops_details_order);
+        SetShaderToViews();
         SetUpLeftbar();
         GetDataForViews();
         SetDataTOViews();
+    }
+    public void SetShaderToViews() {
+        Utils.gradientTextView(tv_title_shops_details_order, activity);
     }
 
     // Get Views Data
@@ -110,7 +118,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                     mServicesIdArray.add(jsonObject.getString("ID"));
 
                                 }
-                                ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, listservices);
+                                ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listservices);
                                 aQuery.id(R.id.sp_srvice_type_shop_details_order).adapter(StringdataAdapter);
                                 JSONArray brandsData = response.getJSONArray("shopBrands");
                                 for (int i = 0; i < brandsData.length(); i++) {
@@ -118,7 +126,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                     brands.add(jsonObject.getString("brandName"));
                                     mBrandsIdArray.add(jsonObject.getString("ID"));
                                 }
-                                ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
+                                ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
                                 aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
                                 APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsOrderModel, "ModelYear");
                             } else {
@@ -130,7 +138,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                     models.add(jsonObject.getString("modelName"));
                                     mModelsIdArray.add(jsonObject.getString("ID"));
                                 }
-                                ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, models);
+                                ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
                                 aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
                                 loading.close();
                                 SetSpinnerListener();
@@ -162,7 +170,13 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         aQuery.id(R.id.sp_srvice_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    aQuery.id(R.id.lay_service).background(R.drawable.dr_corner_black);
+                } else {
+                    aQuery.id(R.id.lay_service).background(R.drawable.dr_corner_ornage);
+                }
                 mServicesId = mServicesIdArray.get(position);
+
             }
 
             @Override
@@ -173,6 +187,11 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         aQuery.id(R.id.sp_brand_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    aQuery.id(R.id.lay_brands).background(R.drawable.dr_corner_black);
+                } else {
+                    aQuery.id(R.id.lay_brands).background(R.drawable.dr_corner_ornage);
+                }
                 mBrandsId = mBrandsIdArray.get(position);
             }
 
@@ -184,6 +203,12 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         aQuery.id(R.id.sp_car_model_order).itemSelected(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    aQuery.id(R.id.lay_models).background(R.drawable.dr_corner_black);
+                } else {
+                    aQuery.id(R.id.lay_models).background(R.drawable.dr_corner_ornage);
+
+                }
                 mModelsId = mModelsIdArray.get(position);
             }
 

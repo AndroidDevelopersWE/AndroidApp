@@ -76,6 +76,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 getResources().getColor(R.color.colorAccent),
                 getResources().getColor(R.color.colorHeliotrope));
         lay_pull_refresh_shops_list.setOnRefreshListener(this);
+        Utils.hideKeyboard(activity);
         SetShaderToViews();
         SetUpLeftbar();
         loading.show();
@@ -86,7 +87,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     }
 
     public void SetShaderToViews() {
-        Utils.gradientTextView(tv_title_shops_list, activity);
+        Utils.gradientTextViewLong(tv_title_shops_list, activity);
     }
 
     public void setDataToViews() {

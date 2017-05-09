@@ -2,7 +2,6 @@ package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,23 +15,18 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -44,11 +38,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import co.dtechsystem.carefer.Google.DirectionsJSONParser;
 import co.dtechsystem.carefer.R;
-import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class NavigationsActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -57,19 +50,26 @@ public class NavigationsActivity extends BaseActivity
     ArrayList markerPoints = new ArrayList();
     boolean firstCAll = false;
     SupportMapFragment mapFragment;
-    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType;
-    int morderID;
+    String mlatitude, mlongitude, mshopID;
     LatLng mShopLatlng;
+
+    TextView tv_title_navigation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigations);
+        tv_title_navigation = (TextView) findViewById(R.id.tv_title_navigation);
+        SetShaderToViews();
         SetUpLeftbar();
         mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         GetDataForViews();
 
+    }
+
+    public void SetShaderToViews() {
+        Utils.gradientTextViewLong(tv_title_navigation, activity);
     }
 
     // Get Views Data
@@ -78,10 +78,6 @@ public class NavigationsActivity extends BaseActivity
             mlatitude = intent.getStringExtra("latitude");
             mlongitude = intent.getStringExtra("longitude");
             mshopID = intent.getStringExtra("shopID");
-            mServicesId = intent.getStringExtra("serviceID");
-            mBrandsId = intent.getStringExtra("brandID");
-            mModelsId = intent.getStringExtra("modelID");
-            morderType = intent.getStringExtra("orderType");
             if (mlatitude != null && mlongitude != null) {
 
                 mShopLatlng = new LatLng(Double.parseDouble(mlatitude), Double.parseDouble(mlongitude));
@@ -89,67 +85,12 @@ public class NavigationsActivity extends BaseActivity
         }
     }
 
-    public void GotoRatings(View v) {
-        loading.show();
-        APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
+    public void GotoHome(View v) {
+        Intent i = new Intent(activity, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
-
-    public void APiPlaceOrder(final String UserId, final String shopID, final String serviceID, final String brandID,
-                              final String modelID, final String orderType, final String customerMobileNo) {
-        // prepare the Request
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiSaveOrder,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            morderID = jsonObject.getInt("orderID");
-                            if (morderID != 0) {
-                                Intent i = new Intent(activity, MainActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(i);
-                                showToast("Your Order Placed.");
-                            }
-                        } catch (JSONException e) {
-                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
-                            loading.close();
-                            e.printStackTrace();
-                        }
-                        loading.close();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        loading.close();
-                        showToast(getResources().getString(R.string.some_went_wrong));
-                        // error
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        ) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("customerID", UserId);
-                params.put("shopID", shopID);
-                params.put("serviceTypeID", serviceID);
-                params.put("brandID", brandID);
-                params.put("modelID", modelID);
-                params.put("orderType", orderType);
-                params.put("customerMobileNo", customerMobileNo);
-
-
-                return params;
-            }
-        };
-// add it to the RequestQueue
-        queue.add(postRequest);
-    }
 
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -191,6 +132,8 @@ public class NavigationsActivity extends BaseActivity
     }
 
     public void AddMarkerForRoute(final LatLng latLng) {
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_map);
+//        BitmapDescriptor icon2 = BitmapDescriptorFactory.fromResource(R.drawable.ic_location_order);
         if (markerPoints.size() > 1) {
             markerPoints.clear();
             mMap.clear();
@@ -206,9 +149,9 @@ public class NavigationsActivity extends BaseActivity
         options.position(latLng);
 
         if (markerPoints.size() == 1) {
-            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+//            options.icon(icon2);
         } else if (markerPoints.size() == 2) {
-            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+            options.icon(icon);
         }
 
         // Add new marker to the Google Map Android API V2
@@ -305,7 +248,7 @@ public class NavigationsActivity extends BaseActivity
 
                     lineOptions.addAll(points);
                     lineOptions.width(12);
-                    lineOptions.color(Color.BLUE);
+                    lineOptions.color(getResources().getColor(R.color.colorOrange));
                     lineOptions.geodesic(true);
 
                 }

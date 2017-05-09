@@ -173,7 +173,26 @@ public abstract class Utils {
         shader.setLocalMatrix(matrix);
         textView.getPaint().setShader(shader);
     }
+    public static void gradientTextViewLong(TextView textView, Activity activity) {
+        int[] rainbow = getRainbowColors(activity);
+        Shader shader = new LinearGradient(100, 150, 0, 0, rainbow,
+                null, Shader.TileMode.MIRROR);
 
+        Matrix matrix = new Matrix();
+        matrix.setRotate(360);
+        shader.setLocalMatrix(matrix);
+        textView.getPaint().setShader(shader);
+    }
+    public static void gradientTextViewShort(TextView textView, Activity activity) {
+        int[] rainbow = getRainbowColors(activity);
+        Shader shader = new LinearGradient(0, 0, 100, 100, rainbow,
+                null, Shader.TileMode.MIRROR);
+
+        Matrix matrix = new Matrix();
+        matrix.setRotate(360);
+        shader.setLocalMatrix(matrix);
+        textView.getPaint().setShader(shader);
+    }
     private static int[] getRainbowColors(Activity activity) {
         return new int[]{
                 activity.getResources().getColor(R.color.colorMandy),

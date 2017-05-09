@@ -41,6 +41,8 @@ public class ShopsDetailsModel {
         private String latitude = "";
         private String longitude = "";
         private String favourite = "";
+        private String shopImage = "";
+
 
         public String getID() {
             return ID;
@@ -99,6 +101,7 @@ public class ShopsDetailsModel {
         public void setBrands(String brands) {
             this.brands = brands;
         }
+
         public String getLatitude() {
             return latitude;
         }
@@ -121,6 +124,14 @@ public class ShopsDetailsModel {
 
         public void setFavourite(String favourite) {
             this.favourite = favourite;
+        }
+
+        public String getShopImage() {
+            return shopImage;
+        }
+
+        public void setShopImage(String shopImage) {
+            this.shopImage = shopImage;
         }
 
     }
