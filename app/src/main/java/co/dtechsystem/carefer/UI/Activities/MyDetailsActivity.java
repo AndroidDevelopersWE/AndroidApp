@@ -1,15 +1,20 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -23,6 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +43,8 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
     TextView tv_title_my_details, tv_mobile_number_my_details, tv_name_my_details, tv_car_brand_my_details,
             tv_car_model_my_details, tv_last_oil_my_details;
+    Calendar myCalendar = Calendar.getInstance();
+    Calendar myCalendar2 = Calendar.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,15 +56,6 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "");
     }
 
-    public void SetData() {
-        String et_car_brand_my_details = Utils.readPreferences(activity, "CustomerCarBrand", "");
-        String et_car_model_my_details = Utils.readPreferences(activity, "CustomerCarModel", "");
-        String et_last_oil_my_details = Utils.readPreferences(activity, "CustomerCarOilChange", "");
-        aQuery.find(R.id.et_car_brand_my_details).text(et_car_brand_my_details);
-        aQuery.find(R.id.et_car_model_my_details).text(et_car_model_my_details);
-        aQuery.find(R.id.et_last_oil_my_details).text(et_last_oil_my_details);
-    }
-
     public void initializeViews() {
         tv_title_my_details = (TextView) findViewById(R.id.tv_title_my_details);
         tv_mobile_number_my_details = (TextView) findViewById(R.id.tv_mobile_number_my_details);
@@ -63,8 +63,174 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         tv_car_brand_my_details = (TextView) findViewById(R.id.tv_car_brand_my_details);
         tv_car_model_my_details = (TextView) findViewById(R.id.tv_car_model_my_details);
         tv_last_oil_my_details = (TextView) findViewById(R.id.tv_last_oil_my_details);
-
         SetShaderToViews();
+
+    }
+
+    public void SetData() {
+        String et_car_brand_my_details = Utils.readPreferences(activity, "CustomerCarBrand", "");
+        String et_car_model_my_details = Utils.readPreferences(activity, "CustomerCarModel", "");
+        String et_last_oil_my_details = Utils.readPreferences(activity, "CustomerCarOilChange", "");
+        if (!et_car_brand_my_details.equals("")) {
+            aQuery.find(R.id.et_car_brand_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+
+        }
+        if (!et_car_model_my_details.equals("")) {
+            aQuery.find(R.id.et_car_model_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+
+        }
+        if (!et_last_oil_my_details.equals("")) {
+            aQuery.find(R.id.et_last_oil_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+
+        }
+        if (!mcustomerName.equals("")) {
+            aQuery.find(R.id.et_user_name_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+
+        }
+        aQuery.find(R.id.et_car_brand_my_details).text(et_car_brand_my_details);
+        aQuery.find(R.id.et_car_model_my_details).text(et_car_model_my_details);
+        aQuery.find(R.id.et_last_oil_my_details).text(et_last_oil_my_details);
+        aQuery.find(R.id.et_mobile_my_details).getEditText().addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    aQuery.find(R.id.et_mobile_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_edit_hover), null);
+                } else {
+                    aQuery.find(R.id.et_mobile_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.drawable.ic_edit), null);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+
+        });
+        aQuery.find(R.id.et_user_name_my_details).getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    aQuery.find(R.id.et_user_name_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+                } else {
+                    aQuery.find(R.id.et_user_name_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        aQuery.find(R.id.et_car_brand_my_details).getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    aQuery.find(R.id.et_car_brand_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+                } else {
+                    aQuery.find(R.id.et_car_brand_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        aQuery.find(R.id.et_car_model_my_details).getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    aQuery.find(R.id.et_car_model_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+                } else {
+                    aQuery.find(R.id.et_car_model_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        aQuery.find(R.id.et_last_oil_my_details).getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    aQuery.find(R.id.et_last_oil_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+                } else {
+                    aQuery.find(R.id.et_last_oil_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        aQuery.find(R.id.et_last_oil_my_details).getEditText().setInputType(InputType.TYPE_NULL);
+
+        aQuery.find(R.id.et_last_oil_my_details).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.hideKeyboard(activity);
+                ShowDatePicker();
+            }
+        });
+
+
+    }
+
+
+    public void ShowDatePicker() {
+        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, locale);
+
+                aQuery.find(R.id.et_last_oil_my_details).text(sdf.format(myCalendar.getTime()));
+            }
+
+        };
+        new DatePickerDialog(activity, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
 
     }
 
@@ -233,4 +399,6 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

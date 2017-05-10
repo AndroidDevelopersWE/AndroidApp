@@ -53,6 +53,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         this.activity = activity;
         this.expand = false;
         this.mLatlngCurrent = mLatlngCurrent;
+        setHasStableIds(true);
     }
 
     @Override
@@ -253,7 +254,14 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     public int getItemCount() {
         return _ShopslistRecordList.size();
     }
-
+    @Override
+    public long getItemId(int position) {
+        return Long.parseLong(_ShopslistRecordList.get(position).getID());
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
     /**
      * Here is the key method to apply the animation
      */

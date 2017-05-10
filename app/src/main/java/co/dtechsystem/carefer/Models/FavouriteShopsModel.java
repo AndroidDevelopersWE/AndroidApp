@@ -20,9 +20,17 @@ public class FavouriteShopsModel {
     }
 
     public class FavouriteShopsRecord {
-
+        private String shopImage = "";
         private String shopName = "";
+        private String ID = "";
 
+        public String getID() {
+            return ID;
+        }
+
+        public void setID(String ID) {
+            this.ID = ID;
+        }
 
         public String getShopName() {
             return shopName;
@@ -32,6 +40,13 @@ public class FavouriteShopsModel {
             this.shopName = shopName;
         }
 
+        public String getShopImage() {
+            return shopImage;
+        }
+
+        public void setShopImage(String shopImage) {
+            this.shopImage = shopImage;
+        }
 
     }
 }

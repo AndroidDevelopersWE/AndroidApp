@@ -53,7 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static String sRegId;
     public static String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID;
     protected Scaler mScaler;
-
+    Locale locale;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         sUser_Mobile_Varify = Utils.readPreferences(activity, "User_Mobile_varify", "");
         sPrivacy_check = Utils.readPreferences(activity, "User_privacy_check", "");
         sUser_ID = Utils.readPreferences(activity, "User_ID", "");
-        Locale locale = new Locale("ar");
+         locale = new Locale("ar");
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();

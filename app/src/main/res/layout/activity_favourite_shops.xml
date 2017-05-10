@@ -6,7 +6,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGreylight"
+    android:background="@android:color/white"
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -78,51 +78,37 @@
 
         </android.support.v7.widget.CardView>
 
-        <android.support.v7.widget.CardView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/_10sdp"
-            android:layout_weight="1"
-            card_view:cardElevation="@dimen/_5sdp">
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_orange_angle_90_no_corner"
+                android:gravity="center"
+                android:maxLines="1"
+                android:padding="@dimen/_10sdp"
+                android:text="@string/title_fav_shops"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_14sdp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_margin="@dimen/_10sdp">
 
-
-                <TextView
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_fav_shops"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_3sdp"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:padding="@dimen/_10sdp"
-                    android:text="@string/title_fav_shops"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_14sdp"
-                    android:textStyle="bold" />
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-
-                    android:background="@color/colorGrey" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/_5sdp">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_fav_shops"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+
+        </LinearLayout>
 
     </LinearLayout>
 

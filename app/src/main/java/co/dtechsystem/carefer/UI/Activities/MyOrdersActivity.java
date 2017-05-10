@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,19 +28,27 @@ import co.dtechsystem.carefer.Adapters.MyOrdersRecycleViewAdapter;
 import co.dtechsystem.carefer.Models.MyOrdersModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class MyOrdersActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
     DrawerLayout mDrawerLayout;
     static MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
+    TextView tv_title_my_orders;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
+        tv_title_my_orders = (TextView) findViewById(R.id.tv_title_my_orders);
+        SetShaderToViews();
         SetUpLeftbar();
         loading.show();
         APiGetShopslistData();
+    }
+
+    public void SetShaderToViews() {
+        Utils.gradientTextViewShort(tv_title_my_orders, activity);
     }
 
     public void SetListData() {
