@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="end"
-    android:background="@color/colorGreylight"
+    android:background="@android:color/white"
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -58,13 +58,14 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_toRightOf="@+id/lay_dr_btn"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_title_about_us"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/_20sdp"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_15sdp"
                             android:text="@string/title_about_us"
@@ -72,6 +73,19 @@
                             android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="right"
+                            android:layout_weight="0"
+                            android:gravity="right"
+                            android:padding="@dimen/_15sdp"
+                            android:text="@string/tv_title_top_a_map"
+                            android:textColor="@color/colorGrey"
+                            android:textSize="@dimen/_15sdp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -80,87 +94,80 @@
         </android.support.v7.widget.CardView>
 
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/_40sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_weight="1"
-            card_view:cardElevation="@dimen/_5sdp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_orange_angle_90_no_corner"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/title_about_us"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+
+                <ImageView
+                    android:id="@+id/textView"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/ic_large_app"
+                    android:gravity="center"
+                    android:text="@string/app_name"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_20sdp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/tv_how_it_works"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_3sdp"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/lorem_ispum"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:background="@drawable/dr_orange_angle_180_no_corner"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:padding="@dimen/_10sdp"
-                        android:text="@string/title_about_us"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorGrey" />
-
-                    <ImageView
-                        android:id="@+id/textView"
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_100sdp"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/ic_large_app"
-                        android:gravity="center"
-                        android:text="@string/app_name"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_20sdp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_3sdp"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/tv_how_it_works"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_3sdp"
-                        android:gravity="center"
-                        android:padding="@dimen/_5sdp"
-                        android:text="@string/lorem_ispum"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="normal" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:background="#efeeee"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="@dimen/_20sdp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -169,45 +176,97 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:text="@string/tv_contact_details"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="@dimen/_14sdp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_3sdp"
-                        android:gravity="center"
-                        android:padding="@dimen/_2sdp"
-                        android:text="@string/carefer_emial"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
 
-                    <TextView
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_3sdp"
                         android:gravity="center"
-                        android:padding="@dimen/_2sdp"
-                        android:text="@string/carefer_phone"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_mail"
+                            android:gravity="center"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="@string/tv_email_icon"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_3sdp"
+                            android:gravity="center"
+                            android:padding="@dimen/_2sdp"
+                            android:text="@string/carefer_emial"                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_3sdp"
                         android:gravity="center"
-                        android:padding="@dimen/_2sdp"
-                        android:text="@string/carefer_site"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_phone"
+                            android:gravity="center"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="@string/tv_phone_icon"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_3sdp"
+                            android:gravity="center"
+                            android:text="@string/carefer_phone"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:text="@string/tv_website_icon"
+                            android:textColor="@android:color/white"
+                            android:drawableLeft="@drawable/ic_website"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/carefer_site"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#11737070" />
             </LinearLayout>
-        </android.support.v7.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
@@ -220,9 +279,9 @@
         android:layoutDirection="locale"
         android:textDirection="locale"
         android:visibility="visible"
-        app:itemIconTint="@color/colorHeliotrope"
         app:headerLayout="@layout/nav_left_menu"
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
-        app:itemTextColor="@android:color/black"
+        app:itemIconTint="@drawable/dr_tv_selection"
+        app:itemTextColor="@drawable/dr_tv_selection"
         app:menu="@menu/activity_main_drawer" />
 </android.support.v4.widget.DrawerLayout>

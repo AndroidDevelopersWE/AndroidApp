@@ -21,7 +21,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -91,6 +90,23 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     }
 
     public void setDataToViews() {
+        // create spinner list elements
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        adapter.add("توفير الضمان");
+        adapter.add("قدم استبدال الأجزاء");
+        adapter.add("نوع الاختبار");
+        adapter.add("أعلى تصنيف");
+        sp_providers_shop_list.setAdapter(adapter, false, onSelectedListener);
+        // set initial selection
+        boolean[] selectedItems = new boolean[adapter.getCount()];
+        sp_providers_shop_list.setSelected(selectedItems);
+//            aQuery.find(R.id.tv_providers_shop_list).text("مقدمي");
+        aQuery.find(R.id.tv_providers_shop_list).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp_providers_shop_list.performClick();
+            }
+        });
         et_search_shops_main.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -108,8 +124,12 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 }
                 mshopsListRecycleViewAdapter.filterShopsName(s.toString());
                 mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
+                try {
+                    tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
+                } catch (Exception e) {
+                    e.printStackTrace();
 
+                }
             }
 
             @Override
@@ -219,23 +239,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                 }
             }));
-            // create spinner list elements
-            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-            adapter.add("Provide Warranty");
-            adapter.add("Provide Replace Parts");
-            adapter.add("نوع الاختيار");
-            adapter.add("فيتنيس كلوثينغ");
-            sp_providers_shop_list.setAdapter(adapter, false, onSelectedListener);
-            // set initial selection
-            boolean[] selectedItems = new boolean[adapter.getCount()];
-            sp_providers_shop_list.setSelected(selectedItems);
-            aQuery.find(R.id.tv_providers_shop_list).text("Providers");
-            aQuery.find(R.id.tv_providers_shop_list).clicked(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sp_providers_shop_list.performClick();
-                }
-            });
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -256,13 +260,32 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     builder.append(adapter.getItem(i)).append(" ");
                 }
             }
-            if (builder.toString().equals("")) {
-                aQuery.find(R.id.tv_providers_shop_list).text("Providers");
+            String ProvideWarranty, ProvideReplacementParts, shopType, topRated;
+            if (selected[0]) {
+                ProvideWarranty = "1";
             } else {
-                aQuery.find(R.id.tv_providers_shop_list).text(builder.toString());
+                ProvideWarranty = "";
             }
-            ShopsListRecycleViewAdapter.filterShopsWithProviders(selectedItems);
-            Toast.makeText(activity, builder.toString(), Toast.LENGTH_SHORT).show();
+
+            if (selected[1]) {
+                ProvideReplacementParts = "1";
+            } else {
+                ProvideReplacementParts = "";
+            }
+            if (selected[2]) {
+                shopType = adapter.getItem(2).toString();
+            } else {
+                shopType = "";
+            }
+            if (selected[3]) {
+                topRated = "5";
+            } else {
+                topRated = "";
+            }
+
+            ShopsListRecycleViewAdapter.filterShopsWithProviders(selectedItems, ProvideWarranty, ProvideReplacementParts, shopType, topRated);
+            mshopsListRecycleViewAdapter.notifyDataSetChanged();
+//            Toast.makeText(activity, builder.toString(), Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -331,7 +354,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     showToast(getResources().getString(R.string.no_record_found));
 
                                 }
-                                setSpinnerFilter();
+//                                setSpinnerFilter();
                             }
 
                         } catch (JSONException e) {

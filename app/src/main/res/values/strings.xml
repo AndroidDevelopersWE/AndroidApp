@@ -88,9 +88,9 @@
     <string name="title_about_us">About Carefer</string>
     <string name="tv_how_it_works">How It Works!</string>
     <string name="tv_contact_details">Contact Details</string>
-    <string name="carefer_emial">Email: info@carefer.com.sa</string>
-    <string name="carefer_phone">Phone: 966-225-2258</string>
-    <string name="carefer_site">Website: www.carefer.com.sa</string>
+    <string name="carefer_emial">info@carefer.com.sa</string>
+    <string name="carefer_phone">966-225-2258</string>
+    <string name="carefer_site">www.carefer.co</string>
     <string name="title_order_now">Order Now</string>
     <string name="nav_my_details">My Details</string>
     <string name="nav_my_orders">My Orders</string>
@@ -114,5 +114,9 @@
     <string name="tv_car_model">Car Model</string>
     <string name="tv_last_changed_oil">Last Changed Oil</string>
     <string name="tv_title_top_a_map">Map</string>
+    <string name="tv_title_share">Share the App</string>
+    <string name="tv_website_icon">Website: </string>
+    <string name="tv_phone_icon">Phone:</string>
+    <string name="tv_email_icon">Email :</string>
 
 </resources>

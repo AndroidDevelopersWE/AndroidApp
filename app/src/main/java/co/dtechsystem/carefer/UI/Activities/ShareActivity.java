@@ -10,19 +10,26 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Utils;
 
 public class ShareActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     DrawerLayout mDrawerLayout;
+    TextView tv_title_share_app;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share);
+        tv_title_share_app = (TextView) findViewById(R.id.tv_title_share_app);
+        SetShaderToViews();
         SetUpLeftbar();
         setlistenrstosharebtns();
+    }
+    public void SetShaderToViews() {
+        Utils.gradientTextViewLong(tv_title_share_app, activity);
     }
 
     public void setlistenrstosharebtns() {

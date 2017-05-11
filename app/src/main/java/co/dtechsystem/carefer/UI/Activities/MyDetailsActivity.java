@@ -44,7 +44,6 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     TextView tv_title_my_details, tv_mobile_number_my_details, tv_name_my_details, tv_car_brand_my_details,
             tv_car_model_my_details, tv_last_oil_my_details;
     Calendar myCalendar = Calendar.getInstance();
-    Calendar myCalendar2 = Calendar.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

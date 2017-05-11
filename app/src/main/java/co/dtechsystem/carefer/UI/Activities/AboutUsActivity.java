@@ -10,23 +10,37 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class AboutUsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
+    TextView tv_title_about_us;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
+        tv_title_about_us = (TextView) findViewById(R.id.tv_title_about_us);
+        SetShaderToViews();
         SetUpLeftbar();
+    }
+
+    public void SetShaderToViews() {
+        Utils.gradientTextViewLong(tv_title_about_us, activity);
     }
 
     public void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+//        // get menu from navigationView
+//        Menu menu = navigationView.getMenu();
+//        // find MenuItem you want to change
+//        MenuItem nav_about_us = menu.findItem(R.id.nav_about_us);
+//        nav_about_us.setIcon(getResources().getDrawable(R.drawable.ic_about_white_nav));
     }
 
     public void btn_drawyerMenuOpen(View v) {
@@ -72,6 +86,7 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
         int id = item.getItemId();
 
         if (id == R.id.nav_my_details) {
+            // get menu from navigationView
             Intent i = new Intent(this, MyDetailsActivity.class);
             startActivity(i);
             // Handle the camera action

@@ -200,10 +200,10 @@
                     android:id="@+id/sp_providers_shop_list"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
 
                 <TextView
-                    android:id="@+id/tv_providers_shop_list"
+
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:backgroundTint="@android:color/black"
@@ -325,12 +325,14 @@
 
 
                     <TextView
+                        android:id="@+id/tv_providers_shop_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/_5sdp"
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_weight="0"
+                        android:clickable="true"
                         android:drawablePadding="@dimen/_5sdp"
                         android:drawableRight="@drawable/ic_filter"
                         android:gravity="center"
@@ -428,8 +430,8 @@
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
-        app:itemIconTint="@color/colorHeliotrope"
-        app:itemTextColor="@android:color/black"
+        app:itemIconTint="@drawable/dr_tv_selection"
+        app:itemTextColor="@drawable/dr_tv_selection"
         app:menu="@menu/activity_main_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

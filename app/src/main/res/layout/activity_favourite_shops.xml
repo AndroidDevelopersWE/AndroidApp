@@ -60,6 +60,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_title_fav_shops"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -97,16 +98,24 @@
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/_10sdp">
+                android:orientation="vertical">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_fav_shops"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:layout_weight="1" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/dr_grey_bottom" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -124,7 +133,7 @@
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
-        app:itemIconTint="@color/colorHeliotrope"
-        app:itemTextColor="@android:color/black"
+        app:itemIconTint="@drawable/dr_tv_selection"
+        app:itemTextColor="@drawable/dr_tv_selection"
         app:menu="@menu/activity_main_drawer" />
 </android.support.v4.widget.DrawerLayout>

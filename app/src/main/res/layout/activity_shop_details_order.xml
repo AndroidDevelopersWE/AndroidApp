@@ -234,12 +234,11 @@
 
 
     </LinearLayout>
-
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
         android:layoutDirection="locale"
@@ -247,7 +246,8 @@
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
-        app:itemIconTint="@color/colorHeliotrope"
-        app:itemTextColor="@android:color/black"
+        app:itemIconTint="@drawable/dr_tv_selection"
+        app:itemTextColor="@drawable/dr_tv_selection"
         app:menu="@menu/activity_main_drawer" />
+
 </android.support.v4.widget.DrawerLayout>

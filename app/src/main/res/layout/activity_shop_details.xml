@@ -64,13 +64,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_15sdp"
                             android:text="@string/shop_details"
-                            android:layout_weight="1"
                             android:textColor="@color/colorGrey"
                             android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -99,27 +100,24 @@
             android:visibility="gone">
 
 
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center" />
+
+                <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
 
-
-                <RelativeLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content">
-
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center" />
-                    <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-                        android:id="@+id/pager"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-
-                </RelativeLayout>
-
+            </RelativeLayout>
 
 
             <HorizontalScrollView
@@ -275,15 +273,16 @@
                 android:layout_marginRight="@dimen/_70sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_weight="0"
-                android:padding="@dimen/_10sdp"
                 android:background="@drawable/dr_btn_orange_angle_90"
                 android:clickable="true"
                 android:onClick="GotoShopDetailsOrder"
+                android:padding="@dimen/_10sdp"
                 android:text="@string/btn_order"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_15sdp"
@@ -305,7 +304,7 @@
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
-        app:itemIconTint="@color/colorHeliotrope"
-        app:itemTextColor="@android:color/black"
+        app:itemIconTint="@drawable/dr_tv_selection"
+        app:itemTextColor="@drawable/dr_tv_selection"
         app:menu="@menu/activity_main_drawer" />
 </android.support.v4.widget.DrawerLayout>

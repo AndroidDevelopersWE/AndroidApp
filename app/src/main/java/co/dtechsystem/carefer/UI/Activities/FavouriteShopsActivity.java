@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,21 +28,29 @@ import co.dtechsystem.carefer.Adapters.FavouriteShopsRecycleViewAdapter;
 import co.dtechsystem.carefer.Models.FavouriteShopsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class FavouriteShopsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
     FavouriteShopsRecycleViewAdapter mFavouriteShopsRecycleViewAdapter;
     DrawerLayout mDrawerLayout;
+    TextView tv_title_fav_shops;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_shops);
+        tv_title_fav_shops = (TextView) findViewById(R.id.tv_title_fav_shops);
+        SetShaderToViews();
         SetUpLeftbar();
         loading.show();
         APiGetFavShopslistData(sUser_ID);
     }
-
+    public void SetShaderToViews() {
+        Utils.gradientTextView(tv_title_fav_shops, activity);
+    }
     public void APiGetFavShopslistData(String User_ID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);

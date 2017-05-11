@@ -214,8 +214,8 @@
                     android:hint="@string/tv_car_model"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
-                    android:maxLines="1"
                     android:maxEms="4"
+                    android:maxLines="1"
                     android:padding="@dimen/_7sdp"
                     android:textColor="@android:color/black" />
 
@@ -235,14 +235,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/dr_corner_black"
-                    android:drawableLeft="@drawable/ic_edit"
-                    android:gravity="right"
-                    android:editable="false"
                     android:clickable="true"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:editable="false"
+                    android:gravity="right"
                     android:hint="@string/tv_last_changed_oil"
                     android:inputType="text"
-                    android:singleLine="true"
                     android:padding="@dimen/_7sdp"
+                    android:singleLine="true"
                     android:textColor="@android:color/black" />
 
                 <Button
@@ -284,7 +284,7 @@
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
-        app:itemIconTint="@color/colorHeliotrope"
-        app:itemTextColor="@android:color/black"
+        app:itemIconTint="@drawable/dr_tv_selection"
+        app:itemTextColor="@drawable/dr_tv_selection"
         app:menu="@menu/activity_main_drawer" />
 </android.support.v4.widget.DrawerLayout>

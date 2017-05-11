@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -41,7 +42,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordList;
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter;
     private int lastPosition;
-    Activity activity;
+    static Activity activity;
     Boolean expand;
     LatLng mLatlngCurrent;
 
@@ -194,10 +195,10 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                     destination.setLatitude(Double.parseDouble(_ShopslistRecordList.get(position).getLatitude()));
                     destination.setLongitude(Double.parseDouble(_ShopslistRecordList.get(position).getLongitude()));
 
-                    double distanceInMeters = curentLocation.distanceTo(destination)/1000;
+                    double distanceInMeters = curentLocation.distanceTo(destination) / 1000;
 //                    DecimalFormat newFormat = new DecimalFormat("#####");
 //                    double kmInDec = Float.valueOf(newFormat.format(distanceInMeters));
-                    distanceInMeters = Math.round(distanceInMeters*10)/10.0d;
+                    distanceInMeters = Math.round(distanceInMeters * 10) / 10.0d;
                     holder.tv_distance_item.setText(distanceInMeters + " km");
                     holder.tv_distance_details.setText(distanceInMeters + " km");
                 }
@@ -254,14 +255,17 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     public int getItemCount() {
         return _ShopslistRecordList.size();
     }
+
     @Override
     public long getItemId(int position) {
         return Long.parseLong(_ShopslistRecordList.get(position).getID());
     }
+
     @Override
     public int getItemViewType(int position) {
         return position;
     }
+
     /**
      * Here is the key method to apply the animation
      */
@@ -452,22 +456,30 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     // Filter Class
-    public static void filterShopsWithProviders(ArrayList<String> selectedItems) {
-        if (selectedItems.size() > 0) {
+    public static void filterShopsWithProviders(ArrayList<String> selectedItem, final String ProvideWarranty, final String ProvideReplacementParts,
+                                                final String shopType, final String topRated) {
+
+        if (selectedItem.size() > 0) {
             _ShopslistRecordList.clear();
             for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-                for (int j = 0; j < selectedItems.size(); j++) {
-                    if (_ShopslistRecordListFilter.get(i).getShopType().toLowerCase(Locale.getDefault())
-                            .contains(selectedItems.get(j).toString())) {
-                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
-                    }
-//                    else if (_ShopslistRecordListFilter.get(i).getProvideReplaceParts().toLowerCase(Locale.getDefault())
-//                            .contains(selectedItems.get(j).toString())) {
-//                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
-//                    }
+
+                if (_ShopslistRecordListFilter.get(i).getShopType().toLowerCase(Locale.getDefault())
+                        .equals(shopType) || _ShopslistRecordListFilter.get(i).getProvideReplaceParts().toLowerCase(Locale.getDefault())
+                        .equals(ProvideReplacementParts) || _ShopslistRecordListFilter.get(i).getProvideWarranty().toLowerCase(Locale.getDefault())
+                        .equals(ProvideWarranty) || _ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())
+                        .equals(topRated)) {
+                    _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                } else if (selectedItem.size()==4&&_ShopslistRecordListFilter.get(i).getShopType().toLowerCase(Locale.getDefault())
+                        .equals(shopType) && _ShopslistRecordListFilter.get(i).getProvideReplaceParts().toLowerCase(Locale.getDefault())
+                        .equals(ProvideReplacementParts) && _ShopslistRecordListFilter.get(i).getProvideWarranty().toLowerCase(Locale.getDefault())
+                        .equals(ProvideWarranty) && _ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())
+                        .equals(topRated)) {
+                    _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
                 }
             }
-
+            if (_ShopslistRecordList.size() == 0) {
+                Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
+            }
         } else {
             _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
         }
