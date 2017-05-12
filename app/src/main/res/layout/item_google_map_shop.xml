@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lay_map_info_window"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_10sdp"
@@ -13,134 +14,157 @@
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
         android:background="@android:color/transparent"
-        app:cardCornerRadius="@dimen/_7sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
         card_view:cardBackgroundColor="@android:color/transparent"
-        card_view:cardElevation="@dimen/_5sdp">
+        card_view:cardElevation="@dimen/_10sdp">
 
-        <LinearLayout
-            android:id="@+id/lay_item_map_chiled"
+        <android.support.v7.widget.CardView
             android:layout_width="@dimen/_200sdp"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@android:color/transparent"
+            app:cardCornerRadius="0dp"
+            card_view:cardBackgroundColor="@android:color/transparent"
+            card_view:cardElevation="@dimen/_7sdp">
 
             <LinearLayout
+                android:id="@+id/lay_item_map_chiled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/dr_round_corners"
                 android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/iv_shop_map_item"
-                        android:layout_width="@dimen/_80sdp"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/dr_round_corners" />
-                </RelativeLayout>
-
                 <LinearLayout
-                    android:id="@+id/lay_shop_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/_2sdp"
-                    android:orientation="vertical">
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
+                    <RelativeLayout
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="match_parent">
+
+                        <!--<ImageView-->
+                            <!--android:id="@+id/iv_shop_map_item"-->
+                            <!--android:layout_width="@dimen/_70sdp"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:background="@drawable/ic_img_place_holder"-->
+                            <!--android:scaleType="centerCrop" />-->
+                        <com.joooonho.SelectableRoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/iv_shop_map_item"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/ic_img_place_holder"
+                            android:scaleType="centerCrop"
+                            app:sriv_left_top_corner_radius="@dimen/_5sdp"
+                            app:sriv_right_top_corner_radius="0dip"
+                            app:sriv_left_bottom_corner_radius="@dimen/_5sdp"
+                            app:sriv_right_bottom_corner_radius="0dip"
+                            app:sriv_border_width="0dip"
+                            app:sriv_border_color="@android:color/transparent"
+                            app:sriv_oval="false" />
+                    </RelativeLayout>
 
                     <LinearLayout
-                        android:id="@+id/lay_shops_names"
+                        android:id="@+id/lay_shop_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_2sdp"
+                        android:background="@drawable/dr_right_round_orange_angle_180"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/tv_shop_name_shop_list"
+
+                        <LinearLayout
+                            android:id="@+id/lay_shops_names"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_shop_name_shop_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:maxLines="1"
+                                android:padding="@dimen/_5sdp"
+                                android:text="@string/dummy_text_list_item"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="normal" />
+
+                            <RatingBar
+                                android:id="@+id/rb_shop_shop_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="@dimen/_15sdp"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:layout_weight="0"
+                                android:clickable="false"
+                                android:isIndicator="true"
+                                android:numStars="5"
+                                android:progressDrawable="@drawable/dr_rating_bar_white"
+                                android:rating="3.5"
+                                android:stepSize="0.5" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_1sdp"
+                            android:layout_margin="@dimen/_5sdp"
+                            android:background="@drawable/dr_line_hover" />
+
+                        <TextView
+                            android:id="@+id/tv_service_type_shop_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:gravity="center"
                             android:maxLines="1"
-                            android:padding="@dimen/_8sdp"
-                            android:text="@string/dummy_text_list_item"
+                            android:text="@string/prompt_service"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_10sdp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            android:visibility="visible" />
 
-                        <RatingBar
-                            android:id="@+id/rb_shop_shop_list"
+                        <TextView
+                            android:id="@+id/tv_desc_shop_list"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_20sdp"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_10sdp"
-                            android:layout_weight="0"
-                            android:clickable="false"
-                            android:isIndicator="true"
-                            android:numStars="5"
-                            android:progressDrawable="@drawable/dr_rating_bar_white"
-                            android:rating="3.5"
-                            android:stepSize="0.5" />
-
-
+                            android:maxLines="1"
+                            android:padding="@dimen/_5sdp"
+                            android:scrollHorizontally="true"
+                            android:text="@string/tv_shop"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_margin="@dimen/_8sdp"
-                        android:background="@color/colorDarkOrange" />
-
-                    <TextView
-                        android:id="@+id/tv_service_type_shop_list"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginLeft="@dimen/_2sdp"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="@string/prompt_service"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="normal"
-                        android:visibility="visible" />
-
-                    <TextView
-                        android:id="@+id/tv_desc_shop_list"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_marginRight="@dimen/_10sdp"
-                        android:maxLines="1"
-                        android:padding="@dimen/_5sdp"
-                        android:scrollHorizontally="true"
-                        android:text="@string/tv_shop"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_10sdp" />
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="-4dp"
-                android:background="@android:color/transparent"
-                android:rotation="90">
-
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/ic_map_info" />
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+                    android:layout_gravity="top"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_weight="0"
+                    android:background="@android:color/transparent">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:background="@drawable/ic_map_info" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>

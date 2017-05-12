@@ -7,23 +7,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -34,7 +26,6 @@ import java.util.Locale;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Loading;
-import co.dtechsystem.carefer.Utils.Scaler;
 import co.dtechsystem.carefer.Utils.Utils;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -52,7 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     Intent intent;
     public static String sRegId;
     public static String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID;
-    protected Scaler mScaler;
     Locale locale;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,7 +59,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         activity = this;
         loading = new Loading(this, getResources().getString(R.string.loading));
         intent = getIntent();
-        mScaler = new Scaler(activity, 720, 1280);
         sRegId = Utils.readPreferences(activity, "regId", "");
         if (sRegId != null && !sRegId.equals("")) {
         } else {
@@ -124,33 +113,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             mProgressDialog.dismiss();
             mProgressDialog = null;
         }
-    }
-
-    //Design custom marker for map
-    protected Bitmap getMarkerBitmapFromView(String shopname, String serviceType, String des, String rating) {
-
-        View customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_item_shops, null);
-        TextView tv_shop_name_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_shop_name_shop_list);
-        TextView tv_service_type_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_service_type_shop_list);
-        TextView tv_desc_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_desc_shop_list);
-        RatingBar rb_shop_shop_list = (RatingBar) customMarkerView.findViewById(R.id.rb_shop_shop_list);
-        tv_shop_name_shop_list.setText(shopname);
-        tv_service_type_shop_list.setText(serviceType);
-        tv_desc_shop_list.setText(des);
-        rb_shop_shop_list.setRating(Float.parseFloat(rating));
-
-        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-        customMarkerView.layout(0, 0, customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight());
-        customMarkerView.buildDrawingCache();
-        Bitmap returnedBitmap = Bitmap.createBitmap(customMarkerView.getMeasuredWidth(), customMarkerView.getMeasuredHeight(),
-                Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(returnedBitmap);
-        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN);
-        Drawable drawable = customMarkerView.getBackground();
-        if (drawable != null)
-            drawable.draw(canvas);
-        customMarkerView.draw(canvas);
-        return returnedBitmap;
     }
 
     @Override

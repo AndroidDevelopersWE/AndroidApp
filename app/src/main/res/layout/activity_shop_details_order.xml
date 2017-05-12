@@ -26,7 +26,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
 
@@ -65,13 +65,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_weight="1"
                             android:gravity="center"
                             android:padding="@dimen/_15sdp"
                             android:text="@string/title_order_now"
-                            android:layout_weight="1"
                             android:textColor="@color/colorGrey"
                             android:textSize="@dimen/_15sdp"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -101,8 +102,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -224,6 +225,7 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_15sdp"
@@ -234,6 +236,7 @@
 
 
     </LinearLayout>
+
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"

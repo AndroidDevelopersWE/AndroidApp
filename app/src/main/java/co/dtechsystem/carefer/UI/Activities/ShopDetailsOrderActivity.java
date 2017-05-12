@@ -82,9 +82,9 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 
         //Lists initilization
         listservices.clear();
-        listservices.add(0, "Service Type");
+        listservices.add(0, getResources().getString(R.string.dp_service_type));
         brands.clear();
-        brands.add(0, "Brand");
+        brands.add(0, getResources().getString(R.string.dp_brand));
         mServicesIdArray.clear();
         mBrandsIdArray.clear();
         mModelsIdArray.clear();
@@ -131,7 +131,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                 APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsOrderModel, "ModelYear");
                             } else {
                                 List models = new ArrayList();
-                                models.add(0, "Model");
+                                models.add(0, getResources().getString(R.string.dp_model));
                                 JSONArray brandsData = response.getJSONArray("modelData");
                                 for (int i = 0; i < brandsData.length(); i++) {
                                     JSONObject jsonObject = brandsData.getJSONObject(i);
@@ -224,8 +224,8 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         String spServiceTypeText = aQuery.id(R.id.sp_srvice_type_shop_details_order).getSelectedItem().toString();
         String spbrandTypeText = aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString();
         String spmodelTypeText = aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString();
-        if (spServiceTypeText.equals("Service Type") || spbrandTypeText.equals("Brand") || spmodelTypeText.equals("Model")) {
-            showToast("Please select one from dropdown!");
+        if (spServiceTypeText.equals(getResources().getString(R.string.dp_service_type)) || spbrandTypeText.equals(getResources().getString(R.string.dp_brand)) || spmodelTypeText.equals(getResources().getString(R.string.confirm_mobile_number))) {
+            showToast(getResources().getString(R.string.toast_select_one_drop));
         } else {
             Intent i = new Intent(this, OrderNowActivity.class);
             i.putExtra("latitude", mlatitude);

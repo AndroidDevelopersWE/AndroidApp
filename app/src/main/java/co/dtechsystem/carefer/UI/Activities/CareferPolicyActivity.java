@@ -57,7 +57,6 @@ public class CareferPolicyActivity extends BaseActivity {
                             if (Type.equals("Policy")) {
                                 JSONArray policyData = jsonObject.getJSONArray("policyData");
                                 JSONObject jsonObject1 = policyData.getJSONObject(0);
-//                                Typeface tf = Farsi.GetFarsiFont(activity);
                                 aQuery.id(R.id.tv_carefer_policy_details).text(jsonObject1.getString("policyContent"));
                                 loading.close();
                             } else {

@@ -119,4 +119,9 @@
     <string name="tv_phone_icon">Phone:</string>
     <string name="tv_email_icon">Email :</string>
 
+    <string name="dp_service_type">Service Type</string>
+    <string name="dp_brand">Brand</string>
+    <string name="dp_model">Model</string>
+    <string name="toast_select_one_drop">Please Select One From DropDown</string>
+
 </resources>

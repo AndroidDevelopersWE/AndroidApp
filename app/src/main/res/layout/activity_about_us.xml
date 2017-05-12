@@ -27,7 +27,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -165,8 +165,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:padding="@dimen/_20sdp">
 
                     <TextView
@@ -191,22 +191,25 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_mail"
-                            android:gravity="center"
                             android:drawablePadding="@dimen/_5sdp"
+                            android:gravity="center"
                             android:text="@string/tv_email_icon"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/_3sdp"
                             android:gravity="center"
                             android:padding="@dimen/_2sdp"
-                            android:text="@string/carefer_emial"                            android:textColor="@android:color/white"
+                            android:text="@string/carefer_emial"
+                            android:textColor="@android:color/white"
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -217,12 +220,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_phone"
-                            android:gravity="center"
                             android:drawablePadding="@dimen/_5sdp"
+                            android:gravity="center"
                             android:text="@string/tv_phone_icon"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -233,6 +237,7 @@
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -242,13 +247,14 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
+                            android:drawableLeft="@drawable/ic_website"
                             android:drawablePadding="@dimen/_5sdp"
+                            android:gravity="center"
                             android:text="@string/tv_website_icon"
                             android:textColor="@android:color/white"
-                            android:drawableLeft="@drawable/ic_website"
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

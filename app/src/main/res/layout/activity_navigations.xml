@@ -20,13 +20,12 @@
             android:id="@+id/cv_main_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             app:cardElevation="@dimen/_7sdp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
                 <RelativeLayout

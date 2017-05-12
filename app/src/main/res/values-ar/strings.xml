@@ -47,7 +47,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="btn_explorer">مستكشفں</string>
+    <string name="btn_explorer">مستكشف</string>
     <string name="your_mobile">رقم هاتف المحمول</string>
     <string name="your_name">اسمك</string>
     <string name="btn_save">حفظ</string>
@@ -130,4 +130,11 @@
     <string name="tv_website_icon">: الموقع </string>
     <string name="tv_phone_icon">: هاتف </string>
     <string name="tv_email_icon">: البريد الإلكتروني </string>
+
+    <string name="dp_service_type">نوع الخدمة</string>
+    <string name="dp_brand">علامة تجارية</string>
+    <string name="dp_model">نموذج</string>
+    <string name="toast_select_one_drop">الرجاء الاختيار من القائمة المنسدلة</string>
+
+
 </resources>

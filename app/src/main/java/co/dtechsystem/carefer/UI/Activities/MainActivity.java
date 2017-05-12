@@ -18,7 +18,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -41,6 +40,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.joooonho.SelectableRoundedImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -253,6 +253,8 @@ public class MainActivity extends BaseActivity
                         });
             }
         }
+        //get the map container height
+
         // Setting a custom info window adapter for the google map
         mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter()
 
@@ -261,6 +263,7 @@ public class MainActivity extends BaseActivity
             // Use default InfoWindow frame
             @Override
             public View getInfoWindow(Marker arg0) {
+
                 View customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_google_map_shop, null);
                 String id = "";
                 for (int i = 0; i < shopsList.size(); i++) {
@@ -271,12 +274,14 @@ public class MainActivity extends BaseActivity
                         TextView tv_service_type_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_service_type_shop_list);
                         TextView tv_desc_shop_list = (TextView) customMarkerView.findViewById(R.id.tv_desc_shop_list);
                         RatingBar rb_shop_shop_list = (RatingBar) customMarkerView.findViewById(R.id.rb_shop_shop_list);
-                        ImageView iv_shop_map_item = (ImageView) customMarkerView.findViewById(R.id.iv_shop_map_item);
+                        SelectableRoundedImageView iv_shop_map_item = (SelectableRoundedImageView) customMarkerView.findViewById(R.id.iv_shop_map_item);
                         tv_shop_name_shop_list.setText(shopsList.get(i).getShopName());
+
                         tv_service_type_shop_list.setText(shopsList.get(i).getServiceType());
                         tv_desc_shop_list.setText(shopsList.get(i).getShopDescription());
                         rb_shop_shop_list.setRating(Float.parseFloat(shopsList.get(i).getShopRating()));
                         try {
+
                             iv_shop_map_item.setImageBitmap(mImagesMaps.get(i));
                         } catch (Exception e) {
                             Bitmap bmp = Bitmap.createBitmap((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp), Bitmap.Config.ARGB_8888);
@@ -300,6 +305,8 @@ public class MainActivity extends BaseActivity
                         activity.startActivity(mIntent);
                     }
                 });
+                arg0.setInfoWindowAnchor((float) -5.2, (float) 3.2);
+
                 return customMarkerView;
             }
 

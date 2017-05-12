@@ -59,6 +59,7 @@ dependencies {
     //country code picker lib
     compile 'com.hbb20:ccp:1.7.4'
     compile project(path: ':country-flags-drop-lib')
+    compile 'com.joooonho:selectableroundedimageview:1.0.1'
 }
 apply plugin: 'com.google.firebase.firebase-crash'
 apply plugin: 'com.google.gms.google-services'
