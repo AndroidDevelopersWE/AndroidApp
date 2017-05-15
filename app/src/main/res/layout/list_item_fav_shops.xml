@@ -17,8 +17,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/iv_shop_fav"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/_5sdp"
                 app:civ_border_color="@android:color/transparent"
@@ -26,8 +26,8 @@
 
             <ProgressBar
                 android:id="@+id/pg_image_load"
-                android:layout_width="@dimen/_20sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:visibility="visible" />
@@ -44,11 +44,11 @@
             android:layout_marginRight="@dimen/_5sdp"
             android:gravity="right"
             android:layout_gravity="center"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_5sdp"
             android:singleLine="true"
             android:text="@string/dummy_text_list_item"
             android:textColor="@drawable/dr_tv_selection"
-            android:textSize="@dimen/_13sdp" />
+            android:textSize="@dimen/_12sdp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -110,17 +110,12 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/dr_orange_angle_90_no_corner"
                     android:gravity="center"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_8sdp"
                     android:text="@string/share_app_tv"
                     android:textColor="@android:color/white"
-                    android:textSize="@dimen/_18sdp"
+                    android:textSize="@dimen/_13sdp"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-
-                    android:background="@color/colorPrimaryDark" />
 
                 <TextView
                     android:layout_width="match_parent"

@@ -67,7 +67,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:padding="@dimen/_15sdp"
+                            android:padding="@dimen/_10sdp"
                             android:text="@string/title_order_now"
                             android:textColor="@color/colorGrey"
                             android:textSize="@dimen/_15sdp"
@@ -81,7 +81,7 @@
                             android:layout_gravity="right"
                             android:layout_weight="0"
                             android:gravity="right"
-                            android:padding="@dimen/_15sdp"
+                            android:padding="@dimen/_10sdp"
                             android:text="@string/tv_title_top_a_map"
                             android:textColor="@color/colorGrey"
                             android:textSize="@dimen/_15sdp"
@@ -127,7 +127,7 @@
                             android:padding="@dimen/_10sdp"
                             android:text="@string/dummy_text_list_item"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_14sdp"
+                            android:textSize="@dimen/_13sdp"
                             android:textStyle="bold" />
 
 
@@ -170,7 +170,7 @@
                     <Spinner
                         android:id="@+id/sp_srvice_type_shop_details_order"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:background="@drawable/dr_spinner_ic"
                         android:gravity="center" />
                 </RelativeLayout>
@@ -188,7 +188,7 @@
                     <Spinner
                         android:id="@+id/sp_brand_type_shop_details_order"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:background="@drawable/dr_spinner_ic"
                         android:gravity="center" />
                 </RelativeLayout>
@@ -204,20 +204,20 @@
                     <Spinner
                         android:id="@+id/sp_car_model_order"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:background="@drawable/dr_spinner_ic"
                         android:gravity="center" />
                 </RelativeLayout>
 
                 <Button
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_38sdp"
                     android:layout_marginLeft="@dimen/_80sdp"
                     android:layout_marginRight="@dimen/_80sdp"
                     android:background="@drawable/dr_btn_orange_angle_90"
                     android:clickable="true"
                     android:onClick="GotoOrderNow"
-                    android:padding="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
                     android:text="@string/btn_next"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
