@@ -123,5 +123,8 @@
     <string name="dp_brand">Brand</string>
     <string name="dp_model">Model</string>
     <string name="toast_select_one_drop">Please Select One From DropDown</string>
-
+    <string name="toast_no_internet_avail">No Internet Available...!</string>
+    <string name="toast_logged_in">Logged In...!</string>
+    <string name="toast_permission">You did not give permission to access device location...!</string>
+    <string name="toast_record_updated">Record Updated Successfully...!</string>
 </resources>

@@ -23,6 +23,7 @@ import java.util.Map;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class CareferPolicyActivity extends BaseActivity {
     TextView tv_title_policy;
@@ -33,9 +34,10 @@ public class CareferPolicyActivity extends BaseActivity {
         setContentView(R.layout.activity_carefer_policy);
         tv_title_policy = (TextView) findViewById(R.id.tv_title_policy);
         SetShaderToViews();
-        loading.show();
-        APiCareferPolicyDataSaveUser(AppConfig.APiCareferPolicy, "Policy", "", "");
-
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            APiCareferPolicyDataSaveUser(AppConfig.APiCareferPolicy, "Policy", "", "");
+        }
     }
 
     public void SetShaderToViews() {
@@ -68,7 +70,7 @@ public class CareferPolicyActivity extends BaseActivity {
                                 Intent i = new Intent(activity, MainActivity.class);
                                 startActivity(i);
                                 loading.close();
-                                showToast("User Registered...");
+                                showToast(getResources().getString(R.string.toast_logged_in));
                                 finish();
                             }
 
@@ -111,8 +113,10 @@ public class CareferPolicyActivity extends BaseActivity {
     }
 
     public void btn_Next_to_mainmenu_Click(View v) {
-        loading.show();
-        APiCareferPolicyDataSaveUser(AppConfig.APiRegisterCustomer, "RegisterUser", sUser_Mobile, sUser_Mobile_Varify);
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            APiCareferPolicyDataSaveUser(AppConfig.APiRegisterCustomer, "RegisterUser", sUser_Mobile, sUser_Mobile_Varify);
+        }
     }
 
 }

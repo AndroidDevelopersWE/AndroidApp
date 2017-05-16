@@ -36,6 +36,7 @@ import java.util.Map;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class MyDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
@@ -51,8 +52,10 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         setContentView(R.layout.activity_my_details);
         initializeViews();
         SetUpLeftbar();
-        loading.show();
-        APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "");
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "");
+        }
     }
 
     public void initializeViews() {
@@ -263,8 +266,10 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             Utils.savePreferences(activity, "CustomerCarBrand", et_car_brand_my_details);
             Utils.savePreferences(activity, "CustomerCarModel", et_car_model_my_details);
             Utils.savePreferences(activity, "CustomerCarOilChange", et_last_oil_my_details);
-            loading.show();
-            APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify);
+            if (Validations.isInternetAvailable(activity, true)) {
+                loading.show();
+                APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify);
+            }
         }
     }
 
@@ -289,7 +294,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                 SetData();
                                 loading.close();
                             } else {
-                                showToast("Updated your record...");
+                                showToast(getResources().getString(R.string.toast_record_updated));
                                 finish();
                             }
 
@@ -297,6 +302,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                         } catch (JSONException e) {
 
                             loading.close();
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
                         loading.close();

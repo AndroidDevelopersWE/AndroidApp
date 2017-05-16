@@ -37,6 +37,7 @@ import java.util.Map;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.blurry.Blurry;
 
@@ -177,8 +178,10 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             } else {
                 morderType = "call";
             }
-            loading.show();
-            APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
+            if (Validations.isInternetAvailable(activity, true)) {
+                loading.show();
+                APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
+            }
         }
         try {
             Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -195,8 +198,10 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             } else {
                 morderType = "navigate";
             }
-            loading.show();
-            APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
+            if (Validations.isInternetAvailable(activity, true)) {
+                loading.show();
+                APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
+            }
         }
         Intent i = new Intent(this, NavigationsActivity.class);
         i.putExtra("latitude", mlatitude);

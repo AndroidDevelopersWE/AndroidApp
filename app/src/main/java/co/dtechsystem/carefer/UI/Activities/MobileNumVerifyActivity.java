@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class MobileNumVerifyActivity extends BaseActivity {
     Button btn_verify_pin;
@@ -24,10 +25,12 @@ public class MobileNumVerifyActivity extends BaseActivity {
     }
 
     public void ben_Next_to_carafePolicy_Click(View v) {
-        Utils.savePreferences(activity, "User_Mobile_varify", "1");
-        Intent i = new Intent(this, CareferPolicyActivity.class);
-        startActivity(i);
-        finish();
+        if (Validations.isInternetAvailable(activity, true)) {
+            Utils.savePreferences(activity, "User_Mobile_varify", "1");
+            Intent i = new Intent(this, CareferPolicyActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
     public void SetFocusForEdit() {

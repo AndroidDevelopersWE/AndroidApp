@@ -135,6 +135,8 @@
     <string name="dp_brand">علامة تجارية</string>
     <string name="dp_model">نموذج</string>
     <string name="toast_select_one_drop">الرجاء الاختيار من القائمة المنسدلة</string>
-
-
+    <string name="toast_no_internet_avail">لا تتوفر الإنترنت ...!</string>
+    <string name="toast_logged_in">تسجيل الدخول...!</string>
+    <string name="toast_permission">لم تعط الإذن للوصول إلى موقع الجهاز ...!</string>
+<string name="toast_record_updated">سجل تحديث بنجاح ...!</string>
 </resources>

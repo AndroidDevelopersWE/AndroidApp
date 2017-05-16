@@ -39,6 +39,7 @@ import co.dtechsystem.carefer.Models.ShopsDetailsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 import me.relex.circleindicator.CircleIndicator;
 
 public class ShopDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,8 +73,10 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         mIntent = getIntent();
         if (mIntent != null) {
             mShopID = mIntent.getStringExtra("ShopID");
-            loading.show();
-            APiGetShopsDetailsData(mShopID);
+            if (Validations.isInternetAvailable(activity, true)) {
+                loading.show();
+                APiGetShopsDetailsData(mShopID);
+            }
         }
         favouriteClicks();
 

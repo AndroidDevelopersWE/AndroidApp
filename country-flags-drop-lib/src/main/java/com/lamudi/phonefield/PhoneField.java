@@ -22,13 +22,13 @@ import com.google.i18n.phonenumbers.Phonenumber;
  */
 public abstract class PhoneField extends LinearLayout {
 
-    private Spinner mSpinner;
+    private static Spinner mSpinner;
 
-    private EditText mEditText;
+    private static EditText mEditText;
 
-    private Country mCountry;
+    private static Country mCountry;
 
-    private PhoneNumberUtil mPhoneUtil = PhoneNumberUtil.getInstance();
+    private static PhoneNumberUtil mPhoneUtil = PhoneNumberUtil.getInstance();
 
     private int mDefaultCountryPosition = 0;
 
@@ -173,7 +173,7 @@ public abstract class PhoneField extends LinearLayout {
         }
     }
 
-    private Phonenumber.PhoneNumber parsePhoneNumber(String number) throws NumberParseException {
+    private static Phonenumber.PhoneNumber parsePhoneNumber(String number) throws NumberParseException {
         String defaultRegion = mCountry != null ? mCountry.getCode().toUpperCase() : "";
         return mPhoneUtil.parseAndKeepRawInput(number, defaultRegion);
     }
@@ -208,7 +208,7 @@ public abstract class PhoneField extends LinearLayout {
         }
     }
 
-    private void selectCountry(int dialCode) {
+    private static void selectCountry(int dialCode) {
         for (int i = 0; i < Countries.COUNTRIES.size(); i++) {
             Country country = Countries.COUNTRIES.get(i);
             if (country.getDialCode() == dialCode) {
@@ -223,7 +223,7 @@ public abstract class PhoneField extends LinearLayout {
      *
      * @param rawNumber the raw number
      */
-    public void setPhoneNumber(String rawNumber) {
+    public static void setPhoneNumber(String rawNumber) {
         try {
             Phonenumber.PhoneNumber number = parsePhoneNumber(rawNumber);
             if (mCountry == null || mCountry.getDialCode() != number.getCountryCode()) {
@@ -231,6 +231,7 @@ public abstract class PhoneField extends LinearLayout {
             }
             mEditText.setText(mPhoneUtil.format(number, PhoneNumberUtil.PhoneNumberFormat.NATIONAL));
         } catch (NumberParseException ignored) {
+            ignored.printStackTrace();
         }
     }
 

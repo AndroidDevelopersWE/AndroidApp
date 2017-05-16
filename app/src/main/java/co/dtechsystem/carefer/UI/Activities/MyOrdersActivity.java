@@ -29,6 +29,7 @@ import co.dtechsystem.carefer.Models.MyOrdersModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class MyOrdersActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
@@ -43,8 +44,10 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         tv_title_my_orders = (TextView) findViewById(R.id.tv_title_my_orders);
         SetShaderToViews();
         SetUpLeftbar();
-        loading.show();
-        APiGetShopslistData();
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            APiGetShopslistData();
+        }
     }
 
     public void SetShaderToViews() {

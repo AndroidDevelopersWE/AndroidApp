@@ -18,8 +18,10 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import co.dtechsystem.carefer.R;
 
-public class Validations {
+
+public abstract class Validations {
 		
 	/**
 	 * Check Internet Connectivity
@@ -37,7 +39,7 @@ public class Validations {
 
 		if (!connected) {
 			if(isDisplayToast){
-				showMessage(context,"No internetnt" );
+				Toast.makeText(context,context.getResources().getString(R.string.toast_no_internet_avail), Toast.LENGTH_SHORT).show();
 			}
 			return false;
 		}

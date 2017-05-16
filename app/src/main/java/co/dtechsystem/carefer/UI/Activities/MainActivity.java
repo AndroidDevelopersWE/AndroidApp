@@ -53,6 +53,7 @@ import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -82,12 +83,14 @@ public class MainActivity extends BaseActivity
     }
 
     public void btnExploereClick(View v) {
-        Bundle args = new Bundle();
-        args.putParcelable("LatLngCurrent", mLatLngCurrent);
-        Intent i = new Intent(this, ShopsListActivity.class);
-        i.putExtra("placeName", mPlaceName);
-        i.putExtra("bundle", args);
-        startActivity(i);
+        if (Validations.isInternetAvailable(activity, true)) {
+            Bundle args = new Bundle();
+            args.putParcelable("LatLngCurrent", mLatLngCurrent);
+            Intent i = new Intent(this, ShopsListActivity.class);
+            i.putExtra("placeName", mPlaceName);
+            i.putExtra("bundle", args);
+            startActivity(i);
+        }
     }
 
     public void SetUpLeftbar() {
@@ -152,7 +155,10 @@ public class MainActivity extends BaseActivity
                             JSONArray results = response.getJSONArray("results");
                             JSONObject jsonObject = results.getJSONObject(0);
                             mPlaceName = jsonObject.getString("formatted_address");
-                            APiGetShopslistData(location);
+                            if (Validations.isInternetAvailable(activity, true)) {
+                                APiGetShopslistData(location);
+                            }
+
                         } catch (JSONException e) {
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
@@ -190,8 +196,7 @@ public class MainActivity extends BaseActivity
                             loading.close();
                         } else {
                             loading.close();
-                            showToast("No shops Record found yet!");
-
+                            showToast(activity.getResources().getString(R.string.no_record_found));
                         }
 
                     }
@@ -300,9 +305,11 @@ public class MainActivity extends BaseActivity
 
                     @Override
                     public void onInfoWindowClick(Marker arg0) {
-                        Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
-                        mIntent.putExtra("ShopID", finalId);
-                        activity.startActivity(mIntent);
+                        if (Validations.isInternetAvailable(activity, true)) {
+                            Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
+                            mIntent.putExtra("ShopID", finalId);
+                            activity.startActivity(mIntent);
+                        }
                     }
                 });
                 arg0.setInfoWindowAnchor((float) -5.2, (float) 3.2);
@@ -403,7 +410,7 @@ public class MainActivity extends BaseActivity
 
                 } else {
                     // User refused to grant permission. You can add AlertDialog here
-                    showToast("You didn't give permission to access device location");
+                    showToast(getResources().getString(R.string.toast_permission));
                 }
                 return;
             }

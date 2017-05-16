@@ -27,6 +27,7 @@ import java.util.Map;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class RatingActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
@@ -42,8 +43,10 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
     }
 
     public void GotoOrderNow(View V) {
-        Intent i = new Intent(this, OrderNowActivity.class);
-        startActivity(i);
+        if (Validations.isInternetAvailable(activity, true)) {
+            Intent i = new Intent(this, OrderNowActivity.class);
+            startActivity(i);
+        }
     }
 
     // Get Views Data

@@ -32,6 +32,7 @@ import java.util.List;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawerLayout;
@@ -49,12 +50,13 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details_order);
-        tv_title_shops_details_order=(TextView)findViewById(R.id.tv_title_shops_details_order);
+        tv_title_shops_details_order = (TextView) findViewById(R.id.tv_title_shops_details_order);
         SetShaderToViews();
         SetUpLeftbar();
         GetDataForViews();
         SetDataTOViews();
     }
+
     public void SetShaderToViews() {
         Utils.gradientTextView(tv_title_shops_details_order, activity);
     }
@@ -74,23 +76,24 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 
     // Set views data
     public void SetDataTOViews() {
-        loading.show();
-        APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsData + mshopID + "/cusid/" + sUser_ID, "Services & Brands");
-        aQuery.id(R.id.tv_shop_name_shop_details_order).text(mshopName);
-        aQuery.id(R.id.tv_shop_type_shop_details_order).text(mshopType);
-        aQuery.id(R.id.rb_shop_rating_shop_details_order).rating(Float.parseFloat(mshopRating));
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsData + mshopID + "/cusid/" + sUser_ID, "Services & Brands");
+            aQuery.id(R.id.tv_shop_name_shop_details_order).text(mshopName);
+            aQuery.id(R.id.tv_shop_type_shop_details_order).text(mshopType);
+            aQuery.id(R.id.rb_shop_rating_shop_details_order).rating(Float.parseFloat(mshopRating));
 
-        //Lists initilization
-        listservices.clear();
-        listservices.add(0, getResources().getString(R.string.dp_service_type));
-        brands.clear();
-        brands.add(0, getResources().getString(R.string.dp_brand));
-        mServicesIdArray.clear();
-        mBrandsIdArray.clear();
-        mModelsIdArray.clear();
-        mServicesIdArray.add(0, "0");
-        mBrandsIdArray.add(0, "0");
-        mModelsIdArray.add(0, "0");
+            //Lists initilization
+            listservices.clear();
+            listservices.add(0, getResources().getString(R.string.dp_service_type));
+            brands.clear();
+            brands.add(0, getResources().getString(R.string.dp_brand));
+            mServicesIdArray.clear();
+            mBrandsIdArray.clear();
+            mModelsIdArray.clear();
+            mServicesIdArray.add(0, "0");
+            mBrandsIdArray.add(0, "0");
+            mModelsIdArray.add(0, "0");
 //        ArrayList<String> years = new ArrayList<String>();
 //        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
 //        for (int i = 1900; i <= thisYear; i++) {
@@ -98,6 +101,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 //        }
 //        ArrayAdapter<String> modelyearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
 
+        }
     }
 
     public void APiGetBrandsServiceModelsData(final String Url, final String Type) {
@@ -128,7 +132,9 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                 }
                                 ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
                                 aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
-                                APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsOrderModel, "ModelYear");
+                                if (Validations.isInternetAvailable(activity, true)) {
+                                    APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsOrderModel, "ModelYear");
+                                }
                             } else {
                                 List models = new ArrayList();
                                 models.add(0, getResources().getString(R.string.dp_model));

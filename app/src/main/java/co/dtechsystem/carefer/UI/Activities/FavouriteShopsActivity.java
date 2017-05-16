@@ -29,6 +29,7 @@ import co.dtechsystem.carefer.Models.FavouriteShopsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class FavouriteShopsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     GridLayoutManager mgridLayoutManager;
@@ -45,8 +46,10 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
         tv_title_fav_shops = (TextView) findViewById(R.id.tv_title_fav_shops);
         SetShaderToViews();
         SetUpLeftbar();
-        loading.show();
-        APiGetFavShopslistData(sUser_ID);
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            APiGetFavShopslistData(sUser_ID);
+        }
     }
     public void SetShaderToViews() {
         Utils.gradientTextView(tv_title_fav_shops, activity);
@@ -67,7 +70,7 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
                             loading.close();
                         } else {
                             loading.close();
-                            showToast("No Favourite shops Record found yet!");
+                            showToast(getResources().getString(R.string.no_record_found));
 
                         }
 
