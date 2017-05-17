@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -42,13 +43,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import jp.wasabeef.blurry.Blurry;
 
 public class OrderNowActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout mDrawerLayout;
-    String mlatitude, mlongitude, mshopID, mServicesId, mBrandsId, mModelsId, morderType, mshopImage;
-    ImageView iv_shop_image_blur;
-    CircleImageView iv_shop_profile;
-    TextView tv_title_order_now;
-    int morderID;
-    boolean mOrderPlaced;
+    private DrawerLayout mDrawerLayout;
+    private String mlatitude;
+    private String mlongitude;
+    private String mshopID;
+    private String mServicesId;
+    private String mBrandsId;
+    private String mModelsId;
+    private String morderType;
+    private String mshopImage;
+    private ImageView iv_shop_image_blur;
+    private CircleImageView iv_shop_profile;
+    private TextView tv_title_order_now;
+    private int morderID;
+    private boolean mOrderPlaced;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,12 +72,12 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         SetdataToViews();
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_order_now, activity);
     }
 
     // Get Views Data
-    public void GetDataForViews() {
+    private void GetDataForViews() {
         if (intent != null) {
             mlatitude = intent.getStringExtra("latitude");
             mlongitude = intent.getStringExtra("longitude");
@@ -81,7 +89,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
-    public void SetdataToViews() {
+    private void SetdataToViews() {
         if (mshopImage != null && !mModelsId.equals("")) {
             aQuery.find(R.id.pg_shop_image_blur).visibility(View.VISIBLE);
             Glide.with(activity).load(mshopImage)
@@ -116,8 +124,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
-    public void APiPlaceOrder(final String UserId, final String shopID, final String serviceID, final String brandID,
-                              final String modelID, final String orderType, final String customerMobileNo) {
+    private void APiPlaceOrder(final String UserId, final String shopID, final String serviceID, final String brandID,
+                               final String modelID, final String orderType, final String customerMobileNo) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiSaveOrder,
@@ -130,8 +138,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                             JSONObject jsonObject = new JSONObject(response);
                             morderID = jsonObject.getInt("orderID");
                             if (morderID != 0) {
-
-                                showToast("Your Order Placed.");
+                                showToast(getResources().getString(R.string.toast_order_placed));
                                 mOrderPlaced = true;
                             }
                         } catch (JSONException e) {
@@ -154,7 +161,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         ) {
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
+                @SuppressWarnings("Convert2Diamond") Map<String, String> params = new HashMap<String, String>();
                 params.put("customerID", UserId);
                 params.put("shopID", shopID);
                 params.put("serviceTypeID", serviceID);
@@ -171,9 +178,11 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         queue.add(postRequest);
     }
 
+    @SuppressWarnings({"PointlessBooleanExpression", "UnusedParameters"})
     public void CAllToShop(View V) {
 
         if (mOrderPlaced == false) {
+            //noinspection StatementWithEmptyBody
             if (morderType != null && morderType.equals("navigate")) {
             } else {
                 morderType = "call";
@@ -192,8 +201,10 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
+    @SuppressWarnings({"PointlessBooleanExpression", "UnusedParameters"})
     public void DirectionsToShop(View v) {
         if (mOrderPlaced == false) {
+            //noinspection StatementWithEmptyBody
             if (morderType != null && !morderType.equals("navigate")) {
             } else {
                 morderType = "navigate";
@@ -210,12 +221,14 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         startActivity(i);
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("UnusedParameters")
+    @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }

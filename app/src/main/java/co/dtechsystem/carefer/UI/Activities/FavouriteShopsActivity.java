@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,10 +33,9 @@ import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class FavouriteShopsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    GridLayoutManager mgridLayoutManager;
-    FavouriteShopsRecycleViewAdapter mFavouriteShopsRecycleViewAdapter;
-    DrawerLayout mDrawerLayout;
-    TextView tv_title_fav_shops;
+    private FavouriteShopsRecycleViewAdapter mFavouriteShopsRecycleViewAdapter;
+    private DrawerLayout mDrawerLayout;
+    private TextView tv_title_fav_shops;
 
 
 
@@ -51,10 +51,10 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
             APiGetFavShopslistData(sUser_ID);
         }
     }
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_fav_shops, activity);
     }
-    public void APiGetFavShopslistData(String User_ID) {
+    private void APiGetFavShopslistData(String User_ID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiMyFavouriteShopsList + User_ID, null,
@@ -90,20 +90,22 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
         queue.add(getRequest);
     }
 
-    public void SetListData() {
+    private void SetListData() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_fav_shops);
         recyclerView.getItemAnimator().setChangeDuration(700);
         recyclerView.setAdapter(mFavouriteShopsRecycleViewAdapter);
-        mgridLayoutManager = new GridLayoutManager(this, 1);
+        GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mgridLayoutManager);
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("UnusedParameters")
+    @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }

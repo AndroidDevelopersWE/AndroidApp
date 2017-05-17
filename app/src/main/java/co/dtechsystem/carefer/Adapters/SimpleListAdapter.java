@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import co.dtechsystem.carefer.R;
 
 
+@SuppressWarnings("unused")
 public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.SimpleViewHolder> {
 
     @Override
@@ -28,6 +29,7 @@ public class SimpleListAdapter extends RecyclerView.Adapter<SimpleListAdapter.Si
 
     class SimpleViewHolder extends RecyclerView.ViewHolder {
 
+        @SuppressWarnings("unused")
         SimpleViewHolder(View itemView) {
             super(itemView);
         }

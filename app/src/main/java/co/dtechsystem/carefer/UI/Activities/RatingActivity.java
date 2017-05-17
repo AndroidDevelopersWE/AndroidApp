@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,9 +20,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,8 +28,9 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class RatingActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout mDrawerLayout;
-    String mshopID, morderID;
+    private DrawerLayout mDrawerLayout;
+    private String mshopID;
+    private String morderID;
 
     @Override
 
@@ -42,7 +41,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         GetDataForViews();
     }
 
-    public void GotoOrderNow(View V) {
+    public void GotoOrderNow(@SuppressWarnings("UnusedParameters") View V) {
         if (Validations.isInternetAvailable(activity, true)) {
             Intent i = new Intent(this, OrderNowActivity.class);
             startActivity(i);
@@ -50,7 +49,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
     }
 
     // Get Views Data
-    public void GetDataForViews() {
+    private void GetDataForViews() {
         if (intent != null) {
             mshopID = intent.getStringExtra("shopID");
             morderID = intent.getStringExtra("orderID");
@@ -58,7 +57,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         }
     }
 
-    public void RatingbtnClick(View v) {
+    public void RatingbtnClick(@SuppressWarnings("UnusedParameters") View v) {
         float price_rate = aQuery.find(R.id.rb_price_rate).getRatingBar().getRating();
         float quality_rate = aQuery.find(R.id.rb_quality_rate).getRatingBar().getRating();
         float time_rate = aQuery.find(R.id.rb_time_rate).getRatingBar().getRating();
@@ -72,15 +71,15 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         }
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
 
-    public void APisendRating(final String UserId, final String shopID, final String orderID, final String priceRating,
-                              final String qualityRating, final String timeRating, final String comments) {
+    private void APisendRating(final String UserId, final String shopID, final String orderID, final String priceRating,
+                               final String qualityRating, final String timeRating, final String comments) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiRatingShop,
@@ -89,17 +88,18 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-//                            morderNo = jsonObject.getString("orderNo");
-                            Intent i = new Intent(activity, MainActivity.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(i);
-                            showToast("Comments Added...");
-                        } catch (JSONException e) {
-
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            //noinspection UnusedAssignment
+////                            JSONObject jsonObject = new JSONObject(response);
+////                            morderNo = jsonObject.getString("orderNo");
+//                            Intent i = new Intent(activity, MainActivity.class);
+//                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                            startActivity(i);
+//                            showToast("Comments Added...");
+//                        } catch (JSONException e) {
+//
+//                            e.printStackTrace();
+//                        }
                         loading.close();
                     }
                 },
@@ -113,6 +113,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                     }
                 }
         ) {
+            @SuppressWarnings("Convert2Diamond")
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -132,7 +133,8 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         queue.add(postRequest);
     }
 
-    public void btn_drawyerMenuOpen(View v) {
+    @SuppressLint("RtlHardcoded")
+    public void btn_drawyerMenuOpen(@SuppressWarnings("UnusedParameters") View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 

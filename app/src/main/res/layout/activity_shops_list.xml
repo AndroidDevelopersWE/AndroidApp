@@ -9,7 +9,8 @@
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".UI.Activities.ShopsListActivity">
+    tools:context=".UI.Activities.ShopsListActivity"
+    tools:ignore="Overdraw">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +32,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
                     <LinearLayout
                         android:id="@+id/lay_dr_btn"
@@ -40,7 +42,8 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:duplicateParentState="false"
-                        android:onClick="btn_drawyerMenuOpen">
+                        android:onClick="btn_drawyerMenuOpen"
+                        tools:ignore="RtlHardcoded">
 
                         <ImageView
                             android:layout_width="@dimen/_20sdp"
@@ -48,7 +51,8 @@
                             android:layout_margin="@dimen/_10sdp"
                             android:background="@drawable/ic_menu"
                             android:backgroundTint="@color/colorGrey"
-                            android:clickable="false" />
+                            android:clickable="false"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -59,15 +63,14 @@
                         android:layout_toRightOf="@+id/lay_dr_btn"
                         android:orientation="horizontal"
                         android:paddingRight="@dimen/_10sdp"
-                        android:visibility="visible">
+                        android:visibility="visible"
+                        tools:ignore="RtlHardcoded,RtlSymmetry">
 
 
                         <TextView
                             android:id="@+id/tv_title_shops_list"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:gravity="center"
@@ -80,8 +83,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
                             android:layout_gravity="right"
                             android:layout_weight="0"
                             android:gravity="right"
@@ -89,7 +90,8 @@
                             android:text="@string/tv_title_top_a_map"
                             android:textColor="@color/colorGrey"
                             android:textSize="@dimen/_15sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="RtlHardcoded" />
 
                     </LinearLayout>
 
@@ -142,7 +144,8 @@
             android:layout_margin="@dimen/_10sdp"
             android:orientation="horizontal"
             android:visibility="gone"
-            android:weightSum="2">
+            android:weightSum="2"
+            tools:ignore="DisableBaselineAlignment">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -151,7 +154,8 @@
                 android:layout_marginRight="@dimen/_7sdp"
                 android:layout_weight="1"
                 android:background="@drawable/dr_corner_view_straight"
-                android:padding="@dimen/_2sdp">
+                android:padding="@dimen/_2sdp"
+                tools:ignore="RtlHardcoded">
 
                 <Spinner
                     android:id="@+id/sp_brand_type_shop_list"
@@ -167,7 +171,8 @@
                 android:layout_marginLeft="@dimen/_2sdp"
                 android:layout_weight="1"
                 android:background="@drawable/dr_corner_view_straight"
-                android:padding="@dimen/_2sdp">
+                android:padding="@dimen/_2sdp"
+                tools:ignore="RtlHardcoded">
 
                 <Spinner
                     android:id="@+id/sp_service_type_shops_list"
@@ -185,7 +190,8 @@
             android:layout_marginRight="@dimen/_10sdp"
             android:orientation="horizontal"
             android:visibility="gone"
-            android:weightSum="2">
+            android:weightSum="2"
+            tools:ignore="DisableBaselineAlignment">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -194,7 +200,8 @@
                 android:layout_marginRight="@dimen/_7sdp"
                 android:layout_weight="1"
                 android:background="@drawable/dr_corner_view_straight"
-                android:padding="@dimen/_2sdp">
+                android:padding="@dimen/_2sdp"
+                tools:ignore="RtlHardcoded">
 
                 <co.dtechsystem.carefer.Widget.MultiSpinner
                     android:id="@+id/sp_providers_shop_list"
@@ -208,7 +215,8 @@
                     android:layout_height="@dimen/_30sdp"
                     android:backgroundTint="@android:color/black"
                     android:drawableLeft="@android:drawable/arrow_down_float"
-                    android:padding="@dimen/_5sdp" />
+                    android:padding="@dimen/_5sdp"
+                    tools:ignore="RtlHardcoded,UnusedAttribute" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -217,7 +225,8 @@
                 android:layout_marginLeft="@dimen/_2sdp"
                 android:layout_weight="1"
                 android:background="@drawable/dr_corner_view_straight"
-                android:padding="@dimen/_2sdp">
+                android:padding="@dimen/_2sdp"
+                tools:ignore="RtlHardcoded">
 
                 <Spinner
                     android:id="@+id/sp_cities_shops_list"
@@ -254,8 +263,6 @@
                         android:id="@+id/tv_total_results_shops_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:layout_weight="0"
                         android:gravity="right"
                         android:layout_gravity="center"
@@ -263,14 +270,13 @@
                         android:padding="@dimen/_5sdp"
                         android:text="@string/tv_total_results"
                         android:textColor="@android:color/white"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_12sdp"
+                        tools:ignore="RtlHardcoded" />
 
                     <TextView
                         android:id="@+id/tv_location_name_shops_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
                         android:layout_weight="1"
                         android:gravity="right"
                         android:layout_gravity="center"
@@ -278,14 +284,16 @@
                         android:padding="@dimen/_5sdp"
                         android:text="@string/riyadh_saduia"
                         android:textColor="@android:color/white"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_12sdp"
+                        tools:ignore="RtlHardcoded" />
 
                     <LinearLayout
                         android:layout_width="@dimen/_1sdp"
                         android:layout_height="match_parent"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_weight="0"
-                        android:background="@color/colorGrey" />
+                        android:background="@color/colorGrey"
+                        tools:ignore="RtlHardcoded" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -293,7 +301,8 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_weight="0"
-                        android:background="@drawable/ic_my_location" />
+                        android:background="@drawable/ic_my_location"
+                        tools:ignore="ContentDescription,RtlHardcoded" />
 
                 </LinearLayout>
 
@@ -309,7 +318,8 @@
 
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="@dimen/_5sdp">
+                    android:padding="@dimen/_5sdp"
+                    tools:ignore="RtlHardcoded">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -323,7 +333,8 @@
                         android:gravity="center"
                         android:text="@string/tv_sorting"
                         android:textColor="@android:color/white"
-                        android:textSize="@dimen/_13sdp" />
+                        android:textSize="@dimen/_13sdp"
+                        tools:ignore="RtlHardcoded" />
 
 
                     <TextView
@@ -340,16 +351,17 @@
                         android:gravity="center"
                         android:text="@string/tv_filter"
                         android:textColor="@color/colorChelseaGem"
-                        android:textSize="@dimen/_13sdp" />
+                        android:textSize="@dimen/_13sdp"
+                        tools:ignore="RtlHardcoded" />
 
                     <LinearLayout
                         android:id="@+id/lay_et_search_shops_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/lay_dr_btn"
                         android:background="@color/colorChelseaGem"
                         android:orientation="horizontal"
-                        android:visibility="visible">
+                        android:visibility="visible"
+                        tools:ignore="RtlHardcoded">
 
 
                         <EditText
@@ -367,7 +379,8 @@
                             android:textColor="@android:color/white"
                             android:textColorHint="@android:color/white"
                             android:textSize="@dimen/_11sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="Deprecated,UnusedAttribute" />
 
                         <ImageView
                             android:id="@+id/iv_search_close_shops_list"
@@ -377,7 +390,8 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:layout_weight="0"
                             android:background="@android:drawable/ic_menu_close_clear_cancel"
-                            android:visibility="gone" />
+                            android:visibility="gone"
+                            tools:ignore="ContentDescription,RtlHardcoded" />
 
                         <ImageView
                             android:id="@+id/iv_search_shops_list"
@@ -387,7 +401,8 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:layout_weight="0"
                             android:background="@drawable/ic_search"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            tools:ignore="ContentDescription,RtlHardcoded" />
 
                     </LinearLayout>
                 </LinearLayout>

@@ -41,7 +41,8 @@
                     android:layout_gravity="center"
                     android:orientation="horizontal"
                     android:visibility="visible"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    card_view:ignore="DisableBaselineAlignment,UselessParent">
 
                     <LinearLayout
                         android:id="@+id/lay_iv_down"
@@ -59,7 +60,8 @@
                             android:layout_marginStart="@dimen/_5sdp"
                             android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_weight="0"
-                            android:background="@drawable/ic_arrow_down_grey" />
+                            android:background="@drawable/ic_arrow_down_grey"
+                            card_view:ignore="ContentDescription,InefficientWeight,NestedWeights" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -81,7 +83,8 @@
                             android:singleLine="true"
                             android:text="@string/tv_order_number"
                             android:textColor="@color/colorGrey"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,InefficientWeight,NestedWeights,RtlHardcoded" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -110,7 +113,8 @@
                             android:singleLine="true"
                             android:text="@string/tv_date_order"
                             android:textColor="@color/colorGrey"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -123,7 +127,8 @@
                             android:singleLine="true"
                             android:text="@string/tv_date"
                             android:textColor="@color/colorGrey"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
                     </LinearLayout>
 
@@ -142,7 +147,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/dr_btn_orange_angle_180"
                     android:baselineAligned="false"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    card_view:ignore="UselessParent">
 
 
                     <LinearLayout
@@ -152,7 +158,8 @@
                         android:layout_marginTop="@dimen/_5sdp"
                         android:gravity="right"
                         android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
+                        android:padding="@dimen/_5sdp"
+                        card_view:ignore="DisableBaselineAlignment,RtlHardcoded">
 
                         <LinearLayout
                             android:id="@+id/lay_iv_up"
@@ -164,7 +171,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
                                 android:layout_weight="0"
-                                android:background="@drawable/ic_arrow_up_white" />
+                                android:background="@drawable/ic_arrow_up_white"
+                                card_view:ignore="ContentDescription,InefficientWeight,RtlHardcoded" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -173,7 +181,8 @@
                             android:layout_gravity="right"
                             android:layout_weight="1"
                             android:gravity="right"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            card_view:ignore="InefficientWeight,RtlHardcoded">
 
                             <TextView
                                 android:id="@+id/tv_my_order_number"
@@ -182,7 +191,8 @@
                                 android:singleLine="true"
                                 android:text="@string/dummy_order_no"
                                 android:textColor="@android:color/white"
-                                android:textSize="@dimen/_12sdp" />
+                                android:textSize="@dimen/_12sdp"
+                                card_view:ignore="Deprecated" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -193,7 +203,8 @@
                                 android:singleLine="true"
                                 android:text="@string/tv_order_number"
                                 android:textColor="@android:color/white"
-                                android:textSize="@dimen/_12sdp" />
+                                android:textSize="@dimen/_12sdp"
+                                card_view:ignore="Deprecated,RtlHardcoded" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -209,7 +220,8 @@
                         android:layout_gravity="right"
                         android:gravity="right"
                         android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
+                        android:padding="@dimen/_5sdp"
+                        card_view:ignore="RtlHardcoded">
 
                         <TextView
                             android:id="@+id/tv_my_order_date"
@@ -220,7 +232,8 @@
                             android:text="@string/dummy_date"
                             android:textColor="@android:color/white"
 
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -230,7 +243,8 @@
                             android:singleLine="true"
                             android:text="@string/tv_date_order"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
 
                     </LinearLayout>
@@ -246,7 +260,8 @@
                         android:layout_gravity="right"
                         android:gravity="right"
                         android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
+                        android:padding="@dimen/_5sdp"
+                        card_view:ignore="RtlHardcoded">
 
                         <TextView
                             android:id="@+id/tv_my_order_shop_name"
@@ -257,7 +272,8 @@
                             android:singleLine="true"
                             android:text="@string/dummy_text_list_item"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -267,7 +283,8 @@
                             android:singleLine="true"
                             android:text="@string/tv_shop"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
 
                     </LinearLayout>
@@ -283,7 +300,8 @@
                         android:layout_gravity="right"
                         android:gravity="right"
                         android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
+                        android:padding="@dimen/_5sdp"
+                        card_view:ignore="RtlHardcoded">
 
                         <TextView
                             android:id="@+id/tv_my_order_type"
@@ -293,7 +311,8 @@
                             android:singleLine="true"
                             android:text="@string/dummy_order_type"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -303,7 +322,8 @@
                             android:singleLine="true"
                             android:text="@string/tv_order_type"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
 
                     </LinearLayout>
@@ -319,7 +339,8 @@
                         android:layout_gravity="right"
                         android:gravity="right"
                         android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
+                        android:padding="@dimen/_5sdp"
+                        card_view:ignore="RtlHardcoded">
 
                         <TextView
                             android:id="@+id/tv_my_order_shop_rating"
@@ -329,7 +350,8 @@
                             android:singleLine="true"
                             android:text="@string/dummy_rating"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -339,7 +361,8 @@
                             android:singleLine="true"
                             android:text="@string/tv_shop_rating"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
 
                     </LinearLayout>
@@ -356,7 +379,8 @@
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:gravity="right"
                         android:orientation="horizontal"
-                        android:padding="@dimen/_5sdp">
+                        android:padding="@dimen/_5sdp"
+                        card_view:ignore="RtlHardcoded">
 
                         <TextView
                             android:id="@+id/tv_my_order_status"
@@ -366,7 +390,8 @@
                             android:singleLine="true"
                             android:text="@string/dummy_status"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -376,7 +401,8 @@
                             android:singleLine="true"
                             android:text="@string/tv_status"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            card_view:ignore="Deprecated,RtlHardcoded" />
 
                     </LinearLayout>
 

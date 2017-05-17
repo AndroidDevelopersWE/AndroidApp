@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -10,7 +9,8 @@
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".UI.Activities.OrderNowActivity">
+    tools:context=".UI.Activities.OrderNowActivity"
+    tools:ignore="Overdraw">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,7 +32,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
                     <LinearLayout
                         android:id="@+id/lay_dr_btn"
@@ -41,7 +42,8 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:duplicateParentState="false"
-                        android:onClick="btn_drawyerMenuOpen">
+                        android:onClick="btn_drawyerMenuOpen"
+                        tools:ignore="RtlHardcoded">
 
                         <ImageView
                             android:layout_width="@dimen/_20sdp"
@@ -49,7 +51,8 @@
                             android:layout_margin="@dimen/_10sdp"
                             android:background="@drawable/ic_menu"
                             android:backgroundTint="@color/colorGrey"
-                            android:clickable="false" />
+                            android:clickable="false"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -57,7 +60,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_toRightOf="@+id/lay_dr_btn"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="RtlHardcoded">
 
                         <TextView
                             android:id="@+id/tv_title_order_now"
@@ -75,8 +79,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
                             android:layout_gravity="right"
                             android:layout_weight="0"
                             android:gravity="right"
@@ -84,7 +86,8 @@
                             android:text="@string/tv_title_top_a_map"
                             android:textColor="@color/colorGrey"
                             android:textSize="@dimen/_15sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="RtlHardcoded" />
 
                     </LinearLayout>
                 </RelativeLayout>
@@ -110,7 +113,8 @@
                     android:background="@color/colorCreamDark"
                     android:clickable="false"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_img_place_holder" />
+                    android:src="@drawable/ic_img_place_holder"
+                    tools:ignore="ContentDescription" />
 
                 <ProgressBar
                     android:id="@+id/pg_shop_image_blur"
@@ -170,7 +174,8 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_13sdp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="RtlHardcoded" />
 
 
                 <Button
@@ -189,7 +194,8 @@
                     android:textAllCaps="false"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="@dimen/_13sdp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:ignore="RtlHardcoded" />
             </LinearLayout>
 
         </LinearLayout>

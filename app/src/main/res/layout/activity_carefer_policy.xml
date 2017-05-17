@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorCream"
-    tools:context="co.dtechsystem.carefer.UI.Activities.CareferPolicyActivity">
+    tools:context="co.dtechsystem.carefer.UI.Activities.CareferPolicyActivity"
+    tools:ignore="Overdraw">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_main_top"
@@ -62,7 +63,8 @@
                 android:text="@string/privacy_policy_details"
                 android:textColor="@android:color/black"
                 android:textDirection="anyRtl"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                tools:ignore="RtlHardcoded" />
 
         </ScrollView>
 
@@ -94,8 +96,6 @@
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_38sdp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_80sdp"

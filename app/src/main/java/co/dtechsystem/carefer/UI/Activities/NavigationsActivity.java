@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -45,15 +46,14 @@ import co.dtechsystem.carefer.Utils.Utils;
 
 public class NavigationsActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
-    DrawerLayout mDrawerLayout;
+    private DrawerLayout mDrawerLayout;
     private GoogleMap mMap;
-    ArrayList markerPoints = new ArrayList();
-    boolean firstCAll = false;
-    SupportMapFragment mapFragment;
-    String mlatitude, mlongitude, mshopID;
-    LatLng mShopLatlng;
+    private final ArrayList markerPoints = new ArrayList();
+    private boolean firstCAll = false;
+    private SupportMapFragment mapFragment;
+    private LatLng mShopLatlng;
 
-    TextView tv_title_navigation;
+    private TextView tv_title_navigation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,16 +68,15 @@ public class NavigationsActivity extends BaseActivity
 
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_navigation, activity);
     }
 
     // Get Views Data
-    public void GetDataForViews() {
+    private void GetDataForViews() {
         if (intent != null) {
-            mlatitude = intent.getStringExtra("latitude");
-            mlongitude = intent.getStringExtra("longitude");
-            mshopID = intent.getStringExtra("shopID");
+            String mlatitude = intent.getStringExtra("latitude");
+            String mlongitude = intent.getStringExtra("longitude");
             if (mlatitude != null && mlongitude != null) {
 
                 mShopLatlng = new LatLng(Double.parseDouble(mlatitude), Double.parseDouble(mlongitude));
@@ -85,19 +84,20 @@ public class NavigationsActivity extends BaseActivity
         }
     }
 
-    public void GotoHome(View v) {
+    public void GotoHome(@SuppressWarnings("UnusedParameters") View v) {
         Intent i = new Intent(activity, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
     }
 
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -110,6 +110,7 @@ public class NavigationsActivity extends BaseActivity
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
+            @SuppressWarnings("PointlessBooleanExpression")
             @Override
             public void onMyLocationChange(Location arg0) {
                 // TODO Auto-generated method stub
@@ -131,7 +132,7 @@ public class NavigationsActivity extends BaseActivity
 
     }
 
-    public void AddMarkerForRoute(final LatLng latLng) {
+    private void AddMarkerForRoute(final LatLng latLng) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_map);
 //        BitmapDescriptor icon2 = BitmapDescriptorFactory.fromResource(R.drawable.ic_location_order);
         if (markerPoints.size() > 1) {
@@ -140,6 +141,7 @@ public class NavigationsActivity extends BaseActivity
         }
 
         // Adding new item to the ArrayList
+        //noinspection unchecked
         markerPoints.add(latLng);
 
         // Creating MarkerOptions
@@ -148,6 +150,7 @@ public class NavigationsActivity extends BaseActivity
         // Setting the position of the marker
         options.position(latLng);
 
+        //noinspection StatementWithEmptyBody
         if (markerPoints.size() == 1) {
 //            options.icon(icon2);
         } else if (markerPoints.size() == 2) {
@@ -225,6 +228,7 @@ public class NavigationsActivity extends BaseActivity
             return routes;
         }
 
+        @SuppressWarnings("deprecation")
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList points;
@@ -243,9 +247,11 @@ public class NavigationsActivity extends BaseActivity
                         double lng = Double.parseDouble(point.get("lng"));
                         LatLng position = new LatLng(lat, lng);
 
+                        //noinspection unchecked
                         points.add(position);
                     }
 
+                    //noinspection unchecked
                     lineOptions.addAll(points);
                     lineOptions.width(12);
                     lineOptions.color(getResources().getColor(R.color.colorOrange));
@@ -295,10 +301,12 @@ public class NavigationsActivity extends BaseActivity
     /**
      * A method to download json data from url
      */
+    @SuppressWarnings({"StringBufferMayBeStringBuilder", "ConstantConditions"})
     private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
+        //noinspection TryFinallyCanBeTryWithResources
         try {
             URL url = new URL(strUrl);
 
@@ -312,7 +320,7 @@ public class NavigationsActivity extends BaseActivity
 
             StringBuffer sb = new StringBuffer();
 
-            String line = "";
+            String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
@@ -325,6 +333,7 @@ public class NavigationsActivity extends BaseActivity
             Log.d("Exception", e.toString());
         } finally {
             iStream.close();
+            //noinspection ConstantConditions
             urlConnection.disconnect();
         }
         return data;
@@ -344,7 +353,8 @@ public class NavigationsActivity extends BaseActivity
         }
     }
 
-    public void btn_drawyerMenuOpen(View v) {
+    @SuppressLint("RtlHardcoded")
+    public void btn_drawyerMenuOpen(@SuppressWarnings("UnusedParameters") View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
@@ -380,7 +390,7 @@ public class NavigationsActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    @SuppressWarnings({"StatementWithEmptyBody", "NullableProblems"})
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

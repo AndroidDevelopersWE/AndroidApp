@@ -21,15 +21,13 @@ import co.dtechsystem.carefer.UI.Activities.MobileNumActivity;
 import co.dtechsystem.carefer.UI.Activities.MobileNumVerifyActivity;
 
 public class SplashActivity extends BaseActivity {
-    private final int SPLASH_DISPLAY_LENGTH = 3000;
-
-    ImageView iv_splash;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        iv_splash=(ImageView)findViewById(R.id.iv_splash);
+        //noinspection UnusedAssignment
+        ImageView iv_splash = (ImageView) findViewById(R.id.iv_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // Obtain the shared Tracker instance.
@@ -41,12 +39,13 @@ public class SplashActivity extends BaseActivity {
 
     }
 
-    public void SplashScreenThread() {
+    private void SplashScreenThread() {
+        int SPLASH_DISPLAY_LENGTH = 3000;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = null;
+                @SuppressWarnings("UnusedAssignment") Intent mainIntent = null;
                 if (sUser_Mobile != null && !sUser_Mobile.equals("") && sUser_Mobile_Varify != null &&
                         sUser_Mobile_Varify.equals("1") && sPrivacy_check != null && sPrivacy_check.equals("verified")) {
                     mainIntent = new Intent(SplashActivity.this, MainActivity.class);
@@ -69,10 +68,11 @@ public class SplashActivity extends BaseActivity {
 
     }
 
+    @SuppressWarnings({"unused", "Convert2Diamond", "StringConcatenationInsideStringBufferAppend"})
     private void getCallDetails() {
         StringBuffer sb = new StringBuffer();
-        Uri contacts = CallLog.Calls.CONTENT_URI;
-        HashMap rowDataCall;
+        @SuppressWarnings("UnusedAssignment") Uri contacts = CallLog.Calls.CONTENT_URI;
+        @SuppressWarnings("MismatchedQueryAndUpdateOfCollection") HashMap rowDataCall;
 //        Cursor managedCursor = getContentResolver().query(contacts, null, null, null, null);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -86,13 +86,14 @@ public class SplashActivity extends BaseActivity {
         }
         Cursor managedCursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, null, null, null, android.provider.CallLog.Calls.DATE + " DESC limit 1;");
 
-        int number = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
-        int type = managedCursor.getColumnIndex(CallLog.Calls.TYPE);
-        int date = managedCursor.getColumnIndex(CallLog.Calls.DATE);
-        int duration = managedCursor.getColumnIndex(CallLog.Calls.DURATION);
+        int number = managedCursor != null ? managedCursor.getColumnIndex(CallLog.Calls.NUMBER) : 0;
+        int type = managedCursor != null ? managedCursor.getColumnIndex(CallLog.Calls.TYPE) : 0;
+        int date = managedCursor != null ? managedCursor.getColumnIndex(CallLog.Calls.DATE) : 0;
+        int duration = managedCursor != null ? managedCursor.getColumnIndex(CallLog.Calls.DURATION) : 0;
         sb.append("Call Details :");
-        while (managedCursor.moveToNext()) {
+        while (managedCursor != null && managedCursor.moveToNext()) {
 
+            //noinspection UnusedAssignment
             rowDataCall = new HashMap<String, String>();
 
             String phNumber = managedCursor.getString(number);
@@ -121,6 +122,7 @@ public class SplashActivity extends BaseActivity {
 
 
         }
+        assert managedCursor != null;
         managedCursor.close();
         System.out.println(sb);
     }

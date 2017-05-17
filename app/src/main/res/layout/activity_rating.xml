@@ -10,7 +10,8 @@
     android:focusable="false"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".UI.Activities.RatingActivity">
+    tools:context=".UI.Activities.RatingActivity"
+    tools:ignore="Overdraw">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +32,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
                     <LinearLayout
                         android:id="@+id/lay_dr_btn"
@@ -40,7 +42,8 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:duplicateParentState="false"
-                        android:onClick="btn_drawyerMenuOpen">
+                        android:onClick="btn_drawyerMenuOpen"
+                        tools:ignore="RtlHardcoded">
 
                         <ImageView
                             android:layout_width="@dimen/_20sdp"
@@ -48,7 +51,8 @@
                             android:layout_margin="@dimen/_10sdp"
                             android:background="@drawable/ic_menu"
                             android:backgroundTint="@color/colorGrey"
-                            android:clickable="false" />
+                            android:clickable="false"
+                            tools:ignore="ContentDescription,UnusedAttribute" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -56,7 +60,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_toRightOf="@+id/lay_dr_btn"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        tools:ignore="RtlHardcoded">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -68,7 +73,8 @@
                             android:text="@string/title_shop_rating"
                             android:textColor="@color/colorGrey"
                             android:textSize="@dimen/_15sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="RtlHardcoded" />
 
 
                     </LinearLayout>
@@ -88,7 +94,8 @@
             android:layout_margin="@dimen/_10sdp"
             android:layout_weight="1"
             card_view:cardCornerRadius="@dimen/_5sdp"
-            card_view:cardElevation="@dimen/_5sdp">
+            card_view:cardElevation="@dimen/_5sdp"
+            tools:ignore="InefficientWeight">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,7 +163,8 @@
                                 android:numStars="5"
                                 android:progressDrawable="@drawable/dr_rating_bar_black"
                                 android:rating="5"
-                                android:stepSize="0.5" />
+                                android:stepSize="0.5"
+                                tools:ignore="RtlHardcoded" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -186,7 +194,8 @@
                                 android:numStars="5"
                                 android:progressDrawable="@drawable/dr_rating_bar_black"
                                 android:rating="5"
-                                android:stepSize="0.5" />
+                                android:stepSize="0.5"
+                                tools:ignore="RtlHardcoded" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -216,7 +225,8 @@
                                 android:numStars="5"
                                 android:progressDrawable="@drawable/dr_rating_bar_black"
                                 android:rating="5"
-                                android:stepSize="0.5" />
+                                android:stepSize="0.5"
+                                tools:ignore="RtlHardcoded" />
                         </LinearLayout>
 
                         <Button

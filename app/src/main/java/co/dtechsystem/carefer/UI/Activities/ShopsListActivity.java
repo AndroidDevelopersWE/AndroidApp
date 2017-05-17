@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -46,20 +47,22 @@ import co.dtechsystem.carefer.Utils.Validations;
 import co.dtechsystem.carefer.Widget.MultiSpinner;
 
 public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
-    GridLayoutManager mgridLayoutManager;
-    static ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter;
-    DrawerLayout mDrawerLayout;
-    Spinner sp_service_type_shops_list;
-    Spinner sp_brand_type_shop_list, sp_cities_shops_list;
+    @SuppressLint("StaticFieldLeak")
+    private static ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter;
+    private DrawerLayout mDrawerLayout;
+    private Spinner sp_service_type_shops_list;
+    private Spinner sp_brand_type_shop_list;
     private String mplaceName;
-    MultiSpinner sp_providers_shop_list;
-    EditText et_search_shops_main;
-    ArrayAdapter<String> adapter;
-    TextView tv_total_results_shops_list, tv_title_shops_list;
-    ShopsListModel mShopsListModel;
-    LatLng mLatlngCurrent;
-    SwipeRefreshLayout lay_pull_refresh_shops_list;
+    private MultiSpinner sp_providers_shop_list;
+    private EditText et_search_shops_main;
+    private ArrayAdapter<String> adapter;
+    private TextView tv_total_results_shops_list;
+    private TextView tv_title_shops_list;
+    private ShopsListModel mShopsListModel;
+    private LatLng mLatlngCurrent;
+    private SwipeRefreshLayout lay_pull_refresh_shops_list;
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +70,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         sp_service_type_shops_list = (Spinner) findViewById(R.id.sp_service_type_shops_list);
         sp_brand_type_shop_list = (Spinner) findViewById(R.id.sp_brand_type_shop_list);
         sp_providers_shop_list = (MultiSpinner) findViewById(R.id.sp_providers_shop_list);
-        sp_cities_shops_list = (Spinner) findViewById(R.id.sp_cities_shops_list);
+        //noinspection UnusedAssignment
+        Spinner sp_cities_shops_list = (Spinner) findViewById(R.id.sp_cities_shops_list);
         et_search_shops_main = (EditText) findViewById(R.id.et_search_shops_main);
         tv_total_results_shops_list = (TextView) findViewById(R.id.tv_total_results_shops_list);
         tv_title_shops_list = (TextView) findViewById(R.id.tv_title_shops_list);
@@ -89,12 +93,13 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         setDataToViews();
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_shops_list, activity);
     }
 
-    public void setDataToViews() {
+    private void setDataToViews() {
         // create spinner list elements
+        //noinspection Convert2Diamond
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         adapter.add("توفير الضمان");
         adapter.add("قدم استبدال الأجزاء");
@@ -117,6 +122,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
             }
 
+            @SuppressLint("SetTextI18n")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
@@ -126,7 +132,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     aQuery.find(R.id.iv_search_close_shops_list).visibility(View.GONE);
                     aQuery.find(R.id.iv_search_shops_list).visibility(View.VISIBLE);
                 }
-                mshopsListRecycleViewAdapter.filterShopsName(s.toString());
+                ShopsListRecycleViewAdapter.filterShopsName(s.toString());
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                 }
@@ -165,7 +171,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
     }
 
-    public void getDataForView() {
+    private void getDataForView() {
         if (intent != null) {
 
             Bundle bundle = intent.getParcelableExtra("bundle");
@@ -176,7 +182,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    public void setDataToView() {
+    private void setDataToView() {
         if (mplaceName != null && !mplaceName.equals("")) {
             aQuery.find(R.id.tv_location_name_shops_list).text(mplaceName);
         }
@@ -187,9 +193,11 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 //        mshopsListRecycleViewAdapter.notifyDataSetChanged();
 //    }
 
+    @SuppressWarnings("unused")
     public void setSpinnerFilter() {
         try {
             sp_service_type_shops_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedItemService = sp_service_type_shops_list.getSelectedItem().toString();
@@ -198,22 +206,25 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") && selectedItemBrand != null &&
                             selectedItemBrand.equals("Brand")) {
-                        mshopsListRecycleViewAdapter.filterShops("Service", "No", selectedItemService, selectedItemBrand);
+                        ShopsListRecycleViewAdapter.filterShops("Service", "No", selectedItemService, selectedItemBrand);
                         if (mshopsListRecycleViewAdapter != null) {
                             mshopsListRecycleViewAdapter.notifyDataSetChanged();
                         }
                     } else if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
-                        mshopsListRecycleViewAdapter.filterShops("Service Type", "Yes", selectedItemService, selectedItemBrand);
+                        ShopsListRecycleViewAdapter.filterShops("Service Type", "Yes", selectedItemService, selectedItemBrand);
                         if (mshopsListRecycleViewAdapter != null) {
                             mshopsListRecycleViewAdapter.notifyDataSetChanged();
                         }
 
-                    } else if (selectedItemService.equals("Service Type") && selectedItemBrand.equals("Brand")) {
-                        mshopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
-                        if (mshopsListRecycleViewAdapter != null) {
-                            mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                    } else {
+                        assert selectedItemBrand != null;
+                        if ((selectedItemService != null && selectedItemService.equals("Service Type")) && selectedItemBrand.equals("Brand")) {
+                            ShopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
+                            if (mshopsListRecycleViewAdapter != null) {
+                                mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                            }
                         }
                     }
                     tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
@@ -225,6 +236,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 }
             });
             sp_brand_type_shop_list.setOnItemSelectedListener((new AdapterView.OnItemSelectedListener() {
+                @SuppressWarnings("UnusedAssignment")
+                @SuppressLint("SetTextI18n")
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedItemBrand = sp_brand_type_shop_list.getSelectedItem().toString();
@@ -233,18 +246,21 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                     if (selectedItemService != null && selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
-                        mshopsListRecycleViewAdapter.filterShops("Brand", "No", selectedItemService, selectedItemBrand);
+                        ShopsListRecycleViewAdapter.filterShops("Brand", "No", selectedItemService, selectedItemBrand);
                         mshopsListRecycleViewAdapter.notifyDataSetChanged();
 
                     } else if (selectedItemService
                             != null && !selectedItemService.equals("Service Type") &&
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
-                        mshopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
+                        ShopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
                         mshopsListRecycleViewAdapter.notifyDataSetChanged();
 
-                    } else if (selectedItemService.equals("Service Type") && selectedItemBrand.equals("Brand")) {
-                        mshopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
-                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                    } else {
+                        assert selectedItemBrand != null;
+                        if ((selectedItemService != null && selectedItemService.equals("Service Type")) && selectedItemBrand.equals("Brand")) {
+                            ShopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
+                            mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                        }
                     }
                     tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
                 }
@@ -262,8 +278,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
     }
 
-    private MultiSpinner.MultiSpinnerListener onSelectedListener = new MultiSpinner.MultiSpinnerListener() {
+    private final MultiSpinner.MultiSpinnerListener onSelectedListener = new MultiSpinner.MultiSpinnerListener() {
 
+        @SuppressWarnings({"ConstantConditions", "MismatchedQueryAndUpdateOfStringBuilder"})
         public void onItemsSelected(boolean[] selected) {
             // Do something here with the selected items
 
@@ -271,6 +288,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             ArrayList<String> selectedItems = new ArrayList<>();
             for (int i = 0; i < selected.length; i++) {
                 if (selected[i]) {
+                    //noinspection RedundantStringToString,ConstantConditions
                     selectedItems.add(adapter.getItem(i).toString());
                     builder.append(adapter.getItem(i)).append(" ");
                 }
@@ -288,6 +306,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 ProvideReplacementParts = "";
             }
             if (selected[2]) {
+                //noinspection RedundantStringToString
                 shopType = adapter.getItem(2).toString();
             } else {
                 shopType = "";
@@ -306,12 +325,14 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
     };
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("UnusedParameters")
+    @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
@@ -326,35 +347,40 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    public void APiGetShopslistData(final String Url, final String Type) {
+    private void APiGetShopslistData(final String Url, final String Type) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
                 new Response.Listener<JSONObject>() {
+                    @SuppressWarnings("IfCanBeSwitch")
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
                         try {
                             List listservices = new ArrayList();
+                            //noinspection unchecked
                             listservices.add(0, "Service Type");
                             List brands = new ArrayList();
+                            //noinspection unchecked
                             brands.add(0, "Brand");
                             if (Type.equals("Services")) {
                                 JSONArray brandsData = response.getJSONArray("serviceTypeData");
                                 for (int i = 0; i < brandsData.length(); i++) {
                                     JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    //noinspection unchecked
                                     listservices.add(jsonObject.getString("serviceTypeName"));
                                 }
-                                ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, listservices);
+                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, listservices);
                                 sp_service_type_shops_list.setAdapter(StringdataAdapter);
                                 APiGetShopslistData(AppConfig.APiBrandData, "Brands");
                             } else if (Type.equals("Brands")) {
                                 JSONArray brandsData = response.getJSONArray("brandsData");
                                 for (int i = 0; i < brandsData.length(); i++) {
                                     JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    //noinspection unchecked
                                     brands.add(jsonObject.getString("brandName"));
                                 }
-                                ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
+                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
                                 sp_brand_type_shop_list.setAdapter(StringdataAdapterbrands);
                                 APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
                             } else {
@@ -403,14 +429,15 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     }
 
     //Setting Shops List Data
-    public void SetListData() {
+    @SuppressLint("SetTextI18n")
+    private void SetListData() {
         try {
 
             tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
             recyclerView.getItemAnimator().setChangeDuration(700);
             recyclerView.setAdapter(mshopsListRecycleViewAdapter);
-            mgridLayoutManager = new GridLayoutManager(this, 1);
+            GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
             recyclerView.setLayoutManager(mgridLayoutManager);
             if (lay_pull_refresh_shops_list.isRefreshing()) {
                 lay_pull_refresh_shops_list.setRefreshing(false);

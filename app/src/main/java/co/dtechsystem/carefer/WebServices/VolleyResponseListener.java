@@ -6,9 +6,9 @@ import java.util.Map;
 
 public interface VolleyResponseListener {
 	
-	public Map<String, String> OnPreExecute();
-	public void OnSuccessListener(JSONObject mJsonObject);
-	public void OnErrorListener(String msg);
+	Map<String, String> OnPreExecute();
+	void OnSuccessListener(JSONObject mJsonObject);
+	void OnErrorListener(String msg);
 	
 
 }

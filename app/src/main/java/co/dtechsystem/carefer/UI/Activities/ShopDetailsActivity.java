@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -43,20 +44,20 @@ import co.dtechsystem.carefer.Utils.Validations;
 import me.relex.circleindicator.CircleIndicator;
 
 public class ShopDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout mDrawerLayout;
-    LinearLayoutManager mgridLayoutManager;
-    ShopsImagesRecycleViewAdapter mShopsImagesRecycleViewAdapter;
-    ShopsDetailsModel mShopsDetailsModel;
-    String mShopID;
-    Intent mIntent;
-    int mStatus = 0;
-    LinearLayout lay_full_image, lay_shop_details;
-    RecyclerView rv_images_shop_details;
+    private DrawerLayout mDrawerLayout;
+    private ShopsImagesRecycleViewAdapter mShopsImagesRecycleViewAdapter;
+    private ShopsDetailsModel mShopsDetailsModel;
+    private String mShopID;
+    private int mStatus = 0;
+    private LinearLayout lay_full_image;
+    private LinearLayout lay_shop_details;
+    private RecyclerView rv_images_shop_details;
 
-    ShopsImagesPagerAdapter mShopsImagesPagerAdapter;
-    ViewPager mViewPager;
-    String responsePublic;
-    TextView tv_title_shop_details;
+    private ShopsImagesPagerAdapter mShopsImagesPagerAdapter;
+    private ViewPager mViewPager;
+    @SuppressWarnings("unused")
+    private String responsePublic;
+    private TextView tv_title_shop_details;
 
     @Override
 
@@ -70,7 +71,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
         SetUpLeftbar();
         SetShaderToViews();
-        mIntent = getIntent();
+        Intent mIntent = getIntent();
         if (mIntent != null) {
             mShopID = mIntent.getStringExtra("ShopID");
             if (Validations.isInternetAvailable(activity, true)) {
@@ -82,7 +83,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_shop_details, activity);
     }
 //    public static void getRecylerPosition(int position) {
@@ -90,7 +91,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 //        shopDetailsActivit.initPagerImages(position);
 //    }
 
-    public void initPagerImages() {
+    private void initPagerImages() {
         rv_images_shop_details.addOnItemTouchListener(
                 new RecyclerImagesItemClickListener(activity, new RecyclerImagesItemClickListener.OnItemClickListener() {
                     @Override
@@ -137,7 +138,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     }
 
 
-    public void favouriteClicks() {
+    private void favouriteClicks() {
         aQuery.find(R.id.iv_fav_shop_list).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,7 +162,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     }
 
-    public void GotoShopDetailsOrder(View V) {
+    public void GotoShopDetailsOrder(@SuppressWarnings("UnusedParameters") View V) {
         Intent i = new Intent(this, ShopDetailsOrderActivity.class);
         i.putExtra("shopID", mShopID);
         i.putExtra("shopName", mShopsDetailsModel.getShopsDetail().get(0).getShopName());
@@ -179,13 +180,13 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         startActivity(i);
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void APiGetShopsDetailsData(final String ShopID) {
+    private void APiGetShopsDetailsData(final String ShopID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsDetailsData + ShopID + "/cusid/" + sUser_ID, null,
@@ -226,7 +227,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         queue.add(getRequest);
     }
 
-    public void APiShopFavourite(final String UserId, final String shopID, final String action) {
+    private void APiShopFavourite(final String UserId, final String shopID, final String action) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiShopFavourite,
@@ -270,6 +271,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                     }
                 }
         ) {
+            @SuppressWarnings("Convert2Diamond")
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -285,17 +287,17 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         queue.add(postRequest);
     }
 
-    public void SetImagesListData() {
+    private void SetImagesListData() {
         rv_images_shop_details.getItemAnimator().setChangeDuration(700);
         rv_images_shop_details.setAdapter(mShopsImagesRecycleViewAdapter);
-        mgridLayoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager mgridLayoutManager = new LinearLayoutManager(this);
         mgridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rv_images_shop_details.setLayoutManager(mgridLayoutManager);
         aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_fill);
         initPagerImages();
     }
 
-    public void SetShopsDetailsData() {
+    private void SetShopsDetailsData() {
         aQuery.id(R.id.tv_shop_name_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopName());
         aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
         aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
@@ -326,7 +328,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 //
 //    }
 
-    public void btn_drawyerMenuOpen(View v) {
+    @SuppressLint("RtlHardcoded")
+    public void btn_drawyerMenuOpen(@SuppressWarnings("UnusedParameters") View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 

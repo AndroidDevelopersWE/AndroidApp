@@ -16,8 +16,8 @@ import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Utils;
 
 public class AboutUsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout mDrawerLayout;
-    TextView tv_title_about_us;
+    private DrawerLayout mDrawerLayout;
+    private TextView tv_title_about_us;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,11 +28,11 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
         SetUpLeftbar();
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_about_us, activity);
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -43,6 +43,7 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
 //        nav_about_us.setIcon(getResources().getDrawable(R.drawable.ic_about_white_nav));
     }
 
+    @SuppressWarnings("UnusedParameters")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.START);
     }

@@ -19,13 +19,14 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopsImagesPagerAdapter extends PagerAdapter {
 
-    Activity mActivity;
-    LayoutInflater mLayoutInflater;
-    List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails;
-    String mShopID;
-    boolean clicked;
-    int getPosition;
+    private final Activity mActivity;
+    private final LayoutInflater mLayoutInflater;
+    private final List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails;
+    private final String mShopID;
+    private boolean clicked;
+    private final int getPosition;
 
+    @SuppressWarnings("unused")
     public ShopsImagesPagerAdapter(Activity mActivity, List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails, String ShopID, int getPosition) {
         this.mActivity = mActivity;
         this._ShopsImagesDetails = _ShopsImagesDetails;
@@ -42,7 +43,7 @@ public class ShopsImagesPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((FrameLayout) object);
+        return view == object;
     }
 
     @Override

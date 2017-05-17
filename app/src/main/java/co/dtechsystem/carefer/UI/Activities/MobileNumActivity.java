@@ -1,7 +1,13 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +21,8 @@ import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class MobileNumActivity extends BaseActivity {
-    PhoneEditText phoneEditText;
-    Button submit_button;
+    private PhoneEditText phoneEditText;
+    private Button submit_button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,15 +30,23 @@ public class MobileNumActivity extends BaseActivity {
         setContentView(R.layout.activity_mobile_num);
         submit_button = (Button) findViewById(R.id.submit_button);
         phoneEditText = (PhoneEditText) findViewById(R.id.edit_text);
+        if (Build.VERSION.SDK_INT >= 23 && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
+                != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_SMS}, 123);
+        } else {
+            AutoDetectMobileSim1();
+
+        }
         phoneDropAndValid();
-        AutoDetectMobileSim1();
+
     }
 
-    public void AutoDetectMobileSim1() {
+    private void AutoDetectMobileSim1() {
+
         try {
             TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-            String number = tm.getLine1Number();
-            String CountryID = tm.getNetworkCountryIso().toString();
+            @SuppressLint("HardwareIds") String number = tm.getLine1Number();
+            String CountryID = tm.getNetworkCountryIso();
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
             Phonenumber.PhoneNumber numberProto = phoneUtil.parse(number, CountryID.toUpperCase());
             String countryCode = String.valueOf(numberProto.getCountryCode());
@@ -55,7 +69,7 @@ public class MobileNumActivity extends BaseActivity {
         }
     }
 
-    public void phoneDropAndValid() {
+    private void phoneDropAndValid() {
 
         assert phoneEditText != null;
         assert submit_button != null;
@@ -71,7 +85,7 @@ public class MobileNumActivity extends BaseActivity {
                         String Phone = phoneEditText.getPhoneNumber();
                         if (Phone != null && !Phone.equals("")) {
                             if (phoneEditText.isValid()) {
-                                Utils.savePreferences(activity, "User_Mobile", phoneEditText.getPhoneNumber().toString());
+                                Utils.savePreferences(activity, "User_Mobile", phoneEditText.getPhoneNumber());
                                 Intent i = new Intent(activity, MobileNumVerifyActivity.class);
                                 startActivity(i);
                                 finish();
@@ -86,5 +100,19 @@ public class MobileNumActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 123: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    AutoDetectMobileSim1();
+                }
+            }
+
+        }
     }
 }

@@ -103,14 +103,16 @@
     <string name="tv_how_it_works">كيف تعمل؟</string>
     <string name="tv_contact_details">تفاصيل التواصل</string>
     <string name="carefer_emial">info@carefer.com.co</string>
-    <string name="carefer_phone">966-225-5585</string>
+    <string name="carefer_phone">966–225–5585</string>
     <string name="carefer_site"> www.carefer.co</string>
     <string name="title_order_now">اطلب الان</string>
+
     <string name="nav_my_details">تفاصيلي </string>
     <string name="nav_my_orders">طلباتي</string>
     <string name="nav_fav_shop">المحلات المفضلة</string>
     <string name="nav_share">شارك الآن</string>
     <string name="nav_about_us">معلومات عنا</string>
+
     <string name="loading">جار التحميل…</string>
     <string name="some_went_wrong_parsing">حدث خطأ في التحليل!</string>
     <string name="some_went_wrong">هناك خطأ ما…!</string>
@@ -119,6 +121,7 @@
     <string name="phone_hint">رقم الهاتف المحمول</string>
     <string name="invalid_phone_number">يرجى إدخال رقم هاتف صالح</string>
     <string name="cb_accept_policy">Accept Policy/قبول السياسة</string>
+
     <string name="tv_total_results"> عدد النتائج</string>
     <string name="tv_sorting">فرز</string>
     <string name="tv_filter">منقي</string>
@@ -134,9 +137,19 @@
     <string name="dp_service_type">نوع الخدمة</string>
     <string name="dp_brand">علامة تجارية</string>
     <string name="dp_model">نموذج</string>
+
     <string name="toast_select_one_drop">الرجاء الاختيار من القائمة المنسدلة</string>
-    <string name="toast_no_internet_avail">لا تتوفر الإنترنت ...!</string>
-    <string name="toast_logged_in">تسجيل الدخول...!</string>
-    <string name="toast_permission">لم تعط الإذن للوصول إلى موقع الجهاز ...!</string>
-<string name="toast_record_updated">سجل تحديث بنجاح ...!</string>
+    <string name="toast_no_internet_avail">لا تتوفر الإنترنت …!</string>
+    <string name="toast_logged_in">تسجيل الدخول…!</string>
+    <string name="toast_permission">لم تعط الإذن للوصول إلى موقع الجهاز …!</string>
+    <string name="toast_record_updated">سجل تحديث بنجاح …!</string>
+    <string name="toast_order_placed">تم وضع طلبك.</string>
+    <string name="toast_fill_all_fields">  لو سمحت أملأ كل الحقول.</string>
+
+
+    <string name="dialog_cancel">إلغاء</string>
+    <string name="dialog_ok">موافق</string>
+    <string name="dialog_message">نجد أنك تغير رقمك. نحن بحاجة إلى التحقق منه أولا.يبقى كل ما تبذلونه من السجل المحفوظة.</string>
+
+
 </resources>

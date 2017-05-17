@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -35,15 +36,17 @@ import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout mDrawerLayout;
+    private DrawerLayout mDrawerLayout;
     private String mshopID, mshopName, mshopType, mshopRating, mlatitude, mlongitude, mshopImage;
-    ArrayList<String> mServicesIdArray = new ArrayList<>();
-    ArrayList<String> mBrandsIdArray = new ArrayList<>();
-    ArrayList<String> mModelsIdArray = new ArrayList<>();
-    String mServicesId, mBrandsId, mModelsId;
-    List listservices = new ArrayList();
-    List brands = new ArrayList();
-    TextView tv_title_shops_details_order;
+    private final ArrayList<String> mServicesIdArray = new ArrayList<>();
+    private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
+    private final ArrayList<String> mModelsIdArray = new ArrayList<>();
+    private String mServicesId;
+    private String mBrandsId;
+    private String mModelsId;
+    private final List listservices = new ArrayList();
+    private final List brands = new ArrayList();
+    private TextView tv_title_shops_details_order;
 
     @Override
 
@@ -57,12 +60,12 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         SetDataTOViews();
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_shops_details_order, activity);
     }
 
     // Get Views Data
-    public void GetDataForViews() {
+    private void GetDataForViews() {
         if (intent != null) {
             mshopID = intent.getStringExtra("shopID");
             mshopName = intent.getStringExtra("shopName");
@@ -75,7 +78,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     }
 
     // Set views data
-    public void SetDataTOViews() {
+    private void SetDataTOViews() {
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
             APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsData + mshopID + "/cusid/" + sUser_ID, "Services & Brands");
@@ -85,8 +88,10 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 
             //Lists initilization
             listservices.clear();
+            //noinspection unchecked
             listservices.add(0, getResources().getString(R.string.dp_service_type));
             brands.clear();
+            //noinspection unchecked
             brands.add(0, getResources().getString(R.string.dp_brand));
             mServicesIdArray.clear();
             mBrandsIdArray.clear();
@@ -104,7 +109,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         }
     }
 
-    public void APiGetBrandsServiceModelsData(final String Url, final String Type) {
+    private void APiGetBrandsServiceModelsData(final String Url, final String Type) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
@@ -118,33 +123,37 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                 JSONArray shopServiceTypes = response.getJSONArray("shopServiceTypes");
                                 for (int i = 0; i < shopServiceTypes.length(); i++) {
                                     JSONObject jsonObject = shopServiceTypes.getJSONObject(i);
+                                    //noinspection unchecked
                                     listservices.add(jsonObject.getString("serviceTypeName"));
                                     mServicesIdArray.add(jsonObject.getString("ID"));
 
                                 }
-                                ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listservices);
+                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listservices);
                                 aQuery.id(R.id.sp_srvice_type_shop_details_order).adapter(StringdataAdapter);
                                 JSONArray brandsData = response.getJSONArray("shopBrands");
                                 for (int i = 0; i < brandsData.length(); i++) {
                                     JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    //noinspection unchecked
                                     brands.add(jsonObject.getString("brandName"));
                                     mBrandsIdArray.add(jsonObject.getString("ID"));
                                 }
-                                ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
+                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
                                 aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
                                 if (Validations.isInternetAvailable(activity, true)) {
                                     APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsOrderModel, "ModelYear");
                                 }
                             } else {
                                 List models = new ArrayList();
+                                //noinspection unchecked
                                 models.add(0, getResources().getString(R.string.dp_model));
                                 JSONArray brandsData = response.getJSONArray("modelData");
                                 for (int i = 0; i < brandsData.length(); i++) {
                                     JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    //noinspection unchecked
                                     models.add(jsonObject.getString("modelName"));
                                     mModelsIdArray.add(jsonObject.getString("ID"));
                                 }
-                                ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
+                                @SuppressWarnings("unchecked") ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
                                 aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
                                 loading.close();
                                 SetSpinnerListener();
@@ -172,7 +181,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         queue.add(getRequest);
     }
 
-    public void SetSpinnerListener() {
+    private void SetSpinnerListener() {
         aQuery.id(R.id.sp_srvice_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -226,6 +235,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     }
 
 
+    @SuppressWarnings("UnusedParameters")
     public void GotoOrderNow(View V) {
         String spServiceTypeText = aQuery.id(R.id.sp_srvice_type_shop_details_order).getSelectedItem().toString();
         String spbrandTypeText = aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString();
@@ -246,12 +256,14 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         }
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("UnusedParameters")
+    @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }

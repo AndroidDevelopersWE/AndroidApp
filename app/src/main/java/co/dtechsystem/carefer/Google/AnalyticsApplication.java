@@ -17,6 +17,7 @@ package co.dtechsystem.carefer.Google;
  */
 
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -28,6 +29,7 @@ import co.dtechsystem.carefer.R;
  * This is a subclass of {@link Application} used to provide shared objects for this app, such as
  * the {@link Tracker}.
  */
+@SuppressLint("Registered")
 public class AnalyticsApplication extends Application {
     private Tracker mTracker;
 

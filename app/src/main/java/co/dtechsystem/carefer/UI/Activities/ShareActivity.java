@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,8 +17,8 @@ import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Utils;
 
 public class ShareActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
-    DrawerLayout mDrawerLayout;
-    TextView tv_title_share_app;
+    private DrawerLayout mDrawerLayout;
+    private TextView tv_title_share_app;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,11 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
         SetUpLeftbar();
         setlistenrstosharebtns();
     }
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_share_app, activity);
     }
 
-    public void setlistenrstosharebtns() {
+    private void setlistenrstosharebtns() {
         aQuery.find(R.id.btn_share_fb).clicked(this);
         aQuery.find(R.id.btn_share_twitter).clicked(this);
         aQuery.find(R.id.btn_share_gtalk).clicked(this);
@@ -45,12 +46,14 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
     }
 
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("UnusedParameters")
+    @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }

@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -32,10 +33,9 @@ import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class MyOrdersActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    GridLayoutManager mgridLayoutManager;
-    DrawerLayout mDrawerLayout;
-    static MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
-    TextView tv_title_my_orders;
+    private DrawerLayout mDrawerLayout;
+    private  MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
+    private TextView tv_title_my_orders;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,19 +50,19 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextViewShort(tv_title_my_orders, activity);
     }
 
-    public void SetListData() {
+    private void SetListData() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_my_orders);
         recyclerView.getItemAnimator().setChangeDuration(700);
         recyclerView.setAdapter(mMyOrdersRecycleViewAdapter);
-        mgridLayoutManager = new GridLayoutManager(this, 1);
+        GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mgridLayoutManager);
     }
 
-    public void APiGetShopslistData() {
+    private void APiGetShopslistData() {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiMyOrdersList + sUser_ID, null,
@@ -98,19 +98,19 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         queue.add(getRequest);
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("UnusedParameters")
+    @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
 
-    public static void expandedRefresh() {
-        mMyOrdersRecycleViewAdapter.notifyDataSetChanged();
-    }
+
 
     @Override
     public void onBackPressed() {

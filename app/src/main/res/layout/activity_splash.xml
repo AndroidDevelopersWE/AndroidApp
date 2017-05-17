@@ -4,14 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="co.dtechsystem.carefer.SplashActivity">
+    tools:context="co.dtechsystem.carefer.SplashActivity"
+    tools:ignore="Overdraw">
 
     <ImageView
         android:id="@+id/iv_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/img_bg_app"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -19,7 +21,8 @@
         android:layout_height="@dimen/_170sdp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/ic_app_logo" />
+        android:background="@drawable/ic_app_logo"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:layout_width="wrap_content"

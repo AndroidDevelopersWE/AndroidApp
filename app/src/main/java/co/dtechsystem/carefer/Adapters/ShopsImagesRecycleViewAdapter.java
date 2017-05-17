@@ -22,11 +22,12 @@ import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
 public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsImagesRecycleViewAdapter.ViewHolder> {
-    private List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails;
+    private final List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails;
     private int lastPosition;
-    private Activity activity;
-    private String ShopID;
+    private final Activity activity;
+    private final String ShopID;
 
+    @SuppressWarnings("unused")
     public ShopsImagesRecycleViewAdapter(Activity activity,
                                          List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails, String ShopID
         ) {
@@ -36,6 +37,7 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
 
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Override
     public ShopsImagesRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                        int viewType) {
@@ -75,8 +77,8 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView iv_shop_image_details;
-        public ProgressBar pg_image_load;
+        public final ImageView iv_shop_image_details;
+        public final ProgressBar pg_image_load;
 
         public ViewHolder(View v) {
 

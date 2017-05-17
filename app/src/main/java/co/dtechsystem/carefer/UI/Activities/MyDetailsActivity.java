@@ -1,11 +1,15 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -39,12 +43,17 @@ import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class MyDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout mDrawerLayout;
-    String mcustomerName, mcustomerMobile;
+    private DrawerLayout mDrawerLayout;
+    private String mcustomerName;
+    private String mcustomerMobile;
 
-    TextView tv_title_my_details, tv_mobile_number_my_details, tv_name_my_details, tv_car_brand_my_details,
-            tv_car_model_my_details, tv_last_oil_my_details;
-    Calendar myCalendar = Calendar.getInstance();
+    private TextView tv_title_my_details;
+    private TextView tv_mobile_number_my_details;
+    private TextView tv_name_my_details;
+    private TextView tv_car_brand_my_details;
+    private TextView tv_car_model_my_details;
+    private TextView tv_last_oil_my_details;
+    private final Calendar myCalendar = Calendar.getInstance();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +67,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    public void initializeViews() {
+    private void initializeViews() {
         tv_title_my_details = (TextView) findViewById(R.id.tv_title_my_details);
         tv_mobile_number_my_details = (TextView) findViewById(R.id.tv_mobile_number_my_details);
         tv_name_my_details = (TextView) findViewById(R.id.tv_name_my_details);
@@ -69,7 +78,8 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
     }
 
-    public void SetData() {
+    @SuppressWarnings("deprecation")
+    private void SetData() {
         String et_car_brand_my_details = Utils.readPreferences(activity, "CustomerCarBrand", "");
         String et_car_model_my_details = Utils.readPreferences(activity, "CustomerCarModel", "");
         String et_last_oil_my_details = Utils.readPreferences(activity, "CustomerCarOilChange", "");
@@ -99,6 +109,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
@@ -121,6 +132,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
@@ -142,6 +154,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
@@ -163,6 +176,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
@@ -184,6 +198,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
 
+            @SuppressWarnings("deprecation")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
@@ -213,7 +228,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     }
 
 
-    public void ShowDatePicker() {
+    private void ShowDatePicker() {
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -236,7 +251,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_my_details, activity);
         Utils.gradientTextViewShort(tv_mobile_number_my_details, activity);
         Utils.gradientTextViewShort(tv_name_my_details, activity);
@@ -245,23 +260,25 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         Utils.gradientTextViewShort(tv_last_oil_my_details, activity);
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("UnusedParameters")
     public void submitUserData(View v) {
 
         String customerName = aQuery.find(R.id.et_user_name_my_details).getText().toString();
         String customerMobile = aQuery.find(R.id.et_mobile_my_details).getText().toString();
-
         String et_car_brand_my_details = aQuery.find(R.id.et_car_brand_my_details).getText().toString();
         String et_car_model_my_details = aQuery.find(R.id.et_car_model_my_details).getText().toString();
         String et_last_oil_my_details = aQuery.find(R.id.et_last_oil_my_details).getText().toString();
-        if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
+        if (!customerMobile.equals(sUser_Mobile)) {
+            showMobileChangeAlert();
+        } else if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
                 et_car_model_my_details.equals("") || et_last_oil_my_details.equals("")) {
-            showToast("Please enter values");
+            showToast(getResources().getString(R.string.toast_fill_all_fields));
         } else {
             Utils.savePreferences(activity, "CustomerCarBrand", et_car_brand_my_details);
             Utils.savePreferences(activity, "CustomerCarModel", et_car_model_my_details);
@@ -273,7 +290,34 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    public void APiMyDetails(String URL, final String Type, final String customerName, final String customerMobile, final String isVerified) {
+    private void showMobileChangeAlert() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.app_name))
+                .setMessage(getResources().getString(R.string.dialog_message))
+                .setCancelable(false)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Utils.savePreferences(activity, "User_Mobile", "");
+                        Utils.savePreferences(activity, "User_Mobile_varify", "");
+                        Utils.savePreferences(activity, "User_privacy_check", "");
+                        Utils.savePreferences(activity, "User_ID", "");
+                        Intent j = new Intent(activity, MobileNumActivity.class);
+                        j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(j);
+                        dialogInterface.dismiss();
+                    }
+                })
+                .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                }).create().show();
+    }
+
+    private void APiMyDetails(String URL, final String Type, final String customerName, final String customerMobile, final String isVerified) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -319,6 +363,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     }
                 }
         ) {
+            @SuppressWarnings("Convert2Diamond")
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -337,6 +382,8 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         queue.add(postRequest);
     }
 
+    @SuppressWarnings("UnusedParameters")
+    @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
@@ -375,7 +422,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 

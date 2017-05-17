@@ -30,9 +30,6 @@ import co.dtechsystem.carefer.Utils.Utils;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-/**
- * Created by DELL on 4/10/2017.
- */
 
 public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
@@ -41,9 +38,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     AQuery aQuery;
     Gson gson;
     Intent intent;
-    public static String sRegId;
     public static String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID;
     Locale locale;
+
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         activity = this;
         loading = new Loading(this, getResources().getString(R.string.loading));
         intent = getIntent();
-        sRegId = Utils.readPreferences(activity, "regId", "");
+        String sRegId = Utils.readPreferences(activity, "regId", "");
         if (sRegId != null && !sRegId.equals("")) {
         } else {
             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
@@ -69,24 +67,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         sUser_Mobile_Varify = Utils.readPreferences(activity, "User_Mobile_varify", "");
         sPrivacy_check = Utils.readPreferences(activity, "User_privacy_check", "");
         sUser_ID = Utils.readPreferences(activity, "User_ID", "");
-         locale = new Locale("ar");
+        locale = new Locale("ar");
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         configuration.setLocale(locale);
         configuration.setLayoutDirection(new Locale("en"));
+        //noinspection deprecation
         resources.updateConfiguration(configuration, displayMetrics);
     }
 
 
+    @SuppressWarnings({"unused", "UnusedParameters"})
     protected void CloseActivity(View v) {
         finish();
     }
 
+    @SuppressWarnings("unused")
     protected void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
+    @SuppressWarnings("unused")
     protected void showAlert(String msg) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.app_name))
@@ -101,6 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }).create().show();
     }
 
+    @SuppressWarnings("unused")
     protected void showProgress(String msg) {
         if (mProgressDialog != null && mProgressDialog.isShowing())
             dismissProgress();
@@ -108,7 +111,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mProgressDialog = ProgressDialog.show(this, getResources().getString(R.string.app_name), msg);
     }
 
-    protected void dismissProgress() {
+    private void dismissProgress() {
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
             mProgressDialog = null;

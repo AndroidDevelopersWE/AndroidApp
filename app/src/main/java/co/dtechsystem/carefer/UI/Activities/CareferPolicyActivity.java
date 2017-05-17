@@ -26,7 +26,7 @@ import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class CareferPolicyActivity extends BaseActivity {
-    TextView tv_title_policy;
+    private TextView tv_title_policy;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,11 +40,11 @@ public class CareferPolicyActivity extends BaseActivity {
         }
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_policy, activity);
     }
 
-    public void APiCareferPolicyDataSaveUser(String URL, final String Type, final String customerMobile, final String isVerified) {
+    private void APiCareferPolicyDataSaveUser(String URL, final String Type, final String customerMobile, final String isVerified) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -94,6 +94,7 @@ public class CareferPolicyActivity extends BaseActivity {
                     }
                 }
         ) {
+            @SuppressWarnings("Convert2Diamond")
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -112,6 +113,7 @@ public class CareferPolicyActivity extends BaseActivity {
         queue.add(postRequest);
     }
 
+    @SuppressWarnings("UnusedParameters")
     public void btn_Next_to_mainmenu_Click(View v) {
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();

@@ -3,6 +3,7 @@ package co.dtechsystem.carefer.Adapters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
@@ -42,21 +43,25 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordList;
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter;
     private int lastPosition;
-    static Activity activity;
-    Boolean expand;
-    LatLng mLatlngCurrent;
+    @SuppressLint("StaticFieldLeak")
+    private static Activity activity;
+    @SuppressWarnings("unused")
+    private Boolean expand;
+    private final LatLng mLatlngCurrent;
 
+    @SuppressWarnings({"unused", "Convert2Diamond"})
     public ShopsListRecycleViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList,
                                        LatLng mLatlngCurrent) {
-        this._ShopslistRecordList = _ShopslistRecordList;
-        this._ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
-        this._ShopslistRecordListFilter.addAll(_ShopslistRecordList);
-        this.activity = activity;
+        ShopsListRecycleViewAdapter._ShopslistRecordList = _ShopslistRecordList;
+        _ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
+        _ShopslistRecordListFilter.addAll(_ShopslistRecordList);
+        ShopsListRecycleViewAdapter.activity = activity;
         this.expand = false;
         this.mLatlngCurrent = mLatlngCurrent;
         setHasStableIds(true);
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Override
     public ShopsListRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                      int viewType) {
@@ -67,6 +72,8 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         return vh;
     }
 
+    @SuppressWarnings("ConstantConditions")
+    @SuppressLint({"RecyclerView", "SetTextI18n"})
     @Override
     public void onBindViewHolder(final ShopsListRecycleViewAdapter.ViewHolder holder, final int position) {
 //        List<String> serviceType = Arrays.asList(_ShopslistRecordList.get(position).getServiceType().split(","));
@@ -81,6 +88,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         holder.tv_desc_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
         holder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
         holder.btn_details_shops_list.setOnClickListener(new View.OnClickListener() {
+            @SuppressWarnings("RedundantStringToString")
             @Override
             public void onClick(View v) {
                 Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
@@ -89,6 +97,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             }
         });
         holder.lay_details.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        //noinspection UnusedAssignment
         final int height = holder.lay_details.getMeasuredHeight();
         holder.lay_expand.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +109,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 //                    collapse(holder.lay_details);
 //                    expand = false;
 //                } else {
+                //noinspection deprecation
                 holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(R.drawable.ic_arrow_up));
+                //noinspection deprecation
                 holder.iv_drop_details_shop_details.setBackground(activity.getResources().getDrawable(R.drawable.ic_arrow_up));
                 holder.lay_shop_item.setVisibility(View.GONE);
 //                    holder.lay_shops_names.setBackgroundColor(activity.getResources().getColor(R.color.colorLightBlue));
@@ -116,7 +127,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             public void onClick(View v) {
 //                if (expand) {
 //                    holder.lay_shops_names.setBackgroundColor(activity.getResources().getColor(R.color.colorCreamDark));
+                //noinspection deprecation
                 holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(R.drawable.ic_arrow_down));
+                //noinspection deprecation
                 holder.iv_drop_details_shop_details.setBackground(activity.getResources().getDrawable(R.drawable.ic_arrow_down));
 //                int i = (int) activity.getResources().getDimension(R.dimen._150sdp);
                 collapse(holder.lay_details, holder);
@@ -138,6 +151,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
         if (_ShopslistRecordList.get(position).getShopImage() != null) {
             holder.pg_image_load.setVisibility(View.VISIBLE);
+            //noinspection deprecation
             Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/" + _ShopslistRecordList.get(position)
                     .getShopImage())
                     .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
@@ -164,6 +178,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         holder.rb_shop_large__shop_list.setRating((Float.parseFloat(_ShopslistRecordList.get(position).getShopRating())));
         if (_ShopslistRecordList.get(position).getShopImage() != null) {
             holder.pg_image_load_large_shops.setVisibility(View.VISIBLE);
+            //noinspection deprecation
             Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/" + _ShopslistRecordList.get(position)
                     .getShopImage())
                     .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
@@ -213,14 +228,29 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_shop_name_shop_list, tv_service_type_shop_list, tv_desc_shop_list, tv_shop_name_large_shop_list,
-                tv_distance_item, tv_distance_details;
-        public RatingBar rb_shop_shop_list, rb_shop_large__shop_list;
-        LinearLayout lay_shop_item, lay_shops_names, lay_details, lay_expand, lay_collpase;
-        ImageView iv_fav_shop_list, iv_drop_shop_details, iv_item_top_shops_list, iv_drop_details_shop_details,
-                iv_shop_detail_large_expand;
-        Button btn_details_shops_list;
-        public ProgressBar pg_image_load, pg_image_load_large_shops;
+        public final TextView tv_shop_name_shop_list;
+        public final TextView tv_service_type_shop_list;
+        public final TextView tv_desc_shop_list;
+        public final TextView tv_shop_name_large_shop_list;
+        public final TextView tv_distance_item;
+        public final TextView tv_distance_details;
+        public final RatingBar rb_shop_shop_list;
+        public final RatingBar rb_shop_large__shop_list;
+        final LinearLayout lay_shop_item;
+        @SuppressWarnings("unused")
+        final LinearLayout lay_shops_names;
+        final LinearLayout lay_details;
+        final LinearLayout lay_expand;
+        final LinearLayout lay_collpase;
+        @SuppressWarnings("unused")
+        final ImageView iv_fav_shop_list;
+        final ImageView iv_drop_shop_details;
+        final ImageView iv_item_top_shops_list;
+        final ImageView iv_drop_details_shop_details;
+        final ImageView iv_shop_detail_large_expand;
+        final Button btn_details_shops_list;
+        public final ProgressBar pg_image_load;
+        public final ProgressBar pg_image_load_large_shops;
 
         public ViewHolder(View v) {
 
@@ -281,6 +311,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         }
     }
 
+    @SuppressWarnings("unused")
     public static void mExpand(final View v) {
         v.measure(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT);
         final int targetHeight = v.getMeasuredHeight();
@@ -309,7 +340,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         v.startAnimation(a);
     }
 
-    public static void collapse(final View v, final ShopsListRecycleViewAdapter.ViewHolder holder) {
+    private static void collapse(final View v, final ShopsListRecycleViewAdapter.ViewHolder holder) {
         final int initialHeight = v.getMeasuredHeight();
 
         Animation a = new Animation() {
@@ -351,8 +382,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         v.startAnimation(a);
     }
 
-    public static void expand(final View v, int duration, int targetHeight,
-                              final ShopsListRecycleViewAdapter.ViewHolder holder) {
+    @SuppressWarnings("SameParameterValue")
+    private static void expand(final View v, int duration, int targetHeight,
+                               final ShopsListRecycleViewAdapter.ViewHolder holder) {
 
         int prevHeight = v.getHeight();
 
@@ -377,6 +409,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
     }
 
+    @SuppressWarnings("unused")
     public static void collapse1(final View v, int duration, int targetHeight) {
         int prevHeight = v.getHeight();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
@@ -394,6 +427,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     // Filter Class
+    @SuppressWarnings("unused")
     public static void filterShops(String Type, String Both, String service, String Brand) {
         service = service.toLowerCase(Locale.getDefault());
         Brand = Brand.toLowerCase(Locale.getDefault());
@@ -440,6 +474,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     // Filter for Shops Names Class
+    @SuppressWarnings("unused")
     public static void filterShopsName(String Text) {
         Text = Text.toLowerCase(Locale.getDefault());
         if(_ShopslistRecordList!=null) {
@@ -465,6 +500,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     // Filter Class
+    @SuppressWarnings("unused")
     public static void filterShopsWithProviders(ArrayList<String> selectedItem, final String ProvideWarranty, final String ProvideReplacementParts,
                                                 final String shopType, final String topRated) {
         if(_ShopslistRecordList!=null) {

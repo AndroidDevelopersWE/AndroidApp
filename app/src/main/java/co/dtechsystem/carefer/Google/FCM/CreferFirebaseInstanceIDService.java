@@ -1,8 +1,7 @@
 package co.dtechsystem.carefer.Google.FCM;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -28,6 +27,7 @@ public class CreferFirebaseInstanceIDService extends FirebaseInstanceIdService {
         Log.e(TAG, "sendRegistrationToServer: " + token);
     }
 
+    @SuppressLint("ApplySharedPref")
     private void storeRegIdInPref(String token) {
         SharedPreferences pref = getApplicationContext().getSharedPreferences("ah_firebase", 0);
         SharedPreferences.Editor editor = pref.edit();

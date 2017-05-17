@@ -3,6 +3,7 @@ package co.dtechsystem.carefer.Adapters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,15 +28,16 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
     private final List<MyOrdersModel.MyOrdersRecord> _MyOrdersRecords;
     private int lastPosition;
     private final Activity activity;
-    private Boolean mExpand;
 
+    @SuppressWarnings({"unused", "UnusedAssignment"})
     public MyOrdersRecycleViewAdapter(Activity activity, List<MyOrdersModel.MyOrdersRecord> _MyOrdersRecords) {
         this._MyOrdersRecords = _MyOrdersRecords;
         this.activity = activity;
-        this.mExpand = false;
+        Boolean mExpand = false;
         setHasStableIds(true);
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Override
     public MyOrdersRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                     int viewType) {
@@ -46,6 +48,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         return vh;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         setAnimation(holder.itemView, position);
@@ -81,8 +84,9 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         });
     }
 
-    public static void expand(final View v, int duration, int targetHeight,
-                              final MyOrdersRecycleViewAdapter.ViewHolder holder) {
+    @SuppressWarnings("SameParameterValue")
+    private static void expand(final View v, int duration, int targetHeight,
+                               final MyOrdersRecycleViewAdapter.ViewHolder holder) {
 
         int prevHeight = v.getHeight();
 
@@ -107,7 +111,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
     }
 
-    public static void collapse(final View v, final MyOrdersRecycleViewAdapter.ViewHolder holder) {
+    private static void collapse(final View v, final MyOrdersRecycleViewAdapter.ViewHolder holder) {
         final int initialHeight = v.getMeasuredHeight();
 
         Animation a = new Animation() {
@@ -150,8 +154,12 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView tv_my_order_number, tv_my_order_date, tv_my_order_shop_name, tv_my_order_type,
                 tv_my_order_shop_rating, tv_my_order_status, tv_date_order_top, tv_order_number_top;
-        LinearLayout lay_top_my_order, lay_bottom_my_order, lay_iv_down, lay_iv_up;
-        ImageView iv_drop_shop_details;
+        final LinearLayout lay_top_my_order;
+        final LinearLayout lay_bottom_my_order;
+        final LinearLayout lay_iv_down;
+        final LinearLayout lay_iv_up;
+        @SuppressWarnings("unused")
+        final ImageView iv_drop_shop_details;
 
         public ViewHolder(View v) {
 
@@ -174,6 +182,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
     }
 
+    @SuppressWarnings("unused")
     public static void mExpand(final View v, int duration, int targetHeight) {
 
         int prevHeight = v.getHeight();
@@ -192,6 +201,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         valueAnimator.start();
     }
 
+    @SuppressWarnings("unused")
     public static void collapse(final View v, int duration, int targetHeight) {
         int prevHeight = v.getHeight();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);

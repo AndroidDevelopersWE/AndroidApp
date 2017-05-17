@@ -8,9 +8,12 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="com.example.mapdemo.permission.MAPS_RECEIVE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.READ_SMS" />
+
     <uses-feature android:name="android.hardware.location.gps" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
 
     <permission
         android:name="com.example.mapdemo.permission.MAPS_RECEIVE"
@@ -23,9 +26,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_api_key" />
 
         <activity
             android:name=".SplashActivity"
@@ -41,15 +41,15 @@
         <activity
             android:name=".UI.Activities.MobileNumActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".UI.Activities.MobileNumVerifyActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"  />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".UI.Activities.CareferPolicyActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -129,6 +129,11 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+        <!--Google Api Key for google maps-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_api_key" />
+        <!--end api key-->
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.-->
         <meta-data
@@ -140,6 +145,12 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
         <!-- ./Firebase Notifications -->
+        <!--&lt;!&ndash;Sms broadcast receiver for pin receiving&ndash;&gt;-->
+        <!--<receiver android:name=".Receiver.SMSBroadcastReceiver" android:exported="true" android:enabled="true">-->
+            <!--<intent-filter android:priority="999">-->
+                <!--<action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

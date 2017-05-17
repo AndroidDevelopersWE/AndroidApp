@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
         android:layout_weight="1"
-        card_view:cardElevation="@dimen/_5sdp">
+        card_view:cardElevation="@dimen/_5sdp"
+        tools:ignore="InefficientWeight">
 
         <LinearLayout
 
@@ -37,7 +38,8 @@
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="match_parent"
                         android:background="@drawable/ic_img_place_holder"
-                        android:scaleType="centerCrop" />
+                        android:scaleType="centerCrop"
+                        tools:ignore="ContentDescription" />
 
                     <ProgressBar
                         android:id="@+id/pg_image_load"
@@ -74,7 +76,8 @@
                             android:numStars="5"
                             android:progressDrawable="@drawable/dr_rating_bar_yellow"
                             android:rating="2"
-                            android:stepSize="0.5" />
+                            android:stepSize="0.5"
+                            tools:ignore="RtlHardcoded" />
 
                         <TextView
                             android:id="@+id/tv_shop_name_shop_list"
@@ -87,14 +90,16 @@
                             android:text="@string/dummy_text_list_item"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/_10sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="RtlHardcoded" />
 
 
                         <LinearLayout
                             android:layout_width="@dimen/_1sdp"
                             android:layout_height="match_parent"
                             android:layout_marginRight="@dimen/_10sdp"
-                            android:background="@color/colorGrey" />
+                            android:background="@color/colorGrey"
+                            tools:ignore="RtlHardcoded" />
 
                         <LinearLayout
                             android:id="@+id/lay_expand"
@@ -109,7 +114,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="@dimen/_10sdp"
-                                android:background="@drawable/ic_arrow_down" />
+                                android:background="@drawable/ic_arrow_down"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -133,7 +139,8 @@
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/_11sdp"
                         android:textStyle="normal"
-                        android:visibility="visible" />
+                        android:visibility="visible"
+                        tools:ignore="RtlHardcoded" />
 
                     <TextView
                         android:id="@+id/tv_type_shop_list"
@@ -149,7 +156,8 @@
                         android:scrollHorizontally="true"
                         android:text="@string/lorem_ispum"
                         android:textColor="@android:color/black"
-                        android:textSize="@dimen/_8sdp" />
+                        android:textSize="@dimen/_8sdp"
+                        tools:ignore="InefficientWeight,RtlHardcoded" />
 
                     <TextView
                         android:id="@+id/tv_distance_item"
@@ -161,7 +169,8 @@
                         android:drawableRight="@drawable/ic_km"
                         android:gravity="top"
                         android:text="2.5 km"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_11sdp"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -177,7 +186,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorCreamDark"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -199,7 +209,8 @@
                             android:numStars="5"
                             android:progressDrawable="@drawable/dr_rating_bar_yellow"
                             android:rating="2"
-                            android:stepSize="0.5" />
+                            android:stepSize="0.5"
+                            tools:ignore="RtlHardcoded" />
 
                         <TextView
                             android:id="@+id/tv_shop_name_large_shop_list"
@@ -212,14 +223,16 @@
                             android:text="@string/dummy_text_list_item"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/_12sdp"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:ignore="RtlHardcoded" />
 
 
                         <LinearLayout
                             android:layout_width="@dimen/_1sdp"
                             android:layout_height="match_parent"
                             android:layout_marginRight="@dimen/_10sdp"
-                            android:background="@color/colorGrey" />
+                            android:background="@color/colorGrey"
+                            tools:ignore="RtlHardcoded" />
 
                         <LinearLayout
                             android:id="@+id/lay_collapse"
@@ -232,7 +245,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="@dimen/_10sdp"
-                                android:background="@drawable/ic_arrow_up" />
+                                android:background="@drawable/ic_arrow_up"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -253,7 +267,8 @@
                                 android:layout_height="@dimen/_90sdp"
                                 android:layout_margin="@dimen/_5sdp"
                                 android:background="@drawable/ic_img_place_holder"
-                                android:scaleType="centerCrop" />
+                                android:scaleType="centerCrop"
+                                tools:ignore="ContentDescription" />
 
                             <ProgressBar
                                 android:id="@+id/pg_image_load_large_shops"
@@ -287,7 +302,8 @@
                                     android:scrollHorizontally="true"
                                     android:text="@string/lorem_ispum"
                                     android:textColor="@android:color/black"
-                                    android:textSize="@dimen/_8sdp" />
+                                    android:textSize="@dimen/_8sdp"
+                                    tools:ignore="InefficientWeight,NestedWeights,RtlHardcoded" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -309,7 +325,8 @@
                                     android:gravity="center"
                                     android:text="2.5 km"
                                     android:textSize="@dimen/_10sdp"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"
+                                    tools:ignore="HardcodedText,RtlHardcoded" />
 
                                 <Button
                                     android:id="@+id/btn_details_shops_list"
@@ -322,7 +339,8 @@
                                     android:padding="@dimen/_2sdp"
                                     android:text="@string/shop_details"
                                     android:textColor="@android:color/white"
-                                    android:textSize="@dimen/_8sdp" />
+                                    android:textSize="@dimen/_8sdp"
+                                    tools:ignore="RtlHardcoded" />
                             </LinearLayout>
                         </LinearLayout>
 

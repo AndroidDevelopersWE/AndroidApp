@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -57,14 +58,14 @@ import co.dtechsystem.carefer.Utils.Validations;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
-    DrawerLayout mDrawerLayout;
-    SupportMapFragment mapFragment;
+    private DrawerLayout mDrawerLayout;
+    private SupportMapFragment mapFragment;
     private GoogleMap mMap;
-    boolean firstCAll = false;
-    String mPlaceName = "";
-    TextView tv_title_main;
-    ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
-    LatLng mLatLngCurrent;
+    private boolean firstCAll = false;
+    private String mPlaceName = "";
+    private TextView tv_title_main;
+    private final ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
+    private LatLng mLatLngCurrent;
 
     @Override
 
@@ -78,10 +79,11 @@ public class MainActivity extends BaseActivity
         SetShaderToViews();
     }
 
-    public void SetShaderToViews() {
+    private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_main, activity);
     }
 
+    @SuppressWarnings("UnusedParameters")
     public void btnExploereClick(View v) {
         if (Validations.isInternetAvailable(activity, true)) {
             Bundle args = new Bundle();
@@ -93,12 +95,13 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    public void SetUpLeftbar() {
+    private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -112,6 +115,7 @@ public class MainActivity extends BaseActivity
 
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
+            @SuppressWarnings("PointlessBooleanExpression")
             @Override
             public void onMyLocationChange(Location location) {
                 // TODO Auto-generated method stub
@@ -141,7 +145,7 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    public void APiGetCurrentAddress(final Location location) {
+    private void APiGetCurrentAddress(final Location location) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET,
@@ -181,7 +185,7 @@ public class MainActivity extends BaseActivity
         queue.add(getRequest);
     }
 
-    public void APiGetShopslistData(final Location location) {
+    private void APiGetShopslistData(final Location location) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsListData, null,
@@ -215,7 +219,7 @@ public class MainActivity extends BaseActivity
         queue.add(getRequest);
     }
 
-    public void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {
+    private void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_map);
 
         for (int i = 0; i < shopsList.size(); i++) {
@@ -247,6 +251,7 @@ public class MainActivity extends BaseActivity
                                 mImagesMaps.add(bitmap);
                             }
 
+                            @SuppressWarnings("deprecation")
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
                                 super.onLoadFailed(e, errorDrawable);
@@ -266,10 +271,11 @@ public class MainActivity extends BaseActivity
         {
 
             // Use default InfoWindow frame
+            @SuppressWarnings("deprecation")
             @Override
             public View getInfoWindow(Marker arg0) {
 
-                View customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_google_map_shop, null);
+                @SuppressLint("InflateParams") View customMarkerView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.item_google_map_shop, null);
                 String id = "";
                 for (int i = 0; i < shopsList.size(); i++) {
                     double latmap = arg0.getPosition().latitude;
@@ -329,6 +335,8 @@ public class MainActivity extends BaseActivity
 
     }
 
+    @SuppressWarnings("UnusedParameters")
+    @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.LEFT);
     }
@@ -365,7 +373,7 @@ public class MainActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
+    @SuppressWarnings({"StatementWithEmptyBody", "NullableProblems"})
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -397,6 +405,7 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    @SuppressWarnings({"UnnecessaryReturnStatement", "NullableProblems"})
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {

@@ -44,9 +44,11 @@ public class DirectionsJSONParser {
                             HashMap<String, String> hm = new HashMap<String, String>();
                             hm.put("lat", Double.toString(((LatLng)list.get(l)).latitude) );
                             hm.put("lng", Double.toString(((LatLng)list.get(l)).longitude) );
+                            //noinspection unchecked
                             path.add(hm);
                         }
                     }
+                    //noinspection unchecked
                     routes.add(path);
                 }
             }
@@ -91,6 +93,7 @@ public class DirectionsJSONParser {
 
             LatLng p = new LatLng((((double) lat / 1E5)),
                     (((double) lng / 1E5)));
+            //noinspection unchecked
             poly.add(p);
         }
 

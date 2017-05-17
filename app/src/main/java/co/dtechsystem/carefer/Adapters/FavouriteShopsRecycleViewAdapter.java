@@ -24,15 +24,17 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 
 
 public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<FavouriteShopsRecycleViewAdapter.ViewHolder> {
-    private List<FavouriteShopsModel.FavouriteShopsRecord> _FavouriteShopsDetails;
+    private final List<FavouriteShopsModel.FavouriteShopsRecord> _FavouriteShopsDetails;
     private int lastPosition;
-    private Activity activity;
+    private final Activity activity;
 
+    @SuppressWarnings("unused")
     public FavouriteShopsRecycleViewAdapter(Activity activity, List<FavouriteShopsModel.FavouriteShopsRecord> _FavouriteShopsDetail) {
         this._FavouriteShopsDetails = _FavouriteShopsDetail;
         this.activity = activity;
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @Override
     public FavouriteShopsRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                           int viewType) {
@@ -73,9 +75,9 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_fav_shop_name;
-        public ImageView iv_shop_fav;
-        public ProgressBar pg_image_load;
+        public final TextView tv_fav_shop_name;
+        public final ImageView iv_shop_fav;
+        public final ProgressBar pg_image_load;
 
         public ViewHolder(View v) {
 

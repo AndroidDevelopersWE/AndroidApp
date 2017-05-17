@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lay_map_info_window"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -31,7 +32,8 @@
                 android:id="@+id/lay_item_map_chiled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="DisableBaselineAlignment">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -71,7 +73,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_2sdp"
                         android:background="@drawable/dr_right_round_orange_angle_180"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        tools:ignore="RtlHardcoded">
 
 
                         <LinearLayout
@@ -91,7 +94,8 @@
                                 android:text="@string/dummy_text_list_item"
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/_10sdp"
-                                android:textStyle="normal" />
+                                android:textStyle="normal"
+                                tools:ignore="RtlHardcoded" />
 
                             <RatingBar
                                 android:id="@+id/rb_shop_shop_list"
@@ -106,7 +110,8 @@
                                 android:numStars="5"
                                 android:progressDrawable="@drawable/dr_rating_bar_white"
                                 android:rating="3.5"
-                                android:stepSize="0.5" />
+                                android:stepSize="0.5"
+                                tools:ignore="RtlHardcoded" />
 
 
                         </LinearLayout>
@@ -130,7 +135,8 @@
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="normal"
-                            android:visibility="visible" />
+                            android:visibility="visible"
+                            tools:ignore="RtlHardcoded" />
 
                         <TextView
                             android:id="@+id/tv_desc_shop_list"
@@ -143,7 +149,8 @@
                             android:scrollHorizontally="true"
                             android:text="@string/tv_shop"
                             android:textColor="@android:color/white"
-                            android:textSize="@dimen/_10sdp" />
+                            android:textSize="@dimen/_10sdp"
+                            tools:ignore="RtlHardcoded" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -155,13 +162,15 @@
                     android:layout_marginLeft="-3dp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="0"
-                    android:background="@android:color/transparent">
+                    android:background="@android:color/transparent"
+                    tools:ignore="RtlHardcoded">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="0"
-                        android:background="@drawable/ic_map_info" />
+                        android:background="@drawable/ic_map_info"
+                        tools:ignore="ContentDescription,InefficientWeight,NestedWeights" />
                 </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>

@@ -140,7 +140,7 @@ public class MultiSpinner extends android.support.v7.widget.AppCompatTextView im
     }
 
     public interface MultiSpinnerListener {
-        public void onItemsSelected(boolean[] selected);
+        void onItemsSelected(boolean[] selected);
     }
 
     public boolean[] getSelected() {

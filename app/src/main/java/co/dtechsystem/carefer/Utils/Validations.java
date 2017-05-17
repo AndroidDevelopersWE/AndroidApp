@@ -114,11 +114,7 @@ public abstract class Validations {
 		if(isEditTextEmpty(etEmail)){
 			showMessage(context, "Please enter email address");
 			return true;
-		}else if(EMAIL_ADDRESS_PATTERN.matcher(etEmail.getText().toString().trim()).matches()){
-			return true;
-		}else{
-			return false;
-		}
+		}else return EMAIL_ADDRESS_PATTERN.matcher(etEmail.getText().toString().trim()).matches();
 	}
 
 	/**
@@ -134,12 +130,8 @@ public abstract class Validations {
 		if(temp.length()>0 && isEditTextEmpty(etPassword)){
 //			showMessage(context, context.getResources().getString(R.string.v_password_valid));
 			return false;
-		}if(isEditTextEmpty(etPassword)){
-//			showMessage(context, context.getResources().getString(R.string.v_password));
-			return false;
-		}else{
-			return true;
-		}		
+		}
+        return !isEditTextEmpty(etPassword);
 	}
 
 	public static boolean isValidPhoneNumber(CharSequence target) {
