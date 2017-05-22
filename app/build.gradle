@@ -6,7 +6,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "co.dtechsystem.carefer"
+        applicationId "co.carefer"
         minSdkVersion 17
         targetSdkVersion 25
         versionCode 1

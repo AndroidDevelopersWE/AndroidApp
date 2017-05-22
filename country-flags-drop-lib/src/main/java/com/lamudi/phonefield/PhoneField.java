@@ -100,7 +100,10 @@ public abstract class PhoneField extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String rawNumber = s.toString();
+
+                String rawNumber;
+                rawNumber = "+" + mCountry.getDialCode();
+                rawNumber = rawNumber + s.toString();
                 if (!rawNumber.startsWith("+")) {
                     rawNumber = "+" + rawNumber;
                 }
@@ -113,6 +116,12 @@ public abstract class PhoneField extends LinearLayout {
                         mEditText.setText(rawNumber);
                         mEditText.addTextChangedListener(this);
                         mEditText.setSelection(rawNumber.length());
+                    }
+                    if (rawNumber.startsWith("0")) {
+                        rawNumber = rawNumber.replaceFirst("0", "");
+                    }
+                    if (!rawNumber.startsWith(String.valueOf(mCountry.getDialCode()))) {
+                        rawNumber = mCountry.getDialCode() + rawNumber;
                     }
                     try {
                         Phonenumber.PhoneNumber number = parsePhoneNumber(rawNumber);
