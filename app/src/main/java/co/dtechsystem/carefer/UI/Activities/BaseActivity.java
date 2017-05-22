@@ -39,7 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     Gson gson;
     Intent intent;
     public static String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID;
-    Locale locale;
+    Locale locale, localeEn;
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -68,11 +68,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         sPrivacy_check = Utils.readPreferences(activity, "User_privacy_check", "");
         sUser_ID = Utils.readPreferences(activity, "User_ID", "");
         locale = new Locale("ar");
+        localeEn = new Locale("en");
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
         configuration.setLocale(locale);
-        configuration.setLayoutDirection(new Locale("en"));
+        configuration.setLayoutDirection(localeEn);
+        Locale.setDefault(localeEn);
         //noinspection deprecation
         resources.updateConfiguration(configuration, displayMetrics);
     }

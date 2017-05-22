@@ -133,6 +133,6 @@
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
         app:itemIconTint="@drawable/dr_tv_selection"
         app:itemTextColor="@drawable/dr_tv_selection"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"/>
 
 </android.support.v4.widget.DrawerLayout>
