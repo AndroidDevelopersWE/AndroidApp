@@ -11,14 +11,29 @@ import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber;
 import com.lamudi.phonefield.PhoneEditText;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
@@ -62,11 +77,11 @@ public class MobileNumActivity extends BaseActivity {
             if (number.startsWith("0")) {
                 number = number.replaceFirst("0", "");
             }
-            if (!number.startsWith(countryCode)) {
-                number = countryCode + number;
+            if (number.startsWith(countryCode)) {
+                number = number.replaceFirst(countryCode, "");
             }
-            if (!number.startsWith("+")) {
-                number = "+" + number;
+            if (number.startsWith("+")) {
+                number = number.replaceFirst("+", "");
             }
             phoneEditText.setDefaultCountry(CountryID);
             phoneEditText.getEditText().setText(number);
@@ -91,6 +106,7 @@ public class MobileNumActivity extends BaseActivity {
                         String Phone = phoneEditText.getPhoneNumber();
                         if (Phone != null && !Phone.equals("")) {
                             if (phoneEditText.isValid()) {
+//                                APiCreateUserPhone(Phone);
                                 Utils.savePreferences(activity, "User_Mobile", phoneEditText.getPhoneNumber());
                                 Intent i = new Intent(activity, MobileNumVerifyActivity.class);
                                 startActivity(i);
@@ -124,6 +140,61 @@ public class MobileNumActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void APiCreateUserPhone(final String customerMobile) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiCreateUserPhone,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            JSONArray customerDetails = jsonObject.getJSONArray("customerDetails");
+                            JSONObject jsonObject1 = customerDetails.getJSONObject(0);
+                            String ID = jsonObject1.getString("ID");
+                            Utils.savePreferences(activity, "User_ID", ID);
+                            Utils.savePreferences(activity, "User_Mobile", phoneEditText.getPhoneNumber());
+                            Intent i = new Intent(activity, MobileNumVerifyActivity.class);
+                            startActivity(i);
+                            loading.close();
+                            showToast(getResources().getString(R.string.toast_logged_in));
+                            finish();
+                        } catch (JSONException e) {
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            loading.close();
+                            e.printStackTrace();
+                        }
+                        loading.close();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        // error
+                        error.printStackTrace();
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("customerMobile", customerMobile);
+
+                return params;
+            }
+        };
+// add it to the RequestQueue
+//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
     }
 
     @Override

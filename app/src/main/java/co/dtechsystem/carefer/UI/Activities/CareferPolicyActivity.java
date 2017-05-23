@@ -47,7 +47,7 @@ public class CareferPolicyActivity extends BaseActivity {
         Utils.gradientTextView(tv_title_policy, activity);
     }
 
-    private void APiCareferPolicyDataSaveUser(String URL, final String Type, final String customerMobile, final String isVerified) {
+    private void APiCareferPolicyDataSaveUser(String URL, final String Type, final String isVerified,final String isPolicyVerified) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -67,9 +67,6 @@ public class CareferPolicyActivity extends BaseActivity {
                             } else {
                                 JSONArray customerDetails = jsonObject.getJSONArray("customerDetails");
                                 JSONObject jsonObject1 = customerDetails.getJSONObject(0);
-                                String ID = jsonObject1.getString("ID");
-                                Utils.savePreferences(activity, "User_ID", ID);
-                                Utils.savePreferences(activity, "User_privacy_check", "verified");
                                 Intent i = new Intent(activity, MainActivity.class);
                                 startActivity(i);
                                 loading.close();
@@ -79,6 +76,7 @@ public class CareferPolicyActivity extends BaseActivity {
 
 
                         } catch (JSONException e) {
+                            Utils.savePreferences(activity, "User_privacy_check", "");
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             loading.close();
                             e.printStackTrace();
@@ -92,6 +90,7 @@ public class CareferPolicyActivity extends BaseActivity {
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
+                        Utils.savePreferences(activity, "User_privacy_check", "");
                         error.printStackTrace();
                         Log.d("Error.Response", error.toString());
                     }
@@ -103,7 +102,7 @@ public class CareferPolicyActivity extends BaseActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 if (!Type.equals("Policy")) {
                     params.put("customerName", "");
-                    params.put("customerMobile", customerMobile);
+                    params.put("isPolicyVerified", isPolicyVerified);
                     params.put("isVerified", isVerified);
                 }
 
@@ -121,7 +120,8 @@ public class CareferPolicyActivity extends BaseActivity {
         if (Validations.isInternetAvailable(activity, true)) {
             if (cb_carefer_policy.isChecked()) {
                 loading.show();
-                APiCareferPolicyDataSaveUser(AppConfig.APiRegisterCustomer, "RegisterUser", sUser_Mobile, sUser_Mobile_Varify);
+                Utils.savePreferences(activity, "User_privacy_check", "1");
+                APiCareferPolicyDataSaveUser(AppConfig.APiRegisterCustomer, "RegisterUser", sPrivacy_check, sUser_Mobile_Varify);
             } else {
                 showToast(getResources().getString(R.string.toast_carefer_policy));
             }

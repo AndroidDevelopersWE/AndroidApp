@@ -37,7 +37,7 @@ import co.dtechsystem.carefer.Utils.Validations;
 
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
-    private String mshopID, mshopName, mshopType, mshopRating, mlatitude, mlongitude, mshopImage;
+    private String mshopID, mshopName, mshopType, mshopRating, mlatitude, mlongitude, mshopImage, mContact;
     private final ArrayList<String> mServicesIdArray = new ArrayList<>();
     private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
     private final ArrayList<String> mModelsIdArray = new ArrayList<>();
@@ -74,6 +74,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             mlatitude = intent.getStringExtra("latitude");
             mlongitude = intent.getStringExtra("longitude");
             mshopImage = intent.getStringExtra("shopImage");
+            mContact = intent.getStringExtra("contact");
         }
     }
 
@@ -251,6 +252,8 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             i.putExtra("brandID", mBrandsId);
             i.putExtra("modelID", mModelsId);
             i.putExtra("shopImage", mshopImage);
+            i.putExtra("contact", mContact);
+
 
             startActivity(i);
         }

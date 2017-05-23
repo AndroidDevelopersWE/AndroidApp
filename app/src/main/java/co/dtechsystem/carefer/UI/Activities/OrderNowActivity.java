@@ -52,6 +52,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     private String mModelsId;
     private String morderType;
     private String mshopImage;
+    private String mContact;
+
     private ImageView iv_shop_image_blur;
     private CircleImageView iv_shop_profile;
     private TextView tv_title_order_now;
@@ -86,6 +88,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             mBrandsId = intent.getStringExtra("brandID");
             mModelsId = intent.getStringExtra("modelID");
             mshopImage = intent.getStringExtra("shopImage");
+            mContact = intent.getStringExtra("contact");
         }
     }
 
@@ -180,24 +183,30 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 
     @SuppressWarnings({"PointlessBooleanExpression", "UnusedParameters"})
     public void CAllToShop(View V) {
+        if (Validations.isInternetAvailable(activity, true)) {
+            try {
 
-        if (mOrderPlaced == false) {
-            //noinspection StatementWithEmptyBody
-            if (morderType != null && morderType.equals("navigate")) {
-            } else {
-                morderType = "call";
+                if (mContact != null && !mContact.equals("")) {
+                    if (mOrderPlaced == false) {
+                        //noinspection StatementWithEmptyBody
+                        if (morderType != null && morderType.equals("navigate")) {
+                        } else {
+                            morderType = "call";
+                        }
+
+                        loading.show();
+                        APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
+
+                    }
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + mContact));
+                    startActivity(intent);
+                } else {
+                    showToast(getResources().getString(R.string.toast_no_shop_contact_found));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            if (Validations.isInternetAvailable(activity, true)) {
-                loading.show();
-                APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
-            }
-        }
-        try {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:0123456789"));
-            startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

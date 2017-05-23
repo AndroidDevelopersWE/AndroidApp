@@ -42,6 +42,7 @@ public class ShopsDetailsModel {
         private String longitude = "";
         private String favourite = "";
         private String shopImage = "";
+        private String contactNumber = "";
 
 
         public String getID() {
@@ -132,6 +133,14 @@ public class ShopsDetailsModel {
 
         public void setShopImage(String shopImage) {
             this.shopImage = shopImage;
+        }
+
+        public String getContactNumber() {
+            return contactNumber;
+        }
+
+        public void setContactNumber(String contactNumber) {
+            this.contactNumber = contactNumber;
         }
 
     }

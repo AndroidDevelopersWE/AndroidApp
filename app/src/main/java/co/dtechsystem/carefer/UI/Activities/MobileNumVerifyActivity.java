@@ -14,7 +14,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
@@ -171,7 +186,59 @@ public class MobileNumVerifyActivity extends BaseActivity {
             }
         }
     };
+    private void APiVarifyPhoneNumberCode(final String UserID, final String VarifyCode) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiCreateUserPhone,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
 
+                            JSONArray customerDetails = jsonObject.getJSONArray("customerDetails");
+                            JSONObject jsonObject1 = customerDetails.getJSONObject(0);
+
+                            Intent i = new Intent(activity, MobileNumVerifyActivity.class);
+                            startActivity(i);
+                            loading.close();
+                            showToast(getResources().getString(R.string.toast_logged_in));
+                            finish();
+                        } catch (JSONException e) {
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            loading.close();
+                            e.printStackTrace();
+                        }
+                        loading.close();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        // error
+                        error.printStackTrace();
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("UserID", UserID);
+                params.put("VarifyCode", VarifyCode);
+
+                return params;
+            }
+        };
+// add it to the RequestQueue
+//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
+    }
     @Override
     protected void onResume() {
         IntentFilter filter = new IntentFilter();

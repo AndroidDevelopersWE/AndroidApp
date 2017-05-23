@@ -47,7 +47,7 @@ public class SplashActivity extends BaseActivity {
                 /* Create an Intent that will start the Menu-Activity. */
                 @SuppressWarnings("UnusedAssignment") Intent mainIntent = null;
                 if (sUser_Mobile != null && !sUser_Mobile.equals("") && sUser_Mobile_Varify != null &&
-                        sUser_Mobile_Varify.equals("1") && sPrivacy_check != null && sPrivacy_check.equals("verified")) {
+                        sUser_Mobile_Varify.equals("1") && sPrivacy_check != null && sPrivacy_check.equals("1")) {
                     mainIntent = new Intent(SplashActivity.this, MainActivity.class);
                 } else if (sUser_Mobile != null && sUser_Mobile.equals("")) {
                     mainIntent = new Intent(SplashActivity.this, MobileNumActivity.class);

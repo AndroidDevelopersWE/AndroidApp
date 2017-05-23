@@ -145,7 +145,8 @@
     <string name="toast_record_updated">سجل تحديث بنجاح …!</string>
     <string name="toast_order_placed">تم وضع طلبك.</string>
     <string name="toast_fill_all_fields">  لو سمحت أملأ كل الحقول.</string>
-    <string name="toast_carefer_policy">يرجى قبول سياسة كارفر أولا ...!</string>
+    <string name="toast_carefer_policy">يرجى قبول سياسة كارفر أولا …!</string>
+    <string name="toast_no_shop_contact_found">لا يوجد رقم الاتصال متجر وجدت …!</string>
 
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>
