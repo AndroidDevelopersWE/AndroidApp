@@ -1,108 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/img_bg_app"
-    tools:context="co.dtechsystem.carefer.UI.Activities.MobileNumActivity"
-    tools:ignore="Overdraw">
+    tools:context="co.dtechsystem.carefer.UI.Activities.MobileNumActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
-
-        <ImageView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_app_logo"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/_20sdp"
-            tools:ignore="ContentDescription" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/enter_mobile"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_18sdp" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@android:color/white"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
-
-            <com.lamudi.phonefield.PhoneEditText
-                android:id="@+id/edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <EditText
-                android:id="@+id/et_mobile_number_amobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:backgroundTint="@android:color/white"
-                android:gravity="center"
-                android:hint="@string/phone_eg"
-                android:inputType="phone"
-                android:maxLines="1"
-                android:padding="@dimen/_10sdp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:visibility="gone"
-                tools:ignore="UnusedAttribute" />
-
-            <com.hbb20.CountryCodePicker
-                android:id="@+id/ccp"
+            <ImageView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="0"
-                android:visibility="gone"
-                app:ccpLanguage="ARABIC"
-                app:defaultCode="54"
-                app:hideNameCode="true" />
+                android:background="@drawable/ic_app_logo"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_20sdp"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/enter_mobile"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_18sdp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+
+                <com.lamudi.phonefield.PhoneEditText
+                    android:id="@+id/edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <EditText
+                    android:id="@+id/et_mobile_number_amobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:backgroundTint="@android:color/white"
+                    android:gravity="center"
+                    android:hint="@string/phone_eg"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/black"
+                    android:visibility="gone"
+                    tools:ignore="UnusedAttribute" />
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0"
+                    android:visibility="gone"
+                    app:ccpLanguage="ARABIC"
+                    app:defaultCode="54"
+                    app:hideNameCode="true" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/submit_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:layout_marginLeft="@dimen/_80sdp"
+                android:layout_marginRight="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@android:color/white"
+                android:clickable="true"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/btn_next"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/submit_button"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_38sdp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_50sdp"
-            android:layout_marginLeft="@dimen/_80sdp"
-            android:layout_marginRight="@dimen/_80sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:background="@android:color/white"
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="@dimen/_5sdp"
-            android:text="@string/btn_next"
-            android:textAllCaps="false"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/_15sdp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+    </ScrollView>
+</LinearLayout>

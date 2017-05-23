@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -27,12 +28,14 @@ import co.dtechsystem.carefer.Utils.Validations;
 
 public class CareferPolicyActivity extends BaseActivity {
     private TextView tv_title_policy;
+    CheckBox cb_carefer_policy;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carefer_policy);
         tv_title_policy = (TextView) findViewById(R.id.tv_title_policy);
+        cb_carefer_policy = (CheckBox) findViewById(R.id.cb_carefer_policy);
         SetShaderToViews();
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
@@ -116,8 +119,12 @@ public class CareferPolicyActivity extends BaseActivity {
     @SuppressWarnings("UnusedParameters")
     public void btn_Next_to_mainmenu_Click(View v) {
         if (Validations.isInternetAvailable(activity, true)) {
-            loading.show();
-            APiCareferPolicyDataSaveUser(AppConfig.APiRegisterCustomer, "RegisterUser", sUser_Mobile, sUser_Mobile_Varify);
+            if (cb_carefer_policy.isChecked()) {
+                loading.show();
+                APiCareferPolicyDataSaveUser(AppConfig.APiRegisterCustomer, "RegisterUser", sUser_Mobile, sUser_Mobile_Varify);
+            } else {
+                showToast(getResources().getString(R.string.toast_carefer_policy));
+            }
         }
     }
 
