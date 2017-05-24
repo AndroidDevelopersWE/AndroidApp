@@ -114,11 +114,12 @@ public class MobileNumActivity extends BaseActivity {
                         String Phone = phoneEditText.getPhoneNumber();
                         if (Phone != null && !Phone.equals("")) {
                             if (phoneEditText.isValid()) {
-//                                APiCreateUserPhone(Phone);
-                                Utils.savePreferences(activity, "User_Mobile", phoneEditText.getPhoneNumber());
-                                Intent i = new Intent(activity, MobileNumVerifyActivity.class);
-                                startActivity(i);
-                                finish();
+                                loading.show();
+                                APiCreateUserPhone(Phone);
+//                                Utils.savePreferences(activity, "User_Mobile", phoneEditText.getPhoneNumber());
+//                                Intent i = new Intent(activity, MobileNumVerifyActivity.class);
+//                                startActivity(i);
+//                                finish();
                             } else {
                                 showToast(getResources().getString(R.string.invalid_phone_number));
                             }
@@ -162,15 +163,13 @@ public class MobileNumActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
-                            JSONArray customerDetails = jsonObject.getJSONArray("customerDetails");
-                            JSONObject jsonObject1 = customerDetails.getJSONObject(0);
-                            String ID = jsonObject1.getString("ID");
+                            JSONObject customerDetails = jsonObject.getJSONObject("customer");
+                            String ID = customerDetails.getString("ID");
                             Utils.savePreferences(activity, "User_ID", ID);
                             Utils.savePreferences(activity, "User_Mobile", phoneEditText.getPhoneNumber());
                             Intent i = new Intent(activity, MobileNumVerifyActivity.class);
                             startActivity(i);
                             loading.close();
-                            showToast(getResources().getString(R.string.toast_logged_in));
                             finish();
                         } catch (JSONException e) {
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
@@ -195,7 +194,7 @@ public class MobileNumActivity extends BaseActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("customerMobile", customerMobile);
+                params.put("mobile", customerMobile);
 
                 return params;
             }
