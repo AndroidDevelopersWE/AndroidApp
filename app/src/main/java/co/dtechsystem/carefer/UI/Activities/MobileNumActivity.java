@@ -4,16 +4,20 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -51,9 +55,15 @@ public class MobileNumActivity extends BaseActivity {
         phoneEditText = (PhoneEditText) findViewById(R.id.edit_text);
         tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         CountryID = tm.getNetworkCountryIso();
-        if (Build.VERSION.SDK_INT >= 23 && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_SMS}, 123);
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_SMS}, 123);
+
+            } else {
+                AutoDetectMobileSim1();
+            }
         } else {
             AutoDetectMobileSim1();
 
@@ -67,7 +77,6 @@ public class MobileNumActivity extends BaseActivity {
         try {
 
             @SuppressLint("HardwareIds") String number = tm.getLine1Number();
-
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
             Phonenumber.PhoneNumber numberProto = phoneUtil.parse(number, CountryID.toUpperCase());
             String countryCode = String.valueOf(numberProto.getCountryCode());
@@ -89,7 +98,6 @@ public class MobileNumActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
-
     private void phoneDropAndValid() {
 
         assert phoneEditText != null;

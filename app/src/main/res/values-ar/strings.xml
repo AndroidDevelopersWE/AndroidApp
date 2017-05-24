@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Carefer</string>
     <!--Google Maps APi Key-->
-    <string name="google_maps_api_key">AIzaSyAlzla9VxTkmEw0PrIiloOpEBf4VSkZXQc</string>
+    <string name="google_maps_api_key">AIzaSyBEE1M4g2JVzjU8wJ_BAg0BDALhwX_CGPM</string>
     <string name="carefer_slogan">شعار يذهب هنا</string>
     <string name="enter_mobile">أدخل رقم هاتفك المحمول</string>
     <string name="btn_next">التالي</string>
