@@ -29,7 +29,10 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -431,7 +434,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     public static void filterShops(String Type, String Both, String service, String Brand) {
         service = service.toLowerCase(Locale.getDefault());
         Brand = Brand.toLowerCase(Locale.getDefault());
-        if(_ShopslistRecordList!=null) {
+        if (_ShopslistRecordList != null) {
             _ShopslistRecordList.clear();
             if (service.length() == 0 && Brand.length() == 0) {
                 _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
@@ -477,7 +480,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     @SuppressWarnings("unused")
     public static void filterShopsName(String Text) {
         Text = Text.toLowerCase(Locale.getDefault());
-        if(_ShopslistRecordList!=null) {
+        if (_ShopslistRecordList != null) {
             _ShopslistRecordList.clear();
             if (Text.length() == 0) {
                 _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
@@ -503,7 +506,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     @SuppressWarnings("unused")
     public static void filterShopsWithProviders(ArrayList<String> selectedItem, final String ProvideWarranty, final String ProvideReplacementParts,
                                                 final String shopType, final String topRated) {
-        if(_ShopslistRecordList!=null) {
+        if (_ShopslistRecordList != null) {
             if (selectedItem.size() > 0) {
                 _ShopslistRecordList.clear();
                 for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
@@ -531,5 +534,62 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
         }
     }
+
+    //sorting Function
+    public static void SortingShopsWithNameRating(ArrayList<String> selectedItem, final String ShopName, final String ShopRating) {
+        if (_ShopslistRecordList != null) {
+            if (selectedItem.size() > 0) {
+                _ShopslistRecordList.clear();
+                final List<ShopsListModel.ShopslistRecord> _ShopRating5 = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _ShopRating4 = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _ShopRating3 = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _ShopRating2 = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _ShopRating1 = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _ShopRating0 = new ArrayList<ShopsListModel.ShopslistRecord>();
+                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                    if (ShopRating.equals("5")) {
+                        if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=5.5) {
+                            _ShopRating5.add(_ShopslistRecordListFilter.get(i));
+
+                        }
+                       else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=4.5) {
+                            _ShopRating4.add(_ShopslistRecordListFilter.get(i));
+
+                        }
+                        else  if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=3.5) {
+                            _ShopRating3.add(_ShopslistRecordListFilter.get(i));
+
+                        }
+                        else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=2.5) {
+                            _ShopRating2.add(_ShopslistRecordListFilter.get(i));
+
+                        }
+                        else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=1.5) {
+                            _ShopRating1.add(_ShopslistRecordListFilter.get(i));
+
+                        }
+                        else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=0.5) {
+                            _ShopRating0.add(_ShopslistRecordListFilter.get(i));
+                        }
+                    }
+                    else {
+                        _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
+                        Collator arabicCollator = Collator.getInstance(new Locale("ar"));
+                        Collections.sort(Arrays.asList(_ShopslistRecordList), arabicCollator);
+                    }
+                }
+                _ShopslistRecordList.addAll(_ShopRating5);
+                _ShopslistRecordList.addAll(_ShopRating4);
+                _ShopslistRecordList.addAll(_ShopRating3);
+                _ShopslistRecordList.addAll(_ShopRating2);
+                _ShopslistRecordList.addAll(_ShopRating1);
+                _ShopslistRecordList.addAll(_ShopRating0);
+
+            } else {
+                _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
+            }
+        }
+    }
+
 
 }

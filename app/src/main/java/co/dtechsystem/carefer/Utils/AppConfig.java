@@ -19,6 +19,8 @@ public class AppConfig {
     public static String APiRegisterCustomer = BaseUrl + "save-customer-detail";
     public static String APiShopFavourite = BaseUrl + "shop-favourite";
     public static String APiCreateUserPhone = BaseUrl + "receive-mobile-number";
+    public static String APiVarifyCustomer = BaseUrl + "verify-customer";
+    public static String APiVarifyPolicy = BaseUrl + "verify-policy";
 
 
 }

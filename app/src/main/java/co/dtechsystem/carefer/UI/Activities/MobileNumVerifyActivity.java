@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.telephony.SmsMessage;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,7 +22,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,27 +41,84 @@ public class MobileNumVerifyActivity extends BaseActivity {
     private EditText et_2_verify;
     private EditText et_3_verify;
     private EditText et_4_verify;
+    private TextView chronometer_sms;
+    private boolean firstSms = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_num_verification);
         btn_verify_pin = (Button) findViewById(R.id.btn_verify_pin);
+//        btn_resend_code = (Button) findViewById(R.id.btn_resend_code);
         et_1_verify = (EditText) findViewById(R.id.et_1_verify);
         et_2_verify = (EditText) findViewById(R.id.et_2_verify);
         et_3_verify = (EditText) findViewById(R.id.et_3_verify);
         et_4_verify = (EditText) findViewById(R.id.et_4_verify);
+        chronometer_sms = (TextView) findViewById(R.id.chronometer_sms);
         SetFocusForEdit();
+        setdataToViews();
+
+    }
+
+    public void setdataToViews() {
+//        btn_resend_code.setVisibility(View.GONE);
+        StartTimer();
+//        btn_resend_code.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                firstSms = false;
+//                btn_resend_code.setVisibility(View.GONE);
+//                StartTimer();
+//            }
+//        });
+    }
+
+    public void StartTimer() {
+        if (firstSms) {
+            CountDownTimer cT = new CountDownTimer(60000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                    String v = String.format("%02d", millisUntilFinished / 60000);
+                    int va = (int) ((millisUntilFinished % 60000) / 1000);
+                    chronometer_sms.setText("Will try to resend after:\n" + v + ":" + String.format("%02d", va));
+                }
+
+                public void onFinish() {
+                    chronometer_sms.setText("Will try to resend after:\n" + "00:00");
+//                    chronometer_sms.setVisibility(View.GONE);
+//                    btn_resend_code.setVisibility(View.VISIBLE);
+                }
+            };
+            cT.start();
+        }
+    }
+
+    public void ben_back_to_mobile(View v) {
+        showAlert(getResources().getString(R.string.dialog_current_code_cleared));
+    }
+
+    public void btn_resend_Code(View v) {
+        if (Validations.isInternetAvailable(activity, true)) {
+            showToast(getResources().getString(R.string.dialog_current_code_cleared));
+            loading.show();
+            MobileNumActivity mobileNumActivity = new MobileNumActivity();
+//            mobileNumActivity.APiCreateUserPhone(sUser_Mobile, "Varify");
+        }
 
     }
 
     @SuppressWarnings("UnusedParameters")
+
     public void ben_Next_to_carafePolicy_Click(View v) {
         if (Validations.isInternetAvailable(activity, true)) {
-            Utils.savePreferences(activity, "User_Mobile_varify", "1");
-            Intent i = new Intent(this, CareferPolicyActivity.class);
-            startActivity(i);
-            finish();
+            if (et_1_verify.length() > 0 && et_2_verify.length() > 0 && et_3_verify.length() > 0 && et_4_verify.length() > 0) {
+                String VerificationCode = et_1_verify.getText().toString() + et_2_verify.getText().toString() +
+                        et_3_verify.getText().toString() + et_4_verify.getText().toString();
+                loading.show();
+                APiVarifyCustomer(sUser_ID, VerificationCode);
+            } else {
+                showToast(getResources().getString(R.string.toast_fill_all_fields));
+            }
+
         }
     }
 
@@ -176,8 +233,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
                                 et_2_verify.setText(String.valueOf(pin.charAt(1)));
                                 et_3_verify.setText(String.valueOf(pin.charAt(2)));
                                 et_4_verify.setText(String.valueOf(pin.charAt(3)));
+                                chronometer_sms.setVisibility(View.GONE);
                             }
-                            Toast.makeText(context, "Pin received: " + pin, Toast.LENGTH_LONG).show();
+//                            Toast.makeText(context, "Pin received: " + pin, Toast.LENGTH_LONG).show();
 
                         }
 
@@ -186,10 +244,11 @@ public class MobileNumVerifyActivity extends BaseActivity {
             }
         }
     };
-    private void APiVarifyPhoneNumberCode(final String UserID, final String VarifyCode) {
+
+    private void APiVarifyCustomer(final String UserID, final String verificationCode) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiCreateUserPhone,
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiVarifyCustomer,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -198,14 +257,18 @@ public class MobileNumVerifyActivity extends BaseActivity {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
 
-                            JSONArray customerDetails = jsonObject.getJSONArray("customerDetails");
-                            JSONObject jsonObject1 = customerDetails.getJSONObject(0);
-
-                            Intent i = new Intent(activity, MobileNumVerifyActivity.class);
-                            startActivity(i);
-                            loading.close();
-                            showToast(getResources().getString(R.string.toast_logged_in));
-                            finish();
+                            JSONObject customerDetails = jsonObject.getJSONObject("customer");
+                            String Status = customerDetails.getString("statusCode");
+                            if (Status.equals("1")) {
+                                Utils.savePreferences(activity, "User_Mobile_varify", Status);
+                                Intent i = new Intent(activity, CareferPolicyActivity.class);
+                                startActivity(i);
+                                loading.close();
+                                showToast(getResources().getString(R.string.toast_mobile_Verified));
+                                finish();
+                            } else {
+                                showToast(getResources().getString(R.string.invalid_phone_number));
+                            }
                         } catch (JSONException e) {
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             loading.close();
@@ -229,8 +292,8 @@ public class MobileNumVerifyActivity extends BaseActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("UserID", UserID);
-                params.put("VarifyCode", VarifyCode);
+                params.put("customerID", UserID);
+                params.put("verificationCode", verificationCode);
 
                 return params;
             }
@@ -239,6 +302,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
 //        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(postRequest);
     }
+
     @Override
     protected void onResume() {
         IntentFilter filter = new IntentFilter();
@@ -252,5 +316,10 @@ public class MobileNumVerifyActivity extends BaseActivity {
     protected void onPause() {
         unregisterReceiver(SMSBroadcastReceiver);
         super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
     }
 }

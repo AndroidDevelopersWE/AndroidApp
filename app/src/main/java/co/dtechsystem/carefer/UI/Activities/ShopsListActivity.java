@@ -53,9 +53,10 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private Spinner sp_service_type_shops_list;
     private Spinner sp_brand_type_shop_list;
     private String mplaceName;
-    private MultiSpinner sp_providers_shop_list;
+    private MultiSpinner sp_providers_shop_list,sp_sorting_shop_list;
     private EditText et_search_shops_main;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapterFilter;
+    private ArrayAdapter<String> adapterSorting;
     private TextView tv_total_results_shops_list;
     private TextView tv_title_shops_list;
     private ShopsListModel mShopsListModel;
@@ -70,6 +71,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         sp_service_type_shops_list = (Spinner) findViewById(R.id.sp_service_type_shops_list);
         sp_brand_type_shop_list = (Spinner) findViewById(R.id.sp_brand_type_shop_list);
         sp_providers_shop_list = (MultiSpinner) findViewById(R.id.sp_providers_shop_list);
+        sp_sorting_shop_list= (MultiSpinner) findViewById(R.id.sp_sorting_shop_list);
         //noinspection UnusedAssignment
         Spinner sp_cities_shops_list = (Spinner) findViewById(R.id.sp_cities_shops_list);
         et_search_shops_main = (EditText) findViewById(R.id.et_search_shops_main);
@@ -98,24 +100,41 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     }
 
     private void setDataToViews() {
-        // create spinner list elements
-        //noinspection Convert2Diamond
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        adapter.add("توفير الضمان");
-        adapter.add("قدم استبدال الأجزاء");
-        adapter.add("نوع الاختبار");
-        adapter.add("أعلى تصنيف");
-        sp_providers_shop_list.setAdapter(adapter, false, onSelectedListener);
+        // create spinner list elements for Filter
+        adapterFilter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+
+        //added searching
+        adapterFilter.add("توفير الضمان");
+        adapterFilter.add("قدم استبدال الأجزاء");
+        adapterFilter.add("نوع الاختبار");
+        adapterFilter.add("أعلى تصنيف");
+        sp_providers_shop_list.setAdapter(adapterFilter, false, onSelectedListenerFilter);
         // set initial selection
-        boolean[] selectedItems = new boolean[adapter.getCount()];
+        boolean[] selectedItems = new boolean[adapterFilter.getCount()];
         sp_providers_shop_list.setSelected(selectedItems);
-//            aQuery.find(R.id.tv_providers_shop_list).text("مقدمي");
         aQuery.find(R.id.tv_providers_shop_list).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sp_providers_shop_list.performClick();
             }
         });
+
+        // create spinner list elements for Sorting
+        adapterSorting= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        adapterSorting.add("اسم");
+        adapterSorting.add("تقييم");
+        sp_sorting_shop_list.setAdapter(adapterSorting, false, onSelectedListenerSorting);
+        // set initial selection
+        boolean[] selectedItems1 = new boolean[adapterFilter.getCount()];
+        sp_sorting_shop_list.setSelected(selectedItems1);
+        aQuery.find(R.id.tv_sorting_shops_list).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sp_sorting_shop_list.performClick();
+            }
+        });
+
+        //Searching with name in list
         et_search_shops_main.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -278,7 +297,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
     }
 
-    private final MultiSpinner.MultiSpinnerListener onSelectedListener = new MultiSpinner.MultiSpinnerListener() {
+    private final MultiSpinner.MultiSpinnerListener onSelectedListenerFilter = new MultiSpinner.MultiSpinnerListener() {
 
         @SuppressWarnings({"ConstantConditions", "MismatchedQueryAndUpdateOfStringBuilder"})
         public void onItemsSelected(boolean[] selected) {
@@ -289,8 +308,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             for (int i = 0; i < selected.length; i++) {
                 if (selected[i]) {
                     //noinspection RedundantStringToString,ConstantConditions
-                    selectedItems.add(adapter.getItem(i).toString());
-                    builder.append(adapter.getItem(i)).append(" ");
+                    selectedItems.add(adapterFilter.getItem(i).toString());
+                    builder.append(adapterFilter.getItem(i)).append(" ");
                 }
             }
             String ProvideWarranty, ProvideReplacementParts, shopType, topRated;
@@ -307,7 +326,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             }
             if (selected[2]) {
                 //noinspection RedundantStringToString
-                shopType = adapter.getItem(2).toString();
+                shopType = adapterFilter.getItem(2).toString();
             } else {
                 shopType = "";
             }
@@ -325,6 +344,41 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
     };
 
+    private final MultiSpinner.MultiSpinnerListener onSelectedListenerSorting = new MultiSpinner.MultiSpinnerListener() {
+
+        @SuppressWarnings({"ConstantConditions", "MismatchedQueryAndUpdateOfStringBuilder"})
+        public void onItemsSelected(boolean[] selected) {
+            // Do something here with the selected items
+
+            StringBuilder builder = new StringBuilder();
+            ArrayList<String> selectedItems = new ArrayList<>();
+            for (int i = 0; i < selected.length; i++) {
+                if (selected[i]) {
+                    //noinspection RedundantStringToString,ConstantConditions
+                    selectedItems.add(adapterSorting.getItem(i).toString());
+                    builder.append(adapterSorting.getItem(i)).append(" ");
+                }
+            }
+            String ShopsName, ShopsRating;
+            if (selected[1]) {
+                ShopsName = "ShopsName";
+            } else {
+                ShopsName = "";
+            }
+
+            if (selected[1]) {
+                ShopsRating = "5";
+            } else {
+                ShopsRating = "";
+            }
+
+            ShopsListRecycleViewAdapter.SortingShopsWithNameRating(selectedItems, ShopsName, ShopsRating);
+            if (mshopsListRecycleViewAdapter != null) {
+                mshopsListRecycleViewAdapter.notifyDataSetChanged();
+            }
+//            Toast.makeText(activity, builder.toString(), Toast.LENGTH_SHORT).show();
+        }
+    };
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

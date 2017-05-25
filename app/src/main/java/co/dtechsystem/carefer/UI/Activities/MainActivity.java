@@ -50,6 +50,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.dtechsystem.carefer.Google.GPSServiceRequest;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
@@ -105,6 +106,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        GPSServiceRequest.displayLocationSettingsRequest(activity);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

@@ -6,10 +6,11 @@
     <string name="enter_mobile">أدخل رقم هاتفك المحمول</string>
     <string name="btn_next">التالي</string>
     <string name="check_now">تحقق الآن</string>
+    <string name="btn_resend_code">أعد إرسال الرمز</string>
     <string name="enter_verification_code">ادخل رمز التحقيق</string>
     <string name="confirm_mobile_number">تأكيد رقم هاتفك المحمول</string>
     <string name="phone_eg">على سبيل المثال:٩١٠٠٠-٣٣٥-٠٠٩٦</string>
-    <string name="code_eg">8</string>
+    <string name="code_eg">-</string>
     <string name="btn_back">الى الخلف</string>
     <string name="privacy_policy">سياسة كاريفر</string>
     <string name="privacy_policy_details">يتيح لك نموذج سياسة الخصوصية الحصول عليه
@@ -147,10 +148,12 @@
     <string name="toast_fill_all_fields">  لو سمحت أملأ كل الحقول.</string>
     <string name="toast_carefer_policy">يرجى قبول سياسة كارفر أولا …!</string>
     <string name="toast_no_shop_contact_found">لا يوجد رقم الاتصال متجر وجدت …!</string>
+    <string name="toast_mobile_Verified">تم التحقق من رقم الجوال.</string>
+    <string name="toast_invalid_code">رمز التحقق غير صحيح.</string>
 
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>
     <string name="dialog_message">نجد أنك تغير رقمك. نحن بحاجة إلى التحقق منه أولا.يبقى كل ما تبذلونه من السجل المحفوظة.</string>
-
+    <string name="dialog_current_code_cleared">سيتم مسح رمز التحقق سمز الحالي.</string>
 
 </resources>

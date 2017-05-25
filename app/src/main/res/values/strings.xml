@@ -8,8 +8,9 @@
     <string name="enter_verification_code">Enter Verification Code</string>
     <string name="confirm_mobile_number">Confirm Your Mobile Number</string>
     <string name="check_now">Check Now</string>
+    <string name="btn_resend_code">Resend code</string>
     <string name="phone_eg">eg:+92-334-5882-589</string>
-    <string name="code_eg">8</string>
+    <string name="code_eg">-</string>
     <string name="btn_back">Back</string>
     <string name="privacy_policy">Carefer Policy</string>
     <string name="privacy_policy_details">Our Privacy Policy template lets you get
@@ -131,8 +132,12 @@
     <string name="toast_fill_all_fields">Please Fill All Fields.</string>
     <string name="toast_carefer_policy">Please accept carefer policy first...!</string>
     <string name="toast_no_shop_contact_found">No shop contact Number found...!</string>
+    <string name="toast_mobile_Verified">Mobile Number Verified.</string>
+    <string name="toast_invalid_code">Incorrect verification code.</string>
 
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_message">We find that you are changing your number .We need to verify it first.All your record remain saved.</string>
+    <string name="dialog_current_code_cleared">Current Sms Verification Code Will cleared.</string>
+
 </resources>
