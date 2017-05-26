@@ -1,6 +1,7 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -53,10 +55,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private Spinner sp_service_type_shops_list;
     private Spinner sp_brand_type_shop_list;
     private String mplaceName;
-    private MultiSpinner sp_providers_shop_list,sp_sorting_shop_list;
+    private MultiSpinner sp_providers_shop_list;
     private EditText et_search_shops_main;
     private ArrayAdapter<String> adapterFilter;
-    private ArrayAdapter<String> adapterSorting;
     private TextView tv_total_results_shops_list;
     private TextView tv_title_shops_list;
     private ShopsListModel mShopsListModel;
@@ -71,7 +72,6 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         sp_service_type_shops_list = (Spinner) findViewById(R.id.sp_service_type_shops_list);
         sp_brand_type_shop_list = (Spinner) findViewById(R.id.sp_brand_type_shop_list);
         sp_providers_shop_list = (MultiSpinner) findViewById(R.id.sp_providers_shop_list);
-        sp_sorting_shop_list= (MultiSpinner) findViewById(R.id.sp_sorting_shop_list);
         //noinspection UnusedAssignment
         Spinner sp_cities_shops_list = (Spinner) findViewById(R.id.sp_cities_shops_list);
         et_search_shops_main = (EditText) findViewById(R.id.et_search_shops_main);
@@ -119,18 +119,11 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             }
         });
 
-        // create spinner list elements for Sorting
-        adapterSorting= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        adapterSorting.add("اسم");
-        adapterSorting.add("تقييم");
-        sp_sorting_shop_list.setAdapter(adapterSorting, false, onSelectedListenerSorting);
-        // set initial selection
-        boolean[] selectedItems1 = new boolean[adapterFilter.getCount()];
-        sp_sorting_shop_list.setSelected(selectedItems1);
+
         aQuery.find(R.id.tv_sorting_shops_list).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp_sorting_shop_list.performClick();
+                CustomSortingDialog();
             }
         });
 
@@ -344,41 +337,50 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
     };
 
-    private final MultiSpinner.MultiSpinnerListener onSelectedListenerSorting = new MultiSpinner.MultiSpinnerListener() {
+    //Sorting dialog fun
+    public void CustomSortingDialog() {
+        //Sorting dialog fun
+        // custom dialog
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.lay_dialog_sorting);
+        dialog.setTitle(getResources().getString(R.string.app_name));
+        dialog.setCancelable(false);
+        // set the custom dialog components - text, image and button
+        Button btn_name_sorting = (Button) dialog.findViewById(R.id.btn_name_sorting);
+        Button btn_rating_sorting = (Button) dialog.findViewById(R.id.btn_rating_sorting);
+        Button btn_cancel_sorting = (Button) dialog.findViewById(R.id.btn_cancel_sorting);
+        // if button is clicked, close the custom dialog
 
-        @SuppressWarnings({"ConstantConditions", "MismatchedQueryAndUpdateOfStringBuilder"})
-        public void onItemsSelected(boolean[] selected) {
-            // Do something here with the selected items
-
-            StringBuilder builder = new StringBuilder();
-            ArrayList<String> selectedItems = new ArrayList<>();
-            for (int i = 0; i < selected.length; i++) {
-                if (selected[i]) {
-                    //noinspection RedundantStringToString,ConstantConditions
-                    selectedItems.add(adapterSorting.getItem(i).toString());
-                    builder.append(adapterSorting.getItem(i)).append(" ");
+        btn_name_sorting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name");
+                if (mshopsListRecycleViewAdapter != null) {
+                    mshopsListRecycleViewAdapter.notifyDataSetChanged();
                 }
+                dialog.dismiss();
             }
-            String ShopsName, ShopsRating;
-            if (selected[1]) {
-                ShopsName = "ShopsName";
-            } else {
-                ShopsName = "";
+        });
+        btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Rating");
+                if (mshopsListRecycleViewAdapter != null) {
+                    mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                }
+                dialog.dismiss();
             }
+        });
+        btn_cancel_sorting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
-            if (selected[1]) {
-                ShopsRating = "5";
-            } else {
-                ShopsRating = "";
-            }
+        dialog.show();
+    }
 
-            ShopsListRecycleViewAdapter.SortingShopsWithNameRating(selectedItems, ShopsName, ShopsRating);
-            if (mshopsListRecycleViewAdapter != null) {
-                mshopsListRecycleViewAdapter.notifyDataSetChanged();
-            }
-//            Toast.makeText(activity, builder.toString(), Toast.LENGTH_SHORT).show();
-        }
-    };
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

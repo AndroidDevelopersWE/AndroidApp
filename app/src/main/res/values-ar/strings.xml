@@ -4,6 +4,8 @@
     <string name="google_maps_api_key">AIzaSyBEE1M4g2JVzjU8wJ_BAg0BDALhwX_CGPM</string>
     <string name="carefer_slogan">شعار يذهب هنا</string>
     <string name="enter_mobile">أدخل رقم هاتفك المحمول</string>
+    <string name="btn_re_enter_mobile">إعادة إدخال الجوال</string>
+
     <string name="btn_next">التالي</string>
     <string name="check_now">تحقق الآن</string>
     <string name="btn_resend_code">أعد إرسال الرمز</string>
@@ -150,10 +152,11 @@
     <string name="toast_no_shop_contact_found">لا يوجد رقم الاتصال متجر وجدت …!</string>
     <string name="toast_mobile_Verified">تم التحقق من رقم الجوال.</string>
     <string name="toast_invalid_code">رمز التحقق غير صحيح.</string>
-
+    <string name="toast_verfication_sent_mobile">تم إرسال رمز التحقق إلى هاتفك الجوال للتحقق منه.</string>
+    <string name="toast_will_try">سيحاول إعادة إرسال بعد:</string>
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>
     <string name="dialog_message">نجد أنك تغير رقمك. نحن بحاجة إلى التحقق منه أولا.يبقى كل ما تبذلونه من السجل المحفوظة.</string>
-    <string name="dialog_current_code_cleared">سيتم مسح رمز التحقق سمز الحالي.</string>
-
+    <string name="dialog_name_sorting">اسم</string>
+    <string name="dialog_rating_sorting">تقييم</string>
 </resources>

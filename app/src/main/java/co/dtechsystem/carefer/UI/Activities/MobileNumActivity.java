@@ -163,14 +163,12 @@ public class MobileNumActivity extends BaseActivity {
                             } else {
                                 String ID = customerDetails.getString("ID");
                                 Utils.savePreferences(activity, "User_ID", ID);
-                                if (Type.equals("Mobile")) {
                                     Utils.savePreferences(activity, "User_Mobile", customerMobile);
                                     Intent i = new Intent(activity, MobileNumVerifyActivity.class);
                                     startActivity(i);
-                                    finish();
-                                }
+//                                    finish();
+                                showToast(getResources().getString(R.string.toast_verfication_sent_mobile));
                                 loading.close();
-//                            finish();
                             }
                         } catch (JSONException e) {
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));

@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -42,9 +43,10 @@ public class MobileNumVerifyActivity extends BaseActivity {
     private EditText et_3_verify;
     private EditText et_4_verify;
     private TextView chronometer_sms;
-    private boolean firstSms = true;
+    private boolean mAutoReceivedCode = false;
 
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mobile_num_verification);
@@ -62,7 +64,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
 
     public void setdataToViews() {
 //        btn_resend_code.setVisibility(View.GONE);
-        StartTimer();
+        StartTimer(60000);
 //        btn_resend_code.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -73,38 +75,28 @@ public class MobileNumVerifyActivity extends BaseActivity {
 //        });
     }
 
-    public void StartTimer() {
-        if (firstSms) {
-            CountDownTimer cT = new CountDownTimer(60000, 1000) {
-                public void onTick(long millisUntilFinished) {
-                    String v = String.format("%02d", millisUntilFinished / 60000);
-                    int va = (int) ((millisUntilFinished % 60000) / 1000);
-                    chronometer_sms.setText("Will try to resend after:\n" + v + ":" + String.format("%02d", va));
-                }
+    public void StartTimer(long Time) {
+        CountDownTimer cT = new CountDownTimer(Time, 1000) {
+            public void onTick(long millisUntilFinished) {
+                chronometer_sms.setVisibility(View.VISIBLE);
+                String v = String.format("%02d", millisUntilFinished / 60000);
+                int va = (int) ((millisUntilFinished % 60000) / 1000);
+                chronometer_sms.setText(getResources().getString(R.string.toast_verfication_sent_mobile)+"\n" + v + ":" + String.format("%02d", va));
+            }
 
-                public void onFinish() {
-                    chronometer_sms.setText("Will try to resend after:\n" + "00:00");
+            public void onFinish() {
+                chronometer_sms.setText(getResources().getString(R.string.toast_verfication_sent_mobile)+"\n"+ "00:00");
+                if (mAutoReceivedCode == false) {
+                    CustomResendCodeDialog();
+                }
 //                    chronometer_sms.setVisibility(View.GONE);
 //                    btn_resend_code.setVisibility(View.VISIBLE);
-                }
-            };
-            cT.start();
-        }
-    }
-
-    public void ben_back_to_mobile(View v) {
-        showAlert(getResources().getString(R.string.dialog_current_code_cleared));
-    }
-
-    public void btn_resend_Code(View v) {
-        if (Validations.isInternetAvailable(activity, true)) {
-            showToast(getResources().getString(R.string.dialog_current_code_cleared));
-            loading.show();
-            MobileNumActivity mobileNumActivity = new MobileNumActivity();
-//            mobileNumActivity.APiCreateUserPhone(sUser_Mobile, "Varify");
-        }
+            }
+        };
+        cT.start();
 
     }
+
 
     @SuppressWarnings("UnusedParameters")
 
@@ -208,6 +200,48 @@ public class MobileNumVerifyActivity extends BaseActivity {
         });
     }
 
+    //Resend code dialog fun
+    public void CustomResendCodeDialog() {
+        //Sorting dialog fun
+        // custom dialog
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.lay_dialog_resend_code);
+        dialog.setTitle(getResources().getString(R.string.app_name));
+        dialog.setCancelable(false);
+        // set the custom dialog components - text, image and button
+        Button btn_resend_code = (Button) dialog.findViewById(R.id.btn_resend_code);
+        Button btn_re_enter_mobile = (Button) dialog.findViewById(R.id.btn_re_enter_mobile);
+        Button btn_cancel_mobile = (Button) dialog.findViewById(R.id.btn_cancel_mobile);
+        // if button is clicked, close the custom dialog
+
+        btn_resend_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loading.show();
+                APiCreateUserPhone(sUser_Mobile);
+                dialog.dismiss();
+                StartTimer(120000);
+            }
+        });
+        btn_re_enter_mobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.savePreferences(activity, "User_Mobile", "");
+                Utils.savePreferences(activity, "User_ID", "");
+                dialog.dismiss();
+                finish();
+            }
+        });
+        btn_cancel_mobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
     private final BroadcastReceiver SMSBroadcastReceiver = new BroadcastReceiver() {
         @SuppressWarnings("deprecation")
         @Override
@@ -234,6 +268,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
                                 et_3_verify.setText(String.valueOf(pin.charAt(2)));
                                 et_4_verify.setText(String.valueOf(pin.charAt(3)));
                                 chronometer_sms.setVisibility(View.GONE);
+                                mAutoReceivedCode = true;
                             }
 //                            Toast.makeText(context, "Pin received: " + pin, Toast.LENGTH_LONG).show();
 
@@ -294,6 +329,59 @@ public class MobileNumVerifyActivity extends BaseActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("customerID", UserID);
                 params.put("verificationCode", verificationCode);
+
+                return params;
+            }
+        };
+// add it to the RequestQueue
+//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
+    }
+    public void APiCreateUserPhone(final String customerMobile) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiCreateUserPhone,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            JSONObject customerDetails = jsonObject.getJSONObject("customer");
+                            String smsAPIResponse = customerDetails.getString("smsAPIResponse");
+                            if (smsAPIResponse != null && !smsAPIResponse.equals("SMS sent successfully.")) {
+                                showToast(smsAPIResponse);
+                                loading.close();
+                            } else {
+                                showToast(getResources().getString(R.string.toast_verfication_sent_mobile));
+                                loading.close();
+                            }
+                        } catch (JSONException e) {
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            loading.close();
+                            e.printStackTrace();
+                        }
+                        loading.close();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        // error
+                        error.printStackTrace();
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mobileNumber", customerMobile);
 
                 return params;
             }

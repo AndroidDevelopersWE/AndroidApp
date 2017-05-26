@@ -536,9 +536,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     //sorting Function
-    public static void SortingShopsWithNameRating(ArrayList<String> selectedItem, final String ShopName, final String ShopRating) {
+    public static void SortingShopsWithNameRating(final String SortingType) {
         if (_ShopslistRecordList != null) {
-            if (selectedItem.size() > 0) {
+            if (SortingType.equals("Rating")) {
                 _ShopslistRecordList.clear();
                 final List<ShopsListModel.ShopslistRecord> _ShopRating5 = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _ShopRating4 = new ArrayList<ShopsListModel.ShopslistRecord>();
@@ -547,35 +547,30 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 final List<ShopsListModel.ShopslistRecord> _ShopRating1 = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _ShopRating0 = new ArrayList<ShopsListModel.ShopslistRecord>();
                 for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-                    if (ShopRating.equals("5")) {
-                        if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=5.5) {
-                            _ShopRating5.add(_ShopslistRecordListFilter.get(i));
+                    if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 5.5 ||
+                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 5) {
+                        _ShopRating5.add(_ShopslistRecordListFilter.get(i));
 
-                        }
-                       else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=4.5) {
-                            _ShopRating4.add(_ShopslistRecordListFilter.get(i));
+                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 4.5 ||
+                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 4) {
+                        _ShopRating4.add(_ShopslistRecordListFilter.get(i));
 
-                        }
-                        else  if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=3.5) {
-                            _ShopRating3.add(_ShopslistRecordListFilter.get(i));
+                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 3.5 ||
+                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 3) {
+                        _ShopRating3.add(_ShopslistRecordListFilter.get(i));
 
-                        }
-                        else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=2.5) {
-                            _ShopRating2.add(_ShopslistRecordListFilter.get(i));
-
-                        }
-                        else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=1.5) {
-                            _ShopRating1.add(_ShopslistRecordListFilter.get(i));
-
-                        }
-                        else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault()))<=0.5) {
-                            _ShopRating0.add(_ShopslistRecordListFilter.get(i));
-                        }
                     }
-                    else {
-                        _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
-                        Collator arabicCollator = Collator.getInstance(new Locale("ar"));
-                        Collections.sort(Arrays.asList(_ShopslistRecordList), arabicCollator);
+                    if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2.5 ||
+                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2) {
+                        _ShopRating2.add(_ShopslistRecordListFilter.get(i));
+
+                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 1.5 ||
+                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 1) {
+                        _ShopRating1.add(_ShopslistRecordListFilter.get(i));
+
+                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 0.5 ||
+                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 0) {
+                        _ShopRating0.add(_ShopslistRecordListFilter.get(i));
                     }
                 }
                 _ShopslistRecordList.addAll(_ShopRating5);
@@ -584,10 +579,29 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 _ShopslistRecordList.addAll(_ShopRating2);
                 _ShopslistRecordList.addAll(_ShopRating1);
                 _ShopslistRecordList.addAll(_ShopRating0);
-
             } else {
+                _ShopslistRecordList.clear();
+//                Locale lithuanian = new Locale("ar");
+//                Collator lithuanianCollator = Collator.getInstance(lithuanian);
+//                Collections.sort(_ShopslistRecordListFilter, lithuanianCollator);
+//                Locale arrabic= new Locale("ar");
+//                final Collator arrabicCollator = Collator.getInstance(arrabic);
+//                Collections.sort(_ShopslistRecordList, new Comparator<Helper>() {
+//
+//                    @Override
+//                    public int compare(Helper one, Helper two) {
+//                        return arrabicCollator.compare(one.get(), two.getTitle());
+//                    }
+//
+//                });
+
+
+                Collator arabicCollator = Collator.getInstance(new Locale("ar"));
+                Collections.sort(Arrays.asList(_ShopslistRecordListFilter), arabicCollator);
                 _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
             }
+
+
         }
     }
 

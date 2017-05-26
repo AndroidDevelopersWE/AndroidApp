@@ -208,11 +208,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:visibility="visible" />
-                <co.dtechsystem.carefer.Widget.MultiSpinner
-                    android:id="@+id/sp_sorting_shop_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:visibility="visible" />
 
                 <TextView
 
@@ -268,9 +263,9 @@
                         android:id="@+id/tv_total_results_shops_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="0"
                         android:gravity="right"
-                        android:layout_gravity="center"
                         android:maxLines="2"
                         android:padding="@dimen/_5sdp"
                         android:text="@string/tv_total_results"
@@ -282,9 +277,9 @@
                         android:id="@+id/tv_location_name_shops_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:layout_gravity="center"
                         android:maxLines="2"
                         android:padding="@dimen/_5sdp"
                         android:text="@string/riyadh_saduia"

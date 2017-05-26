@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
@@ -257,10 +257,9 @@ public class MainActivity extends BaseActivity
                             @Override
                             public void onLoadFailed(Exception e, Drawable errorDrawable) {
                                 super.onLoadFailed(e, errorDrawable);
-                                Bitmap bmp = Bitmap.createBitmap((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp), Bitmap.Config.ARGB_8888);
-                                Canvas canvas = new Canvas(bmp);
-                                canvas.drawColor(getResources().getColor(R.color.colorOrange));
-                                mImagesMaps.add(bmp);
+                                Drawable myDrawable = getResources().getDrawable(R.drawable.ic_img_place_holder);
+                                Bitmap ic_img_place_holder = ((BitmapDrawable) myDrawable).getBitmap();
+                                mImagesMaps.add(ic_img_place_holder);
                             }
                         });
             }
@@ -294,17 +293,17 @@ public class MainActivity extends BaseActivity
                         tv_desc_shop_list.setText(shopsList.get(i).getShopDescription());
                         rb_shop_shop_list.setRating(Float.parseFloat(shopsList.get(i).getShopRating()));
                         try {
-
+                            id = shopsList.get(i).getID();
                             iv_shop_map_item.setImageBitmap(mImagesMaps.get(i));
                         } catch (Exception e) {
-                            Bitmap bmp = Bitmap.createBitmap((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp), Bitmap.Config.ARGB_8888);
-                            Canvas canvas = new Canvas(bmp);
-                            canvas.drawColor(getResources().getColor(R.color.colorOrange));
-                            mImagesMaps.add(i, bmp);
+//                            Bitmap bmp = Bitmap.createBitmap((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp), Bitmap.Config.ARGB_8888);
+//                            Canvas canvas = new Canvas(bmp);
+//                            canvas.drawColor(getResources().getColor(R.color.colorOrange));
+//                            mImagesMaps.add(i, bmp);
                             e.printStackTrace();
                         }
 //                        }
-                        id = shopsList.get(i).getID();
+
                         break;
                     }
                 }

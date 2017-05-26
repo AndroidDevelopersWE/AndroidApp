@@ -4,6 +4,8 @@
     <string name="google_maps_api_key">AIzaSyBEE1M4g2JVzjU8wJ_BAg0BDALhwX_CGPM</string>
     <string name="carefer_slogan">Sologn goes here</string>
     <string name="enter_mobile">Enter Your Mobile Number</string>
+
+    <string name="btn_re_enter_mobile">Re Enter Mobile</string>
     <string name="btn_next">Next</string>
     <string name="enter_verification_code">Enter Verification Code</string>
     <string name="confirm_mobile_number">Confirm Your Mobile Number</string>
@@ -134,10 +136,12 @@
     <string name="toast_no_shop_contact_found">No shop contact Number found...!</string>
     <string name="toast_mobile_Verified">Mobile Number Verified.</string>
     <string name="toast_invalid_code">Incorrect verification code.</string>
+    <string name="toast_verfication_sent_mobile">Verification code has been sent to your mobile phone for verification.</string>
+    <string name="toast_will_try">Will try to resend after:</string>
 
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Ok</string>
     <string name="dialog_message">We find that you are changing your number .We need to verify it first.All your record remain saved.</string>
-    <string name="dialog_current_code_cleared">Current Sms Verification Code Will cleared.</string>
-
+    <string name="dialog_name_sorting">Name</string>
+    <string name="dialog_rating_sorting">Rating</string>
 </resources>
