@@ -60,7 +60,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
         holder.tv_my_order_type.setText(_MyOrdersRecords.get(position).getOrderType());
         holder.tv_my_order_number.setText(_MyOrdersRecords.get(position).getOrderNo());
-        String DateFormed=Utils.formattedDateFromString("yyyy-mm-dd", "dd-MMM-yyyy", _MyOrdersRecords.get(position).getOrderDate());
+        String DateFormed=Utils.formattedDateFromString("yyyy-MM-dd", "dd-MMM-yyyy", _MyOrdersRecords.get(position).getOrderDate());
         holder.tv_my_order_date.setText(DateFormed);
         holder.tv_my_order_shop_name.setText(_MyOrdersRecords.get(position).getShopName());
         holder.tv_my_order_shop_rating.setText(_MyOrdersRecords.get(position).getShopRating() + "/5");

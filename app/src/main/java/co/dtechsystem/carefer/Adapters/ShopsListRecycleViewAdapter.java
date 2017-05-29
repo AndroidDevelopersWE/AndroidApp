@@ -29,13 +29,11 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import co.dtechsystem.carefer.Models.ArabicNamesSortingModel;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
@@ -559,8 +557,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                             Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 3) {
                         _ShopRating3.add(_ShopslistRecordListFilter.get(i));
 
-                    }
-                    if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2.5 ||
+                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2.5 ||
                             Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2) {
                         _ShopRating2.add(_ShopslistRecordListFilter.get(i));
 
@@ -581,29 +578,13 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 _ShopslistRecordList.addAll(_ShopRating0);
             } else {
                 _ShopslistRecordList.clear();
-//                Locale lithuanian = new Locale("ar");
-//                Collator lithuanianCollator = Collator.getInstance(lithuanian);
-//                Collections.sort(_ShopslistRecordListFilter, lithuanianCollator);
-//                Locale arrabic= new Locale("ar");
-//                final Collator arrabicCollator = Collator.getInstance(arrabic);
-//                Collections.sort(_ShopslistRecordList, new Comparator<Helper>() {
-//
-//                    @Override
-//                    public int compare(Helper one, Helper two) {
-//                        return arrabicCollator.compare(one.get(), two.getTitle());
-//                    }
-//
-//                });
-
-
-                Collator arabicCollator = Collator.getInstance(new Locale("ar"));
-                Collections.sort(Arrays.asList(_ShopslistRecordListFilter), arabicCollator);
-                _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
+                ArabicNamesSortingModel mArabicNamesSortingModel = new ArabicNamesSortingModel();
+                _ShopslistRecordList.addAll(mArabicNamesSortingModel.MatchWithName(_ShopslistRecordListFilter));
             }
 
 
         }
-    }
 
+    }
 
 }

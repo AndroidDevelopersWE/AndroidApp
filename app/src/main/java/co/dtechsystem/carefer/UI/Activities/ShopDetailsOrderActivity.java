@@ -241,7 +241,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         String spServiceTypeText = aQuery.id(R.id.sp_srvice_type_shop_details_order).getSelectedItem().toString();
         String spbrandTypeText = aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString();
         String spmodelTypeText = aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString();
-        if (spServiceTypeText.equals(getResources().getString(R.string.dp_service_type)) || spbrandTypeText.equals(getResources().getString(R.string.dp_brand)) || spmodelTypeText.equals(getResources().getString(R.string.confirm_mobile_number))) {
+        if (spServiceTypeText.equals("")||spbrandTypeText.equals("")||spmodelTypeText.equals("")||spServiceTypeText.equals(getResources().getString(R.string.dp_service_type)) || spbrandTypeText.equals(getResources().getString(R.string.dp_brand)) || spmodelTypeText.equals(getResources().getString(R.string.confirm_mobile_number))) {
             showToast(getResources().getString(R.string.toast_select_one_drop));
         } else {
             Intent i = new Intent(this, OrderNowActivity.class);

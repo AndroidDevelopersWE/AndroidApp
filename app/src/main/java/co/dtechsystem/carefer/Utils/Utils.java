@@ -24,6 +24,7 @@ import com.google.i18n.phonenumbers.Phonenumber;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import co.dtechsystem.carefer.R;
 
@@ -51,7 +52,7 @@ public abstract class Utils {
         String outputDate = "";
 
         SimpleDateFormat df_input = new SimpleDateFormat(inputFormat);
-        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat);
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat,new Locale("ar"));
 
         // You can set a different Locale, This example set a locale of Country Mexico.
 //            SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, new Locale("es", "MX"));

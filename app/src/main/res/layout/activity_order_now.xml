@@ -123,31 +123,33 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/_30sdp" />
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/view2"
+                <!--<android.support.v7.widget.CardView-->
+                <!--android:id="@+id/view2"-->
+                <!--android:layout_width="@dimen/_90sdp"-->
+                <!--android:layout_height="@dimen/_92sdp"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:shape="ring"-->
+                <!--android:thicknessRatio="1.9"-->
+                <!--app:cardBackgroundColor="@android:color/transparent"-->
+                <!--app:cardCornerRadius="@dimen/_50sdp"-->
+                <!--app:cardElevation="@dimen/_2sdp">-->
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/iv_shop_profile"
                     android:layout_width="@dimen/_90sdp"
-                    android:layout_height="@dimen/_92sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:shape="ring"
-                    android:thicknessRatio="1.9"
-                    app:cardBackgroundColor="@android:color/transparent"
-                    app:cardCornerRadius="@dimen/_50sdp"
-                    app:cardElevation="@dimen/_2sdp">
-
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/iv_shop_profile"
-                        android:layout_width="@dimen/_90sdp"
-                        android:layout_height="@dimen/_90sdp"
-                        app:civ_border_color="#fbfbfb"
-                        app:civ_border_width="@dimen/_1sdp" />
-                    <!--<ImageView-->
-                    <!--android:id="@+id/iv_shop_profile"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@drawable/ic_img_place_holder" />-->
-                </android.support.v7.widget.CardView>
+                    app:civ_border_color="#fbfbfb"
+                    app:civ_border_width="@dimen/_1sdp" />
+                <!--<ImageView-->
+                <!--android:id="@+id/iv_shop_profile"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@drawable/ic_img_place_holder" />-->
+                <!--</android.support.v7.widget.CardView>-->
             </RelativeLayout>
 
             <LinearLayout

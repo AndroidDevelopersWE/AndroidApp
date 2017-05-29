@@ -85,7 +85,7 @@ public class MobileNumActivity extends BaseActivity {
                 number = number.replaceFirst(countryCode, "");
             }
             if (number.startsWith("+")) {
-                number = number.replaceFirst("+", "");
+                number = number.replaceFirst("\\u002B", "");
             }
             phoneEditText.setDefaultCountry(CountryID);
             phoneEditText.getEditText().setText(number);
@@ -111,6 +111,9 @@ public class MobileNumActivity extends BaseActivity {
                         if (Phone != null && !Phone.equals("")) {
                             if (phoneEditText.isValid()) {
                                 loading.show();
+                                if (Phone.startsWith("+")){
+                                    Phone.replaceFirst("\\u002B","");
+                                }
                                 APiCreateUserPhone(Phone, "Mobile");
                             } else {
                                 showToast(getResources().getString(R.string.invalid_phone_number));
