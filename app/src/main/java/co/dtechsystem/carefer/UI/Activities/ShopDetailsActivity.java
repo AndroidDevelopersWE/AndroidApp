@@ -144,14 +144,18 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
             public void onClick(View view) {
                 switch (mStatus) {
                     case 0:
-                        loading.show();
-                        APiShopFavourite(sUser_ID, mShopID, "add");
-                        mStatus = 1;
+                        if (Validations.isInternetAvailable(activity, true)) {
+                            loading.show();
+                            APiShopFavourite(sUser_ID, mShopID, "add");
+                            mStatus = 1;
+                        }
                         break;
                     case 1:
-                        loading.show();
-                        APiShopFavourite(sUser_ID, mShopID, "del");
-                        mStatus = 0;
+                        if (Validations.isInternetAvailable(activity, true)) {
+                            loading.show();
+                            APiShopFavourite(sUser_ID, mShopID, "del");
+                            mStatus = 0;
+                        }
                         break;
                 }
 
@@ -163,26 +167,27 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     }
 
     public void GotoShopDetailsOrder(@SuppressWarnings("UnusedParameters") View V) {
-        Intent i = new Intent(this, ShopDetailsOrderActivity.class);
-        if (mShopsDetailsModel.getShopsDetail().size()>0) {
-            i.putExtra("shopID", mShopID);
-            i.putExtra("shopName", mShopsDetailsModel.getShopsDetail().get(0).getShopName());
-            i.putExtra("shopType", mShopsDetailsModel.getShopsDetail().get(0).getShopType());
-            i.putExtra("shopRating", mShopsDetailsModel.getShopsDetail().get(0).getShopRating());
-            i.putExtra("latitude", mShopsDetailsModel.getShopsDetail().get(0).getLatitude());
-            i.putExtra("longitude", mShopsDetailsModel.getShopsDetail().get(0).getLongitude());
-            i.putExtra("contact", mShopsDetailsModel.getShopsDetail().get(0).getContactNumber());
-            if (mShopsDetailsModel.getShopsDetail().get(0).getShopImage() != null) {
-                final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
-                i.putExtra("shopImage", Url + mShopsDetailsModel.getShopsDetail().get(0).getShopImage());
-            } else {
-                i.putExtra("shopImage", "");
-            }
+        if (Validations.isInternetAvailable(activity, true)) {
+            Intent i = new Intent(this, ShopDetailsOrderActivity.class);
+            if (mShopsDetailsModel.getShopsDetail().size() > 0) {
+                i.putExtra("shopID", mShopID);
+                i.putExtra("shopName", mShopsDetailsModel.getShopsDetail().get(0).getShopName());
+                i.putExtra("shopType", mShopsDetailsModel.getShopsDetail().get(0).getShopType());
+                i.putExtra("shopRating", mShopsDetailsModel.getShopsDetail().get(0).getShopRating());
+                i.putExtra("latitude", mShopsDetailsModel.getShopsDetail().get(0).getLatitude());
+                i.putExtra("longitude", mShopsDetailsModel.getShopsDetail().get(0).getLongitude());
+                i.putExtra("contact", mShopsDetailsModel.getShopsDetail().get(0).getContactNumber());
+                if (mShopsDetailsModel.getShopsDetail().get(0).getShopImage() != null) {
+                    final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
+                    i.putExtra("shopImage", Url + mShopsDetailsModel.getShopsDetail().get(0).getShopImage());
+                } else {
+                    i.putExtra("shopImage", "");
+                }
 
-            startActivity(i);
-        }
-        else {
-            showToast(getResources().getString(R.string.some_went_wrong));
+                startActivity(i);
+            } else {
+                showToast(getResources().getString(R.string.some_went_wrong));
+            }
         }
     }
 

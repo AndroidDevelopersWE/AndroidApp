@@ -58,11 +58,11 @@ public class ArabicNamesSortingModel {
         this._Baa.add(shopslistRecord);
     }
 
-    public List<ShopsListModel.ShopslistRecord> get_Taa() {
+    public List<ShopsListModel.ShopslistRecord> get_Ta() {
         return _Ta;
     }
 
-    public void set_Taa(ShopsListModel.ShopslistRecord shopslistRecord) {
+    public void set_Ta(ShopsListModel.ShopslistRecord shopslistRecord) {
         this._Ta.add(shopslistRecord);
     }
 
@@ -98,13 +98,6 @@ public class ArabicNamesSortingModel {
         this._Kha.add(shopslistRecord);
     }
 
-    public List<ShopsListModel.ShopslistRecord> get_Ta() {
-        return _Ta;
-    }
-
-    public void set_Ta(ShopsListModel.ShopslistRecord shopslistRecord) {
-        this._Ta.add(shopslistRecord);
-    }
 
     public List<ShopsListModel.ShopslistRecord> get_Dal() {
         return _Dal;
@@ -327,6 +320,12 @@ public class ArabicNamesSortingModel {
             } else if (Name.toLowerCase(locale).startsWith("ذ")) {
                 set_Zal(_ShopslistRecordListFilter.get(i));
 
+            } else if (Name.toLowerCase(locale).startsWith("ر")) {
+                set_Ra(_ShopslistRecordListFilter.get(i));
+
+            } else if (Name.toLowerCase(locale).startsWith("ز")) {
+                set_Zay(_ShopslistRecordListFilter.get(i));
+
             } else if (Name.toLowerCase(locale).startsWith("س")) {
                 set_Sin(_ShopslistRecordListFilter.get(i));
 
@@ -360,8 +359,8 @@ public class ArabicNamesSortingModel {
             } else if (Name.toLowerCase(locale).startsWith("ك")) {
                 set_Kaf(_ShopslistRecordListFilter.get(i));
 
-            } else if (Name.toLowerCase(locale).startsWith("ف")) {
-                set_Fa(_ShopslistRecordListFilter.get(i));
+            } else if (Name.toLowerCase(locale).startsWith("ل")) {
+                set_Lam(_ShopslistRecordListFilter.get(i));
 
             } else if (Name.toLowerCase(locale).startsWith("م")) {
                 set_Mim(_ShopslistRecordListFilter.get(i));
@@ -378,14 +377,10 @@ public class ArabicNamesSortingModel {
             } else if (Name.toLowerCase(locale).startsWith("ء")) {
                 set_Hamza(_ShopslistRecordListFilter.get(i));
 
-            }
-            else if (Name.toLowerCase(locale).startsWith("ي")) {
+            } else if (Name.toLowerCase(locale).startsWith("ي")) {
                 set_Ya(_ShopslistRecordListFilter.get(i));
 
-            }
-
-
-            else {
+            } else {
                 set_Others(_ShopslistRecordListFilter.get(i));
             }
 
@@ -395,20 +390,31 @@ public class ArabicNamesSortingModel {
         _FilterdAllRecord.addAll(get_Baa());
         _FilterdAllRecord.addAll(get_Ta());
         _FilterdAllRecord.addAll(get_Saa());
+        _FilterdAllRecord.addAll(get_Jim());
+        _FilterdAllRecord.addAll(get_Ha());
+        _FilterdAllRecord.addAll(get_Kha());
+        _FilterdAllRecord.addAll(get_Dal());
+        _FilterdAllRecord.addAll(get_Zal());
+        _FilterdAllRecord.addAll(get_Ra());
+        _FilterdAllRecord.addAll(get_Zay());
+        _FilterdAllRecord.addAll(get_Sin());
+        _FilterdAllRecord.addAll(get_Shin());
+        _FilterdAllRecord.addAll(get_Sad());
         _FilterdAllRecord.addAll(get_Dad());
-        _FilterdAllRecord.addAll(get_Za());
-        _FilterdAllRecord.addAll(get_Taa());
+        _FilterdAllRecord.addAll(get_Thaa());
         _FilterdAllRecord.addAll(get_Za());
         _FilterdAllRecord.addAll(get_Ain());
         _FilterdAllRecord.addAll(get_Gain());
+        _FilterdAllRecord.addAll(get_Fa());
         _FilterdAllRecord.addAll(get_Qaf());
         _FilterdAllRecord.addAll(get_Kaf());
         _FilterdAllRecord.addAll(get_Lam());
         _FilterdAllRecord.addAll(get_Mim());
         _FilterdAllRecord.addAll(get_Nun());
-        _FilterdAllRecord.addAll(get_Hamza());
+        _FilterdAllRecord.addAll(get_Hay());
         _FilterdAllRecord.addAll(get_Wa());
         _FilterdAllRecord.addAll(get_Ya());
+        _FilterdAllRecord.addAll(get_Hamza());
         _FilterdAllRecord.addAll(get_Others());
         return _FilterdAllRecord;
     }

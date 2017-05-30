@@ -21,6 +21,7 @@ public class AppConfig {
     public static String APiCreateUserPhone = BaseUrl + "receive-mobile-number";
     public static String APiVarifyCustomer = BaseUrl + "verify-customer";
     public static String APiVarifyPolicy = BaseUrl + "verify-policy";
+    public static String APiGetBrandModels = BaseUrl + "get-brand-models";
 
 
 }

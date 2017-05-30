@@ -22,6 +22,7 @@
             android:layout_weight="1"
             android:inputType="phone"
             android:gravity="left"
+            android:hint="eg: 9663345882589"
             android:backgroundTint="@android:color/transparent"
             android:tag="@string/com_lamudi_phonefield_edittext"
             android:textColor="@color/pf_grey" />

@@ -69,16 +69,16 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_weight="1.1"
-                        android:gravity="center">
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:id="@+id/tv_order_number_top"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:clickable="false"
-                            android:gravity="right"
+                            android:gravity="end"
                             android:padding="@dimen/_5sdp"
                             android:singleLine="true"
                             android:text="@string/tv_order_number"
@@ -105,10 +105,10 @@
                         <TextView
                             android:id="@+id/tv_date_order_top"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:clickable="false"
-                            android:gravity="right"
+                            android:gravity="center"
                             android:padding="@dimen/_2sdp"
                             android:singleLine="true"
                             android:text="@string/tv_date_order"
@@ -118,9 +118,9 @@
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:clickable="false"
-                            android:gravity="right"
+                            android:gravity="center"
                             android:layout_marginRight="@dimen/_4sdp"
                             android:padding="@dimen/_2sdp"
                             android:layout_gravity="center"

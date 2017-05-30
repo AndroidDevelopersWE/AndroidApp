@@ -20,7 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -28,7 +28,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
@@ -46,6 +48,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     private String mModelsId;
     private final List listservices = new ArrayList();
     private final List brands = new ArrayList();
+    List models = new ArrayList();
     private TextView tv_title_shops_details_order;
 
     @Override
@@ -58,6 +61,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         SetUpLeftbar();
         GetDataForViews();
         SetDataTOViews();
+        SetSpinnerListener();
     }
 
     private void SetShaderToViews() {
@@ -81,8 +85,6 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     // Set views data
     private void SetDataTOViews() {
         if (Validations.isInternetAvailable(activity, true)) {
-            loading.show();
-            APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsData + mshopID + "/cusid/" + sUser_ID, "Services & Brands");
             aQuery.id(R.id.tv_shop_name_shop_details_order).text(mshopName);
             aQuery.id(R.id.tv_shop_type_shop_details_order).text(mshopType);
             aQuery.id(R.id.rb_shop_rating_shop_details_order).rating(Float.parseFloat(mshopRating));
@@ -94,32 +96,34 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             brands.clear();
             //noinspection unchecked
             brands.add(0, getResources().getString(R.string.dp_brand));
+
+            //noinspection unchecked
+            models.clear();
+            models.add(0, getResources().getString(R.string.dp_model));
+
             mServicesIdArray.clear();
             mBrandsIdArray.clear();
             mModelsIdArray.clear();
             mServicesIdArray.add(0, "0");
             mBrandsIdArray.add(0, "0");
             mModelsIdArray.add(0, "0");
-//        ArrayList<String> years = new ArrayList<String>();
-//        int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-//        for (int i = 1900; i <= thisYear; i++) {
-//            years.add(Integer.toString(i));
-//        }
-//        ArrayAdapter<String> modelyearAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
+            loading.show();
+            APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsData + mshopID + "/cusid/" + sUser_ID, "Services & Brands", "");
 
         }
     }
 
-    private void APiGetBrandsServiceModelsData(final String Url, final String Type) {
+
+    public void APiGetBrandsServiceModelsData(final String Url, final String Type, final String BrandId) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
-                new Response.Listener<JSONObject>() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String res) {
                         // display response
                         try {
-
+                            JSONObject response = new JSONObject(res);
                             if (Type.equals("Services & Brands")) {
                                 JSONArray shopServiceTypes = response.getJSONArray("shopServiceTypes");
                                 for (int i = 0; i < shopServiceTypes.length(); i++) {
@@ -127,10 +131,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                     //noinspection unchecked
                                     listservices.add(jsonObject.getString("serviceTypeName"));
                                     mServicesIdArray.add(jsonObject.getString("ID"));
-
                                 }
-                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listservices);
-                                aQuery.id(R.id.sp_srvice_type_shop_details_order).adapter(StringdataAdapter);
                                 JSONArray brandsData = response.getJSONArray("shopBrands");
                                 for (int i = 0; i < brandsData.length(); i++) {
                                     JSONObject jsonObject = brandsData.getJSONObject(i);
@@ -138,34 +139,42 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                     brands.add(jsonObject.getString("brandName"));
                                     mBrandsIdArray.add(jsonObject.getString("ID"));
                                 }
+                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listservices);
+                                aQuery.id(R.id.sp_srvice_type_shop_details_order).adapter(StringdataAdapter);
+
                                 @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
                                 aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
-                                if (Validations.isInternetAvailable(activity, true)) {
-                                    APiGetBrandsServiceModelsData(AppConfig.APiShopsDetailsOrderModel, "ModelYear");
-                                }
+
+                                @SuppressWarnings("unchecked") ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
+                                aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                                loading.close();
                             } else {
-                                List models = new ArrayList();
-                                //noinspection unchecked
-                                models.add(0, getResources().getString(R.string.dp_model));
-                                JSONArray brandsData = response.getJSONArray("modelData");
-                                for (int i = 0; i < brandsData.length(); i++) {
-                                    JSONObject jsonObject = brandsData.getJSONObject(i);
-                                    //noinspection unchecked
-                                    models.add(jsonObject.getString("modelName"));
-                                    mModelsIdArray.add(jsonObject.getString("ID"));
+                                JSONArray modelsData = response.getJSONArray("models");
+                                if (modelsData.length()>0) {
+                                    for (int i = 0; i < modelsData.length(); i++) {
+                                        JSONObject jsonObject = modelsData.getJSONObject(i);
+                                        //noinspection unchecked
+                                        models.add(jsonObject.getString("modelName"));
+                                        mModelsIdArray.add(jsonObject.getString("ID"));
+                                    }
+                                }
+                                else {
+                                    models.clear();
+                                    models.add(0, getResources().getString(R.string.dp_model));
                                 }
                                 @SuppressWarnings("unchecked") ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
                                 aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
                                 loading.close();
-                                SetSpinnerListener();
+
                             }
 
+
+                            loading.close();
                         } catch (JSONException e) {
                             loading.close();
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -173,13 +182,27 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
-                        Log.d("Error.Response", String.valueOf(error));
+                        // error
+                        error.printStackTrace();
+                        Log.d("Error.Response", error.toString());
                     }
                 }
-        );
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                if (!Type.equals("Services & Brands")) {
+                    params.put("brandID", BrandId);
+                }
 
+
+                return params;
+            }
+        };
 // add it to the RequestQueue
-        queue.add(getRequest);
+//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
     }
 
     private void SetSpinnerListener() {
@@ -207,8 +230,14 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                     aQuery.id(R.id.lay_brands).background(R.drawable.dr_corner_black);
                 } else {
                     aQuery.id(R.id.lay_brands).background(R.drawable.dr_corner_ornage);
+                    if (Validations.isInternetAvailable(activity, true)) {
+                        loading.show();
+
+                        APiGetBrandsServiceModelsData(AppConfig.APiGetBrandModels, "ModelYear", mBrandsIdArray.get(position));
+                    }
                 }
                 mBrandsId = mBrandsIdArray.get(position);
+
             }
 
             @Override
@@ -238,24 +267,28 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
 
     @SuppressWarnings("UnusedParameters")
     public void GotoOrderNow(View V) {
-        String spServiceTypeText = aQuery.id(R.id.sp_srvice_type_shop_details_order).getSelectedItem().toString();
-        String spbrandTypeText = aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString();
-        String spmodelTypeText = aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString();
-        if (spServiceTypeText.equals("")||spbrandTypeText.equals("")||spmodelTypeText.equals("")||spServiceTypeText.equals(getResources().getString(R.string.dp_service_type)) || spbrandTypeText.equals(getResources().getString(R.string.dp_brand)) || spmodelTypeText.equals(getResources().getString(R.string.confirm_mobile_number))) {
-            showToast(getResources().getString(R.string.toast_select_one_drop));
-        } else {
-            Intent i = new Intent(this, OrderNowActivity.class);
-            i.putExtra("latitude", mlatitude);
-            i.putExtra("longitude", mlongitude);
-            i.putExtra("shopID", mshopID);
-            i.putExtra("serviceID", mServicesId);
-            i.putExtra("brandID", mBrandsId);
-            i.putExtra("modelID", mModelsId);
-            i.putExtra("shopImage", mshopImage);
-            i.putExtra("contact", mContact);
+        if (Validations.isInternetAvailable(activity, true)) {
+            String spServiceTypeText = aQuery.id(R.id.sp_srvice_type_shop_details_order).getSelectedItem().toString();
+            String spbrandTypeText = aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString();
+            String spmodelTypeText = aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString();
+            if (spServiceTypeText.equals("") || spbrandTypeText.equals("") || spmodelTypeText.equals("") ||
+                    spServiceTypeText.equals(getResources().getString(R.string.dp_service_type)) || spbrandTypeText.equals(getResources().getString(R.string.dp_brand)) ||
+                    spmodelTypeText.equals(getResources().getString(R.string.dp_model))) {
+                showToast(getResources().getString(R.string.toast_select_one_drop));
+            } else {
+                Intent i = new Intent(this, OrderNowActivity.class);
+                i.putExtra("latitude", mlatitude);
+                i.putExtra("longitude", mlongitude);
+                i.putExtra("shopID", mshopID);
+                i.putExtra("serviceID", mServicesId);
+                i.putExtra("brandID", mBrandsId);
+                i.putExtra("modelID", mModelsId);
+                i.putExtra("shopImage", mshopImage);
+                i.putExtra("contact", mContact);
 
 
-            startActivity(i);
+                startActivity(i);
+            }
         }
     }
 

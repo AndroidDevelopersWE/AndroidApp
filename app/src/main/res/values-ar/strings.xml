@@ -159,4 +159,7 @@
     <string name="dialog_message">نجد أنك تغير رقمك. نحن بحاجة إلى التحقق منه أولا.يبقى كل ما تبذلونه من السجل المحفوظة.</string>
     <string name="dialog_name_sorting">اسم</string>
     <string name="dialog_rating_sorting">تقييم</string>
+
+    <string name="order_type_call">على دعوته</string>
+    <string name="order_type_shop">متجر</string>
 </resources>

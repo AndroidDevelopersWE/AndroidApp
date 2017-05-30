@@ -58,7 +58,13 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
             holder.tv_my_order_status.setText(activity.getResources().getString(R.string.tv_pending_status));
         }
 
-        holder.tv_my_order_type.setText(_MyOrdersRecords.get(position).getOrderType());
+        String OrderType=_MyOrdersRecords.get(position).getOrderType();
+        if (OrderType.equals("navigate")){
+            holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_shop));
+        }
+        else {
+            holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_call));
+        }
         holder.tv_my_order_number.setText(_MyOrdersRecords.get(position).getOrderNo());
         String DateFormed=Utils.formattedDateFromString("yyyy-MM-dd", "dd-MMM-yyyy", _MyOrdersRecords.get(position).getOrderDate());
         holder.tv_my_order_date.setText(DateFormed);

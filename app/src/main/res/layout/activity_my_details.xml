@@ -137,7 +137,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/dr_corner_black"
+                    android:clickable="false"
                     android:drawableRight="@drawable/ic_edit_hover"
+                    android:editable="false"
                     android:gravity="left"
                     android:hint="@string/phone_eg"
                     android:inputType="phone"
@@ -182,19 +184,30 @@
                     android:textSize="@dimen/_12sdp" />
 
 
-                <EditText
+                <TextView
                     android:id="@+id/et_car_brand_my_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/dr_corner_black"
+                    android:clickable="true"
                     android:drawableLeft="@drawable/ic_edit"
+                    android:editable="false"
                     android:gravity="right"
                     android:hint="@string/tv_car_brand"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:textSize="@dimen/_17sdp"
                     android:padding="@dimen/_7sdp"
                     android:textColor="@android:color/black"
                     tools:ignore="RtlHardcoded" />
+
+                <Spinner
+                    android:id="@+id/sp_brand_type_shop_details_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/dr_spinner_ic"
+                    android:gravity="center"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tv_car_model_my_details"
@@ -207,21 +220,32 @@
                     android:textSize="@dimen/_12sdp" />
 
 
-                <EditText
+                <TextView
                     android:id="@+id/et_car_model_my_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/dr_corner_black"
+                    android:clickable="true"
                     android:drawableLeft="@drawable/ic_edit"
+                    android:editable="false"
                     android:gravity="right"
                     android:hint="@string/tv_car_model"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
                     android:maxEms="4"
                     android:maxLines="1"
+                    android:textSize="@dimen/_17sdp"
                     android:padding="@dimen/_7sdp"
                     android:textColor="@android:color/black"
                     tools:ignore="RtlHardcoded" />
+
+                <Spinner
+                    android:id="@+id/sp_car_model_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/dr_spinner_ic"
+                    android:gravity="center"
+                    android:visibility="invisible" />
 
                 <TextView
                     android:id="@+id/tv_last_oil_my_details"
@@ -234,10 +258,10 @@
                     android:textSize="@dimen/_12sdp" />
 
 
-                <EditText
+                <TextView
                     android:id="@+id/et_last_oil_my_details"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/dr_corner_black"
                     android:clickable="true"
                     android:drawableLeft="@drawable/ic_edit"
@@ -247,6 +271,7 @@
                     android:inputType="text"
                     android:padding="@dimen/_7sdp"
                     android:singleLine="true"
+                    android:textSize="@dimen/_17sdp"
                     android:textColor="@android:color/black"
                     tools:ignore="Deprecated,RtlHardcoded" />
 
@@ -259,8 +284,8 @@
                     android:background="@drawable/dr_btn_orange_angle_180"
                     android:clickable="true"
                     android:onClick="submitUserData"
-                    android:text="@string/btn_save_changes"
                     android:padding="@dimen/_5sdp"
+                    android:text="@string/btn_save_changes"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_17sdp"

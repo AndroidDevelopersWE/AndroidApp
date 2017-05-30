@@ -47,8 +47,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import co.dtechsystem.carefer.Google.GPSServiceRequest;
 import co.dtechsystem.carefer.Models.ShopsListModel;
@@ -65,7 +66,8 @@ public class MainActivity extends BaseActivity
     private boolean firstCAll = false;
     private String mPlaceName = "";
     private TextView tv_title_main;
-    private final ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
+    //    private final ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
+    Map<Integer, Bitmap> mImagesMaps = new HashMap<Integer, Bitmap>();
     private LatLng mLatLngCurrent;
 
     @Override
@@ -241,6 +243,7 @@ public class MainActivity extends BaseActivity
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
                                 Double.parseDouble(shopsList.get(i).getLongitude()))).icon(icon));
+                final int finalI = i;
                 Glide.with(activity)
                         .load(AppConfig.BaseUrlImages + "shop-" + shopsList.get(i).getID() + "/" + shopsList.get(i).getShopImage())
                         .asBitmap()
@@ -250,7 +253,8 @@ public class MainActivity extends BaseActivity
                             @Override
                             public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
                                 // Do something with bitmap here.
-                                mImagesMaps.add(bitmap);
+                                mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), bitmap);
+
                             }
 
                             @SuppressWarnings("deprecation")
@@ -259,7 +263,7 @@ public class MainActivity extends BaseActivity
                                 super.onLoadFailed(e, errorDrawable);
                                 Drawable myDrawable = getResources().getDrawable(R.drawable.ic_img_place_holder);
                                 Bitmap ic_img_place_holder = ((BitmapDrawable) myDrawable).getBitmap();
-                                mImagesMaps.add(ic_img_place_holder);
+                                mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), ic_img_place_holder);
                             }
                         });
             }
@@ -288,18 +292,13 @@ public class MainActivity extends BaseActivity
                         RatingBar rb_shop_shop_list = (RatingBar) customMarkerView.findViewById(R.id.rb_shop_shop_list);
                         SelectableRoundedImageView iv_shop_map_item = (SelectableRoundedImageView) customMarkerView.findViewById(R.id.iv_shop_map_item);
                         tv_shop_name_shop_list.setText(shopsList.get(i).getShopName());
-
                         tv_service_type_shop_list.setText(shopsList.get(i).getServiceType());
                         tv_desc_shop_list.setText(shopsList.get(i).getShopDescription());
                         rb_shop_shop_list.setRating(Float.parseFloat(shopsList.get(i).getShopRating()));
                         try {
                             id = shopsList.get(i).getID();
-                            iv_shop_map_item.setImageBitmap(mImagesMaps.get(i));
+                            iv_shop_map_item.setImageBitmap(mImagesMaps.get(Integer.parseInt(id)));
                         } catch (Exception e) {
-//                            Bitmap bmp = Bitmap.createBitmap((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp), Bitmap.Config.ARGB_8888);
-//                            Canvas canvas = new Canvas(bmp);
-//                            canvas.drawColor(getResources().getColor(R.color.colorOrange));
-//                            mImagesMaps.add(i, bmp);
                             e.printStackTrace();
                         }
 //                        }

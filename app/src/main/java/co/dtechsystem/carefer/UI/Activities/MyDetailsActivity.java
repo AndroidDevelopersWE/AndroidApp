@@ -18,6 +18,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -33,8 +35,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import co.dtechsystem.carefer.R;
@@ -46,6 +50,10 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     private DrawerLayout mDrawerLayout;
     private String mcustomerName;
     private String mcustomerMobile;
+    private String mCarBrandName;
+    private String mCarBrandModel;
+    private String mLastOilChange;
+
 
     private TextView tv_title_my_details;
     private TextView tv_mobile_number_my_details;
@@ -54,6 +62,15 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     private TextView tv_car_model_my_details;
     private TextView tv_last_oil_my_details;
     private final Calendar myCalendar = Calendar.getInstance();
+    private final ArrayList<String> mServicesIdArray = new ArrayList<>();
+    private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
+    private final ArrayList<String> mModelsIdArray = new ArrayList<>();
+    public String mBrandsId;
+    public String mModelsId;
+    private final List brands = new ArrayList();
+    List models = new ArrayList();
+    boolean firstBrand = true;
+    boolean firstModel = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,8 +80,9 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         SetUpLeftbar();
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
-            APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "");
+            APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "", "", "", "");
         }
+
     }
 
     private void initializeViews() {
@@ -80,28 +98,22 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
     @SuppressWarnings("deprecation")
     private void SetData() {
-        String et_car_brand_my_details = Utils.readPreferences(activity, "CustomerCarBrand", "");
-        String et_car_model_my_details = Utils.readPreferences(activity, "CustomerCarModel", "");
-        String et_last_oil_my_details = Utils.readPreferences(activity, "CustomerCarOilChange", "");
-        if (!et_car_brand_my_details.equals("")) {
-            aQuery.find(R.id.et_car_brand_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
-
-        }
-        if (!et_car_model_my_details.equals("")) {
-            aQuery.find(R.id.et_car_model_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
-
-        }
-        if (!et_last_oil_my_details.equals("")) {
-            aQuery.find(R.id.et_last_oil_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
-
-        }
-        if (!mcustomerName.equals("")) {
-            aQuery.find(R.id.et_user_name_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
-
-        }
-        aQuery.find(R.id.et_car_brand_my_details).text(et_car_brand_my_details);
-        aQuery.find(R.id.et_car_model_my_details).text(et_car_model_my_details);
-        aQuery.find(R.id.et_last_oil_my_details).text(et_last_oil_my_details);
+//        if (!mCarBrandName.equals("")) {
+//            aQuery.find(R.id.et_car_brand_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+//
+//        }
+//        if (!mCarBrandModel.equals("")) {
+//            aQuery.find(R.id.et_car_model_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+//
+//        }
+//        if (!mLastOilChange.equals("")) {
+//            aQuery.find(R.id.et_last_oil_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+//
+//        }
+//        if (!mcustomerName.equals("")) {
+//            aQuery.find(R.id.et_user_name_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+//
+//        }
         aQuery.find(R.id.et_mobile_my_details).getEditText().addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -148,7 +160,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
         });
-        aQuery.find(R.id.et_car_brand_my_details).getEditText().addTextChangedListener(new TextWatcher() {
+        aQuery.find(R.id.et_car_brand_my_details).getTextView().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -157,10 +169,10 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             @SuppressWarnings("deprecation")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    aQuery.find(R.id.et_car_brand_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+                if (!s.equals(getResources().getString(R.string.dp_brand))) {
+                    aQuery.find(R.id.et_car_brand_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
                 } else {
-                    aQuery.find(R.id.et_car_brand_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
+                    aQuery.find(R.id.et_car_brand_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
 
                 }
             }
@@ -170,7 +182,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
         });
-        aQuery.find(R.id.et_car_model_my_details).getEditText().addTextChangedListener(new TextWatcher() {
+        aQuery.find(R.id.et_car_model_my_details).getTextView().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -179,10 +191,10 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             @SuppressWarnings("deprecation")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-                    aQuery.find(R.id.et_car_model_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+                if (!s.equals(getResources().getString(R.string.dp_model))) {
+                    aQuery.find(R.id.et_car_model_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
                 } else {
-                    aQuery.find(R.id.et_car_model_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
+                    aQuery.find(R.id.et_car_model_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
 
                 }
             }
@@ -192,7 +204,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
         });
-        aQuery.find(R.id.et_last_oil_my_details).getEditText().addTextChangedListener(new TextWatcher() {
+        aQuery.find(R.id.et_last_oil_my_details).getTextView().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -202,9 +214,9 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() > 0) {
-                    aQuery.find(R.id.et_last_oil_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+                    aQuery.find(R.id.et_last_oil_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
                 } else {
-                    aQuery.find(R.id.et_last_oil_my_details).getEditText().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
+                    aQuery.find(R.id.et_last_oil_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
 
                 }
             }
@@ -214,7 +226,8 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
         });
-        aQuery.find(R.id.et_last_oil_my_details).getEditText().setInputType(InputType.TYPE_NULL);
+        aQuery.find(R.id.et_last_oil_my_details).getTextView().setInputType(InputType.TYPE_NULL);
+        aQuery.find(R.id.et_mobile_my_details).getEditText().setInputType(InputType.TYPE_NULL);
 
         aQuery.find(R.id.et_last_oil_my_details).clicked(new View.OnClickListener() {
             @Override
@@ -223,8 +236,182 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                 ShowDatePicker();
             }
         });
+        aQuery.find(R.id.et_car_brand_my_details).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
+            }
+        });
+        aQuery.find(R.id.et_car_model_my_details).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aQuery.id(R.id.sp_car_model_order).getSpinner().performClick();
+            }
+        });
 
 
+        //Lists initilization
+
+        brands.clear();
+        //noinspection unchecked
+        brands.add(0, getResources().getString(R.string.dp_brand));
+
+        //noinspection unchecked
+        models.clear();
+        models.add(0, getResources().getString(R.string.dp_model));
+
+        mServicesIdArray.clear();
+        mBrandsIdArray.clear();
+        mModelsIdArray.clear();
+        mServicesIdArray.add(0, "0");
+        mBrandsIdArray.add(0, "0");
+        mModelsIdArray.add(0, "0");
+
+    }
+
+    private void SetSpinnerListener() {
+        aQuery.id(R.id.sp_brand_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+
+                    if (firstBrand) {
+                        if (!mCarBrandName.equals("0")) {
+                            aQuery.find(R.id.et_car_brand_my_details).text(mCarBrandName);
+                            firstBrand = false;
+                        } else {
+                            firstBrand = false;
+                            aQuery.find(R.id.et_car_brand_my_details).text(aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString());
+
+                        }
+                    } else {
+                        aQuery.find(R.id.et_car_brand_my_details).text(aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString());
+                    }
+                } else {
+                    aQuery.find(R.id.et_car_brand_my_details).text(aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString());
+                    if (Validations.isInternetAvailable(activity, true)) {
+                        loading.show();
+                        APiGetBrandsServiceModelsData(AppConfig.APiGetBrandModels, "ModelYear", mBrandsIdArray.get(position));
+                    }
+                }
+                mBrandsId = mBrandsIdArray.get(position);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        aQuery.id(R.id.sp_car_model_order).itemSelected(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
+                if (position == 0) {
+
+                    if (firstModel) {
+                        if (!mCarBrandModel.equals("0")) {
+                            firstModel = false;
+                            aQuery.find(R.id.et_car_model_my_details).text(mCarBrandModel);
+
+                        } else {
+                            firstModel = false;
+                            aQuery.find(R.id.et_car_model_my_details).text((aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString()));
+
+                        }
+                    } else {
+                        aQuery.find(R.id.et_car_model_my_details).text((aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString()));
+
+                    }
+                } else {
+                    aQuery.find(R.id.et_car_model_my_details).text((aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString()));
+
+                }
+                mModelsId = mModelsIdArray.get(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void APiGetBrandsServiceModelsData(final String Url, final String Type, final String BrandId) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String res) {
+                        // display response
+                        try {
+                            JSONObject response = new JSONObject(res);
+                            if (Type.equals("Brands")) {
+
+                                JSONArray brandsData = response.getJSONArray("brandsData");
+                                for (int i = 0; i < brandsData.length(); i++) {
+                                    JSONObject jsonObject = brandsData.getJSONObject(i);
+                                    //noinspection unchecked
+                                    brands.add(jsonObject.getString("brandName"));
+                                    mBrandsIdArray.add(jsonObject.getString("ID"));
+                                }
+
+                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
+                                aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
+
+                                @SuppressWarnings("unchecked") ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
+                                aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                                loading.close();
+                            } else {
+                                JSONArray modelsData = response.getJSONArray("models");
+                                for (int i = 0; i < modelsData.length(); i++) {
+                                    JSONObject jsonObject = modelsData.getJSONObject(i);
+                                    //noinspection unchecked
+                                    models.add(jsonObject.getString("modelName"));
+                                    mModelsIdArray.add(jsonObject.getString("ID"));
+                                }
+                                @SuppressWarnings("unchecked") ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
+                                aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                                loading.close();
+
+                            }
+                            SetSpinnerListener();
+                            loading.close();
+                        } catch (JSONException e) {
+                            loading.close();
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        // error
+                        error.printStackTrace();
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                if (!Type.equals("Services & Brands")) {
+                    params.put("brandID", BrandId);
+                }
+
+
+                return params;
+            }
+        };
+// add it to the RequestQueue
+//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
     }
 
 
@@ -237,8 +424,8 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, locale);
+                String myFormat = "yyyy-MM-dd"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
 
                 aQuery.find(R.id.et_last_oil_my_details).text(sdf.format(myCalendar.getTime()));
             }
@@ -268,24 +455,30 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
     @SuppressWarnings("UnusedParameters")
     public void submitUserData(View v) {
+        if (Validations.isInternetAvailable(activity, true)) {
 
-        String customerName = aQuery.find(R.id.et_user_name_my_details).getText().toString();
-        String customerMobile = aQuery.find(R.id.et_mobile_my_details).getText().toString();
-        String et_car_brand_my_details = aQuery.find(R.id.et_car_brand_my_details).getText().toString();
-        String et_car_model_my_details = aQuery.find(R.id.et_car_model_my_details).getText().toString();
-        String et_last_oil_my_details = aQuery.find(R.id.et_last_oil_my_details).getText().toString();
-        if (!customerMobile.equals(sUser_Mobile)) {
-            showMobileChangeAlert();
-        } else if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
-                et_car_model_my_details.equals("") || et_last_oil_my_details.equals("")) {
-            showToast(getResources().getString(R.string.toast_fill_all_fields));
-        } else {
-            Utils.savePreferences(activity, "CustomerCarBrand", et_car_brand_my_details);
-            Utils.savePreferences(activity, "CustomerCarModel", et_car_model_my_details);
-            Utils.savePreferences(activity, "CustomerCarOilChange", et_last_oil_my_details);
-            if (Validations.isInternetAvailable(activity, true)) {
-                loading.show();
-                APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify);
+            String customerName = aQuery.find(R.id.et_user_name_my_details).getText().toString();
+            String customerMobile = aQuery.find(R.id.et_mobile_my_details).getText().toString();
+            String et_car_brand_my_details = aQuery.find(R.id.et_car_brand_my_details).getText().toString();
+            String et_car_model_my_details = aQuery.find(R.id.et_car_model_my_details).getText().toString();
+            String et_last_oil_my_details = aQuery.find(R.id.et_last_oil_my_details).getText().toString();
+//            if (!customerMobile.equals(sUser_Mobile)) {
+//                showMobileChangeAlert();
+//            }
+            if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
+                    et_car_model_my_details.equals("") || et_last_oil_my_details.equals("")) {
+                showToast(getResources().getString(R.string.toast_fill_all_fields));
+            } else if (et_car_brand_my_details.equals(getResources().getString(R.string.dp_brand)) ||
+                    et_car_model_my_details.equals(getResources().getString(R.string.dp_model))) {
+                showToast(getResources().getString(R.string.toast_select_one_drop));
+            } else {
+//                Utils.savePreferences(activity, "CustomerCarBrand", et_car_brand_my_details);
+//                Utils.savePreferences(activity, "CustomerCarModel", et_car_model_my_details);
+//                Utils.savePreferences(activity, "CustomerCarOilChange", et_last_oil_my_details);
+                if (Validations.isInternetAvailable(activity, true)) {
+                    loading.show();
+                    APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify, mBrandsId, mModelsId, et_last_oil_my_details);
+                }
             }
         }
     }
@@ -317,7 +510,9 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                 }).create().show();
     }
 
-    private void APiMyDetails(String URL, final String Type, final String customerName, final String customerMobile, final String isVerified) {
+    private void APiMyDetails(String URL, final String Type, final String customerName,
+                              final String customerMobile, final String isVerified, final String carBrand, final String carModel,
+                              final String lastOilChange) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -329,20 +524,29 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                         try {
                             if (Type.equals("getUserDetails")) {
                                 JSONObject jsonObject = new JSONObject(response);
-                                JSONArray customerDetail = jsonObject.getJSONArray("customerDetail");
-                                JSONObject jsonObject1 = customerDetail.getJSONObject(0);
-                                mcustomerName = jsonObject1.getString("customerName");
-                                mcustomerMobile = jsonObject1.getString("customerMobile");
-                                aQuery.find(R.id.et_user_name_my_details).text(mcustomerName);
-                                aQuery.find(R.id.et_mobile_my_details).text(mcustomerMobile);
-                                SetData();
-                                loading.close();
+                                JSONObject jsonObject1 = jsonObject.getJSONObject("customerDetail");
+                                if (jsonObject1.length() > 0) {
+                                    mcustomerName = jsonObject1.getString("customerName");
+                                    mcustomerMobile = jsonObject1.getString("customerMobile");
+                                    mCarBrandName = jsonObject1.getString("carBrand");
+                                    mCarBrandModel = jsonObject1.getString("carModel");
+                                    mLastOilChange = jsonObject1.getString("lastOilChange");
+                                    aQuery.find(R.id.et_user_name_my_details).text(mcustomerName);
+                                    aQuery.find(R.id.et_mobile_my_details).text(mcustomerMobile);
+
+                                    if (!mLastOilChange.equals("null")) {
+                                        aQuery.find(R.id.et_last_oil_my_details).text(mLastOilChange);
+                                    }
+
+                                    SetData();
+                                    APiGetBrandsServiceModelsData(AppConfig.APiBrandData, "Brands", "");
+                                } else {
+                                    showToast(getResources().getString(R.string.no_record_found));
+                                }
                             } else {
                                 showToast(getResources().getString(R.string.toast_record_updated));
                                 finish();
                             }
-
-
                         } catch (JSONException e) {
 
                             loading.close();
@@ -371,6 +575,11 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     params.put("customerName", customerName);
                     params.put("customerMobile", customerMobile);
                     params.put("isVerified", isVerified);
+                    params.put("carBrand", carBrand);
+                    params.put("carModel", carModel);
+                    params.put("lastOilChange", lastOilChange);
+
+
                 }
 
 

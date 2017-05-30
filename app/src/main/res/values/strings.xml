@@ -11,7 +11,7 @@
     <string name="confirm_mobile_number">Confirm Your Mobile Number</string>
     <string name="check_now">Check Now</string>
     <string name="btn_resend_code">Resend code</string>
-    <string name="phone_eg">eg:+92-334-5882-589</string>
+    <string name="phone_eg">eg:9663345882589</string>
     <string name="code_eg">-</string>
     <string name="btn_back">Back</string>
     <string name="privacy_policy">Carefer Policy</string>
@@ -144,4 +144,8 @@
     <string name="dialog_message">We find that you are changing your number .We need to verify it first.All your record remain saved.</string>
     <string name="dialog_name_sorting">Name</string>
     <string name="dialog_rating_sorting">Rating</string>
+
+    <string name="order_type_call">On Call</string>
+    <string name="order_type_shop">On Shop</string>
+
 </resources>
