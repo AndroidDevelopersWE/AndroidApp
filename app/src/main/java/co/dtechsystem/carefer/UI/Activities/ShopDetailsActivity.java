@@ -253,7 +253,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                                 String success = jsonObject.getString("success");
                                 if (success != null && success.equals("true")) {
                                     aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_empty);
-                                    showToast("Shop deleted from favourite...");
+                                    showToast(getResources().getString(R.string.toast_shop_deleted_fav));
                                 }
                             } else {
                                 JSONArray jsonArray = jsonObject.getJSONArray("userFavouriteShop");
@@ -261,7 +261,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                                 String ID = jsonObject1.getString("ID");
                                 if (ID != null && !ID.equals("")) {
                                     aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_fill);
-                                    showToast("Shop Added in your favourite list...");
+                                    showToast(getResources().getString(R.string.toast_shop_added_fav));
                                 }
                             }
                             loading.close();

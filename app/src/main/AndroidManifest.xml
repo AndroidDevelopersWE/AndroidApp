@@ -150,9 +150,9 @@
         <!-- ./Firebase Notifications -->
         <!--&lt;!&ndash;Sms broadcast receiver for pin receiving&ndash;&gt;-->
         <!--<receiver android:name=".Receiver.SMSBroadcastReceiver" android:exported="true" android:enabled="true">-->
-            <!--<intent-filter android:priority="999">-->
-                <!--<action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
-            <!--</intent-filter>-->
+        <!--<intent-filter android:priority="999">-->
+        <!--<action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
     </application>
 

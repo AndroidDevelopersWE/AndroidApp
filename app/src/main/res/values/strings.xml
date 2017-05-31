@@ -138,6 +138,8 @@
     <string name="toast_invalid_code">Incorrect verification code.</string>
     <string name="toast_verfication_sent_mobile">Verification code has been sent to your mobile phone for verification.</string>
     <string name="toast_will_try">Will try to resend after:</string>
+    <string name="toast_shop_deleted_fav">Shop deleted from your favourite list...</string>
+    <string name="toast_shop_added_fav">Shop Added in your favourite list...</string>
 
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Ok</string>

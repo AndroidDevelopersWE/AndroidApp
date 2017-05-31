@@ -154,6 +154,9 @@
     <string name="toast_invalid_code">رمز التحقق غير صحيح.</string>
     <string name="toast_verfication_sent_mobile">تم إرسال رمز التحقق إلى هاتفك الجوال للتحقق منه.</string>
     <string name="toast_will_try">سيحاول إعادة إرسال بعد:</string>
+    <string name="toast_shop_deleted_fav">تم حذف المحل من قائمتك المفضلة ...</string>
+    <string name="toast_shop_added_fav">تم إضافة متجر في قائمتك المفضلة …</string>
+
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>
     <string name="dialog_message">نجد أنك تغير رقمك. نحن بحاجة إلى التحقق منه أولا.يبقى كل ما تبذلونه من السجل المحفوظة.</string>
