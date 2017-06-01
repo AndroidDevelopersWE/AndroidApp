@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
@@ -69,6 +70,7 @@ public class MainActivity extends BaseActivity
     //    private final ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
     Map<Integer, Bitmap> mImagesMaps = new HashMap<Integer, Bitmap>();
     private LatLng mLatLngCurrent;
+    Location mNewLocation,mOldLocation;
 
     @Override
 
@@ -121,14 +123,43 @@ public class MainActivity extends BaseActivity
 
             @SuppressWarnings("PointlessBooleanExpression")
             @Override
-            public void onMyLocationChange(Location location) {
+            public void onMyLocationChange(final Location location) {
                 // TODO Auto-generated method stub
                 if (firstCAll != true) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
                     firstCAll = true;
-                    APiGetCurrentAddress(location);
+                    mNewLocation=location;
+                    mOldLocation=mNewLocation;
                     mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
+//                    loading.show();
+                    if (Validations.isInternetAvailable(activity, true)) {
+                        APiGetCurrentAddress(location);
+                    }
                 }
+                else {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
+                            if (Validations.isInternetAvailable(activity, true)) {
+//                                float dis=mOldLocation.distanceTo(mNewLocation);
+                                if (mOldLocation.distanceTo(mNewLocation)>10000){
+                                    mMap.clear();
+                                    APiGetShopslistData(location);
+                                }
+                                mOldLocation=mNewLocation;
+                                mNewLocation=location;
+
+                            }
+                        }
+                    }, 5000);
+
+
+
+                }
+
+
+
 //                Locale locale = new Locale("ar");
 //                Geocoder gcd = new Geocoder(getBaseContext(), locale);
 //                try {
@@ -147,6 +178,18 @@ public class MainActivity extends BaseActivity
 
             }
         });
+//        mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+//            @Override
+//            public void onCameraIdle() {
+//                if (firstCAll==true&&mNewLocation!=null){
+////                    loading.show();
+//                    if (Validations.isInternetAvailable(activity, true)) {
+//                        APiGetShopslistData(mNewLocation);
+//                    }
+//                }
+//
+//            }
+//        });
     }
 
     private void APiGetCurrentAddress(final Location location) {
@@ -164,10 +207,12 @@ public class MainActivity extends BaseActivity
                             JSONObject jsonObject = results.getJSONObject(0);
                             mPlaceName = jsonObject.getString("formatted_address");
                             if (Validations.isInternetAvailable(activity, true)) {
+
                                 APiGetShopslistData(location);
                             }
 
                         } catch (JSONException e) {
+                            loading.close();
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
@@ -201,7 +246,6 @@ public class MainActivity extends BaseActivity
                         ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                         if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                             SetShopsPointMap(mShopsListModel.getShopsList(), location);
-                            loading.close();
                         } else {
                             loading.close();
                             showToast(activity.getResources().getString(R.string.no_record_found));
@@ -225,7 +269,7 @@ public class MainActivity extends BaseActivity
 
     private void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_map);
-
+//        mMap.clear();
         for (int i = 0; i < shopsList.size(); i++) {
 
 
@@ -237,9 +281,10 @@ public class MainActivity extends BaseActivity
             Location target = new Location("Target");
             target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
             target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
-            if (location.distanceTo(target) < 10000) {
+//            if (location.distanceTo(target) < 50000) {
 
 //                marker.setInfoWindowAnchor((float)x, (float)y);
+
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
                                 Double.parseDouble(shopsList.get(i).getLongitude()))).icon(icon));
@@ -266,7 +311,8 @@ public class MainActivity extends BaseActivity
                                 mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), ic_img_place_holder);
                             }
                         });
-            }
+//            }
+            loading.close();
         }
         //get the map container height
 

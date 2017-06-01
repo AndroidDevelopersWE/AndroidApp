@@ -108,6 +108,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         adapterFilter.add("قدم استبدال الأجزاء");
         adapterFilter.add("نوع الاختبار");
         adapterFilter.add("أعلى تصنيف");
+        adapterFilter.add("مسافة");
+
         sp_providers_shop_list.setAdapter(adapterFilter, false, onSelectedListenerFilter);
         // set initial selection
         boolean[] selectedItems = new boolean[adapterFilter.getCount()];
@@ -305,7 +307,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     builder.append(adapterFilter.getItem(i)).append(" ");
                 }
             }
-            String ProvideWarranty, ProvideReplacementParts, shopType, topRated;
+            String ProvideWarranty, ProvideReplacementParts, shopType, topRated,Distance;
             if (selected[0]) {
                 ProvideWarranty = "1";
             } else {
@@ -328,8 +330,14 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             } else {
                 topRated = "";
             }
+            if (selected[4]) {
+                Distance = "Highest";
+            } else {
+                Distance = "";
+            }
 
-            ShopsListRecycleViewAdapter.filterShopsWithProviders(selectedItems, ProvideWarranty, ProvideReplacementParts, shopType, topRated);
+
+            ShopsListRecycleViewAdapter.filterShopsWithProviders(selectedItems, ProvideWarranty, ProvideReplacementParts, shopType, topRated,Distance,mLatlngCurrent);
             if (mshopsListRecycleViewAdapter != null) {
                 mshopsListRecycleViewAdapter.notifyDataSetChanged();
             }

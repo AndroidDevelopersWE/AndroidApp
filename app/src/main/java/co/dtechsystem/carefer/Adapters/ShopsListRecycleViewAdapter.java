@@ -503,10 +503,14 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     // Filter Class
     @SuppressWarnings("unused")
     public static void filterShopsWithProviders(ArrayList<String> selectedItem, final String ProvideWarranty, final String ProvideReplacementParts,
-                                                final String shopType, final String topRated) {
+                                                final String shopType, final String topRated, final String Distance, LatLng mLatlngCurrent) {
         if (_ShopslistRecordList != null) {
             if (selectedItem.size() > 0) {
                 _ShopslistRecordList.clear();
+                final List<ShopsListModel.ShopslistRecord> _Shops1Km = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _Shops5Km = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _Shops10Km = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _ShopsHighestKm = new ArrayList<ShopsListModel.ShopslistRecord>();
                 for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
 
                     if (_ShopslistRecordListFilter.get(i).getShopType().toLowerCase(Locale.getDefault())
@@ -515,6 +519,24 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                             .equals(ProvideWarranty) || _ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())
                             .equals(topRated)) {
                         _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                    } else if (Distance.equals("Highest")) {
+                        LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
+                        Location userLoc = new Location("");
+                        userLoc.setLatitude(mLatlngCurrent.latitude);
+                        userLoc.setLongitude(mLatlngCurrent.longitude);
+                        Location shopLoc = new Location("");
+                        shopLoc.setLatitude(shopLatlng.latitude);
+                        shopLoc.setLongitude(shopLatlng.longitude);
+                        float lo=userLoc.distanceTo(shopLoc);
+                        if (userLoc.distanceTo(shopLoc) <= 1000) {
+                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
+                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
+                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
+                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
+                            _Shops10Km.add(_ShopslistRecordListFilter.get(i));
+                        } else if (userLoc.distanceTo(shopLoc) > 10000) {
+                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
+                        }
                     } else if (selectedItem.size() == 4 && _ShopslistRecordListFilter.get(i).getShopType().toLowerCase(Locale.getDefault())
                             .equals(shopType) && _ShopslistRecordListFilter.get(i).getProvideReplaceParts().toLowerCase(Locale.getDefault())
                             .equals(ProvideReplacementParts) && _ShopslistRecordListFilter.get(i).getProvideWarranty().toLowerCase(Locale.getDefault())
@@ -522,6 +544,12 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                             .equals(topRated)) {
                         _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
                     }
+                }
+                if (Distance.equals("Highest")) {
+                    _ShopslistRecordList.addAll(_Shops1Km);
+                    _ShopslistRecordList.addAll(_Shops5Km);
+                    _ShopslistRecordList.addAll(_Shops10Km);
+                    _ShopslistRecordList.addAll(_ShopsHighestKm);
                 }
                 if (_ShopslistRecordList.size() == 0) {
                     Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
