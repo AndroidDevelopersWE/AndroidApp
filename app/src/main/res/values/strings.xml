@@ -37,6 +37,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="btn_explorer">Explorer</string>
+    <string name="btn_search_this_area">Search This Area</string>
     <string name="your_mobile">Your Mobile Number</string>
     <string name="your_name">Your Name</string>
     <string name="btn_save">Save</string>
@@ -146,6 +147,8 @@
     <string name="dialog_message">We find that you are changing your number .We need to verify it first.All your record remain saved.</string>
     <string name="dialog_name_sorting">Name</string>
     <string name="dialog_rating_sorting">Rating</string>
+    <string name="dialog_ascending">Ascending</string>
+    <string name="dialog_descending">Descending</string>
 
     <string name="order_type_call">On Call</string>
     <string name="order_type_shop">On Shop</string>

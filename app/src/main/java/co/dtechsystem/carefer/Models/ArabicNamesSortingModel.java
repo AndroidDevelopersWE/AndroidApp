@@ -287,7 +287,7 @@ public class ArabicNamesSortingModel {
         this._Others.add(shopslistRecord);
     }
 
-    public List<ShopsListModel.ShopslistRecord> MatchWithName(List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter) {
+    public List<ShopsListModel.ShopslistRecord> MatchWithName(List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter, final String sortOrderType) {
         Locale locale = new Locale("ar");
         for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
             String Name = _ShopslistRecordListFilter.get(i).getShopName();
@@ -385,37 +385,69 @@ public class ArabicNamesSortingModel {
             }
 
         }
-
-        _FilterdAllRecord.addAll(get_Alif());
-        _FilterdAllRecord.addAll(get_Baa());
-        _FilterdAllRecord.addAll(get_Ta());
-        _FilterdAllRecord.addAll(get_Saa());
-        _FilterdAllRecord.addAll(get_Jim());
-        _FilterdAllRecord.addAll(get_Ha());
-        _FilterdAllRecord.addAll(get_Kha());
-        _FilterdAllRecord.addAll(get_Dal());
-        _FilterdAllRecord.addAll(get_Zal());
-        _FilterdAllRecord.addAll(get_Ra());
-        _FilterdAllRecord.addAll(get_Zay());
-        _FilterdAllRecord.addAll(get_Sin());
-        _FilterdAllRecord.addAll(get_Shin());
-        _FilterdAllRecord.addAll(get_Sad());
-        _FilterdAllRecord.addAll(get_Dad());
-        _FilterdAllRecord.addAll(get_Thaa());
-        _FilterdAllRecord.addAll(get_Za());
-        _FilterdAllRecord.addAll(get_Ain());
-        _FilterdAllRecord.addAll(get_Gain());
-        _FilterdAllRecord.addAll(get_Fa());
-        _FilterdAllRecord.addAll(get_Qaf());
-        _FilterdAllRecord.addAll(get_Kaf());
-        _FilterdAllRecord.addAll(get_Lam());
-        _FilterdAllRecord.addAll(get_Mim());
-        _FilterdAllRecord.addAll(get_Nun());
-        _FilterdAllRecord.addAll(get_Hay());
-        _FilterdAllRecord.addAll(get_Wa());
-        _FilterdAllRecord.addAll(get_Ya());
-        _FilterdAllRecord.addAll(get_Hamza());
-        _FilterdAllRecord.addAll(get_Others());
+        if (sortOrderType.equals("Ascending")) {
+            _FilterdAllRecord.addAll(get_Alif());
+            _FilterdAllRecord.addAll(get_Baa());
+            _FilterdAllRecord.addAll(get_Ta());
+            _FilterdAllRecord.addAll(get_Saa());
+            _FilterdAllRecord.addAll(get_Jim());
+            _FilterdAllRecord.addAll(get_Ha());
+            _FilterdAllRecord.addAll(get_Kha());
+            _FilterdAllRecord.addAll(get_Dal());
+            _FilterdAllRecord.addAll(get_Zal());
+            _FilterdAllRecord.addAll(get_Ra());
+            _FilterdAllRecord.addAll(get_Zay());
+            _FilterdAllRecord.addAll(get_Sin());
+            _FilterdAllRecord.addAll(get_Shin());
+            _FilterdAllRecord.addAll(get_Sad());
+            _FilterdAllRecord.addAll(get_Dad());
+            _FilterdAllRecord.addAll(get_Thaa());
+            _FilterdAllRecord.addAll(get_Za());
+            _FilterdAllRecord.addAll(get_Ain());
+            _FilterdAllRecord.addAll(get_Gain());
+            _FilterdAllRecord.addAll(get_Fa());
+            _FilterdAllRecord.addAll(get_Qaf());
+            _FilterdAllRecord.addAll(get_Kaf());
+            _FilterdAllRecord.addAll(get_Lam());
+            _FilterdAllRecord.addAll(get_Mim());
+            _FilterdAllRecord.addAll(get_Nun());
+            _FilterdAllRecord.addAll(get_Hay());
+            _FilterdAllRecord.addAll(get_Wa());
+            _FilterdAllRecord.addAll(get_Ya());
+            _FilterdAllRecord.addAll(get_Hamza());
+            _FilterdAllRecord.addAll(get_Others());
+        } else {
+            _FilterdAllRecord.addAll(get_Hamza());
+            _FilterdAllRecord.addAll(get_Ya());
+            _FilterdAllRecord.addAll(get_Wa());
+            _FilterdAllRecord.addAll(get_Hay());
+            _FilterdAllRecord.addAll(get_Nun());
+            _FilterdAllRecord.addAll(get_Mim());
+            _FilterdAllRecord.addAll(get_Lam());
+            _FilterdAllRecord.addAll(get_Kaf());
+            _FilterdAllRecord.addAll(get_Qaf());
+            _FilterdAllRecord.addAll(get_Fa());
+            _FilterdAllRecord.addAll(get_Gain());
+            _FilterdAllRecord.addAll(get_Ain());
+            _FilterdAllRecord.addAll(get_Za());
+            _FilterdAllRecord.addAll(get_Thaa());
+            _FilterdAllRecord.addAll(get_Dad());
+            _FilterdAllRecord.addAll(get_Sad());
+            _FilterdAllRecord.addAll(get_Shin());
+            _FilterdAllRecord.addAll(get_Sin());
+            _FilterdAllRecord.addAll(get_Zay());
+            _FilterdAllRecord.addAll(get_Ra());
+            _FilterdAllRecord.addAll(get_Zal());
+            _FilterdAllRecord.addAll(get_Dal());
+            _FilterdAllRecord.addAll(get_Kha());
+            _FilterdAllRecord.addAll(get_Ha());
+            _FilterdAllRecord.addAll(get_Jim());
+            _FilterdAllRecord.addAll(get_Saa());
+            _FilterdAllRecord.addAll(get_Ta());
+            _FilterdAllRecord.addAll(get_Baa());
+            _FilterdAllRecord.addAll(get_Alif());
+            _FilterdAllRecord.addAll(get_Others());
+        }
         return _FilterdAllRecord;
     }
 

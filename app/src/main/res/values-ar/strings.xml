@@ -51,6 +51,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="btn_explorer">مستكشف</string>
+    <string name="btn_search_this_area">البحث في هذه المنطقة</string>
     <string name="your_mobile">رقم هاتف المحمول</string>
     <string name="your_name">اسمك</string>
     <string name="btn_save">حفظ</string>
@@ -162,7 +163,11 @@
     <string name="dialog_message">نجد أنك تغير رقمك. نحن بحاجة إلى التحقق منه أولا.يبقى كل ما تبذلونه من السجل المحفوظة.</string>
     <string name="dialog_name_sorting">اسم</string>
     <string name="dialog_rating_sorting">تقييم</string>
+    <string name="dialog_ascending">تصاعدي</string>
+    <string name="dialog_descending"> تنازلي</string>
+
 
     <string name="order_type_call">على دعوته</string>
     <string name="order_type_shop">متجر</string>
+
 </resources>

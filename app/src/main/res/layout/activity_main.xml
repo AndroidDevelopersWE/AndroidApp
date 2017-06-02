@@ -85,7 +85,26 @@
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
-
+        <Button
+            android:id="@+id/btn_search_shops_here_main"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_90sdp"
+            android:layout_marginRight="@dimen/_90sdp"
+            android:layout_marginTop="@dimen/_60sdp"
+            android:background="@color/pf_white"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="btnSearchThisAreaClick"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/btn_search_this_area"
+            android:textAllCaps="true"
+            android:visibility="gone"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/map"
             class="com.google.android.gms.maps.SupportMapFragment"

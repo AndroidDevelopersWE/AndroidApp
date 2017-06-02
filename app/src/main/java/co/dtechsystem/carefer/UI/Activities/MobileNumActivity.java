@@ -99,7 +99,7 @@ public class MobileNumActivity extends BaseActivity {
         assert phoneEditText != null;
         assert submit_button != null;
 
-        phoneEditText.setHint(R.string.phone_hint);
+//        phoneEditText.setHint(R.string.phone_hint);
         phoneEditText.setDefaultCountry(CountryID);
         Utils.gradientTextView(submit_button, activity);
         submit_button.setOnClickListener(new View.OnClickListener() {
@@ -133,9 +133,9 @@ public class MobileNumActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    phoneEditText.setDefaultCountry(CountryID);
-                }
+//                if (s.length() == 0) {
+//                    phoneEditText.setDefaultCountry(CountryID);
+//                }
             }
 
             @Override

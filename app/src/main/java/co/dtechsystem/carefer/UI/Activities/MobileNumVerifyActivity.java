@@ -44,6 +44,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
     private EditText et_4_verify;
     private TextView chronometer_sms;
     private boolean mAutoReceivedCode = false;
+    CountDownTimer mCountDownTimer;
 
     @Override
 
@@ -64,7 +65,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
 
     public void setdataToViews() {
 //        btn_resend_code.setVisibility(View.GONE);
-        StartTimer(60000);
+        StartTimer(120000);
 //        btn_resend_code.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -76,16 +77,16 @@ public class MobileNumVerifyActivity extends BaseActivity {
     }
 
     public void StartTimer(long Time) {
-        CountDownTimer cT = new CountDownTimer(Time, 1000) {
+        mCountDownTimer = new CountDownTimer(Time, 1000) {
             public void onTick(long millisUntilFinished) {
                 chronometer_sms.setVisibility(View.VISIBLE);
                 String v = String.format("%02d", millisUntilFinished / 60000);
                 int va = (int) ((millisUntilFinished % 60000) / 1000);
-                chronometer_sms.setText(getResources().getString(R.string.toast_verfication_sent_mobile)+"\n" + v + ":" + String.format("%02d", va));
+                chronometer_sms.setText(getResources().getString(R.string.toast_verfication_sent_mobile) + "\n" + v + ":" + String.format("%02d", va));
             }
 
             public void onFinish() {
-                chronometer_sms.setText(getResources().getString(R.string.toast_verfication_sent_mobile)+"\n"+ "00:00");
+                chronometer_sms.setText(getResources().getString(R.string.toast_verfication_sent_mobile) + "\n" + "00:00");
                 if (mAutoReceivedCode == false) {
                     CustomResendCodeDialog();
                 }
@@ -93,7 +94,8 @@ public class MobileNumVerifyActivity extends BaseActivity {
 //                    btn_resend_code.setVisibility(View.VISIBLE);
             }
         };
-        cT.start();
+
+        mCountDownTimer.start();
 
     }
 
@@ -269,6 +271,8 @@ public class MobileNumVerifyActivity extends BaseActivity {
                                 et_4_verify.setText(String.valueOf(pin.charAt(3)));
                                 chronometer_sms.setVisibility(View.GONE);
                                 mAutoReceivedCode = true;
+                                loading.show();
+                                APiVarifyCustomer(sUser_ID, pin);
                             }
 //                            Toast.makeText(context, "Pin received: " + pin, Toast.LENGTH_LONG).show();
 
@@ -296,7 +300,12 @@ public class MobileNumVerifyActivity extends BaseActivity {
                             String Status = customerDetails.getString("statusCode");
                             if (Status.equals("1")) {
                                 Utils.savePreferences(activity, "User_Mobile_varify", Status);
+                                if(mCountDownTimer != null) {
+                                    mCountDownTimer.cancel();
+                                    mCountDownTimer = null;
+                                }
                                 Intent i = new Intent(activity, CareferPolicyActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                                 loading.close();
                                 showToast(getResources().getString(R.string.toast_mobile_Verified));
@@ -337,6 +346,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
 //        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(postRequest);
     }
+
     public void APiCreateUserPhone(final String customerMobile) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);

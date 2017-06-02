@@ -16,8 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clickable="false"
             android:layout_gravity="center"
+            android:clickable="false"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -33,105 +33,112 @@
                     android:id="@+id/lay_top_my_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:background="@drawable/dr_corner_grey"
                     android:clickable="true"
                     android:duplicateParentState="false"
-                    android:gravity="center"
-                    android:padding="@dimen/_3sdp"
-                    android:layout_gravity="center"
                     android:orientation="horizontal"
+                    android:padding="@dimen/_3sdp"
                     android:visibility="visible"
-                    android:weightSum="2"
+
                     card_view:ignore="DisableBaselineAlignment,UselessParent">
 
                     <LinearLayout
                         android:id="@+id/lay_iv_down"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="0"
-                        >
-
-                        <ImageView
-                            android:id="@+id/iv_drop_shop_details"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:layout_weight="0"
-                            android:background="@drawable/ic_arrow_down_grey"
-                            card_view:ignore="ContentDescription,InefficientWeight,NestedWeights" />
-                    </LinearLayout>
-
-                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.1"
-                        android:gravity="center_vertical">
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                        <TextView
-                            android:id="@+id/tv_order_number_top"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:visibility="gone"
+                            android:layout_weight="0">
+
+                            <ImageView
+                                android:id="@+id/iv_drop_shop_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="0"
+                                android:background="@drawable/ic_arrow_down_grey"
+                                card_view:ignore="ContentDescription,InefficientWeight,NestedWeights" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:clickable="false"
-                            android:gravity="end"
-                            android:padding="@dimen/_5sdp"
-                            android:singleLine="true"
-                            android:text="@string/tv_order_number"
-                            android:textColor="@color/colorGrey"
-                            android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,InefficientWeight,NestedWeights,RtlHardcoded" />
-                    </LinearLayout>
+                            android:layout_weight="1.1"
+                            android:gravity="center_vertical">
 
-                    <LinearLayout
-                        android:layout_width="@dimen/_1sdp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_5sdp"
-                        android:layout_weight="0"
-                        android:background="@color/colorGrey" />
+                            <TextView
+                                android:id="@+id/tv_order_number_top"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_weight="1"
+                                android:clickable="false"
+                                android:gravity="end"
+                                android:padding="@dimen/_5sdp"
+                                android:singleLine="true"
+                                android:text="@string/tv_order_number"
+                                android:textColor="@color/colorGrey"
+                                android:textSize="@dimen/_12sdp"
+                                card_view:ignore="Deprecated,InefficientWeight,NestedWeights,RtlHardcoded" />
+                        </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_weight="0.9"
-                        android:gravity="end">
+                        <LinearLayout
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_weight="0"
+                            android:background="@color/colorGrey" />
 
-                        <TextView
-                            android:id="@+id/tv_date_order_top"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:clickable="false"
-                            android:gravity="center"
-                            android:padding="@dimen/_2sdp"
-                            android:singleLine="true"
-                            android:text="@string/tv_date_order"
-                            android:textColor="@color/colorGrey"
-                            android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            android:layout_weight="0.9"
+                            android:gravity="end">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:clickable="false"
-                            android:gravity="center"
-                            android:layout_marginRight="@dimen/_4sdp"
-                            android:padding="@dimen/_2sdp"
-                            android:layout_gravity="center"
-                            android:singleLine="true"
-                            android:text="@string/tv_date"
-                            android:textColor="@color/colorGrey"
-                            android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            <TextView
+                                android:id="@+id/tv_date_order_top"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:clickable="false"
+                                android:gravity="center"
+                                android:padding="@dimen/_2sdp"
+                                android:singleLine="true"
+                                android:text="@string/tv_date_order"
+                                android:textColor="@color/colorGrey"
+                                android:textSize="@dimen/_12sdp"
+                                card_view:ignore="Deprecated,RtlHardcoded" />
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="@dimen/_4sdp"
+                                android:clickable="false"
+                                android:gravity="center"
+                                android:padding="@dimen/_2sdp"
+                                android:singleLine="true"
+                                android:text="@string/tv_date"
+                                android:textColor="@color/colorGrey"
+                                android:textSize="@dimen/_12sdp"
+                                card_view:ignore="Deprecated,RtlHardcoded" />
+
+                        </LinearLayout>
                     </LinearLayout>
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -143,6 +150,7 @@
                 android:visibility="gone">
 
                 <LinearLayout
+                    android:id="@+id/lay_iv_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/dr_btn_orange_angle_180"
@@ -162,7 +170,7 @@
                         card_view:ignore="DisableBaselineAlignment,RtlHardcoded">
 
                         <LinearLayout
-                            android:id="@+id/lay_iv_up"
+
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent">
 

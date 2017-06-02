@@ -9,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
@@ -70,7 +69,7 @@ public class MainActivity extends BaseActivity
     //    private final ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
     Map<Integer, Bitmap> mImagesMaps = new HashMap<Integer, Bitmap>();
     private LatLng mLatLngCurrent;
-    Location mNewLocation,mOldLocation;
+    Location mNewLocation, mOldLocation;
 
     @Override
 
@@ -98,6 +97,22 @@ public class MainActivity extends BaseActivity
             i.putExtra("bundle", args);
             startActivity(i);
         }
+    }
+
+    @SuppressWarnings("UnusedParameters")
+    public void btnSearchThisAreaClick(View v) {
+        if (Validations.isInternetAvailable(activity, true)) {
+//                                float dis=mOldLocation.distanceTo(mNewLocation);
+//            if (mOldLocation.distanceTo(mNewLocation) > 10000) {
+            mMap.clear();
+            aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.GONE);
+            if (mNewLocation != null) {
+                APiGetShopslistData(mNewLocation);
+                mOldLocation = mNewLocation;
+            }
+
+        }
+
     }
 
     private void SetUpLeftbar() {
@@ -128,37 +143,44 @@ public class MainActivity extends BaseActivity
                 if (firstCAll != true) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
                     firstCAll = true;
-                    mNewLocation=location;
-                    mOldLocation=mNewLocation;
+                    mNewLocation = location;
+                    mOldLocation = mNewLocation;
                     mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
 //                    loading.show();
-                    if (Validations.isInternetAvailable(activity, true)) {
+                    if (Validations.isInternetAvailable(activity, true)&&location!=null) {
                         APiGetCurrentAddress(location);
                     }
-                }
-                else {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
-                            if (Validations.isInternetAvailable(activity, true)) {
-//                                float dis=mOldLocation.distanceTo(mNewLocation);
-                                if (mOldLocation.distanceTo(mNewLocation)>10000){
-                                    mMap.clear();
-                                    APiGetShopslistData(location);
-                                }
-                                mOldLocation=mNewLocation;
-                                mNewLocation=location;
+                } else {
+                    mNewLocation = location;
+//                    if (mOldLocation.distanceTo(mNewLocation) > 1000) {
+//                        aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.VISIBLE);
+//                    }
 
-                            }
-                        }
-                    }, 5000);
-
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
+////                            if (mNewLocation!=mOldLocation) {
+//                            mNewLocation = location;
+//                            aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.VISIBLE);
+//
+////                            }
+//                        }
+//                    }, 5000);
 
 
                 }
-
-
+//                mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+//                    @Override
+//                    public void onCameraMove() {
+//                        CameraPosition position = mMap.getCameraPosition();
+//                        Location location1 = new Location("");
+//                        location.setLatitude(position.target.latitude);
+//                        location.setLongitude(position.target.longitude);
+//                        mNewLocation = location1;
+//                        ;
+//                    }
+//                });
 
 //                Locale locale = new Locale("ar");
 //                Geocoder gcd = new Geocoder(getBaseContext(), locale);
@@ -178,18 +200,15 @@ public class MainActivity extends BaseActivity
 
             }
         });
-//        mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
-//            @Override
-//            public void onCameraIdle() {
-//                if (firstCAll==true&&mNewLocation!=null){
-////                    loading.show();
-//                    if (Validations.isInternetAvailable(activity, true)) {
-//                        APiGetShopslistData(mNewLocation);
-//                    }
-//                }
-//
-//            }
-//        });
+        mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
+            @Override
+            public void onCameraIdle() {
+                if (firstCAll) {
+                    aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
     }
 
     private void APiGetCurrentAddress(final Location location) {
@@ -245,7 +264,9 @@ public class MainActivity extends BaseActivity
 
                         ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                         if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-                            SetShopsPointMap(mShopsListModel.getShopsList(), location);
+                            if (location != null) {
+                                SetShopsPointMap(mShopsListModel.getShopsList(), location);
+                            }
                         } else {
                             loading.close();
                             showToast(activity.getResources().getString(R.string.no_record_found));
@@ -281,7 +302,7 @@ public class MainActivity extends BaseActivity
             Location target = new Location("Target");
             target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
             target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
-//            if (location.distanceTo(target) < 50000) {
+            if (location.distanceTo(target) < 30000) {
 
 //                marker.setInfoWindowAnchor((float)x, (float)y);
 
@@ -311,7 +332,7 @@ public class MainActivity extends BaseActivity
                                 mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), ic_img_place_holder);
                             }
                         });
-//            }
+            }
             loading.close();
         }
         //get the map container height

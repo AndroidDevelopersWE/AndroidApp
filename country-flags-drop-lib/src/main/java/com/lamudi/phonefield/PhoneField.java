@@ -31,6 +31,8 @@ public abstract class PhoneField extends LinearLayout {
     private static PhoneNumberUtil mPhoneUtil = PhoneNumberUtil.getInstance();
 
     private int mDefaultCountryPosition = 0;
+    private static int mSelectedCountryPosition = 0;
+    private String countryCode;
 
     /**
      * Instantiates a new Phone field.
@@ -93,8 +95,10 @@ public abstract class PhoneField extends LinearLayout {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() == 0) {
-                    mSpinner.setSelection(mDefaultCountryPosition);
+                if (!s.toString().startsWith(countryCode)) {
+                    countryCode = String.valueOf(mCountry.getDialCode());
+                    mEditText.setText(countryCode);
+                    mEditText.setSelection(countryCode.length());
                 }
             }
 
@@ -120,9 +124,9 @@ public abstract class PhoneField extends LinearLayout {
                     if (rawNumber.startsWith("0")) {
                         rawNumber = rawNumber.replaceFirst("0", "");
                     }
-                    if (!rawNumber.startsWith(String.valueOf(mCountry.getDialCode()))) {
-                        rawNumber = mCountry.getDialCode() + rawNumber;
-                    }
+//                    if (!rawNumber.startsWith(String.valueOf(mCountry.getDialCode()))) {
+//                        rawNumber = mCountry.getDialCode() + rawNumber;
+//                    }
                     try {
                         Phonenumber.PhoneNumber number = parsePhoneNumber(rawNumber);
                         if (mCountry == null || mCountry.getDialCode() != number.getCountryCode()) {
@@ -141,6 +145,9 @@ public abstract class PhoneField extends LinearLayout {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mCountry = adapter.getItem(position);
+                countryCode = String.valueOf(mCountry.getDialCode());
+//                setDefaultCountry(countryCode);
+                mEditText.setText(countryCode);
             }
 
             @Override
@@ -148,7 +155,6 @@ public abstract class PhoneField extends LinearLayout {
                 mCountry = null;
             }
         });
-
     }
 
     /**
@@ -223,6 +229,7 @@ public abstract class PhoneField extends LinearLayout {
             if (country.getDialCode() == dialCode) {
                 mCountry = country;
                 mSpinner.setSelection(i);
+                mSelectedCountryPosition = i;
             }
         }
     }

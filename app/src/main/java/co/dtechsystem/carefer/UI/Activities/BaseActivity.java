@@ -78,7 +78,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         //noinspection deprecation
         resources.updateConfiguration(configuration, displayMetrics);
     }
-
+    public void GotoHome(@SuppressWarnings("UnusedParameters") View v) {
+        Intent i = new Intent(activity, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
 
     @SuppressWarnings({"unused", "UnusedParameters"})
     protected void CloseActivity(View v) {

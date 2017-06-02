@@ -23,7 +23,7 @@
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_35sdp"
         android:background="@color/colorCinnabar"
-        android:text="@string/dialog_name_sorting"
+        android:text="@string/dialog_ascending"
         android:textAllCaps="false"
         android:textSize="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_10sdp"
@@ -36,7 +36,7 @@
         android:textSize="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@color/colorCinnabar"
-        android:text="@string/dialog_rating_sorting"
+        android:text="@string/dialog_descending"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
 

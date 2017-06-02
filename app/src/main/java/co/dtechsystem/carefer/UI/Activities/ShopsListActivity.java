@@ -362,7 +362,49 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_name_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name");
+                CustomNameSortingDialog();
+
+                dialog.dismiss();
+            }
+        });
+        btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Rating","");
+                if (mshopsListRecycleViewAdapter != null) {
+                    mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                }
+                dialog.dismiss();
+            }
+        });
+        btn_cancel_sorting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+    //Name Sorting dialog fun
+    public void CustomNameSortingDialog() {
+        //Sorting dialog fun
+        // custom dialog
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.lay_dialog_sort_name);
+        dialog.setTitle(getResources().getString(R.string.app_name));
+        dialog.setCancelable(false);
+        // set the custom dialog components - text, image and button
+        Button btn_name_sorting = (Button) dialog.findViewById(R.id.btn_name_sorting);
+        Button btn_rating_sorting = (Button) dialog.findViewById(R.id.btn_rating_sorting);
+        Button btn_cancel_sorting = (Button) dialog.findViewById(R.id.btn_cancel_sorting);
+        // if button is clicked, close the custom dialog
+
+        btn_name_sorting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name","Ascending");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                 }
@@ -372,7 +414,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Rating");
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name","Descending");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                 }

@@ -84,11 +84,7 @@ public class NavigationsActivity extends BaseActivity
         }
     }
 
-    public void GotoHome(@SuppressWarnings("UnusedParameters") View v) {
-        Intent i = new Intent(activity, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
-    }
+
 
 
     private void SetUpLeftbar() {
