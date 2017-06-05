@@ -100,6 +100,10 @@ public abstract class PhoneField extends LinearLayout {
                     mEditText.setText(countryCode);
                     mEditText.setSelection(countryCode.length());
                 }
+//                String text=mEditText.getText().toString();
+//                if (!text.equals("")&&!text.startsWith(countryCode)){
+//                    mEditText.setText(countryCode);
+//                }
             }
 
             @Override
@@ -146,8 +150,9 @@ public abstract class PhoneField extends LinearLayout {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mCountry = adapter.getItem(position);
                 countryCode = String.valueOf(mCountry.getDialCode());
-//                setDefaultCountry(countryCode);
+                setDefaultCountry(countryCode);
                 mEditText.setText(countryCode);
+
             }
 
             @Override

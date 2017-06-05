@@ -141,6 +141,7 @@
     <string name="toast_will_try">Will try to resend after:</string>
     <string name="toast_shop_deleted_fav">Shop deleted from your favourite list...</string>
     <string name="toast_shop_added_fav">Shop Added in your favourite list...</string>
+    <string name="toast_location_not_found">Your current location could not be found.</string>
 
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Ok</string>
@@ -149,6 +150,12 @@
     <string name="dialog_rating_sorting">Rating</string>
     <string name="dialog_ascending">Ascending</string>
     <string name="dialog_descending">Descending</string>
+
+    <string name="spinner_provided_warranty">Provide Warranty?</string>
+    <string name="spinner_provided_replace_parts">Provide Parts Replacement?</string>
+    <string name="spinner_place_type">Place Type</string>
+    <string name="spinner_top_rated">Top Rated</string>
+    <string name="spinner_distance">Distance</string>
 
     <string name="order_type_call">On Call</string>
     <string name="order_type_shop">On Shop</string>

@@ -1,7 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -9,8 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +38,8 @@ public class MobileNumActivity extends BaseActivity {
     private Button submit_button;
     String CountryID;
     TelephonyManager tm;
+    String countryCode;
+    String number;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +49,7 @@ public class MobileNumActivity extends BaseActivity {
         phoneEditText = (PhoneEditText) findViewById(R.id.edit_text);
         tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
         CountryID = tm.getNetworkCountryIso();
+        phoneDropAndValid();
         if (Build.VERSION.SDK_INT >= 23) {
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
@@ -63,7 +63,7 @@ public class MobileNumActivity extends BaseActivity {
             AutoDetectMobileSim1();
 
         }
-        phoneDropAndValid();
+
 
     }
 
@@ -71,10 +71,10 @@ public class MobileNumActivity extends BaseActivity {
 
         try {
 
-            @SuppressLint("HardwareIds") String number = tm.getLine1Number();
+            number = tm.getLine1Number();
             PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
             Phonenumber.PhoneNumber numberProto = phoneUtil.parse(number, CountryID.toUpperCase());
-            String countryCode = String.valueOf(numberProto.getCountryCode());
+            countryCode = String.valueOf(numberProto.getCountryCode());
             if (number.startsWith("00")) {
                 number = number.replaceFirst("00", "");
             }
@@ -84,8 +84,8 @@ public class MobileNumActivity extends BaseActivity {
             if (number.startsWith(countryCode)) {
                 number = number.replaceFirst(countryCode, "");
             }
-            if (number.startsWith("+")) {
-                number = number.replaceFirst("\\u002B", "");
+            if (!number.startsWith("+")) {
+                number = "+" + number;
             }
             phoneEditText.setDefaultCountry(CountryID);
             phoneEditText.getEditText().setText(number);
@@ -111,8 +111,8 @@ public class MobileNumActivity extends BaseActivity {
                         if (Phone != null && !Phone.equals("")) {
                             if (phoneEditText.isValid()) {
                                 loading.show();
-                                if (Phone.startsWith("+")){
-                                    Phone.replaceFirst("\\u002B","");
+                                if (Phone.startsWith("+")) {
+                                    Phone.replaceFirst("\\u002B", "");
                                 }
                                 APiCreateUserPhone(Phone, "Mobile");
                             } else {
@@ -123,24 +123,6 @@ public class MobileNumActivity extends BaseActivity {
                         showToast(getResources().getString(R.string.enter_mobile));
                     }
                 }
-            }
-        });
-        phoneEditText.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if (s.length() == 0) {
-//                    phoneEditText.setDefaultCountry(CountryID);
-//                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -160,15 +142,15 @@ public class MobileNumActivity extends BaseActivity {
 
                             JSONObject customerDetails = jsonObject.getJSONObject("customer");
                             String smsAPIResponse = customerDetails.getString("smsAPIResponse");
-                            String customerMobile=customerDetails.getString("customerMobile");
+                            String customerMobile = customerDetails.getString("customerMobile");
                             if (smsAPIResponse != null && !smsAPIResponse.equals("SMS sent successfully.")) {
                                 showToast(smsAPIResponse);
                             } else {
                                 String ID = customerDetails.getString("ID");
                                 Utils.savePreferences(activity, "User_ID", ID);
-                                    Utils.savePreferences(activity, "User_Mobile", customerMobile);
-                                    Intent i = new Intent(activity, MobileNumVerifyActivity.class);
-                                    startActivity(i);
+                                Utils.savePreferences(activity, "User_Mobile", customerMobile);
+                                Intent i = new Intent(activity, MobileNumVerifyActivity.class);
+                                startActivity(i);
 //                                    finish();
                                 showToast(getResources().getString(R.string.toast_verfication_sent_mobile));
                                 loading.close();

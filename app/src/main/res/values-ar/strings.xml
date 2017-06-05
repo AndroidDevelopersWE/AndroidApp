@@ -157,6 +157,7 @@
     <string name="toast_will_try">سيحاول إعادة إرسال بعد:</string>
     <string name="toast_shop_deleted_fav">تم حذف المحل من قائمتك المفضلة ...</string>
     <string name="toast_shop_added_fav">تم إضافة متجر في قائمتك المفضلة …</string>
+    <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي.</string>
 
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>
@@ -165,7 +166,11 @@
     <string name="dialog_rating_sorting">تقييم</string>
     <string name="dialog_ascending">تصاعدي</string>
     <string name="dialog_descending"> تنازلي</string>
-
+    <string name="spinner_provided_warranty">توفير الضمان؟</string>
+    <string name="spinner_provided_replace_parts">توفير قطع الغيار؟</string>
+    <string name="spinner_place_type">داخل الصناعية</string>
+    <string name="spinner_top_rated">أعلى تصنيف</string>
+    <string name="spinner_distance">مسافة</string>
 
     <string name="order_type_call">على دعوته</string>
     <string name="order_type_shop">متجر</string>

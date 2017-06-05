@@ -1,6 +1,7 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -32,12 +33,17 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -70,14 +76,29 @@ public class MainActivity extends BaseActivity
     Map<Integer, Bitmap> mImagesMaps = new HashMap<Integer, Bitmap>();
     private LatLng mLatLngCurrent;
     Location mNewLocation, mOldLocation;
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    int idle;
 
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        // Getting Google Play availability status
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+        // Showing status
+        if (status != ConnectionResult.SUCCESS) { // Google Play Services are not available
+            int requestCode = 10;
+            Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status, this, requestCode);
+            dialog.show();
+
+        } else { // Google Play Services are available
+
+            // Getting reference to the SupportMapFragment of activity_main.xml
+            mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+        }
         SetUpLeftbar();
         tv_title_main = (TextView) findViewById(R.id.tv_title_main);
         SetShaderToViews();
@@ -107,8 +128,9 @@ public class MainActivity extends BaseActivity
             mMap.clear();
             aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.GONE);
             if (mNewLocation != null) {
-                APiGetShopslistData(mNewLocation);
                 mOldLocation = mNewLocation;
+                APiGetShopslistData(mNewLocation);
+
             }
 
         }
@@ -140,71 +162,44 @@ public class MainActivity extends BaseActivity
             @Override
             public void onMyLocationChange(final Location location) {
                 // TODO Auto-generated method stub
-                if (firstCAll != true) {
+                if (mNewLocation == null) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
                     firstCAll = true;
                     mNewLocation = location;
                     mOldLocation = mNewLocation;
                     mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
 //                    loading.show();
-                    if (Validations.isInternetAvailable(activity, true)&&location!=null) {
+                    if (Validations.isInternetAvailable(activity, true) && location != null) {
                         APiGetCurrentAddress(location);
                     }
                 } else {
-                    mNewLocation = location;
-//                    if (mOldLocation.distanceTo(mNewLocation) > 1000) {
-//                        aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.VISIBLE);
-//                    }
+                    mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
+                        @Override
+                        public void onCameraChange(CameraPosition cameraPosition) {
+                            Location location = new Location("");
+                            location.setLatitude(cameraPosition.target.latitude);
+                            location.setLongitude(cameraPosition.target.longitude);
+                            if (location != null) {
+                                mNewLocation = location;
+                            }
 
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
-////                            if (mNewLocation!=mOldLocation) {
-//                            mNewLocation = location;
-//                            aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.VISIBLE);
-//
-////                            }
-//                        }
-//                    }, 5000);
+                        }
+
+                    });
 
 
                 }
-//                mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-//                    @Override
-//                    public void onCameraMove() {
-//                        CameraPosition position = mMap.getCameraPosition();
-//                        Location location1 = new Location("");
-//                        location.setLatitude(position.target.latitude);
-//                        location.setLongitude(position.target.longitude);
-//                        mNewLocation = location1;
-//                        ;
-//                    }
-//                });
-
-//                Locale locale = new Locale("ar");
-//                Geocoder gcd = new Geocoder(getBaseContext(), locale);
-//                try {
-//                    List<Address> addresses;
-//                    addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-//                    if (addresses.size() > 0) {
-//                        String city = addresses.get(0).getLocality().toString();
-//                        String Country = addresses.get(0).getCountryName().toString();
-////                        String locationname=addresses.get(0).getSubLocality().toString();
-//                        mplaceName = city + ", " + Country;
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-
 
             }
         });
         mMap.setOnCameraIdleListener(new GoogleMap.OnCameraIdleListener() {
             @Override
             public void onCameraIdle() {
-                if (firstCAll) {
+                if (idle == 2) {
                     aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.VISIBLE);
+                }
+                if (idle < 2) {
+                    idle++;
                 }
 
             }
@@ -290,19 +285,12 @@ public class MainActivity extends BaseActivity
 
     private void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_map);
-//        mMap.clear();
         for (int i = 0; i < shopsList.size(); i++) {
-
-
-            // adding a marker on map with image from  drawable
-//            mMap.addMarker(new MarkerOptions()
-//                    .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
-//                            Double.parseDouble(shopsList.get(i).getLongitude())))
-//                    .icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
             Location target = new Location("Target");
             target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
             target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
-            if (location.distanceTo(target) < 30000) {
+//            float dis = location.distanceTo(target);
+            if (location.distanceTo(target) < 10000) {
 
 //                marker.setInfoWindowAnchor((float)x, (float)y);
 
@@ -493,4 +481,5 @@ public class MainActivity extends BaseActivity
 
         }
     }
+
 }

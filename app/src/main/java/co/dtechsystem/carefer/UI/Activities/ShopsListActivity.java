@@ -104,11 +104,11 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         adapterFilter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
 
         //added searching
-        adapterFilter.add("توفير الضمان");
-        adapterFilter.add("قدم استبدال الأجزاء");
-        adapterFilter.add("نوع الاختبار");
-        adapterFilter.add("أعلى تصنيف");
-        adapterFilter.add("مسافة");
+        adapterFilter.add(getResources().getString(R.string.spinner_provided_warranty));
+        adapterFilter.add(getResources().getString(R.string.spinner_provided_replace_parts));
+        adapterFilter.add(getResources().getString(R.string.spinner_place_type));
+        adapterFilter.add(getResources().getString(R.string.spinner_top_rated));
+        adapterFilter.add(getResources().getString(R.string.spinner_distance));
 
         sp_providers_shop_list.setAdapter(adapterFilter, false, onSelectedListenerFilter);
         // set initial selection
@@ -307,7 +307,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     builder.append(adapterFilter.getItem(i)).append(" ");
                 }
             }
-            String ProvideWarranty, ProvideReplacementParts, shopType, topRated,Distance;
+            String ProvideWarranty, ProvideReplacementParts, shopType, topRated, Distance;
             if (selected[0]) {
                 ProvideWarranty = "1";
             } else {
@@ -337,7 +337,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             }
 
 
-            ShopsListRecycleViewAdapter.filterShopsWithProviders(selectedItems, ProvideWarranty, ProvideReplacementParts, shopType, topRated,Distance,mLatlngCurrent);
+            ShopsListRecycleViewAdapter.filterShopsWithProviders(selectedItems, ProvideWarranty, ProvideReplacementParts, shopType, topRated, Distance, mLatlngCurrent);
             if (mshopsListRecycleViewAdapter != null) {
                 mshopsListRecycleViewAdapter.notifyDataSetChanged();
             }
@@ -370,7 +370,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Rating","");
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Rating", "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                 }
@@ -386,6 +386,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
         dialog.show();
     }
+
     //Name Sorting dialog fun
     public void CustomNameSortingDialog() {
         //Sorting dialog fun
@@ -404,7 +405,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name","Ascending");
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name", "Ascending");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                 }
@@ -414,7 +415,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name","Descending");
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name", "Descending");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                 }

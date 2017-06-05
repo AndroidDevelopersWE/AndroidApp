@@ -510,7 +510,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 _ShopslistRecordList.clear();
                 final List<ShopsListModel.ShopslistRecord> _Shops1Km = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _Shops5Km = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _Shops10Km = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _Shops20Km = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _ShopsHighestKm = new ArrayList<ShopsListModel.ShopslistRecord>();
                 for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
 
@@ -521,7 +521,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                             .equals(topRated)) {
                         _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
                     } else if (Distance.equals("Highest")) {
-                        if (mLatlngCurrent!=null) {
+                        if (mLatlngCurrent != null) {
                             LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
                             Location userLoc = new Location("");
                             userLoc.setLatitude(mLatlngCurrent.latitude);
@@ -535,13 +535,12 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                             } else if (userLoc.distanceTo(shopLoc) <= 5000) {
                                 _Shops5Km.add(_ShopslistRecordListFilter.get(i));
                             } else if (userLoc.distanceTo(shopLoc) <= 20000) {
-                                _Shops10Km.add(_ShopslistRecordListFilter.get(i));
-                            } else if (userLoc.distanceTo(shopLoc) > 10000) {
+                                _Shops20Km.add(_ShopslistRecordListFilter.get(i));
+                            } else if (userLoc.distanceTo(shopLoc) > 20000) {
                                 _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
                             }
-                        }
-                        else {
-                            Toast.makeText(activity, "لم يتم العثور على موقعك الحالي.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
                         }
                     } else if (selectedItem.size() == 4 && _ShopslistRecordListFilter.get(i).getShopType().toLowerCase(Locale.getDefault())
                             .equals(shopType) && _ShopslistRecordListFilter.get(i).getProvideReplaceParts().toLowerCase(Locale.getDefault())
@@ -554,7 +553,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 if (Distance.equals("Highest")) {
                     _ShopslistRecordList.addAll(_Shops1Km);
                     _ShopslistRecordList.addAll(_Shops5Km);
-                    _ShopslistRecordList.addAll(_Shops10Km);
+                    _ShopslistRecordList.addAll(_Shops20Km);
                     _ShopslistRecordList.addAll(_ShopsHighestKm);
                 }
                 if (_ShopslistRecordList.size() == 0) {
@@ -568,7 +567,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     //sorting Function
-    public static void SortingShopsWithNameRating(final String SortingType,final String sortOrderType) {
+    public static void SortingShopsWithNameRating(final String SortingType, final String sortOrderType) {
         if (_ShopslistRecordList != null) {
             if (SortingType.equals("Rating")) {
                 _ShopslistRecordList.clear();
@@ -613,7 +612,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             } else {
                 _ShopslistRecordList.clear();
                 ArabicNamesSortingModel mArabicNamesSortingModel = new ArabicNamesSortingModel();
-                _ShopslistRecordList.addAll(mArabicNamesSortingModel.MatchWithName(_ShopslistRecordListFilter,sortOrderType));
+                _ShopslistRecordList.addAll(mArabicNamesSortingModel.MatchWithName(_ShopslistRecordListFilter, sortOrderType));
             }
 
 
