@@ -84,10 +84,15 @@ public class MobileNumActivity extends BaseActivity {
             if (number.startsWith(countryCode)) {
                 number = number.replaceFirst(countryCode, "");
             }
-            if (!number.startsWith("+")) {
-                number = "+" + number;
+//            if (!number.startsWith("+")) {
+//                number = "+" + number;
+//            }
+            if (CountryID != null && !CountryID.equals("")) {
+                phoneEditText.setDefaultCountry(CountryID);
+            } else {
+                phoneEditText.setDefaultCountry("SA");
             }
-            phoneEditText.setDefaultCountry(CountryID);
+
             phoneEditText.getEditText().setText(number);
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +105,11 @@ public class MobileNumActivity extends BaseActivity {
         assert submit_button != null;
 
 //        phoneEditText.setHint(R.string.phone_hint);
-        phoneEditText.setDefaultCountry(CountryID);
+        if (CountryID != null && !CountryID.equals("")) {
+            phoneEditText.setDefaultCountry(CountryID);
+        } else {
+            phoneEditText.setDefaultCountry("SA");
+        }
         Utils.gradientTextView(submit_button, activity);
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override

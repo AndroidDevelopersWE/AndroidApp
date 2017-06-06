@@ -174,7 +174,7 @@
                             android:drawablePadding="@dimen/_5sdp"
                             android:drawableRight="@drawable/ic_km"
                             android:gravity="top"
-                            android:text="2.5 km"
+                            android:text=" km"
                             android:textSize="@dimen/_11sdp"
                             tools:ignore="HardcodedText,RtlHardcoded" />
                     </LinearLayout>

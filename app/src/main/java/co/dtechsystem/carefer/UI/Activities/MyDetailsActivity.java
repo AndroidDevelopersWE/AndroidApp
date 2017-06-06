@@ -67,6 +67,8 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     private final ArrayList<String> mModelsIdArray = new ArrayList<>();
     public String mBrandsId;
     public String mModelsId;
+    public boolean mModelData;
+    public boolean mBrandData;
     private final List brands = new ArrayList();
     List models = new ArrayList();
     boolean firstBrand = true;
@@ -294,7 +296,11 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                         APiGetBrandsServiceModelsData(AppConfig.APiGetBrandModels, "ModelYear", mBrandsIdArray.get(position));
                     }
                 }
-                mBrandsId = mBrandsIdArray.get(position);
+                if (mBrandData) {
+                    mBrandData = false;
+                } else {
+                    mBrandsId = mBrandsIdArray.get(position);
+                }
 
             }
 
@@ -328,7 +334,12 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     aQuery.find(R.id.et_car_model_my_details).text((aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString()));
 
                 }
-                mModelsId = mModelsIdArray.get(position);
+                if (mModelData) {
+                    mModelData = false;
+                } else {
+                    mModelsId = mModelsIdArray.get(position);
+
+                }
             }
 
             @Override
@@ -531,6 +542,15 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                     mCarBrandName = jsonObject1.getString("carBrand");
                                     mCarBrandModel = jsonObject1.getString("carModel");
                                     mLastOilChange = jsonObject1.getString("lastOilChange");
+                                    mBrandsId = jsonObject1.getString("carBrandId");
+                                    mModelsId = jsonObject1.getString("carModelId");
+                                    if (mBrandsId != null && !mBrandsId.equals("0")) {
+                                        mModelData = true;
+                                    }
+                                    if (mModelsId != null && !mModelsId.equals("0")) {
+                                        mBrandData = true;
+                                    }
+
                                     aQuery.find(R.id.et_user_name_my_details).text(mcustomerName);
                                     aQuery.find(R.id.et_mobile_my_details).text(mcustomerMobile);
 

@@ -11,20 +11,33 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_weight="0"
             android:layout_marginRight="10dp"
+            android:layout_weight="0"
             android:popupBackground="@color/pf_white"
             android:tag="@string/com_lamudi_phonefield_flag_spinner" />
 
         <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:gravity="right"
+            android:hint="+966"
+            android:singleLine="true"
+            android:editable="false"
+            android:inputType="numberDecimal"
+            android:tag="@string/com_lamudi_phonefield_edittext_code"
+            android:textColor="@color/pf_grey" />
+
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:digits="0123456789"
-            android:inputType="numberDecimal"
-            android:gravity="left"
-            android:hint="eg: 9663345882589"
             android:backgroundTint="@android:color/transparent"
+            android:digits="0123456789"
+            android:gravity="left"
+            android:singleLine="true"
+            android:paddingLeft="-2dp"
+            android:hint="3345882589"
+            android:inputType="numberDecimal"
             android:tag="@string/com_lamudi_phonefield_edittext"
             android:textColor="@color/pf_grey" />
 

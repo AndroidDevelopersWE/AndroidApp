@@ -2,6 +2,7 @@ package com.lamudi.phonefield;
 
 import android.content.Context;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -25,6 +26,7 @@ public abstract class PhoneField extends LinearLayout {
     private static Spinner mSpinner;
 
     private static EditText mEditText;
+    private static EditText mEditTextCode;
 
     private static Country mCountry;
 
@@ -73,7 +75,8 @@ public abstract class PhoneField extends LinearLayout {
     protected void prepareView() {
         mSpinner = (Spinner) findViewWithTag(getResources().getString(R.string.com_lamudi_phonefield_flag_spinner));
         mEditText = (EditText) findViewWithTag(getResources().getString(R.string.com_lamudi_phonefield_edittext));
-
+        mEditTextCode = (EditText) findViewWithTag(getResources().getString(R.string.com_lamudi_phonefield_edittext_code));
+        mEditTextCode.setInputType(InputType.TYPE_NULL);
         if (mSpinner == null || mEditText == null) {
             throw new IllegalStateException("Please provide a valid xml layout");
         }
@@ -95,11 +98,11 @@ public abstract class PhoneField extends LinearLayout {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().startsWith(countryCode)) {
-                    countryCode = String.valueOf(mCountry.getDialCode());
-                    mEditText.setText(countryCode);
-                    mEditText.setSelection(countryCode.length());
-                }
+//                if (!s.toString().startsWith(countryCode)) {
+//                    countryCode = String.valueOf(mCountry.getDialCode());
+//                    mEditText.setText(countryCode);
+//                    mEditText.setSelection(countryCode.length());
+//                }
 //                String text=mEditText.getText().toString();
 //                if (!text.equals("")&&!text.startsWith(countryCode)){
 //                    mEditText.setText(countryCode);
@@ -151,7 +154,8 @@ public abstract class PhoneField extends LinearLayout {
                 mCountry = adapter.getItem(position);
                 countryCode = String.valueOf(mCountry.getDialCode());
                 setDefaultCountry(countryCode);
-                mEditText.setText(countryCode);
+                mEditTextCode.setText("+" + countryCode);
+
 
             }
 
@@ -177,6 +181,10 @@ public abstract class PhoneField extends LinearLayout {
      * @return the edit text
      */
     public EditText getEditText() {
+        return mEditText;
+    }
+
+    public EditText getEditTextCode() {
         return mEditText;
     }
 
@@ -288,7 +296,7 @@ public abstract class PhoneField extends LinearLayout {
      * @return the raw input
      */
     public String getRawInput() {
-        return mEditText.getText().toString();
+        return mEditTextCode.getText().toString() + mEditText.getText().toString();
     }
 
     /**

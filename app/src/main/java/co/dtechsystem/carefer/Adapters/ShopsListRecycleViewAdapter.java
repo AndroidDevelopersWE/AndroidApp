@@ -35,9 +35,12 @@ import java.util.Locale;
 
 import co.dtechsystem.carefer.Models.ArabicNamesSortingModel;
 import co.dtechsystem.carefer.Models.ShopsListModel;
+import co.dtechsystem.carefer.Models.SortByDistance;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
+
+import static co.dtechsystem.carefer.Models.SortByDistance.sort;
 
 
 public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListRecycleViewAdapter.ViewHolder> {
@@ -539,6 +542,10 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                             } else if (userLoc.distanceTo(shopLoc) > 20000) {
                                 _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
                             }
+//                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
+//                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
+
+//                            sortDistance(myLocation,myShop);
                         } else {
                             Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
                         }
@@ -555,15 +562,32 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                     _ShopslistRecordList.addAll(_Shops5Km);
                     _ShopslistRecordList.addAll(_Shops20Km);
                     _ShopslistRecordList.addAll(_ShopsHighestKm);
+
+
                 }
                 if (_ShopslistRecordList.size() == 0) {
                     Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
                 }
             } else {
+                _ShopslistRecordList.clear();
                 _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
             }
 
         }
+    }
+
+    public static void sortDistance(final SortByDistance.Location myLocation, final SortByDistance.Location shopLocation) {
+        List<SortByDistance.Location> locations = new ArrayList<>();
+        locations.add(shopLocation);
+        sort(locations, new SortByDistance.ToComparable<SortByDistance.Location, Double>() {
+            @Override
+            public Double toComparable(SortByDistance.Location location) {
+                return SortByDistance.Location.distance(location, myLocation);
+            }
+        });
+
+        for (SortByDistance.Location location : locations)
+            System.out.println(location);
     }
 
     //sorting Function

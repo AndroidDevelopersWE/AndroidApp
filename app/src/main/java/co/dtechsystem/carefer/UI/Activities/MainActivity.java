@@ -289,7 +289,7 @@ public class MainActivity extends BaseActivity
             Location target = new Location("Target");
             target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
             target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
-//            float dis = location.distanceTo(target);
+            float dis = location.distanceTo(target);
             if (location.distanceTo(target) < 10000) {
 
 //                marker.setInfoWindowAnchor((float)x, (float)y);
@@ -482,4 +482,9 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapFragment.getMapAsync(this);
+    }
 }
