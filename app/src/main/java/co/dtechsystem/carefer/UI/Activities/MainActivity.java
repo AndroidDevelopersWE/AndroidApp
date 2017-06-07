@@ -170,9 +170,16 @@ public class MainActivity extends BaseActivity
                     mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
 //                    loading.show();
                     if (Validations.isInternetAvailable(activity, true) && location != null) {
-                        APiGetCurrentAddress(location);
+                        APiGetCurrentAddress("Location", location);
                     }
                 } else {
+                    if (mPlaceName != null && !mPlaceName.equals("")) {
+                    } else {
+                        if (Validations.isInternetAvailable(activity, true) && location != null) {
+                            APiGetCurrentAddress("Address", location);
+                        }
+                    }
+
                     mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
                         @Override
                         public void onCameraChange(CameraPosition cameraPosition) {
@@ -206,7 +213,7 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    private void APiGetCurrentAddress(final Location location) {
+    private void APiGetCurrentAddress(final String Type, final Location location) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET,
@@ -220,11 +227,12 @@ public class MainActivity extends BaseActivity
                             JSONArray results = response.getJSONArray("results");
                             JSONObject jsonObject = results.getJSONObject(0);
                             mPlaceName = jsonObject.getString("formatted_address");
-                            if (Validations.isInternetAvailable(activity, true)) {
+                            if (Type.equals("Location")) {
+                                if (Validations.isInternetAvailable(activity, true)) {
 
-                                APiGetShopslistData(location);
+                                    APiGetShopslistData(location);
+                                }
                             }
-
                         } catch (JSONException e) {
                             loading.close();
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));

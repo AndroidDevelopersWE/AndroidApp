@@ -160,7 +160,7 @@ public class MobileNumActivity extends BaseActivity {
                                 Utils.savePreferences(activity, "User_Mobile", customerMobile);
                                 Intent i = new Intent(activity, MobileNumVerifyActivity.class);
                                 startActivity(i);
-//                                    finish();
+                                    finish();
                                 showToast(getResources().getString(R.string.toast_verfication_sent_mobile));
                                 loading.close();
                             }

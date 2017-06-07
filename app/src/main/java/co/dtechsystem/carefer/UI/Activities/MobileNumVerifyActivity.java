@@ -228,9 +228,11 @@ public class MobileNumVerifyActivity extends BaseActivity {
         btn_re_enter_mobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(activity, MobileNumActivity.class);
                 Utils.savePreferences(activity, "User_Mobile", "");
                 Utils.savePreferences(activity, "User_ID", "");
                 dialog.dismiss();
+                startActivity(i);
                 finish();
             }
         });
@@ -300,7 +302,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
                             String Status = customerDetails.getString("statusCode");
                             if (Status.equals("1")) {
                                 Utils.savePreferences(activity, "User_Mobile_varify", Status);
-                                if(mCountDownTimer != null) {
+                                if (mCountDownTimer != null) {
                                     mCountDownTimer.cancel();
                                     mCountDownTimer = null;
                                 }

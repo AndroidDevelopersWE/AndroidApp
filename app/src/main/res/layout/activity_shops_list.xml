@@ -271,7 +271,6 @@
                         android:gravity="right"
                         android:maxLines="2"
                         android:padding="@dimen/_5sdp"
-                        android:text="@string/riyadh_saduia"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/_12sdp"
                         tools:ignore="RtlHardcoded" />
