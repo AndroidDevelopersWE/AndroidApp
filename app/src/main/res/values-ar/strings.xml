@@ -166,6 +166,11 @@
     <string name="dialog_rating_sorting">تقييم</string>
     <string name="dialog_ascending">تصاعدي</string>
     <string name="dialog_descending"> تنازلي</string>
+    <string name="dialog_language_english">الإنجليزية</string>
+    <string name="dialog_language_arabic">عربى</string>
+    <string name="dialog_language_choose">اختر اللغة</string>
+
+
     <string name="spinner_provided_warranty">توفير الضمان؟</string>
     <string name="spinner_provided_replace_parts">توفير قطع الغيار؟</string>
     <string name="spinner_place_type">داخل الصناعية</string>

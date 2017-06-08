@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -8,35 +9,89 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.CallLog;
 import android.support.v4.app.ActivityCompat;
+import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.Button;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import co.dtechsystem.carefer.UI.Activities.BaseActivity;
 import co.dtechsystem.carefer.UI.Activities.CareferPolicyActivity;
 import co.dtechsystem.carefer.UI.Activities.MainActivity;
 import co.dtechsystem.carefer.UI.Activities.MobileNumActivity;
 import co.dtechsystem.carefer.UI.Activities.MobileNumVerifyActivity;
+import co.dtechsystem.carefer.Utils.Utils;
 
 public class SplashActivity extends BaseActivity {
-
+    Locale locale;
+    String Language;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         //noinspection UnusedAssignment
-        ImageView iv_splash = (ImageView) findViewById(R.id.iv_splash);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // Obtain the shared Tracker instance.
 //        AnalyticsApplication application = (AnalyticsApplication) getApplication().getApplicationContext();
 //        mTracker = application.getDefaultTracker();
-        SplashScreenThread();
+         Language = Utils.readPreferences(activity, "language", "");
+        if (Language != null && !Language.equals("")) {
+            SplashScreenThread();
+        } else {
+            CustomLanguageDialog();
+        }
+
 //        mScaler.scaleImage(R.drawable.img_splash_screen,iv_splash );
 //        getCallDetails();
 
+    }
+
+    //Language Change dialog fun
+    public String[] CustomLanguageDialog() {
+        final String[] languageSelection = new String[1];
+        final Dialog dialog = new Dialog(activity);
+        dialog.setContentView(R.layout.lay_dialog_choose_language);
+        dialog.setTitle(getResources().getString(R.string.dialog_language_choose));
+        dialog.setCancelable(false);
+        // set the custom dialog components - text, image and button
+        Button btn_language_eng = (Button) dialog.findViewById(R.id.btn_language_eng);
+        Button btn_language_ar = (Button) dialog.findViewById(R.id.btn_language_ar);
+        Button btn_cancel_lang = (Button) dialog.findViewById(R.id.btn_cancel_lang);
+        // if button is clicked, close the custom dialog
+
+        btn_language_eng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.savePreferences(activity, "language", "en");
+                locale = new Locale("en");
+                setLanguage(locale);
+                dialog.dismiss();
+                SplashScreenThread();
+            }
+        });
+        btn_language_ar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.savePreferences(activity, "language", "ar");
+                locale = new Locale("ar");
+                setLanguage(locale);
+                dialog.dismiss();
+                SplashScreenThread();
+            }
+        });
+        btn_cancel_lang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utils.savePreferences(activity, "language", "");
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        return languageSelection;
     }
 
     private void SplashScreenThread() {
@@ -126,4 +181,6 @@ public class SplashActivity extends BaseActivity {
         managedCursor.close();
         System.out.println(sb);
     }
+
+
 }

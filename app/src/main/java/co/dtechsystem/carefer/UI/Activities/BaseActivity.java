@@ -69,6 +69,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         sUser_ID = Utils.readPreferences(activity, "User_ID", "");
         locale = new Locale("ar");
         localeEn = new Locale("en");
+        String Language = Utils.readPreferences(activity, "language", "");
+        if (Language != null && !Language.equals("")) {
+            locale = new Locale(Language);
+            setLanguage(locale);
+        }
+
+    }
+
+    public void setLanguage(Locale locale) {
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();
@@ -78,6 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //noinspection deprecation
         resources.updateConfiguration(configuration, displayMetrics);
     }
+
     public void GotoHome(@SuppressWarnings("UnusedParameters") View v) {
         Intent i = new Intent(activity, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -149,4 +159,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
+
+
 }
