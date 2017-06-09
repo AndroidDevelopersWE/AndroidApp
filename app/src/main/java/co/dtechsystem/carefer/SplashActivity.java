@@ -38,11 +38,11 @@ public class SplashActivity extends BaseActivity {
 //        AnalyticsApplication application = (AnalyticsApplication) getApplication().getApplicationContext();
 //        mTracker = application.getDefaultTracker();
          Language = Utils.readPreferences(activity, "language", "");
-        if (Language != null && !Language.equals("")) {
-            SplashScreenThread();
-        } else {
+//        if (Language != null && !Language.equals("")) {
+//            SplashScreenThread();
+//        } else {
             CustomLanguageDialog();
-        }
+//        }
 
 //        mScaler.scaleImage(R.drawable.img_splash_screen,iv_splash );
 //        getCallDetails();

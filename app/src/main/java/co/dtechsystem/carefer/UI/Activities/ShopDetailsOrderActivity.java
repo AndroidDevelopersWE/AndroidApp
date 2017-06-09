@@ -150,15 +150,14 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                                 loading.close();
                             } else {
                                 JSONArray modelsData = response.getJSONArray("models");
-                                if (modelsData.length()>0) {
+                                if (modelsData.length() > 0) {
                                     for (int i = 0; i < modelsData.length(); i++) {
                                         JSONObject jsonObject = modelsData.getJSONObject(i);
                                         //noinspection unchecked
                                         models.add(jsonObject.getString("modelName"));
                                         mModelsIdArray.add(jsonObject.getString("ID"));
                                     }
-                                }
-                                else {
+                                } else {
                                     models.clear();
                                     models.add(0, getResources().getString(R.string.dp_model));
                                 }
@@ -301,14 +300,14 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     @SuppressWarnings("UnusedParameters")
     @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
@@ -363,7 +362,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             startActivity(i);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

@@ -56,8 +56,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:visibility="gone"
-                            android:layout_weight="0">
+                            android:layout_weight="0"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:id="@+id/iv_drop_shop_details"
@@ -414,6 +414,19 @@
 
                     </LinearLayout>
 
+                    <Button
+                        android:id="@+id/btn_add_rate_shop"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_25sdp"
+                        android:layout_gravity="left"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:background="@drawable/dr_list_item_drawyer_menu_click"
+                        android:gravity="center"
+                        android:padding="@dimen/_5sdp"
+                        android:text="@string/btn_rate_this_shop"
+                        android:textAllCaps="false"
+                        android:textColor="@drawable/dr_tv_selection_rating"
+                        android:textSize="@dimen/_10sdp" />
 
                 </LinearLayout>
 

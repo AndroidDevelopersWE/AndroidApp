@@ -85,6 +85,8 @@
     <string name="quality">جودة</string>
     <string name="time">زمن</string>
     <string name="btn_add_comment">أضف تعليق</string>
+    <string name="btn_rate_this_shop">قيم هذا المحل</string>
+
     <string name="type_comments">اكتب تعليقاتك هنا …</string>
     <string name="order_history">سجل طلباتك</string>
     <string name="title_order_history"> لي أوامر</string>

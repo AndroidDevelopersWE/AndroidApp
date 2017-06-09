@@ -45,14 +45,14 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
 
     @SuppressWarnings("UnusedParameters")
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.START);
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
@@ -109,7 +109,7 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

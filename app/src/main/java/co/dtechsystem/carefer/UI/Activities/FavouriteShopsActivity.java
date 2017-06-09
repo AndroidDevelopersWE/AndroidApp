@@ -38,7 +38,6 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
     private TextView tv_title_fav_shops;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +50,11 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
             APiGetFavShopslistData(sUser_ID);
         }
     }
+
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_fav_shops, activity);
     }
+
     private void APiGetFavShopslistData(String User_ID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -107,14 +108,14 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
     @SuppressWarnings("UnusedParameters")
     @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
@@ -169,7 +170,7 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
             startActivity(i);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 }

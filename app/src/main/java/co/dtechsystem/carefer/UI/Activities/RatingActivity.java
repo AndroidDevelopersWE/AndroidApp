@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,25 +21,34 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class RatingActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
     private String mshopID;
     private String morderID;
+    private String mShopName;
+    private TextView tv_title_rating;
 
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rating);
+        tv_title_rating = (TextView) findViewById(R.id.tv_title_rating);
+
         SetUpLeftbar();
         GetDataForViews();
+        SetShaderToViews();
     }
 
     public void GotoOrderNow(@SuppressWarnings("UnusedParameters") View V) {
@@ -48,11 +58,17 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         }
     }
 
+    private void SetShaderToViews() {
+        Utils.gradientTextView(tv_title_rating, activity);
+    }
+
     // Get Views Data
     private void GetDataForViews() {
         if (intent != null) {
             mshopID = intent.getStringExtra("shopID");
             morderID = intent.getStringExtra("orderID");
+            mShopName = intent.getStringExtra("ShopName");
+            aQuery.find(R.id.tv_shop_name_rating).text(mShopName);
 
         }
     }
@@ -62,12 +78,18 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         float quality_rate = aQuery.find(R.id.rb_quality_rate).getRatingBar().getRating();
         float time_rate = aQuery.find(R.id.rb_time_rate).getRatingBar().getRating();
         String et_coments_rate = aQuery.find(R.id.et_coments_rate).getText().toString();
-        if (price_rate != 0.0 || quality_rate != 0.0 || time_rate != 0.0) {
-            loading.show();
-            APisendRating(sUser_ID, mshopID, morderID, String.valueOf(price_rate), String.valueOf(quality_rate),
-                    String.valueOf(time_rate), et_coments_rate);
+        if (et_coments_rate != null && !et_coments_rate.equals("")) {
+
+            if (price_rate != 0.0 || quality_rate != 0.0 || time_rate != 0.0) {
+                loading.show();
+                APisendRating(sUser_ID, mshopID, morderID, String.valueOf(price_rate), String.valueOf(quality_rate),
+                        String.valueOf(time_rate), et_coments_rate);
+            } else {
+                showToast("Please give at least one rating .");
+
+            }
         } else {
-            showToast("Please give at least one rating .");
+            showToast("Please Add Comments");
         }
     }
 
@@ -88,19 +110,22 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                     public void onResponse(String response) {
                         // response
                         Log.d("Response", response);
-//                        try {
+                        try {
 //                            //noinspection UnusedAssignment
-////                            JSONObject jsonObject = new JSONObject(response);
-////                            morderNo = jsonObject.getString("orderNo");
-//                            Intent i = new Intent(activity, MainActivity.class);
-//                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            startActivity(i);
-//                            showToast("Comments Added...");
-//                        } catch (JSONException e) {
-//
-//                            e.printStackTrace();
-//                        }
-                        loading.close();
+                            JSONObject jsonObject = new JSONObject(response);
+                            String result = jsonObject.getString("result");
+                            if (result.equals("1")) {
+                                showToast("Review Added...");
+                                finish();
+                                loading.close();
+                            }
+                            loading.close();
+                        } catch (JSONException e) {
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            loading.close();
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -134,15 +159,15 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
     }
 
     @SuppressLint("RtlHardcoded")
-    public void btn_drawyerMenuOpen(@SuppressWarnings("UnusedParameters") View v) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+    public void btn_drawyerMenuOpen(View v) {
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
@@ -198,7 +223,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

@@ -71,6 +71,7 @@
     <string name="quality">Quality</string>
     <string name="time">Time</string>
     <string name="btn_add_comment">Add Comment</string>
+    <string name="btn_rate_this_shop">Rate This Shop</string>
     <string name="type_comments">Type Your Comments Here...</string>
     <string name="order_history">Your Order History</string>
     <string name="title_order_history">My Orders</string>
@@ -111,7 +112,7 @@
 
     <string name="invalid_phone_number">Please enter a valid phone number</string>
     <string name="cb_accept_policy">Accept Policy</string>
-    <string name="tv_total_results">Total Results 60</string>
+    <string name="tv_total_results">Total Results</string>
     <string name="tv_sorting">Sort</string>
     <string name="tv_filter">Filter</string>
     <string name="tv_car_brand">Car Brand</string>
@@ -154,8 +155,8 @@
     <string name="dialog_language_arabic">Arabic</string>
     <string name="dialog_language_choose">Choose Language</string>
 
-    <string name="spinner_provided_warranty">Provide Warranty?</string>
-    <string name="spinner_provided_replace_parts">Provide Parts Replacement?</string>
+    <string name="spinner_provided_warranty">Provide Warranty</string>
+    <string name="spinner_provided_replace_parts">Provide Parts Replacement</string>
     <string name="spinner_place_type">Place Type</string>
     <string name="spinner_top_rated">Top Rated</string>
     <string name="spinner_distance">Distance</string>

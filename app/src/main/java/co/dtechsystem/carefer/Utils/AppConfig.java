@@ -2,8 +2,10 @@ package co.dtechsystem.carefer.Utils;
 
 
 public class AppConfig {
-    public static String BaseUrl = "http://carefer.dtechsystems.co/en/public/api/";
-    public static String BaseUrlImages = "http://carefer.dtechsystems.co/en/public/uploads/";
+
+    //live base
+    public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
+    public static String BaseUrlImages = "http://carefer.dtechsystems.co/public/uploads/";
     public static String APiCareferPolicy = BaseUrl + "policy-data";
     public static String APiBrandData = BaseUrl + "get-brands-data";
     public static String APiServiceTypeData = BaseUrl + "get-service-types";
@@ -23,7 +25,8 @@ public class AppConfig {
     public static String APiVarifyPolicy = BaseUrl + "verify-policy";
     public static String APiGetBrandModels = BaseUrl + "get-brand-models";
 
-
+    //test Base
+//    public static String BaseUrl = "http://carefer.dtechsystems.co/en/public/api/";
 }
 
 

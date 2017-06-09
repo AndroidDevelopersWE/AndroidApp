@@ -34,7 +34,7 @@ import co.dtechsystem.carefer.Utils.Validations;
 
 public class MyOrdersActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
-    private  MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
+    private MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
     private TextView tv_title_my_orders;
 
     @Override
@@ -107,21 +107,18 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     @SuppressWarnings("UnusedParameters")
     @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
-
-
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -171,7 +168,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
             startActivity(i);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 }

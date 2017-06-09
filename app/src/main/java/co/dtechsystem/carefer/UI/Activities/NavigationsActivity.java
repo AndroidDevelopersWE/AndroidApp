@@ -85,8 +85,6 @@ public class NavigationsActivity extends BaseActivity
     }
 
 
-
-
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -350,15 +348,15 @@ public class NavigationsActivity extends BaseActivity
     }
 
     @SuppressLint("RtlHardcoded")
-    public void btn_drawyerMenuOpen(@SuppressWarnings("UnusedParameters") View v) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+    public void btn_drawyerMenuOpen(View v) {
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
@@ -414,7 +412,7 @@ public class NavigationsActivity extends BaseActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

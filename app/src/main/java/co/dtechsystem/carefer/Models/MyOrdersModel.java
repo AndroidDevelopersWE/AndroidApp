@@ -22,6 +22,8 @@ public class MyOrdersModel {
     public class MyOrdersRecord {
 
         private String ID = "";
+        private String shopID = "";
+
         private String shopName = "";
         private String serviceType = "";
         private String shopRating = "";
@@ -37,6 +39,13 @@ public class MyOrdersModel {
 
         public void setID(String ID) {
             this.ID = ID;
+        }
+        public String getShopID() {
+            return shopID;
+        }
+
+        public void setShopID(String shopID) {
+            this.shopID = shopID;
         }
 
         public String getShopName() {

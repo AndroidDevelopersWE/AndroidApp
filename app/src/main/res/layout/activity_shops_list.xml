@@ -27,101 +27,108 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <RelativeLayout
+
+                <LinearLayout
+                    android:id="@+id/lay_title_shops_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_toRightOf="@+id/lay_dr_btn"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
-                    tools:ignore="UselessParent">
+                    android:paddingRight="@dimen/_10sdp"
+                    android:visibility="visible"
+                    tools:ignore="RtlHardcoded,RtlSymmetry">
 
-                    <LinearLayout
-                        android:id="@+id/lay_dr_btn"
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:duplicateParentState="false"
-                        android:onClick="btn_drawyerMenuOpen"
-                        tools:ignore="RtlHardcoded">
+                        android:layout_gravity="right"
+                        android:layout_weight="0"
+                        android:clickable="true"
+                        android:gravity="right"
+                        android:onClick="GotoHome"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@string/tv_title_top_a_map"
+                        android:textColor="@color/colorGrey"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold"
+                        tools:ignore="RtlHardcoded" />
 
-                        <ImageView
-                            android:layout_width="@dimen/_20sdp"
-                            android:layout_height="@dimen/_20sdp"
-                            android:layout_margin="@dimen/_10sdp"
-                            android:background="@drawable/ic_menu"
-                            android:backgroundTint="@color/colorGrey"
-                            android:clickable="false"
-                            tools:ignore="ContentDescription,UnusedAttribute" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lay_title_shops_list"
+                    <TextView
+                        android:id="@+id/tv_title_shops_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_toRightOf="@+id/lay_dr_btn"
-                        android:orientation="horizontal"
-                        android:paddingRight="@dimen/_10sdp"
-                        android:visibility="visible"
-                        tools:ignore="RtlHardcoded,RtlSymmetry">
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@string/shops_list"
+                        android:textColor="@color/colorGrey"
+                        android:textSize="@dimen/_15sdp"
+                        android:textStyle="bold" />
 
 
-                        <TextView
-                            android:id="@+id/tv_title_shops_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="@dimen/_10sdp"
-                            android:text="@string/shops_list"
-                            android:textColor="@color/colorGrey"
-                            android:textSize="@dimen/_15sdp"
-                            android:textStyle="bold" />
+                </LinearLayout>
 
-<TextView     android:layout_width="wrap_content"     android:layout_height="wrap_content"     android:layout_gravity="right"     android:layout_weight="0"     android:gravity="right"     android:padding="@dimen/_10sdp"     android:text="@string/tv_title_top_a_map"     android:clickable="true"     android:onClick="GotoHome"     android:textColor="@color/colorGrey"     android:textSize="@dimen/_15sdp"     android:textStyle="bold"     tools:ignore="RtlHardcoded" />
+                <LinearLayout
+                    android:id="@+id/lay_dr_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:duplicateParentState="false"
+                    android:onClick="btn_drawyerMenuOpen"
+                    tools:ignore="RtlHardcoded">
 
-                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:background="@drawable/ic_menu"
+                        android:backgroundTint="@color/colorGrey"
+                        android:clickable="false"
+                        tools:ignore="ContentDescription,UnusedAttribute" />
+                </LinearLayout>
+                <!--<LinearLayout-->
+                <!--android:id="@+id/lay_et_search_shops_list"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_toRightOf="@+id/lay_dr_btn"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:visibility="gone">-->
 
-                    <!--<LinearLayout-->
-                    <!--android:id="@+id/lay_et_search_shops_list"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_toRightOf="@+id/lay_dr_btn"-->
-                    <!--android:orientation="horizontal"-->
-                    <!--android:visibility="gone">-->
+                <!--<ImageView-->
+                <!--android:id="@+id/iv_search_close_shops_list"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_marginRight="@dimen/_10sdp"-->
+                <!--android:layout_weight="0"-->
+                <!--android:background="@android:drawable/ic_menu_close_clear_cancel" />-->
 
-                    <!--<ImageView-->
-                    <!--android:id="@+id/iv_search_close_shops_list"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginRight="@dimen/_10sdp"-->
-                    <!--android:layout_weight="0"-->
-                    <!--android:background="@android:drawable/ic_menu_close_clear_cancel" />-->
-
-                    <!--<EditText-->
-                    <!--android:id="@+id/et_search_shops_main"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_centerHorizontal="true"-->
-                    <!--android:layout_centerVertical="true"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:gravity="center"-->
-                    <!--android:hint="@string/et_search_shop"-->
-                    <!--android:imeOptions="actionDone"-->
-                    <!--android:maxLines="1"-->
-                    <!--android:padding="@dimen/_15sdp"-->
-                    <!--android:textColor="@color/colorGrey"-->
-                    <!--android:textSize="@dimen/_15sdp"-->
-                    <!--android:textStyle="bold" />-->
+                <!--<EditText-->
+                <!--android:id="@+id/et_search_shops_main"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:hint="@string/et_search_shop"-->
+                <!--android:imeOptions="actionDone"-->
+                <!--android:maxLines="1"-->
+                <!--android:padding="@dimen/_15sdp"-->
+                <!--android:textColor="@color/colorGrey"-->
+                <!--android:textSize="@dimen/_15sdp"-->
+                <!--android:textStyle="bold" />-->
 
 
-                    <!--</LinearLayout>-->
-                </RelativeLayout>
+                <!--</LinearLayout>-->
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
@@ -428,16 +435,15 @@
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
+        android:layout_gravity="right"
         android:background="@android:color/white"
         android:fitsSystemWindows="true"
-        android:layoutDirection="locale"
-        android:textDirection="locale"
+        android:layoutDirection="rtl"
+        android:textDirection="rtl"
         android:visibility="visible"
         app:headerLayout="@layout/nav_left_menu"
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
         app:itemIconTint="@drawable/dr_tv_selection"
         app:itemTextColor="@drawable/dr_tv_selection"
         app:menu="@menu/activity_main_drawer" />
-
 </android.support.v4.widget.DrawerLayout>

@@ -341,14 +341,14 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(@SuppressWarnings("UnusedParameters") View v) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             if (lay_full_image.getVisibility() == View.VISIBLE) {
                 lay_full_image.setVisibility(View.GONE);
@@ -409,7 +409,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

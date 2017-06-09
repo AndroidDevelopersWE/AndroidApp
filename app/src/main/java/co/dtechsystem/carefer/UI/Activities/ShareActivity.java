@@ -29,6 +29,7 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
         SetUpLeftbar();
         setlistenrstosharebtns();
     }
+
     private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_share_app, activity);
     }
@@ -45,6 +46,43 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.btn_share_fb:
+                Utils.SharePublic(activity, "https://m.facebook.com/sharer.php", "com.facebook.katana");
+                break;
+            case R.id.btn_share_twitter:
+                Utils.SharePublic(activity, "https://mobile.twitter.com/compose/tweet", "com.twitter.android");
+                break;
+            case R.id.btn_share_gtalk:
+                Utils.SharePublic(activity, "https://developers.google.com/+/", "com.google.android.apps.plus");
+                break;
+
+            case R.id.btn_share_insta:
+                Utils.SharePublic(activity, "https://www.instagram.com/", "com.instagram.android");
+
+                break;
+            case R.id.btn_share_pintrest:
+                Utils.SharePublic(activity, "http://pinterest.com/pin/create", "com.pinterest");
+                break;
+
+            case R.id.btn_share_whatsap:
+                Utils.SharePublic(activity, "https://web.whatsapp.com/", "com.whatsapp");
+
+                break;
+            case R.id.btn_share_telegram:
+                Utils.SharePublic(activity, "https://web.telegram.org", "org.telegram.messenger");
+                break;
+
+            case R.id.btn_share_snapchat:
+                Utils.SharePublic(activity, "https://www.snap.com", "com.snapchat.android");
+                break;
+
+        }
+
+    }
 
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -55,14 +93,14 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
     @SuppressWarnings("UnusedParameters")
     @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
@@ -118,45 +156,9 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
 
-            case R.id.btn_share_fb:
-                Utils.SharePublic(activity, "https://m.facebook.com/sharer.php", "com.facebook.katana");
-                break;
-            case R.id.btn_share_twitter:
-                Utils.SharePublic(activity, "https://mobile.twitter.com/compose/tweet", "com.twitter.android");
-                break;
-            case R.id.btn_share_gtalk:
-                Utils.SharePublic(activity, "https://developers.google.com/+/", "com.google.android.apps.plus");
-                break;
-
-            case R.id.btn_share_insta:
-                Utils.SharePublic(activity, "https://www.instagram.com/", "com.instagram.android");
-
-                break;
-            case R.id.btn_share_pintrest:
-                Utils.SharePublic(activity, "http://pinterest.com/pin/create", "com.pinterest");
-                break;
-
-            case R.id.btn_share_whatsap:
-                Utils.SharePublic(activity, "https://web.whatsapp.com/", "com.whatsapp");
-
-                break;
-            case R.id.btn_share_telegram:
-                Utils.SharePublic(activity, "https://web.telegram.org", "org.telegram.messenger");
-                break;
-
-            case R.id.btn_share_snapchat:
-                Utils.SharePublic(activity, "https://www.snap.com", "com.snapchat.android");
-                break;
-
-        }
-
-    }
 }

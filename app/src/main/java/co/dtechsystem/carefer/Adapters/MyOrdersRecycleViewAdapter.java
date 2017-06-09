@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import java.util.List;
 
 import co.dtechsystem.carefer.Models.MyOrdersModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.UI.Activities.RatingActivity;
 import co.dtechsystem.carefer.Utils.Utils;
 
 
@@ -58,25 +61,24 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
             holder.tv_my_order_status.setText(activity.getResources().getString(R.string.tv_pending_status));
         }
 
-        String OrderType=_MyOrdersRecords.get(position).getOrderType();
-        if (OrderType.equals("navigate")){
+        String OrderType = _MyOrdersRecords.get(position).getOrderType();
+        if (OrderType.equals("navigate")) {
             holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_shop));
-        }
-        else {
+        } else {
             holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_call));
         }
         holder.tv_my_order_number.setText(_MyOrdersRecords.get(position).getOrderNo());
-        String DateFormed=Utils.formattedDateFromString("yyyy-MM-dd", "dd-MMM-yyyy", _MyOrdersRecords.get(position).getOrderDate());
+        String DateFormed = Utils.formattedDateFromString("yyyy-MM-dd", "dd-MMM-yyyy", _MyOrdersRecords.get(position).getOrderDate());
         holder.tv_my_order_date.setText(DateFormed);
         holder.tv_my_order_shop_name.setText(_MyOrdersRecords.get(position).getShopName());
         holder.tv_my_order_shop_rating.setText(_MyOrdersRecords.get(position).getShopRating() + "/5");
-        holder.tv_date_order_top.setText( DateFormed);
+        holder.tv_date_order_top.setText(DateFormed);
         holder.tv_order_number_top.setText(activity.getResources().getString(R.string.tv_order_number) + _MyOrdersRecords.get(position).getOrderNo());
         holder.lay_iv_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 holder.lay_top_my_order.setVisibility(View.GONE);
-                int i = (int) activity.getResources().getDimension(R.dimen._175sdp);
+                int i = (int) activity.getResources().getDimension(R.dimen._210sdp);
                 expand(holder.lay_bottom_my_order, 1000, i, holder);
 
             }
@@ -88,6 +90,18 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
             }
         });
+        holder.btn_add_rate_shop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, RatingActivity.class);
+                intent.putExtra("orderID", _MyOrdersRecords.get(position).getID());
+                intent.putExtra("shopID", _MyOrdersRecords.get(position).getShopID());
+                intent.putExtra("ShopName", _MyOrdersRecords.get(position).getShopName());
+                activity.startActivity(intent);
+
+            }
+        });
+
     }
 
     @SuppressWarnings("SameParameterValue")
@@ -164,6 +178,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         final LinearLayout lay_bottom_my_order;
         final LinearLayout lay_iv_down;
         final LinearLayout lay_iv_up;
+        Button btn_add_rate_shop;
         @SuppressWarnings("unused")
         final ImageView iv_drop_shop_details;
 
@@ -183,6 +198,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
             lay_iv_down = (LinearLayout) v.findViewById(R.id.lay_iv_down);
             lay_iv_up = (LinearLayout) v.findViewById(R.id.lay_iv_up);
             iv_drop_shop_details = (ImageView) v.findViewById(R.id.iv_drop_shop_details);
+            btn_add_rate_shop = (Button) v.findViewById(R.id.btn_add_rate_shop);
 
         }
 
@@ -228,14 +244,17 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
     public int getItemCount() {
         return _MyOrdersRecords.size();
     }
+
     @Override
     public long getItemId(int position) {
         return Long.parseLong(_MyOrdersRecords.get(position).getID());
     }
+
     @Override
     public int getItemViewType(int position) {
         return position;
     }
+
     /**
      * Here is the key method to apply the animation
      */

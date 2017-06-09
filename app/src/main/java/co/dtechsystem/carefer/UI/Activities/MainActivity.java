@@ -35,8 +35,6 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -72,12 +70,9 @@ public class MainActivity extends BaseActivity
     private boolean firstCAll = false;
     private String mPlaceName = "";
     private TextView tv_title_main;
-    //    private final ArrayList<Bitmap> mImagesMaps = new ArrayList<>();
     Map<Integer, Bitmap> mImagesMaps = new HashMap<Integer, Bitmap>();
     private LatLng mLatLngCurrent;
     Location mNewLocation, mOldLocation;
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
     int idle;
 
     @Override
@@ -401,14 +396,14 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("UnusedParameters")
     @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
-        mDrawerLayout.openDrawer(Gravity.LEFT);
+        mDrawerLayout.openDrawer(Gravity.END);
     }
 
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (drawer.isDrawerOpen(GravityCompat.END)) {
+            drawer.closeDrawer(GravityCompat.END);
         } else {
             super.onBackPressed();
         }
@@ -464,7 +459,7 @@ public class MainActivity extends BaseActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.END);
         return true;
     }
 

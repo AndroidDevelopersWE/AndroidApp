@@ -26,7 +26,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -101,7 +100,8 @@
             android:name=".UI.Activities.RatingActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".UI.Activities.MyOrdersActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -123,37 +123,40 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".Google.FCM.CreferFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <!--Google Api Key for google maps-->
+        <!-- Google Api Key for google maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_api_key" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <!--end api key-->
+        <!-- end api key -->
 
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.-->
+
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages. -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@mipmap/ic_launcher" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message.-->
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message.
+        -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
         <!-- ./Firebase Notifications -->
-        <!--&lt;!&ndash;Sms broadcast receiver for pin receiving&ndash;&gt;-->
-        <!--<receiver android:name=".Receiver.SMSBroadcastReceiver" android:exported="true" android:enabled="true">-->
-        <!--<intent-filter android:priority="999">-->
-        <!--<action android:name="android.provider.Telephony.SMS_RECEIVED" />-->
-        <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- &lt;!&ndash;Sms broadcast receiver for pin receiving&ndash;&gt; -->
+        <!-- <receiver android:name=".Receiver.SMSBroadcastReceiver" android:exported="true" android:enabled="true"> -->
+        <!-- <intent-filter android:priority="999"> -->
+        <!-- <action android:name="android.provider.Telephony.SMS_RECEIVED" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <activity android:name=".UI.Activities.FiltersActivity"></activity>
     </application>
 
 </manifest>
