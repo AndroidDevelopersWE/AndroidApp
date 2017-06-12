@@ -63,7 +63,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private ShopsListModel mShopsListModel;
     private LatLng mLatlngCurrent;
     private SwipeRefreshLayout lay_pull_refresh_shops_list;
-
+    private String ShopsData;
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,7 +90,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         setDataToView();
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
-            APiGetShopslistData(AppConfig.APiServiceTypeData, "Services");
+            APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
         }
         setDataToViews();
     }
@@ -117,7 +117,15 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         aQuery.find(R.id.tv_providers_shop_list).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sp_providers_shop_list.performClick();
+//                sp_providers_shop_list.performClick();
+                if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+
+                    Intent intent = new Intent(activity, FiltersActivity.class);
+                    intent.putExtra("ShopsDataResponse", ShopsData);
+                    startActivity(intent);
+                } else {
+
+                }
             }
         });
 
@@ -476,12 +484,14 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
     @Override
     public void onRefresh() {
         if (Validations.isInternetAvailable(activity, true)) {
             APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
         }
     }
+
     private void APiGetShopslistData(final String Url, final String Type) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -507,7 +517,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                 }
                                 @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, listservices);
                                 sp_service_type_shops_list.setAdapter(StringdataAdapter);
-                                APiGetShopslistData(AppConfig.APiBrandData, "Brands");
+//                                APiGetShopslistData(AppConfig.APiBrandData, "Brands");
                             } else if (Type.equals("Brands")) {
                                 JSONArray brandsData = response.getJSONArray("brandsData");
                                 for (int i = 0; i < brandsData.length(); i++) {
@@ -517,8 +527,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                 }
                                 @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
                                 sp_brand_type_shop_list.setAdapter(StringdataAdapterbrands);
-                                APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
+//                                APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
                             } else {
+                                 ShopsData = response.toString();
                                 mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                                 if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                                     mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent);

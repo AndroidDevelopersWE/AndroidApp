@@ -24,6 +24,9 @@ public class AppConfig {
     public static String APiVarifyCustomer = BaseUrl + "verify-customer";
     public static String APiVarifyPolicy = BaseUrl + "verify-policy";
     public static String APiGetBrandModels = BaseUrl + "get-brand-models";
+    public static String APiGetPlaceTypes = BaseUrl + "get-place-type";
+
+
 
     //test Base
 //    public static String BaseUrl = "http://carefer.dtechsystems.co/en/public/api/";
