@@ -25,9 +25,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -64,6 +66,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private LatLng mLatlngCurrent;
     private SwipeRefreshLayout lay_pull_refresh_shops_list;
     private String ShopsData;
+
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -381,7 +384,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         // set the custom dialog components - text, image and button
         Button btn_name_sorting = (Button) dialog.findViewById(R.id.btn_name_sorting);
         Button btn_rating_sorting = (Button) dialog.findViewById(R.id.btn_rating_sorting);
+        Button btn_distance_sorting = (Button) dialog.findViewById(R.id.btn_distance_sorting);
         Button btn_cancel_sorting = (Button) dialog.findViewById(R.id.btn_cancel_sorting);
+
         // if button is clicked, close the custom dialog
 
         btn_name_sorting.setOnClickListener(new View.OnClickListener() {
@@ -395,7 +400,19 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Rating", "");
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Rating", "",mLatlngCurrent);
+                if (mshopsListRecycleViewAdapter != null) {
+                    mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+
+                }
+                dialog.dismiss();
+            }
+        });
+        btn_distance_sorting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Distance", "",mLatlngCurrent);
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
@@ -432,7 +449,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name", "Ascending");
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name", "Ascending",mLatlngCurrent);
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
@@ -444,7 +461,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name", "Descending");
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name", "Descending",mLatlngCurrent);
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
@@ -529,7 +546,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                 sp_brand_type_shop_list.setAdapter(StringdataAdapterbrands);
 //                                APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
                             } else {
-                                 ShopsData = response.toString();
+                                ShopsData = response.toString();
                                 mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                                 if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                                     mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent);
@@ -566,10 +583,16 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
+                        error.printStackTrace();
                     }
                 }
         );
+        int socketTimeout = 30000; // 30 seconds. You can change it
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
+        getRequest.setRetryPolicy(policy);
 // add it to the RequestQueue
         queue.add(getRequest);
     }

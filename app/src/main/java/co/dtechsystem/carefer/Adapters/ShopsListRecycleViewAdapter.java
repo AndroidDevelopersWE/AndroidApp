@@ -591,10 +591,12 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     //sorting Function
-    public static void SortingShopsWithNameRating(final String SortingType, final String sortOrderType) {
+    public static void SortingShopsWithNameRating(final String SortingType, final String sortOrderType,LatLng mLatlngCurrent) {
         if (_ShopslistRecordList != null) {
             if (SortingType.equals("Rating")) {
                 _ShopslistRecordList.clear();
+
+
                 final List<ShopsListModel.ShopslistRecord> _ShopRating5 = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _ShopRating4 = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _ShopRating3 = new ArrayList<ShopsListModel.ShopslistRecord>();
@@ -633,7 +635,39 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 _ShopslistRecordList.addAll(_ShopRating2);
                 _ShopslistRecordList.addAll(_ShopRating1);
                 _ShopslistRecordList.addAll(_ShopRating0);
-            } else {
+            } else if (SortingType.equals("Highest")) {
+                final List<ShopsListModel.ShopslistRecord> _Shops1Km = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _Shops5Km = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _Shops20Km = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _ShopsHighestKm = new ArrayList<ShopsListModel.ShopslistRecord>();
+                if (mLatlngCurrent != null) {
+                    for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                        LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
+                        Location userLoc = new Location("");
+                        userLoc.setLatitude(mLatlngCurrent.latitude);
+                        userLoc.setLongitude(mLatlngCurrent.longitude);
+                        Location shopLoc = new Location("");
+                        shopLoc.setLatitude(shopLatlng.latitude);
+                        shopLoc.setLongitude(shopLatlng.longitude);
+                        float lo = userLoc.distanceTo(shopLoc);
+                        if (userLoc.distanceTo(shopLoc) <= 1000) {
+                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
+                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
+                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
+                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
+                            _Shops20Km.add(_ShopslistRecordListFilter.get(i));
+                        } else if (userLoc.distanceTo(shopLoc) > 20000) {
+                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
+                        }
+//                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
+//                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
+
+//                            sortDistance(myLocation,myShop);
+                    }
+                } else {
+                    Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
+                }
+            } else if (SortingType.equals("Name")){
                 _ShopslistRecordList.clear();
                 ArabicNamesSortingModel mArabicNamesSortingModel = new ArabicNamesSortingModel();
                 _ShopslistRecordList.addAll(mArabicNamesSortingModel.MatchWithName(_ShopslistRecordListFilter, sortOrderType));

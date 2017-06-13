@@ -25,6 +25,8 @@ public class AppConfig {
     public static String APiVarifyPolicy = BaseUrl + "verify-policy";
     public static String APiGetBrandModels = BaseUrl + "get-brand-models";
     public static String APiGetPlaceTypes = BaseUrl + "get-place-type";
+    public static String APiGetFilterTypes = BaseUrl + "filter-types";
+
 
 
 

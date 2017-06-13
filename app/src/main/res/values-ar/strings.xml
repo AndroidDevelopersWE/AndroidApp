@@ -175,7 +175,7 @@
 
     <string name="spinner_provided_warranty">توفير الضمان؟</string>
     <string name="spinner_provided_replace_parts">توفير قطع الغيار؟</string>
-    <string name="spinner_place_type">داخل الصناعية</string>
+    <string name="spinner_place_type">نوع المكان</string>
     <string name="spinner_top_rated">أعلى تصنيف</string>
     <string name="spinner_distance">مسافة</string>
 

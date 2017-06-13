@@ -183,7 +183,7 @@
                     android:layout_marginLeft="@dimen/_50sdp"
                     android:layout_marginRight="@dimen/_50sdp"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:background="@drawable/dr_corner_grey"
+                    android:background="@drawable/dr_corner_blue"
                     android:clickable="true"
                     android:drawableLeft="@drawable/ic_location_order"
                     android:onClick="DirectionsToShop"
@@ -191,7 +191,7 @@
                     android:paddingRight="@dimen/_10sdp"
                     android:text="@string/btn_nevegate_shop"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/_13sdp"
                     android:textStyle="bold"
                     tools:ignore="RtlHardcoded" />

@@ -41,6 +41,17 @@
         android:textColor="@android:color/white" />
 
     <Button
+        android:id="@+id/btn_distance_sorting"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:textSize="@dimen/_14sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@color/colorCinnabar"
+        android:text="@string/spinner_distance"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+
+    <Button
         android:id="@+id/btn_cancel_sorting"
         android:layout_width="@dimen/_150sdp"
         android:layout_height="@dimen/_35sdp"

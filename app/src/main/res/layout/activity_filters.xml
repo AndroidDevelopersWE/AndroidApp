@@ -57,8 +57,10 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_total_record_found_filter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#fae9e6"
                 android:gravity="center"
                 android:padding="@dimen/_15sdp"
                 android:text="10 Out Of 22 Shops found"
@@ -112,8 +114,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:clickable="true"
             android:background="@drawable/dr_list_item_fav_click"
+            android:clickable="true"
             android:orientation="horizontal"
             android:padding="@dimen/_10sdp">
 
@@ -142,8 +144,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:clickable="true"
             android:background="@drawable/dr_list_item_fav_click"
+            android:clickable="true"
             android:orientation="horizontal"
             android:padding="@dimen/_10sdp">
 
@@ -170,7 +172,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="vertical"
             android:visibility="visible"
@@ -180,6 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/dr_corner_view_straight"
+                android:visibility="gone"
                 tools:ignore="RtlHardcoded">
 
 
@@ -196,6 +198,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/dr_corner_view_straight"
                 android:padding="@dimen/_2sdp"
+                android:visibility="gone"
                 tools:ignore="RtlHardcoded">
 
 
@@ -211,6 +214,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/dr_corner_view_straight"
                 android:padding="@dimen/_2sdp"
+                android:visibility="gone"
                 tools:ignore="RtlHardcoded">
 
 
@@ -219,6 +223,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_place_type_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dr_list_item_fav_click"
+                android:clickable="true"
+                android:gravity="right"
+                android:padding="@dimen/_14sdp"
+                android:text="@string/spinner_place_type"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:id="@+id/tv_brand_type_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dr_list_item_fav_click"
+                android:clickable="true"
+                android:gravity="right"
+                android:padding="@dimen/_14sdp"
+                android:text="@string/dp_brand"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:id="@+id/tv_service_type_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dr_list_item_fav_click"
+                android:clickable="true"
+                android:gravity="right"
+                android:padding="@dimen/_14sdp"
+                android:text="@string/dp_service_type"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp" />
         </LinearLayout>
 
     </LinearLayout>
