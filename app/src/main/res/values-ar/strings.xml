@@ -139,6 +139,8 @@
     <string name="tv_website_icon">: الموقع </string>
     <string name="tv_phone_icon">: هاتف </string>
     <string name="tv_email_icon">: البريد الإلكتروني </string>
+    <string name="tv_expand_your_choices">وسع خياراتك عن طريق إزالة فلتر أو فلترين.</string>
+    <string name="tv_good_choice_see_shops">اختيار جيد! الذهاب نرى ما تبدو المحلات التجارية الخاصة بك الكمال.</string>
 
     <string name="dp_service_type">نوع الخدمة</string>
     <string name="dp_brand">علامة تجارية</string>
@@ -160,6 +162,7 @@
     <string name="toast_shop_deleted_fav">تم حذف المحل من قائمتك المفضلة ...</string>
     <string name="toast_shop_added_fav">تم إضافة متجر في قائمتك المفضلة …</string>
     <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي.</string>
+    <string name="toast_record_found_out_of"> سجل العثور على الخروج من </string>
 
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>
@@ -181,5 +184,7 @@
 
     <string name="order_type_call">على دعوته</string>
     <string name="order_type_shop">متجر</string>
+    <string name="btn_apply_filter">تطبيق عامل التصفية</string>
+    <string name="btn_reset_filter">إعادة تعيين الفلتر</string>
 
 </resources>

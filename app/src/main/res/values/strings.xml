@@ -123,6 +123,8 @@
     <string name="tv_website_icon">Website: </string>
     <string name="tv_phone_icon">Phone:</string>
     <string name="tv_email_icon">Email :</string>
+    <string name="tv_expand_your_choices">Expand your choices by removing a filter or two.</string>
+    <string name="tv_good_choice_see_shops">Good choice! Go see what your perfect shops looks like.</string>
 
     <string name="dp_service_type">Service Type</string>
     <string name="dp_brand">Brand</string>
@@ -143,6 +145,7 @@
     <string name="toast_shop_deleted_fav">Shop deleted from your favourite list...</string>
     <string name="toast_shop_added_fav">Shop Added in your favourite list...</string>
     <string name="toast_location_not_found">Your current location could not be found.</string>
+    <string name="toast_record_found_out_of">Rocord Found Out of </string>
 
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Ok</string>
@@ -163,5 +166,6 @@
 
     <string name="order_type_call">On Call</string>
     <string name="order_type_shop">On Shop</string>
-
+    <string name="btn_apply_filter">Apply Filter</string>
+    <string name="btn_reset_filter">Reset Filter</string>
 </resources>

@@ -157,25 +157,30 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         if (_ShopslistRecordList.get(position).getShopImage() != null) {
             holder.pg_image_load.setVisibility(View.VISIBLE);
             //noinspection deprecation
-            Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/" + _ShopslistRecordList.get(position)
-                    .getShopImage())
-                    .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
-                    .error(activity.getResources().getDrawable(R.drawable.ic_img_place_holder))
+            try {
+                Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/" + _ShopslistRecordList.get(position)
+                        .getShopImage())
+                        .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
+                        .error(activity.getResources().getDrawable(R.drawable.ic_img_place_holder))
 //                    .placeholder(android.R.drawable.progress_indeterminate_horizontal)
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            holder.pg_image_load.setVisibility(View.GONE);
-                            return false;
-                        }
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                holder.pg_image_load.setVisibility(View.GONE);
+                                return false;
+                            }
 
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            holder.pg_image_load.setVisibility(View.GONE);
-                            return false;
-                        }
-                    })
-                    .into(holder.iv_item_top_shops_list);
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                holder.pg_image_load.setVisibility(View.GONE);
+                                return false;
+                            }
+                        })
+                        .into(holder.iv_item_top_shops_list);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
         }
         //for large setting
@@ -184,26 +189,30 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         if (_ShopslistRecordList.get(position).getShopImage() != null) {
             holder.pg_image_load_large_shops.setVisibility(View.VISIBLE);
             //noinspection deprecation
-            Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/" + _ShopslistRecordList.get(position)
-                    .getShopImage())
-                    .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
-                    .error(activity.getResources().getDrawable(R.drawable.ic_img_place_holder))
+            try {
+                Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/" + _ShopslistRecordList.get(position)
+                        .getShopImage())
+                        .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
+                        .error(activity.getResources().getDrawable(R.drawable.ic_img_place_holder))
 //                    .placeholder(android.R.drawable.progress_indeterminate_horizontal)
-                    .listener(new RequestListener<String, GlideDrawable>() {
-                        @Override
-                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                            e.printStackTrace();
-                            holder.pg_image_load_large_shops.setVisibility(View.GONE);
-                            return false;
-                        }
+                        .listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                                e.printStackTrace();
+                                holder.pg_image_load_large_shops.setVisibility(View.GONE);
+                                return false;
+                            }
 
-                        @Override
-                        public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                            holder.pg_image_load_large_shops.setVisibility(View.GONE);
-                            return false;
-                        }
-                    })
-                    .into(holder.iv_shop_detail_large_expand);
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                holder.pg_image_load_large_shops.setVisibility(View.GONE);
+                                return false;
+                            }
+                        })
+                        .into(holder.iv_shop_detail_large_expand);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             try {
 
                 if (mLatlngCurrent != null) {
@@ -591,7 +600,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     //sorting Function
-    public static void SortingShopsWithNameRating(final String SortingType, final String sortOrderType,LatLng mLatlngCurrent) {
+    public static void SortingShopsWithNameRating(final String SortingType, final String sortOrderType, LatLng mLatlngCurrent) {
         if (_ShopslistRecordList != null) {
             if (SortingType.equals("Rating")) {
                 _ShopslistRecordList.clear();
@@ -667,7 +676,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 } else {
                     Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
                 }
-            } else if (SortingType.equals("Name")){
+            } else if (SortingType.equals("Name")) {
                 _ShopslistRecordList.clear();
                 ArabicNamesSortingModel mArabicNamesSortingModel = new ArabicNamesSortingModel();
                 _ShopslistRecordList.addAll(mArabicNamesSortingModel.MatchWithName(_ShopslistRecordListFilter, sortOrderType));

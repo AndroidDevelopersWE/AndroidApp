@@ -24,13 +24,15 @@
                 android:id="@+id/lay_shop_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
                 android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/lay_expand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorCreamDark"
+                                    android:background="@drawable/dr_list_item_fav_click"
+                    android:clickable="true"
                     android:orientation="horizontal">
 
                     <RelativeLayout

@@ -2,6 +2,7 @@ package co.dtechsystem.carefer.UI.Activities;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -63,6 +64,7 @@ public class FiltersActivity extends BaseActivity {
     ArrayAdapter<String> arrayAdapterBrands;
     ArrayAdapter<String> arrayAdapterServices;
     int TotalRecord;
+    int FilterRecord;
 
     @Override
 
@@ -95,7 +97,13 @@ public class FiltersActivity extends BaseActivity {
         listDataHeaderBrands.add("Brands");
         listDataHeaderPlaceType.add("Place Type");
         ShopsDataResponse = intent.getStringExtra("ShopsDataResponse");
-
+        mShopsListModel = gson.fromJson(ShopsDataResponse.toString(), ShopsListModel.class);
+        _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
+        if (_ShopslistBeforeFiltration.size() > 0) {
+            TotalRecord = _ShopslistBeforeFiltration.size();
+            FilterRecord = TotalRecord;
+            aQuery.find(R.id.tv_total_record_found_filter).text(TotalRecord + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+        }
     }
 
     public void SetFiltersToViews() {
@@ -113,8 +121,17 @@ public class FiltersActivity extends BaseActivity {
                         _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
                     }
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
                 } else {
                     provide_warranty = "";
                     if (_ShopslistAfterFiltration != null) {
@@ -125,8 +142,16 @@ public class FiltersActivity extends BaseActivity {
                         _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
                     }
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
 
                 }
             }
@@ -145,8 +170,16 @@ public class FiltersActivity extends BaseActivity {
                         _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
                     }
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
 
                 } else {
                     provide_ReplaceParts = "";
@@ -158,8 +191,16 @@ public class FiltersActivity extends BaseActivity {
                         _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
                     }
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
                 }
             }
         });
@@ -177,8 +218,16 @@ public class FiltersActivity extends BaseActivity {
                         _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
                     }
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
 
                 } else {
                     topRated = "";
@@ -190,8 +239,16 @@ public class FiltersActivity extends BaseActivity {
                         _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
                     }
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
                 }
             }
         });
@@ -276,14 +333,14 @@ public class FiltersActivity extends BaseActivity {
                                     android.R.layout.simple_list_item_multiple_choice, brands);
                             arrayAdapterPlaceType = new ArrayAdapter<String>(activity,
                                     android.R.layout.simple_list_item_multiple_choice, placeType);
-
-
+                            SetFiltersToViews();
                             mShopsListModel = gson.fromJson(ShopsDataResponse.toString(), ShopsListModel.class);
                             _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
-                            TotalRecord = mShopsListModel.getShopsList().size();
-                            aQuery.find(R.id.tv_total_record_found_filter).text(TotalRecord + " Record Found Out Of " + TotalRecord);
-
-                            SetFiltersToViews();
+                            if (_ShopslistBeforeFiltration.size() > 0) {
+                                TotalRecord = _ShopslistBeforeFiltration.size();
+                                FilterRecord = TotalRecord;
+                                aQuery.find(R.id.tv_total_record_found_filter).text(TotalRecord + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                            }
                             loading.close();
 
                         } catch (JSONException e) {
@@ -353,24 +410,42 @@ public class FiltersActivity extends BaseActivity {
 
                     placeType = lv_filter_list.getItemAtPosition(id).toString();
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
                     dialog.dismiss();
                 } else {
-                    aQuery.find(R.id.tv_place_type_filter).text(lv_filter_list.getItemAtPosition(id).toString());
+                    if (id != -1) {
+                        aQuery.find(R.id.tv_place_type_filter).text(lv_filter_list.getItemAtPosition(id).toString());
 
-                    placeType = "";
-                    if (_ShopslistAfterFiltration != null) {
-                        _ShopslistAfterFiltration.clear();
+                        placeType = "";
+                        if (_ShopslistAfterFiltration != null) {
+                            _ShopslistAfterFiltration.clear();
+                        }
+                        if (_ShopslistBeforeFiltration.size() == 0) {
+                            mShopsListModel = gson.fromJson(ShopsDataResponse.toString(), ShopsListModel.class);
+                            _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
+                        }
+                        _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
+                                _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                        aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                        FilterRecord = _ShopslistAfterFiltration.size();
+                        if (FilterRecord < 20) {
+                            aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                            aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                        } else {
+                            aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                            aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                        }
+                        dialog.dismiss();
                     }
-                    if (_ShopslistBeforeFiltration.size() == 0) {
-                        mShopsListModel = gson.fromJson(ShopsDataResponse.toString(), ShopsListModel.class);
-                        _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
-                    }
-                    _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
-                    dialog.dismiss();
                 }
             }
         });
@@ -427,8 +502,16 @@ public class FiltersActivity extends BaseActivity {
 
                     brandType = Brands;
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
                     dialog.dismiss();
                 } else {
                     aQuery.find(R.id.tv_brand_type_filter).text(Brands);
@@ -442,8 +525,16 @@ public class FiltersActivity extends BaseActivity {
                         _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
                     }
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
-                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, "");
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                            _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
                     dialog.dismiss();
                 }
             }
@@ -502,7 +593,15 @@ public class FiltersActivity extends BaseActivity {
                     serviceType = Services;
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
                             _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
                     dialog.dismiss();
                 } else {
                     aQuery.find(R.id.tv_service_type_filter).text(Services);
@@ -517,9 +616,25 @@ public class FiltersActivity extends BaseActivity {
                     }
                     _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
                             _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
 
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + " Record Found Out Of " + TotalRecord);
+                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+                    FilterRecord = _ShopslistAfterFiltration.size();
+                    if (FilterRecord < 20) {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+                    } else {
+                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+                    }
                     dialog.dismiss();
                 }
             }
@@ -534,4 +649,40 @@ public class FiltersActivity extends BaseActivity {
         dialog.show();
     }
 
+    public void setApplyFilterBtnClick(View v) {
+        ShopsListActivity shopsListActivity = new ShopsListActivity();
+        if (_ShopslistAfterFiltration != null && _ShopslistAfterFiltration.size() > 0) {
+            shopsListActivity.SetFilters(_ShopslistAfterFiltration);
+            finish();
+        } else {
+            finish();
+        }
+
+    }
+
+    public void setResetFilterBtnClick(View v) {
+        provide_warranty = "";
+        provide_ReplaceParts = "";
+        topRated = "";
+        placeType = "";
+        brandType = "";
+        serviceType = "";
+        _ShopslistAfterFiltration = ShopsFilterClass.filterShopsWithProviders(activity,
+                _ShopslistBeforeFiltration, _ShopslistBeforeFiltration, provide_warranty, provide_ReplaceParts, topRated, placeType, brandType, serviceType);
+        aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+        FilterRecord = _ShopslistAfterFiltration.size();
+        if (FilterRecord < 20) {
+            aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+            aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+        } else {
+            aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+            aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+        }
+        sw_provide_warranty_filter.setChecked(false);
+        sw_provide_replace_parts_filter.setChecked(false);
+        sw_top_rated_filter.setChecked(false);
+        aQuery.find(R.id.tv_place_type_filter).text(getResources().getString(R.string.spinner_place_type));
+        aQuery.find(R.id.tv_brand_type_filter).text(getResources().getString(R.string.dp_brand));
+        aQuery.find(R.id.tv_service_type_filter).text(getResources().getString(R.string.dp_service_type));
+    }
 }
