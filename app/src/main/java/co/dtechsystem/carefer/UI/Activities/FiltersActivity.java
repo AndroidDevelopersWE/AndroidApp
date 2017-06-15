@@ -1,6 +1,7 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SwitchCompat;
@@ -21,6 +22,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,6 +67,7 @@ public class FiltersActivity extends BaseActivity {
     ArrayAdapter<String> arrayAdapterServices;
     int TotalRecord;
     int FilterRecord;
+    LatLng mLatlngCurrent;
 
     @Override
 
@@ -97,6 +100,10 @@ public class FiltersActivity extends BaseActivity {
         listDataHeaderBrands.add("Brands");
         listDataHeaderPlaceType.add("Place Type");
         ShopsDataResponse = intent.getStringExtra("ShopsDataResponse");
+        Bundle bundle = intent.getParcelableExtra("bundle");
+        if (bundle != null) {
+            mLatlngCurrent = bundle.getParcelable("LatLngCurrent");
+        }
         mShopsListModel = gson.fromJson(ShopsDataResponse.toString(), ShopsListModel.class);
         _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
         if (_ShopslistBeforeFiltration.size() > 0) {
@@ -652,9 +659,25 @@ public class FiltersActivity extends BaseActivity {
     public void setApplyFilterBtnClick(View v) {
         ShopsListActivity shopsListActivity = new ShopsListActivity();
         if (_ShopslistAfterFiltration != null && _ShopslistAfterFiltration.size() > 0) {
-            shopsListActivity.SetFilters(_ShopslistAfterFiltration);
-            finish();
-        } else {
+
+            ArrayList<String> ShopsIds = new ArrayList<String>();
+            for (int i = 0; i < _ShopslistAfterFiltration.size(); i++) {
+                ShopsIds.add(_ShopslistAfterFiltration.get(i).getID());
+            }
+
+//            JSONArray jsonObject = new JSONArray(_ShopslistAfterFiltration);
+
+//            ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistBeforeFiltration, mLatlngCurrent);
+//            shopsListActivity.SetFilters(mshopsListRecycleViewAdapter);
+//            finish();
+        Intent intent = new Intent();
+        intent.putStringArrayListExtra("ShopslistAfterFiltration", ShopsIds);
+            intent.putExtra("response",ShopsDataResponse);
+        setResult(RESULT_OK, intent);
+        finish();
+        } else
+
+        {
             finish();
         }
 

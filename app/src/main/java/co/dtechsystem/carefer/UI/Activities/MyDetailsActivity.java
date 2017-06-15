@@ -61,7 +61,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     private TextView tv_car_brand_my_details;
     private TextView tv_car_model_my_details;
     private TextView tv_last_oil_my_details;
-    private final Calendar myCalendar = Calendar.getInstance();
+    private final Calendar myCalendar = Calendar.getInstance(locale);
     private final ArrayList<String> mServicesIdArray = new ArrayList<>();
     private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
     private final ArrayList<String> mModelsIdArray = new ArrayList<>();
@@ -427,6 +427,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
 
     private void ShowDatePicker() {
+
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override

@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -67,6 +68,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private LatLng mLatlngCurrent;
     private SwipeRefreshLayout lay_pull_refresh_shops_list;
     private String ShopsData;
+    RecyclerView recyclerView;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -76,6 +78,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         sp_service_type_shops_list = (Spinner) findViewById(R.id.sp_service_type_shops_list);
         sp_brand_type_shop_list = (Spinner) findViewById(R.id.sp_brand_type_shop_list);
         sp_providers_shop_list = (MultiSpinner) findViewById(R.id.sp_providers_shop_list);
+        recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
         //noinspection UnusedAssignment
         Spinner sp_cities_shops_list = (Spinner) findViewById(R.id.sp_cities_shops_list);
         et_search_shops_main = (EditText) findViewById(R.id.et_search_shops_main);
@@ -125,8 +128,10 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
 
                     Intent intent = new Intent(activity, FiltersActivity.class);
+                    Bundle args = new Bundle();
+                    args.putParcelable("LatLngCurrent", mLatlngCurrent);
                     intent.putExtra("ShopsDataResponse", ShopsData);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 } else {
 
                 }
@@ -602,12 +607,38 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         queue.add(getRequest);
     }
 
-    public void SetFilters( List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFiltered) {
-        if (mshopsListRecycleViewAdapter != null) {
-            mshopsListRecycleViewAdapter.notifyDataSetChanged();
+    public void SetFilters(ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter) {
+//        Gson gson=new Gson();
+//        if (!ShopsDataResponse.startsWith("{")&&!ShopsDataResponse.endsWith("}")){
+//            ShopsDataResponse="{"+ShopsDataResponse+"}";
+//        }
+//         ShopsListModel mShopsListModel = gson.fromJson(ShopsDataResponse.toString(), ShopsListModel.class);
+//        List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
+//        if ( _ShopslistBeforeFiltration != null) {
+//            for (int i = 0; i < _ShopslistBeforeFiltration.size(); i++) {
+//                for (int j = 0; j < ShopsIds.size(); j++) {
+//                    if (_ShopslistBeforeFiltration.get(i).getID().toString().contains(ShopsIds.get(j))) {
+//                        break;
+//                    }
+//                    else {
+//                        _ShopslistBeforeFiltration.remove(i);
+//                        break;
+//                    }
+//                }
+//            }
+        if (this.mshopsListRecycleViewAdapter != null) {
+            this.mshopsListRecycleViewAdapter.notifyDataSetChanged();
+            recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
+            recyclerView.removeAllViewsInLayout();
+            this.mshopsListRecycleViewAdapter = null;
+
         }
-        mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(ShopsListActivity.this, _ShopslistRecordListFiltered, mLatlngCurrent);
+//
+//        }
+        this.mshopsListRecycleViewAdapter = mshopsListRecycleViewAdapter;
+//        mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistBeforeFiltration, mLatlngCurrent);
         SetListData("Filter");
+
 //        if (mshopsListRecycleViewAdapter != null) {
 //            tv_total_results_shops_list = (TextView) activity.findViewById(R.id.tv_total_results_shops_list);
 //            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
@@ -621,9 +652,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private void SetListData(String Type) {
         try {
             tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
-            final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
+
             if (Type.equals("Filter")) {
-                recyclerView.getRecycledViewPool().clear();
+//                recyclerView=null;
             }
             recyclerView.getItemAnimator().setChangeDuration(700);
             recyclerView.setAdapter(mshopsListRecycleViewAdapter);
@@ -648,7 +679,15 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     }
                 });
             }
-
+            recyclerView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+                @Override
+                public void onScrollChanged() {
+                    int scrollY = recyclerView.getScrollY();
+                    int scrollX = recyclerView.getScrollX();
+                    Log.d("", "scrollX: " + scrollX);
+                    Log.d("", "scrollX: " + scrollY);
+                }
+            });
 
             aQuery.find(R.id.btn_back_top_shops_list).getButton().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -665,6 +704,47 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                ArrayList<String> ShopsIds = data.getStringArrayListExtra("ShopslistAfterFiltration");
+                String response = data.getStringExtra("response");
+                mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
+
+                List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
+                List<ShopsListModel.ShopslistRecord> _ShopslistAfterFiltration = mShopsListModel.getShopsList();
+                if (_ShopslistBeforeFiltration != null) {
+                    if (_ShopslistBeforeFiltration.size() == 0) {
+                        _ShopslistBeforeFiltration.addAll(_ShopslistAfterFiltration);
+                    }
+                    _ShopslistAfterFiltration.clear();
+                    for (int i = 0; i < ShopsIds.size(); i++) {
+                        for (int j = 0; j < _ShopslistBeforeFiltration.size(); j++) {
+                            if (ShopsIds.get(i).toString().equals(_ShopslistBeforeFiltration.get(j).getID().toString())) {
+                                _ShopslistAfterFiltration.add(_ShopslistBeforeFiltration.get(j));
+                                break;
+                            } else {
+//                                _ShopslistAfterFiltration.remove(i);
+//                                break;
+//                                _ShopslistBeforeFiltration.remove(i);
+//                                break;
+                            }
+                        }
+                    }
+                    if (mshopsListRecycleViewAdapter != null) {
+                        mshopsListRecycleViewAdapter = null;
+//                mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                    }
+
+                }
+                mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistAfterFiltration, mLatlngCurrent);
+                SetListData("Filter");
+
+            }
+        }
     }
 
     @Override

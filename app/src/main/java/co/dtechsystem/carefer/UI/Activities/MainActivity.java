@@ -23,9 +23,11 @@ import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -281,7 +283,12 @@ public class MainActivity extends BaseActivity
                     }
                 }
         );
+        int socketTimeout = 30000; // 30 seconds. You can change it
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
 
+        getRequest.setRetryPolicy(policy);
 // add it to the RequestQueue
         queue.add(getRequest);
     }
