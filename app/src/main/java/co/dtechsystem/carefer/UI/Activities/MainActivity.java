@@ -76,6 +76,7 @@ public class MainActivity extends BaseActivity
     private LatLng mLatLngCurrent;
     Location mNewLocation, mOldLocation;
     int idle;
+    String ShopsListDataResponse = "";
 
     @Override
 
@@ -112,8 +113,10 @@ public class MainActivity extends BaseActivity
             args.putParcelable("LatLngCurrent", mLatLngCurrent);
             Intent i = new Intent(this, ShopsListActivity.class);
             i.putExtra("placeName", mPlaceName);
+            i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
             i.putExtra("bundle", args);
             startActivity(i);
+
         }
     }
 
@@ -126,6 +129,7 @@ public class MainActivity extends BaseActivity
             aQuery.find(R.id.btn_search_shops_here_main).getButton().setVisibility(View.GONE);
             if (mNewLocation != null) {
                 mOldLocation = mNewLocation;
+                aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
                 APiGetShopslistData(mNewLocation);
 
             }
@@ -226,7 +230,7 @@ public class MainActivity extends BaseActivity
                             mPlaceName = jsonObject.getString("formatted_address");
                             if (Type.equals("Location")) {
                                 if (Validations.isInternetAvailable(activity, true)) {
-
+                                    aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
                                     APiGetShopslistData(location);
                                 }
                             }
@@ -261,7 +265,7 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-
+                        ShopsListDataResponse = response.toString();
                         ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                         if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                             if (location != null) {
@@ -269,6 +273,7 @@ public class MainActivity extends BaseActivity
                             }
                         } else {
                             loading.close();
+                            aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
                             showToast(activity.getResources().getString(R.string.no_record_found));
                         }
 
@@ -277,6 +282,7 @@ public class MainActivity extends BaseActivity
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
@@ -295,43 +301,54 @@ public class MainActivity extends BaseActivity
 
     private void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_map);
+        int count = 0;
         for (int i = 0; i < shopsList.size(); i++) {
             Location target = new Location("Target");
             target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
             target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
             float dis = location.distanceTo(target);
+
             if (location.distanceTo(target) < 10000) {
 
 //                marker.setInfoWindowAnchor((float)x, (float)y);
-
+                count++;
                 mMap.addMarker(new MarkerOptions()
                         .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
                                 Double.parseDouble(shopsList.get(i).getLongitude()))).icon(icon));
                 final int finalI = i;
-                Glide.with(activity)
-                        .load(AppConfig.BaseUrlImages + "shop-" + shopsList.get(i).getID() + "/" + shopsList.get(i).getShopImage())
-                        .asBitmap()
-                        .override((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp))
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)
-                        .into(new SimpleTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
-                                // Do something with bitmap here.
-                                mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), bitmap);
+                try {
 
-                            }
+                    Glide.with(activity)
+                            .load(AppConfig.BaseUrlImages + "shop-" + shopsList.get(i).getID() + "/" + shopsList.get(i).getShopImage())
+                            .asBitmap()
+                            .override((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp))
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(new SimpleTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                                    // Do something with bitmap here.
+                                    mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), bitmap);
 
-                            @SuppressWarnings("deprecation")
-                            @Override
-                            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                                super.onLoadFailed(e, errorDrawable);
-                                Drawable myDrawable = getResources().getDrawable(R.drawable.ic_img_place_holder);
-                                Bitmap ic_img_place_holder = ((BitmapDrawable) myDrawable).getBitmap();
-                                mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), ic_img_place_holder);
-                            }
-                        });
+                                }
+
+                                @SuppressWarnings("deprecation")
+                                @Override
+                                public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                                    super.onLoadFailed(e, errorDrawable);
+                                    Drawable myDrawable = getResources().getDrawable(R.drawable.ic_img_place_holder);
+                                    Bitmap ic_img_place_holder = ((BitmapDrawable) myDrawable).getBitmap();
+                                    mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), ic_img_place_holder);
+                                }
+                            });
+                } catch (Exception d) {
+                    d.printStackTrace();
+                }
             }
+            aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
             loading.close();
+        }
+        if (count == 0) {
+            showToast(getResources().getString(R.string.no_record_found));
         }
         //get the map container height
 

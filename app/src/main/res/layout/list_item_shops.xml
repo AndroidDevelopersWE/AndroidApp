@@ -151,15 +151,14 @@
                             tools:ignore="RtlHardcoded" />
 
                         <TextView
-                            android:id="@+id/tv_type_shop_list"
+                            android:id="@+id/tv_desc_short_shop_list"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
                             android:layout_marginRight="@dimen/_10sdp"
                             android:layout_weight="1"
-                            android:background="@color/colorCreamDark"
-                            android:maxLength="18"
                             android:maxLines="1"
+                            android:gravity="right"
                             android:padding="@dimen/_2sdp"
                             android:scrollHorizontally="true"
                             android:text="@string/lorem_ispum"
@@ -306,6 +305,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_gravity="right"
+                                    android:gravity="right"
                                     android:layout_weight="1"
                                     android:background="@color/colorCreamDark"
                                     android:maxLines="6"

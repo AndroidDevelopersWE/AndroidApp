@@ -1,4 +1,4 @@
-package co.dtechsystem.carefer.Models;
+package co.dtechsystem.carefer.Sorting;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -3,7 +3,6 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -19,7 +18,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -69,6 +67,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private SwipeRefreshLayout lay_pull_refresh_shops_list;
     private String ShopsData;
     RecyclerView recyclerView;
+    Button btn_back_top_shops_list;
+    String ShopsListDataResponse;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -79,6 +79,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         sp_brand_type_shop_list = (Spinner) findViewById(R.id.sp_brand_type_shop_list);
         sp_providers_shop_list = (MultiSpinner) findViewById(R.id.sp_providers_shop_list);
         recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
+        btn_back_top_shops_list = (Button) findViewById(R.id.btn_back_top_shops_list);
         //noinspection UnusedAssignment
         Spinner sp_cities_shops_list = (Spinner) findViewById(R.id.sp_cities_shops_list);
         et_search_shops_main = (EditText) findViewById(R.id.et_search_shops_main);
@@ -92,14 +93,25 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         Utils.hideKeyboard(activity);
         SetShaderToViews();
         SetUpLeftbar();
-
+        ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
         getDataForView();
         setDataToView();
-        if (Validations.isInternetAvailable(activity, true)) {
-            loading.show();
-            APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
-        }
         setDataToViews();
+        if (ShopsListDataResponse != null && !ShopsListDataResponse.equals("")) {
+            ShopsData = ShopsListDataResponse;
+            mShopsListModel = gson.fromJson(ShopsListDataResponse, ShopsListModel.class);
+            if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+                mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
+                SetListData("List", mShopsListModel.getShopsList().size());
+            }
+        } else {
+            if (Validations.isInternetAvailable(activity, true)) {
+                loading.show();
+                APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
+            }
+        }
+
+
     }
 
     private void SetShaderToViews() {
@@ -559,8 +571,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                 ShopsData = response.toString();
                                 mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                                 if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-                                    mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent);
-                                    SetListData("List");
+                                    mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
+                                    SetListData("List", mShopsListModel.getShopsList().size());
                                     loading.close();
                                 } else {
                                     if (lay_pull_refresh_shops_list.isRefreshing()) {
@@ -607,51 +619,11 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         queue.add(getRequest);
     }
 
-    public void SetFilters(ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter) {
-//        Gson gson=new Gson();
-//        if (!ShopsDataResponse.startsWith("{")&&!ShopsDataResponse.endsWith("}")){
-//            ShopsDataResponse="{"+ShopsDataResponse+"}";
-//        }
-//         ShopsListModel mShopsListModel = gson.fromJson(ShopsDataResponse.toString(), ShopsListModel.class);
-//        List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
-//        if ( _ShopslistBeforeFiltration != null) {
-//            for (int i = 0; i < _ShopslistBeforeFiltration.size(); i++) {
-//                for (int j = 0; j < ShopsIds.size(); j++) {
-//                    if (_ShopslistBeforeFiltration.get(i).getID().toString().contains(ShopsIds.get(j))) {
-//                        break;
-//                    }
-//                    else {
-//                        _ShopslistBeforeFiltration.remove(i);
-//                        break;
-//                    }
-//                }
-//            }
-        if (this.mshopsListRecycleViewAdapter != null) {
-            this.mshopsListRecycleViewAdapter.notifyDataSetChanged();
-            recyclerView = (RecyclerView) findViewById(R.id.rv_shop_list);
-            recyclerView.removeAllViewsInLayout();
-            this.mshopsListRecycleViewAdapter = null;
-
-        }
-//
-//        }
-        this.mshopsListRecycleViewAdapter = mshopsListRecycleViewAdapter;
-//        mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistBeforeFiltration, mLatlngCurrent);
-        SetListData("Filter");
-
-//        if (mshopsListRecycleViewAdapter != null) {
-//            tv_total_results_shops_list = (TextView) activity.findViewById(R.id.tv_total_results_shops_list);
-//            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
-//
-//        }
-
-    }
-
     //Setting Shops List Data
     @SuppressLint("SetTextI18n")
-    private void SetListData(String Type) {
+    private void SetListData(String Type, int Size) {
         try {
-            tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
+            tv_total_results_shops_list.setText(Integer.toString(Size) + getResources().getString(R.string.tv_total_results));
 
             if (Type.equals("Filter")) {
 //                recyclerView=null;
@@ -666,30 +638,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 }
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                    @Override
-                    public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                        if (scrollY > 15) {
-                            aQuery.find(R.id.btn_back_top_shops_list).getButton().setVisibility(View.VISIBLE);
-                        } else {
-                            aQuery.find(R.id.btn_back_top_shops_list).getButton().setVisibility(View.GONE);
 
-                        }
-                    }
-                });
-            }
-            recyclerView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-                @Override
-                public void onScrollChanged() {
-                    int scrollY = recyclerView.getScrollY();
-                    int scrollX = recyclerView.getScrollX();
-                    Log.d("", "scrollX: " + scrollX);
-                    Log.d("", "scrollX: " + scrollY);
-                }
-            });
-
-            aQuery.find(R.id.btn_back_top_shops_list).getButton().setOnClickListener(new View.OnClickListener() {
+            btn_back_top_shops_list.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     recyclerView.smoothScrollToPosition(0);
@@ -715,12 +665,12 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
 
                 List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
-                List<ShopsListModel.ShopslistRecord> _ShopslistAfterFiltration = mShopsListModel.getShopsList();
+                List<ShopsListModel.ShopslistRecord> _ShopslistAfterFiltration = new ArrayList<ShopsListModel.ShopslistRecord>();
                 if (_ShopslistBeforeFiltration != null) {
-                    if (_ShopslistBeforeFiltration.size() == 0) {
-                        _ShopslistBeforeFiltration.addAll(_ShopslistAfterFiltration);
-                    }
-                    _ShopslistAfterFiltration.clear();
+//                    if (_ShopslistBeforeFiltration.size() == 0) {
+//                        _ShopslistBeforeFiltration.addAll(_ShopslistAfterFiltration);
+//                    }
+//                    _ShopslistAfterFiltration.clear();
                     for (int i = 0; i < ShopsIds.size(); i++) {
                         for (int j = 0; j < _ShopslistBeforeFiltration.size(); j++) {
                             if (ShopsIds.get(i).toString().equals(_ShopslistBeforeFiltration.get(j).getID().toString())) {
@@ -740,8 +690,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     }
 
                 }
-                mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistAfterFiltration, mLatlngCurrent);
-                SetListData("Filter");
+                mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistAfterFiltration, mLatlngCurrent, btn_back_top_shops_list);
+                SetListData("Filter", _ShopslistAfterFiltration.size());
 
             }
         }

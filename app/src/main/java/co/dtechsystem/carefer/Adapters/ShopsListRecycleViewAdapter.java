@@ -30,17 +30,20 @@ import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import co.dtechsystem.carefer.Models.ArabicNamesSortingModel;
 import co.dtechsystem.carefer.Models.ShopsListModel;
-import co.dtechsystem.carefer.Models.SortByDistance;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.Sorting.ArabicNamesSortingModel;
+import co.dtechsystem.carefer.Sorting.ShopsRatingSorting;
+import co.dtechsystem.carefer.Sorting.SortByDistance;
 import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
-import static co.dtechsystem.carefer.Models.SortByDistance.sort;
+import static co.dtechsystem.carefer.Sorting.SortByDistance.sort;
 
 
 public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListRecycleViewAdapter.ViewHolder> {
@@ -52,10 +55,11 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     @SuppressWarnings("unused")
     private Boolean expand;
     private final LatLng mLatlngCurrent;
+    Button btn_back_top_shops_list;
 
     @SuppressWarnings({"unused", "Convert2Diamond"})
     public ShopsListRecycleViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList,
-                                       LatLng mLatlngCurrent) {
+                                       LatLng mLatlngCurrent, Button btn_back_top_shops_list) {
         ShopsListRecycleViewAdapter._ShopslistRecordList = _ShopslistRecordList;
         _ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
         _ShopslistRecordListFilter.addAll(_ShopslistRecordList);
@@ -63,6 +67,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
         this.expand = false;
         this.mLatlngCurrent = mLatlngCurrent;
+        this.btn_back_top_shops_list = btn_back_top_shops_list;
         setHasStableIds(true);
     }
 
@@ -88,9 +93,15 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         if (stringTypeArr != null) {
             holder.tv_service_type_shop_list.setText(stringTypeArr[0]);
         }
+        if (position > 10) {
+            btn_back_top_shops_list.setVisibility(View.VISIBLE);
+        } else {
+            btn_back_top_shops_list.setVisibility(View.GONE);
+        }
         holder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
         holder.rb_shop_shop_list.setRating((Float.parseFloat(_ShopslistRecordList.get(position).getShopRating())));
         holder.tv_desc_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
+        holder.tv_desc_short_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
         holder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
         holder.btn_details_shops_list.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("RedundantStringToString")
@@ -246,6 +257,8 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         public final TextView tv_shop_name_shop_list;
         public final TextView tv_service_type_shop_list;
         public final TextView tv_desc_shop_list;
+        public final TextView tv_desc_short_shop_list;
+
         public final TextView tv_shop_name_large_shop_list;
         public final TextView tv_distance_item;
         public final TextView tv_distance_details;
@@ -273,6 +286,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             tv_shop_name_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_shop_list);
             tv_service_type_shop_list = (TextView) v.findViewById(R.id.tv_service_type_shop_list);
             tv_desc_shop_list = (TextView) v.findViewById(R.id.tv_desc_shop_list);
+            tv_desc_short_shop_list= (TextView) v.findViewById(R.id.tv_desc_short_shop_list);
             rb_shop_shop_list = (RatingBar) v.findViewById(R.id.rb_shop_shop_list);
             rb_shop_large__shop_list = (RatingBar) v.findViewById(R.id.rb_shop_large__shop_list);
             lay_shop_item = (LinearLayout) v.findViewById(R.id.lay_shop_item);
@@ -610,51 +624,15 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         if (_ShopslistRecordList != null) {
             if (SortingType.equals("Rating")) {
                 _ShopslistRecordList.clear();
+                _ShopslistRecordList.addAll(ShopsRatingSorting.MatchRating(_ShopslistRecordListFilter, "Ascending"));
+            } else if (SortingType.equals("Distance")) {
 
-
-                final List<ShopsListModel.ShopslistRecord> _ShopRating5 = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _ShopRating4 = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _ShopRating3 = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _ShopRating2 = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _ShopRating1 = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _ShopRating0 = new ArrayList<ShopsListModel.ShopslistRecord>();
-                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-                    if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 5.5 ||
-                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 5) {
-                        _ShopRating5.add(_ShopslistRecordListFilter.get(i));
-
-                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 4.5 ||
-                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 4) {
-                        _ShopRating4.add(_ShopslistRecordListFilter.get(i));
-
-                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 3.5 ||
-                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 3) {
-                        _ShopRating3.add(_ShopslistRecordListFilter.get(i));
-
-                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2.5 ||
-                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2) {
-                        _ShopRating2.add(_ShopslistRecordListFilter.get(i));
-
-                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 1.5 ||
-                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 1) {
-                        _ShopRating1.add(_ShopslistRecordListFilter.get(i));
-
-                    } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 0.5 ||
-                            Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 0) {
-                        _ShopRating0.add(_ShopslistRecordListFilter.get(i));
-                    }
-                }
-                _ShopslistRecordList.addAll(_ShopRating5);
-                _ShopslistRecordList.addAll(_ShopRating4);
-                _ShopslistRecordList.addAll(_ShopRating3);
-                _ShopslistRecordList.addAll(_ShopRating2);
-                _ShopslistRecordList.addAll(_ShopRating1);
-                _ShopslistRecordList.addAll(_ShopRating0);
-            } else if (SortingType.equals("Highest")) {
                 final List<ShopsListModel.ShopslistRecord> _Shops1Km = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _Shops5Km = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _Shops20Km = new ArrayList<ShopsListModel.ShopslistRecord>();
                 final List<ShopsListModel.ShopslistRecord> _ShopsHighestKm = new ArrayList<ShopsListModel.ShopslistRecord>();
+                Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
+
                 if (mLatlngCurrent != null) {
                     for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
                         LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
@@ -665,20 +643,49 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                         shopLoc.setLatitude(shopLatlng.latitude);
                         shopLoc.setLongitude(shopLatlng.longitude);
                         float lo = userLoc.distanceTo(shopLoc);
-                        if (userLoc.distanceTo(shopLoc) <= 1000) {
-                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
-                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
-                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
-                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
-                            _Shops20Km.add(_ShopslistRecordListFilter.get(i));
-                        } else if (userLoc.distanceTo(shopLoc) > 20000) {
-                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
-                        }
+                        distanceArray[i] = lo;
+//                        if (userLoc.distanceTo(shopLoc) <= 1000) {
+//                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
+//                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
+//                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
+//                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
+//                            _Shops20Km.add(_ShopslistRecordListFilter.get(i));
+//                        } else if (userLoc.distanceTo(shopLoc) > 20000) {
+//                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
+//                        }
 //                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
 //                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
 
 //                            sortDistance(myLocation,myShop);
                     }
+                    _ShopslistRecordList.clear();
+                    Arrays.sort(distanceArray, Collections.reverseOrder());
+                    for (int i = distanceArray.length- 1 ; i >= 0 ; i--) {
+                        for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
+                            LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(j).getLongitude()));
+                            Location userLoc = new Location("");
+                            userLoc.setLatitude(mLatlngCurrent.latitude);
+                            userLoc.setLongitude(mLatlngCurrent.longitude);
+                            Location shopLoc = new Location("");
+                            shopLoc.setLatitude(shopLatlng.latitude);
+                            shopLoc.setLongitude(shopLatlng.longitude);
+                            float lo = userLoc.distanceTo(shopLoc);
+                            if (distanceArray[i] == lo) {
+                                _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
+                                break;
+                            } else {
+//                                _ShopslistAfterFiltration.remove(i);
+//                                break;
+//                                _ShopslistBeforeFiltration.remove(i);
+//                                break;
+                            }
+                        }
+                    }
+                   int i= _ShopslistRecordList.size();
+//                    _ShopslistRecordList.addAll(_Shops1Km);
+//                    _ShopslistRecordList.addAll(_Shops5Km);
+//                    _ShopslistRecordList.addAll(_Shops20Km);
+//                    _ShopslistRecordList.addAll(_ShopsHighestKm);
                 } else {
                     Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
                 }
@@ -693,4 +700,6 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
     }
 
+
 }
+

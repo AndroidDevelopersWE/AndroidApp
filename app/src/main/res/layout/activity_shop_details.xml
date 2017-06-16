@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:focusable="false"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    tools:context=".UI.Activities.ShopDetailsActivity"
-    tools:ignore="Overdraw">
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@android:color/white"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="true"
+                                        android:orientation="vertical"
+                                        tools:context=".UI.Activities.ShopDetailsActivity"
+                                        tools:ignore="Overdraw">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
                     <TextView
                         android:id="@+id/tv_title_shop_details"
@@ -67,7 +67,7 @@
                         android:text="@string/shop_details"
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
 
                 </LinearLayout>
@@ -88,7 +88,7 @@
                         android:background="@drawable/ic_menu"
                         android:backgroundTint="@color/colorGrey"
                         android:clickable="false"
-                        tools:ignore="ContentDescription,UnusedAttribute" />
+                        tools:ignore="ContentDescription,UnusedAttribute"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -111,12 +111,12 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"/>
 
                 <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:id="@+id/pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                                                   android:id="@+id/pager"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"/>
 
 
             </RelativeLayout>
@@ -134,7 +134,7 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp" />
+                    android:layout_marginRight="@dimen/_10sdp"/>
             </HorizontalScrollView>
         </LinearLayout>
 
@@ -174,7 +174,7 @@
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/_14sdp"
                             android:textStyle="bold"
-                            tools:ignore="RtlHardcoded" />
+                            tools:ignore="RtlHardcoded"/>
 
                         <ImageView
                             android:id="@+id/iv_fav_shop_list"
@@ -184,7 +184,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
                             android:background="@drawable/ic_fav_star_empty"
-                            tools:ignore="ContentDescription,RtlHardcoded" />
+                            tools:ignore="ContentDescription,RtlHardcoded"/>
                     </RelativeLayout>
 
                     <TextView
@@ -197,7 +197,7 @@
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/_12sdp"
                         android:textStyle="bold"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
                     <RatingBar
                         android:id="@+id/rb_shop_rating_shop_details"
@@ -211,7 +211,8 @@
                         android:progressDrawable="@drawable/dr_rating_bar_yellow"
                         android:rating="5"
                         android:stepSize="0.5"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
+
 
                     <LinearLayout
                         android:id="@+id/lay_provide_warranty_filter"
@@ -222,11 +223,12 @@
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.SwitchCompat
-                            android:id="@+id/sw_provide_warranty_filter"
+                            android:id="@+id/sw_provide_warranty_shop"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:layout_weight="0" />
+                            android:layout_weight="0"
+                            android:clickable="false"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -236,12 +238,12 @@
                             android:padding="@dimen/_5sdp"
                             android:text="@string/spinner_provided_warranty"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"/>
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/lay_provide_replace_parts_filter"
+                        android:id="@+id/lay_provide_replace_parts_shop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
@@ -249,11 +251,12 @@
                         android:orientation="horizontal">
 
                         <android.support.v7.widget.SwitchCompat
-                            android:id="@+id/sw_provide_replace_parts_filter"
+                            android:id="@+id/sw_replace_parts_shop"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:layout_weight="0" />
+                            android:layout_weight="0"
+                            android:clickable="false"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -263,7 +266,7 @@
                             android:padding="@dimen/_5sdp"
                             android:text="@string/spinner_provided_replace_parts"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"/>
 
 
                     </LinearLayout>
@@ -275,13 +278,14 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tv_city_shop"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:padding="@dimen/_5sdp"
-                            android:text="@string/spinner_place_type"
+                            android:text="@string/tv_city"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -289,44 +293,18 @@
                             android:layout_gravity="right"
                             android:gravity="right"
                             android:padding="@dimen/_5sdp"
-                            android:text="@string/spinner_place_type"
+                            android:text="@string/tv_city"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp" />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/select_country"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:gravity="right"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/select_country"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"/>
                     </LinearLayout>
                 </LinearLayout>
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
-                    android:background="@color/colorPrimaryDark" />
+                    android:background="@color/colorGrey"/>
+
 
                 <!--<android.support.v7.widget.CardView-->
                 <!--android:layout_width="match_parent"-->
@@ -351,7 +329,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_images_shop_details"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
 
                     <ScrollView
                         android:layout_width="match_parent"
@@ -364,11 +342,11 @@
                             android:id="@+id/tv_shop_des_shop_details"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="right"
                             android:gravity="right"
                             android:padding="@dimen/_10sdp"
-                            android:text="@string/privacy_policy_details"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_11sdp" />
+                            android:textSize="@dimen/_11sdp"/>
                     </ScrollView>
                 </LinearLayout>
 
@@ -395,12 +373,12 @@
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_15sdp"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_15sdp"
-                android:background="@drawable/dr_grey_bottom" />
+                android:background="@drawable/dr_grey_bottom"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -419,5 +397,5 @@
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
         app:itemIconTint="@drawable/dr_tv_selection"
         app:itemTextColor="@drawable/dr_tv_selection"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"/>
 </android.support.v4.widget.DrawerLayout>

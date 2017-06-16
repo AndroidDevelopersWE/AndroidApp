@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -58,6 +59,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     @SuppressWarnings("unused")
     private String responsePublic;
     private TextView tv_title_shop_details;
+    SwitchCompat sw_provide_warranty_shop, sw_replace_parts_shop;
 
     @Override
 
@@ -68,6 +70,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         lay_shop_details = (LinearLayout) findViewById(R.id.lay_shop_details);
         rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
         tv_title_shop_details = (TextView) findViewById(R.id.tv_title_shop_details);
+        sw_provide_warranty_shop = (SwitchCompat) findViewById(R.id.sw_provide_warranty_shop);
+        sw_replace_parts_shop = (SwitchCompat) findViewById(R.id.sw_replace_parts_shop);
 
         SetUpLeftbar();
         SetShaderToViews();
@@ -313,6 +317,17 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
         aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
         aQuery.id(R.id.tv_shop_des_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
+        aQuery.id(R.id.tv_city_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getCity());
+        if (mShopsDetailsModel.getShopsDetail().get(0).getProvideWarranty().equals("1")) {
+            sw_provide_warranty_shop.setChecked(true);
+        } else {
+            sw_provide_warranty_shop.setChecked(false);
+        }
+        if (mShopsDetailsModel.getShopsDetail().get(0).getProvideReplaceParts().equals("1")) {
+            sw_replace_parts_shop.setChecked(true);
+        } else {
+            sw_replace_parts_shop.setChecked(false);
+        }
         if (mShopsDetailsModel.getShopsDetail().get(0).getFavourite() != null &&
                 mShopsDetailsModel.getShopsDetail().get(0).getFavourite().equals("true")) {
             mStatus = 1;

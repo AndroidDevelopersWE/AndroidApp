@@ -69,7 +69,16 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
                         }
                     })
                     .into(holder.iv_shop_fav);
+//            holder.tv_fav_shop_name.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
+//                    mIntent.putExtra("ShopID", _FavouriteShopsDetails.get(position).getID().toString());
+//                    activity.startActivity(mIntent);
+//                }
+//            });
         }
+
 
     }
 

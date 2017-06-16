@@ -35,7 +35,7 @@ import java.util.List;
 import co.dtechsystem.carefer.Adapters.ExpandableListAdapterBrands;
 import co.dtechsystem.carefer.Adapters.ExpandableListAdapterPlaceType;
 import co.dtechsystem.carefer.Adapters.ExpandableListAdapterServices;
-import co.dtechsystem.carefer.Adapters.ShopsFilterClass;
+import co.dtechsystem.carefer.Filter.ShopsFilterClass;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
@@ -68,6 +68,9 @@ public class FiltersActivity extends BaseActivity {
     int TotalRecord;
     int FilterRecord;
     LatLng mLatlngCurrent;
+    ArrayList<String> CheckedServices = new ArrayList<String>();
+    ArrayList<String> CheckedBrands = new ArrayList<String>();
+    ArrayList<String> CheckedShopTypes = new ArrayList<String>();
 
     @Override
 
@@ -401,11 +404,17 @@ public class FiltersActivity extends BaseActivity {
         final ListView lv_filter_list = (ListView) dialog.findViewById(R.id.lv_filter_list);
         lv_filter_list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         lv_filter_list.setAdapter(arrayAdapterPlaceType);
+        for (int i = 0; i < CheckedShopTypes.size(); i++) {
+            if (CheckedShopTypes != null && CheckedShopTypes.size() > 0) {
+                lv_filter_list.setItemChecked(i, true);
+            }
+        }
         btn_ok_dialog_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = lv_filter_list.getCheckedItemPosition();
                 if (id > 0) {
+                    CheckedShopTypes.add(lv_filter_list.getItemAtPosition(id).toString());
                     aQuery.find(R.id.tv_place_type_filter).text(lv_filter_list.getItemAtPosition(id).toString());
                     if (_ShopslistAfterFiltration != null) {
                         _ShopslistAfterFiltration.clear();
@@ -427,7 +436,7 @@ public class FiltersActivity extends BaseActivity {
                         aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
                         aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
                     }
-                    dialog.dismiss();
+                    dialog.hide();
                 } else {
                     if (id != -1) {
                         aQuery.find(R.id.tv_place_type_filter).text(lv_filter_list.getItemAtPosition(id).toString());
@@ -451,7 +460,7 @@ public class FiltersActivity extends BaseActivity {
                             aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
                             aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
                         }
-                        dialog.dismiss();
+                        dialog.hide();
                     }
                 }
             }
@@ -459,7 +468,7 @@ public class FiltersActivity extends BaseActivity {
         btn_cancel_dialog_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog.hide();
             }
         });
 
@@ -478,6 +487,11 @@ public class FiltersActivity extends BaseActivity {
         final ListView lv_filter_list = (ListView) dialog.findViewById(R.id.lv_filter_list);
         lv_filter_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lv_filter_list.setAdapter(arrayAdapterBrands);
+        for (int i = 0; i < CheckedBrands.size(); i++) {
+            if (CheckedBrands != null && CheckedBrands.size() > 0) {
+                lv_filter_list.setItemChecked(i, true);
+            }
+        }
         btn_ok_dialog_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -487,6 +501,7 @@ public class FiltersActivity extends BaseActivity {
 
                 for (int i = 0; i < len; i++) {
                     if (checked.get(i)) {
+                        CheckedBrands.add(lv_filter_list.getItemAtPosition(i).toString());
                         brands.add(lv_filter_list.getItemAtPosition(i).toString());
 
                     }
@@ -519,9 +534,9 @@ public class FiltersActivity extends BaseActivity {
                         aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
                         aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
                     }
-                    dialog.dismiss();
+                    dialog.hide();
                 } else {
-                    aQuery.find(R.id.tv_brand_type_filter).text(Brands);
+                    aQuery.find(R.id.tv_brand_type_filter).text(getResources().getString(R.string.dp_brand));
 
                     brandType = "";
                     if (_ShopslistAfterFiltration != null) {
@@ -542,14 +557,14 @@ public class FiltersActivity extends BaseActivity {
                         aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
                         aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
                     }
-                    dialog.dismiss();
+                    dialog.hide();
                 }
             }
         });
         btn_cancel_dialog_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog.hide();
             }
         });
 
@@ -568,20 +583,23 @@ public class FiltersActivity extends BaseActivity {
         final ListView lv_filter_list = (ListView) dialog.findViewById(R.id.lv_filter_list);
         lv_filter_list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lv_filter_list.setAdapter(arrayAdapterServices);
+        for (int i = 0; i < CheckedServices.size(); i++) {
+            if (CheckedServices != null && CheckedServices.size() > 0) {
+                lv_filter_list.setItemChecked(i, true);
+            }
+        }
+
         btn_ok_dialog_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int len = lv_filter_list.getCount();
                 SparseBooleanArray checked = lv_filter_list.getCheckedItemPositions();
-                ArrayList<String> brands = new ArrayList<String>();
-
                 for (int i = 0; i < len; i++) {
                     if (checked.get(i)) {
-                        brands.add(lv_filter_list.getItemAtPosition(i).toString());
-
+                        CheckedServices.add(lv_filter_list.getItemAtPosition(i).toString());
                     }
                 }
-                String Services = brands.toString();
+                String Services = CheckedServices.toString();
                 if (Services.startsWith("[") && Services.endsWith("]")) {
                     Services = Services.replace("[", "");
                     Services = Services.replace("]", "");
@@ -609,9 +627,9 @@ public class FiltersActivity extends BaseActivity {
                         aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
                         aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
                     }
-                    dialog.dismiss();
+                    dialog.hide();
                 } else {
-                    aQuery.find(R.id.tv_service_type_filter).text(Services);
+                    aQuery.find(R.id.tv_brand_type_filter).text(getResources().getString(R.string.dp_service_type));
 
                     serviceType = "";
                     if (_ShopslistAfterFiltration != null) {
@@ -642,14 +660,14 @@ public class FiltersActivity extends BaseActivity {
                         aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
                         aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
                     }
-                    dialog.dismiss();
+                    dialog.hide();
                 }
             }
         });
         btn_cancel_dialog_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog.hide();
             }
         });
 
@@ -659,7 +677,6 @@ public class FiltersActivity extends BaseActivity {
     public void setApplyFilterBtnClick(View v) {
         ShopsListActivity shopsListActivity = new ShopsListActivity();
         if (_ShopslistAfterFiltration != null && _ShopslistAfterFiltration.size() > 0) {
-
             ArrayList<String> ShopsIds = new ArrayList<String>();
             for (int i = 0; i < _ShopslistAfterFiltration.size(); i++) {
                 ShopsIds.add(_ShopslistAfterFiltration.get(i).getID());
@@ -670,11 +687,11 @@ public class FiltersActivity extends BaseActivity {
 //            ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistBeforeFiltration, mLatlngCurrent);
 //            shopsListActivity.SetFilters(mshopsListRecycleViewAdapter);
 //            finish();
-        Intent intent = new Intent();
-        intent.putStringArrayListExtra("ShopslistAfterFiltration", ShopsIds);
-            intent.putExtra("response",ShopsDataResponse);
-        setResult(RESULT_OK, intent);
-        finish();
+            Intent intent = new Intent();
+            intent.putStringArrayListExtra("ShopslistAfterFiltration", ShopsIds);
+            intent.putExtra("response", ShopsDataResponse);
+            setResult(RESULT_OK, intent);
+            finish();
         } else
 
         {

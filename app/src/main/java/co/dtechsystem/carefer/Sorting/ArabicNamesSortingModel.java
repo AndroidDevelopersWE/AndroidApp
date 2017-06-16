@@ -1,8 +1,10 @@
-package co.dtechsystem.carefer.Models;
+package co.dtechsystem.carefer.Sorting;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import co.dtechsystem.carefer.Models.ShopsListModel;
 
 /**
  * Created by DELL on 5/29/2017.

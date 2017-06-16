@@ -1,4 +1,4 @@
-package co.dtechsystem.carefer.Adapters;
+package co.dtechsystem.carefer.Filter;
 
 import android.app.Activity;
 import android.widget.Toast;

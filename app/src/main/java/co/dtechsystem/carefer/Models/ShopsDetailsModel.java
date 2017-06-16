@@ -43,7 +43,9 @@ public class ShopsDetailsModel {
         private String favourite = "";
         private String shopImage = "";
         private String contactNumber = "";
-
+        private String city = "";
+        private String provideWarranty = "";
+        private String provideReplaceParts = "";
 
         public String getID() {
             return ID;
@@ -141,6 +143,29 @@ public class ShopsDetailsModel {
 
         public void setContactNumber(String contactNumber) {
             this.contactNumber = contactNumber;
+        }
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
+        }
+        public String getProvideWarranty() {
+            return provideWarranty;
+        }
+
+        public void setProvideWarranty(String provideWarranty) {
+            this.provideWarranty = provideWarranty;
+        }
+
+
+        public String getProvideReplaceParts() {
+            return provideReplaceParts;
+        }
+
+        public void setProvideReplaceParts(String provideReplaceParts) {
+            this.provideReplaceParts = provideReplaceParts;
         }
 
     }

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="end"
-    android:background="@color/colorGreylight"
-    android:focusable="false"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    tools:context=".UI.Activities.MainActivity"
-    tools:ignore="Overdraw">
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="end"
+                                        android:background="@color/colorGreylight"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="true"
+                                        android:orientation="vertical"
+                                        tools:context=".UI.Activities.MainActivity"
+                                        tools:ignore="Overdraw">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,21 +35,32 @@
                     android:layout_gravity="center"
                     android:layout_toRightOf="@+id/lay_dr_btn"
                     android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     tools:ignore="RtlHardcoded">
+
+                    <ProgressBar
+                        android:id="@+id/pg_search_this_area"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_gravity="center"
+                        android:layout_weight="0"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:gravity="center_horizontal"/>
 
                     <TextView
                         android:id="@+id/tv_title_main"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_10sdp"
                         android:gravity="center"
                         android:padding="@dimen/_10sdp"
                         android:text="@string/title_activity_main"
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
 
                 </LinearLayout>
@@ -70,7 +81,7 @@
                         android:background="@drawable/ic_menu"
                         android:backgroundTint="@color/colorGrey"
                         android:clickable="false"
-                        tools:ignore="ContentDescription,UnusedAttribute" />
+                        tools:ignore="ContentDescription,UnusedAttribute"/>
                 </LinearLayout>
 
 
@@ -96,14 +107,15 @@
             android:textColor="@android:color/holo_orange_dark"
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="gone"/>
+
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/map"
-            class="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/cv_main_top" />
+                  android:id="@+id/map"
+                  class="com.google.android.gms.maps.SupportMapFragment"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:layout_below="@+id/cv_main_top"/>
 
 
         <Button
@@ -127,7 +139,7 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_15sdp"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
     </RelativeLayout>
 
 
@@ -145,5 +157,5 @@
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
         app:itemIconTint="@drawable/dr_tv_selection"
         app:itemTextColor="@drawable/dr_tv_selection"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"/>
 </android.support.v4.widget.DrawerLayout>

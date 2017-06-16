@@ -1,14 +1,18 @@
 package co.dtechsystem.carefer.Models;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class ShopsListModel {
     private List<ShopslistRecord> shopsList;
+    LatLng mLatlngCurrent;
 
-    public ShopsListModel() {
+    public ShopsListModel(LatLng mLatlngCurrent) {
         shopsList = new ArrayList<ShopslistRecord>();
+        this.mLatlngCurrent = mLatlngCurrent;
     }
 
     public List<ShopslistRecord> getShopsList() {
@@ -18,6 +22,7 @@ public class ShopsListModel {
     public void setShopsList(List<ShopslistRecord> shopsList) {
         this.shopsList = shopsList;
     }
+
 
     public class ShopslistRecord {
 
