@@ -138,249 +138,299 @@
             </HorizontalScrollView>
         </LinearLayout>
 
-
-        <LinearLayout
-            android:id="@+id/lay_shop_details"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/lay_shop_details"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_shop_name_shop_details"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:maxLines="1"
+
+                                android:text="@string/dummy_text_list_item"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/_14sdp"
+                                android:textStyle="bold"
+                                tools:ignore="RtlHardcoded"/>
+
+                            <ImageView
+                                android:id="@+id/iv_fav_shop_list"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerHorizontal="true"
+                                android:layout_centerVertical="true"
+                                android:background="@drawable/ic_fav_star_empty"
+                                tools:ignore="ContentDescription,RtlHardcoded"/>
+                        </RelativeLayout>
 
                         <TextView
-                            android:id="@+id/tv_shop_name_shop_details"
+                            android:id="@+id/tv_shop_service_shop_details"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:maxLines="1"
-
-                            android:text="@string/dummy_text_list_item"
+                            android:text="@string/dummy_text_list_details"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_14sdp"
+                            android:textSize="@dimen/_12sdp"
                             android:textStyle="bold"
                             tools:ignore="RtlHardcoded"/>
 
-                        <ImageView
-                            android:id="@+id/iv_fav_shop_list"
-                            android:layout_width="@dimen/_20sdp"
+                        <RatingBar
+                            android:id="@+id/rb_shop_rating_shop_details"
+                            android:layout_width="wrap_content"
                             android:layout_height="@dimen/_20sdp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:background="@drawable/ic_fav_star_empty"
-                            tools:ignore="ContentDescription,RtlHardcoded"/>
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/tv_shop_service_shop_details"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:maxLines="1"
-                        android:text="@string/dummy_text_list_details"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/_12sdp"
-                        android:textStyle="bold"
-                        tools:ignore="RtlHardcoded"/>
-
-                    <RatingBar
-                        android:id="@+id/rb_shop_rating_shop_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_gravity="right"
-                        android:layout_marginLeft="@dimen/_12sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:progressDrawable="@drawable/dr_rating_bar_yellow"
-                        android:rating="5"
-                        android:stepSize="0.5"
-                        tools:ignore="RtlHardcoded"/>
-
-
-                    <LinearLayout
-                        android:id="@+id/lay_provide_warranty_filter"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:clickable="true"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.SwitchCompat
-                            android:id="@+id/sw_provide_warranty_shop"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:layout_weight="0"
-                            android:clickable="false"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/spinner_provided_warranty"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lay_provide_replace_parts_shop"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:clickable="true"
-                        android:orientation="horizontal">
-
-                        <android.support.v7.widget.SwitchCompat
-                            android:id="@+id/sw_replace_parts_shop"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_weight="0"
-                            android:clickable="false"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="right"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/spinner_provided_replace_parts"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp"/>
+                            android:layout_marginLeft="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:isIndicator="true"
+                            android:numStars="5"
+                            android:progressDrawable="@drawable/dr_rating_bar_yellow"
+                            android:rating="5"
+                            android:stepSize="0.5"
+                            tools:ignore="RtlHardcoded"/>
 
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tv_city_shop"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/tv_city"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:gravity="right"
-                            android:padding="@dimen/_5sdp"
-                            android:text="@string/tv_city"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:background="@color/colorGrey"/>
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@color/colorGrey"/>
 
 
-                <!--<android.support.v7.widget.CardView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:layout_marginLeft="@dimen/_5sdp"-->
-                <!--android:layout_marginRight="@dimen/_5sdp"-->
-                <!--android:layout_marginTop="@dimen/_10sdp"-->
-                <!--android:elevation="3dp"-->
-                <!--app:cardElevation="@dimen/_7sdp">-->
+                    <!--<android.support.v7.widget.CardView-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:layout_marginLeft="@dimen/_5sdp"-->
+                    <!--android:layout_marginRight="@dimen/_5sdp"-->
+                    <!--android:layout_marginTop="@dimen/_10sdp"-->
+                    <!--android:elevation="3dp"-->
+                    <!--app:cardElevation="@dimen/_7sdp">-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    tools:ignore="InefficientWeight,NestedWeights">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_images_shop_details"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="0"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
                         tools:ignore="InefficientWeight,NestedWeights">
 
-                        <TextView
-                            android:id="@+id/tv_shop_des_shop_details"
-                            android:layout_width="wrap_content"
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_images_shop_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:gravity="right"
-                            android:padding="@dimen/_10sdp"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_11sdp"/>
-                    </ScrollView>
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:layout_weight="0"
+                            android:orientation="vertical">
+
+                            <ScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_80sdp">
+
+                                <TextView
+                                    android:id="@+id/tv_shop_des_shop_details"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="right"
+                                    android:gravity="right"
+                                    android:padding="@dimen/_10sdp"
+                                    android:scrollbars="vertical"
+                                    android:textColor="@android:color/black"
+                                    android:textSize="@dimen/_11sdp"/>
+                            </ScrollView>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:id="@+id/lay_provide_warranty_filter"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:clickable="true"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tv_provide_warrnty_shop"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:layout_weight="0"
+                                        android:clickable="false"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/spinner_provided_warranty"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/lay_provide_replace_parts_shop"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:clickable="true"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tv_replace_parts_shop"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:layout_weight="0"
+                                        android:clickable="false"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:textColor="@android:color/black"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/spinner_provided_replace_parts"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tv_city_shop"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/tv_city"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="@dimen/_5sdp"
+                                    android:clickable="true"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/ic_reviews"
+                                        android:clickable="true"
+                                        android:onClick="btn_reviews_click"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/tv_reviews"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!--</android.support.v7.widget.CardView>-->
+
+
                 </LinearLayout>
 
-                <!--</android.support.v7.widget.CardView>-->
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_80sdp"
+                    android:layout_marginRight="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_weight="0"
+                    android:background="@drawable/dr_btn_orange_angle_90"
+                    android:clickable="true"
+                    android:onClick="GotoShopDetailsOrder"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/btn_order"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold"/>
 
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_15sdp"
+                    android:background="@drawable/dr_grey_bottom"/>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_80sdp"
-                android:layout_marginRight="@dimen/_80sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                android:layout_weight="0"
-                android:background="@drawable/dr_btn_orange_angle_90"
-                android:clickable="true"
-                android:onClick="GotoShopDetailsOrder"
-                android:padding="@dimen/_5sdp"
-                android:text="@string/btn_order"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_15sdp"
-                android:background="@drawable/dr_grey_bottom"/>
-        </LinearLayout>
-
+        </ScrollView>
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

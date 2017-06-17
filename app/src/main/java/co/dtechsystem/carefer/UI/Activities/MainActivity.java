@@ -77,6 +77,7 @@ public class MainActivity extends BaseActivity
     Location mNewLocation, mOldLocation;
     int idle;
     String ShopsListDataResponse = "";
+    Map<String, String> citiesNamesIDs = new HashMap<String, String>();
 
     @Override
 
@@ -214,6 +215,53 @@ public class MainActivity extends BaseActivity
         });
     }
 
+    private void APiGetAllCities() {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiGetCitiesList, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // display response
+                        try {
+                            JSONArray results = response.getJSONArray("citiesList");
+                            for (int i = 0; i < results.length(); i++) {
+                                JSONObject jsonObject = results.getJSONObject(i);
+                                String ID = jsonObject.getString("ID");
+                                String name = jsonObject.getString("name");
+                                citiesNamesIDs.put(name, ID);
+                            }
+                            if (citiesNamesIDs != null) {
+                                for (int j = 0; j < citiesNamesIDs.keySet().toArray().length; j++) {
+                                    if (mPlaceName!=null&&mPlaceName.toLowerCase(locale).contains(citiesNamesIDs.keySet().toArray()[j].toString().toLowerCase(locale))) {
+                                        String id = citiesNamesIDs.get(j).toString();
+                                    }
+
+                                }
+                            }
+                        } catch (JSONException e) {
+                            loading.close();
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            e.printStackTrace();
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        );
+
+// add it to the RequestQueue
+        queue.add(getRequest);
+    }
+
     private void APiGetCurrentAddress(final String Type, final Location location) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -228,6 +276,7 @@ public class MainActivity extends BaseActivity
                             JSONArray results = response.getJSONArray("results");
                             JSONObject jsonObject = results.getJSONObject(0);
                             mPlaceName = jsonObject.getString("formatted_address");
+
                             if (Type.equals("Location")) {
                                 if (Validations.isInternetAvailable(activity, true)) {
                                     aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
@@ -269,6 +318,7 @@ public class MainActivity extends BaseActivity
                         ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                         if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                             if (location != null) {
+                                APiGetAllCities();
                                 SetShopsPointMap(mShopsListModel.getShopsList(), location);
                             }
                         } else {

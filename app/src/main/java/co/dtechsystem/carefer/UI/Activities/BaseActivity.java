@@ -33,12 +33,12 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
-    Loading loading;
+    protected Loading loading;
     protected Activity activity;
-    AQuery aQuery;
-    Gson gson;
-    Intent intent;
-    public static String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID;
+    protected AQuery aQuery;
+    protected Gson gson;
+    protected Intent intent;
+    protected String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID;
     Locale locale, localeEn;
 
     @SuppressWarnings("StatementWithEmptyBody")

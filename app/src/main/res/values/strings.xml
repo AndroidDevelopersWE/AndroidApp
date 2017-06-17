@@ -169,4 +169,7 @@
     <string name="btn_apply_filter">Apply Filter</string>
     <string name="btn_reset_filter">Reset Filter</string>
     <string name="tv_city">City</string>
+    <string name="tv_reviews">Reviews</string>
+    <string name="tv_name_anonymous">Anonymous</string>
+
 </resources>

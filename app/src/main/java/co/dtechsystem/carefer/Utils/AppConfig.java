@@ -26,6 +26,8 @@ public class AppConfig {
     public static String APiGetBrandModels = BaseUrl + "get-brand-models";
     public static String APiGetPlaceTypes = BaseUrl + "get-place-type";
     public static String APiGetFilterTypes = BaseUrl + "filter-types";
+    public static String APiGetShopReviews = BaseUrl + "get-shop-reviews";
+    public static String APiGetCitiesList = BaseUrl + "get-city-list";
 
 
 

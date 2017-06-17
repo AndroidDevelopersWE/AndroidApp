@@ -68,9 +68,9 @@ public class FiltersActivity extends BaseActivity {
     int TotalRecord;
     int FilterRecord;
     LatLng mLatlngCurrent;
-    ArrayList<String> CheckedServices = new ArrayList<String>();
-    ArrayList<String> CheckedBrands = new ArrayList<String>();
-    ArrayList<String> CheckedShopTypes = new ArrayList<String>();
+    ArrayList<Integer> CheckedServices = new ArrayList<Integer>();
+    ArrayList<Integer> CheckedBrands = new ArrayList<Integer>();
+    ArrayList<Integer> CheckedShopTypes = new ArrayList<Integer>();
 
     @Override
 
@@ -405,8 +405,9 @@ public class FiltersActivity extends BaseActivity {
         lv_filter_list.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         lv_filter_list.setAdapter(arrayAdapterPlaceType);
         for (int i = 0; i < CheckedShopTypes.size(); i++) {
+
             if (CheckedShopTypes != null && CheckedShopTypes.size() > 0) {
-                lv_filter_list.setItemChecked(i, true);
+                lv_filter_list.setItemChecked(CheckedShopTypes.get(i), true);
             }
         }
         btn_ok_dialog_filter.setOnClickListener(new View.OnClickListener() {
@@ -414,7 +415,7 @@ public class FiltersActivity extends BaseActivity {
             public void onClick(View v) {
                 int id = lv_filter_list.getCheckedItemPosition();
                 if (id > 0) {
-                    CheckedShopTypes.add(lv_filter_list.getItemAtPosition(id).toString());
+                    CheckedShopTypes.add(id);
                     aQuery.find(R.id.tv_place_type_filter).text(lv_filter_list.getItemAtPosition(id).toString());
                     if (_ShopslistAfterFiltration != null) {
                         _ShopslistAfterFiltration.clear();
@@ -439,6 +440,7 @@ public class FiltersActivity extends BaseActivity {
                     dialog.hide();
                 } else {
                     if (id != -1) {
+                        CheckedShopTypes.add(id);
                         aQuery.find(R.id.tv_place_type_filter).text(lv_filter_list.getItemAtPosition(id).toString());
 
                         placeType = "";
@@ -489,7 +491,7 @@ public class FiltersActivity extends BaseActivity {
         lv_filter_list.setAdapter(arrayAdapterBrands);
         for (int i = 0; i < CheckedBrands.size(); i++) {
             if (CheckedBrands != null && CheckedBrands.size() > 0) {
-                lv_filter_list.setItemChecked(i, true);
+                lv_filter_list.setItemChecked(CheckedBrands.get(i), true);
             }
         }
         btn_ok_dialog_filter.setOnClickListener(new View.OnClickListener() {
@@ -498,20 +500,24 @@ public class FiltersActivity extends BaseActivity {
                 int len = lv_filter_list.getCount();
                 SparseBooleanArray checked = lv_filter_list.getCheckedItemPositions();
                 ArrayList<String> brands = new ArrayList<String>();
-
+                CheckedBrands.clear();
                 for (int i = 0; i < len; i++) {
                     if (checked.get(i)) {
-                        CheckedBrands.add(lv_filter_list.getItemAtPosition(i).toString());
-                        brands.add(lv_filter_list.getItemAtPosition(i).toString());
 
+                        long id = lv_filter_list.getItemIdAtPosition(i);
+                        if (id != 0) {
+                            CheckedBrands.add((int) id);
+                            brands.add(lv_filter_list.getItemAtPosition(i).toString());
+                        }
                     }
+
                 }
                 String Brands = brands.toString();
                 if (Brands.startsWith("[") && Brands.endsWith("]")) {
                     Brands = Brands.replace("[", "");
                     Brands = Brands.replace("]", "");
                 }
-                if (len > 0) {
+                if (brands.size() > 0) {
                     aQuery.find(R.id.tv_brand_type_filter).text(Brands);
                     if (_ShopslistAfterFiltration != null) {
                         _ShopslistAfterFiltration.clear();
@@ -536,6 +542,7 @@ public class FiltersActivity extends BaseActivity {
                     }
                     dialog.hide();
                 } else {
+                    CheckedBrands.clear();
                     aQuery.find(R.id.tv_brand_type_filter).text(getResources().getString(R.string.dp_brand));
 
                     brandType = "";
@@ -585,7 +592,7 @@ public class FiltersActivity extends BaseActivity {
         lv_filter_list.setAdapter(arrayAdapterServices);
         for (int i = 0; i < CheckedServices.size(); i++) {
             if (CheckedServices != null && CheckedServices.size() > 0) {
-                lv_filter_list.setItemChecked(i, true);
+                lv_filter_list.setItemChecked(CheckedServices.get(i), true);
             }
         }
 
@@ -593,18 +600,24 @@ public class FiltersActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 int len = lv_filter_list.getCount();
+                CheckedServices.clear();
+                ArrayList<String> services = new ArrayList<String>();
                 SparseBooleanArray checked = lv_filter_list.getCheckedItemPositions();
                 for (int i = 0; i < len; i++) {
                     if (checked.get(i)) {
-                        CheckedServices.add(lv_filter_list.getItemAtPosition(i).toString());
+                        long id = lv_filter_list.getItemIdAtPosition(i);
+                        if (id != 0) {
+                            CheckedServices.add((int) id);
+                            services.add(lv_filter_list.getItemAtPosition(i).toString());
+                        }
                     }
                 }
-                String Services = CheckedServices.toString();
+                String Services = services.toString();
                 if (Services.startsWith("[") && Services.endsWith("]")) {
                     Services = Services.replace("[", "");
                     Services = Services.replace("]", "");
                 }
-                if (len > 0) {
+                if (services.size() > 0) {
                     aQuery.find(R.id.tv_service_type_filter).text(Services);
                     if (_ShopslistAfterFiltration != null) {
                         _ShopslistAfterFiltration.clear();
@@ -629,8 +642,9 @@ public class FiltersActivity extends BaseActivity {
                     }
                     dialog.hide();
                 } else {
-                    aQuery.find(R.id.tv_brand_type_filter).text(getResources().getString(R.string.dp_service_type));
-
+//                    services.clear();
+                    CheckedServices.clear();
+                    aQuery.find(R.id.tv_service_type_filter).text(getResources().getString(R.string.dp_service_type));
                     serviceType = "";
                     if (_ShopslistAfterFiltration != null) {
                         _ShopslistAfterFiltration.clear();
@@ -651,15 +665,6 @@ public class FiltersActivity extends BaseActivity {
                         aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
                     }
 
-                    aQuery.find(R.id.tv_total_record_found_filter).text(_ShopslistAfterFiltration.size() + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
-                    FilterRecord = _ShopslistAfterFiltration.size();
-                    if (FilterRecord < 20) {
-                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
-                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
-                    } else {
-                        aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
-                        aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
-                    }
                     dialog.hide();
                 }
             }
