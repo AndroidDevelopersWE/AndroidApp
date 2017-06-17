@@ -171,5 +171,6 @@
     <string name="tv_city">City</string>
     <string name="tv_reviews">Reviews</string>
     <string name="tv_name_anonymous">Anonymous</string>
-
+    <string name="tv_yes">Yes</string>
+    <string name="tv_no">No</string>
 </resources>

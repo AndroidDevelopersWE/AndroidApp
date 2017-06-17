@@ -138,15 +138,17 @@
             </HorizontalScrollView>
         </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/lay_shop_details"
+        <LinearLayout
+            android:id="@+id/lay_shop_details"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -404,33 +406,34 @@
 
 
                 </LinearLayout>
+            </ScrollView>
 
-                <Button
-                    android:id="@+id/button2"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_38sdp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    android:layout_marginLeft="@dimen/_80sdp"
-                    android:layout_marginRight="@dimen/_80sdp"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:layout_weight="0"
-                    android:background="@drawable/dr_btn_orange_angle_90"
-                    android:clickable="true"
-                    android:onClick="GotoShopDetailsOrder"
-                    android:padding="@dimen/_5sdp"
-                    android:text="@string/btn_order"
-                    android:textAllCaps="false"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/_15sdp"
-                    android:textStyle="bold"/>
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_38sdp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_80sdp"
+                android:layout_marginRight="@dimen/_80sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_weight="0"
+                android:background="@drawable/dr_btn_orange_angle_90"
+                android:clickable="true"
+                android:onClick="GotoShopDetailsOrder"
+                android:padding="@dimen/_5sdp"
+                android:text="@string/btn_order"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_15sdp"
+                android:textStyle="bold"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_15sdp"
-                    android:background="@drawable/dr_grey_bottom"/>
-            </LinearLayout>
-        </ScrollView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_15sdp"
+                android:background="@drawable/dr_grey_bottom"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

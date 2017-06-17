@@ -236,6 +236,9 @@ public class MainActivity extends BaseActivity
                                     if (mPlaceName!=null&&mPlaceName.toLowerCase(locale).contains(citiesNamesIDs.keySet().toArray()[j].toString().toLowerCase(locale))) {
                                         String id = citiesNamesIDs.get(j).toString();
                                     }
+                                    else if (mPlaceName!=null&&mPlaceName.toLowerCase(localeEn).contains(citiesNamesIDs.keySet().toArray()[j].toString().toLowerCase(locale))) {
+                                        String id = citiesNamesIDs.get(j).toString();
+                                    }
 
                                 }
                             }
@@ -280,7 +283,7 @@ public class MainActivity extends BaseActivity
                             if (Type.equals("Location")) {
                                 if (Validations.isInternetAvailable(activity, true)) {
                                     aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
-                                    APiGetShopslistData(location);
+//                                    APiGetShopslistData(location);
                                 }
                             }
                         } catch (JSONException e) {

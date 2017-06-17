@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -319,6 +320,13 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
         aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
         aQuery.id(R.id.tv_shop_des_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
+        aQuery.id(R.id.tv_shop_des_shop_details).getTextView().setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                aQuery.id(R.id.tv_shop_des_shop_details).getTextView().getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
         aQuery.id(R.id.tv_city_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getCity());
         if (mShopsDetailsModel.getShopsDetail().get(0).getProvideWarranty().equals("1")) {
             aQuery.id(R.id.tv_provide_warrnty_shop).text(getResources().getString(R.string.tv_yes));
