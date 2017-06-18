@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:focusable="false"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    tools:context=".UI.Activities.ShopsListActivity"
-    tools:ignore="Overdraw">
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@android:color/white"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="true"
+                                        android:orientation="vertical"
+                                        tools:context=".UI.Activities.ShopsListActivity"
+                                        tools:ignore="Overdraw">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
                     <TextView
                         android:id="@+id/tv_title_shops_list"
@@ -71,7 +71,7 @@
                         android:text="@string/shops_list"
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
 
                 </LinearLayout>
@@ -92,7 +92,7 @@
                         android:background="@drawable/ic_menu"
                         android:backgroundTint="@color/colorGrey"
                         android:clickable="false"
-                        tools:ignore="ContentDescription,UnusedAttribute" />
+                        tools:ignore="ContentDescription,UnusedAttribute"/>
                 </LinearLayout>
                 <!--<LinearLayout-->
                 <!--android:id="@+id/lay_et_search_shops_list"-->
@@ -160,7 +160,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
 
-                    android:prompt="@string/prompt_service" />
+                    android:prompt="@string/prompt_service"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -176,7 +176,7 @@
                     android:id="@+id/sp_service_type_shops_list"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:prompt="@string/prompt_service" />
+                    android:prompt="@string/prompt_service"/>
             </RelativeLayout>
 
         </LinearLayout>
@@ -205,7 +205,7 @@
                     android:id="@+id/sp_providers_shop_list"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
-                    android:visibility="visible" />
+                    android:visibility="visible"/>
 
                 <TextView
 
@@ -214,7 +214,7 @@
                     android:backgroundTint="@android:color/black"
                     android:drawableLeft="@android:drawable/arrow_down_float"
                     android:padding="@dimen/_5sdp"
-                    tools:ignore="RtlHardcoded,UnusedAttribute" />
+                    tools:ignore="RtlHardcoded,UnusedAttribute"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -231,7 +231,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:prompt="@string/prompt_service"
-                    android:visibility="visible" />
+                    android:visibility="visible"/>
 
             </RelativeLayout>
 
@@ -269,20 +269,39 @@
                         android:text="@string/tv_total_results"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/_12sdp"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
-                    <TextView
-                        android:id="@+id/tv_location_name_shops_list"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:gravity="center"
                         android:layout_weight="1"
-                        android:gravity="right"
-                        android:maxLines="2"
-                        android:padding="@dimen/_5sdp"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_12sdp"
-                        tools:ignore="RtlHardcoded" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_location_name_shops_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:maxLines="2"
+                            android:singleLine="true"
+                            android:padding="@dimen/_5sdp"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_12sdp"
+                            tools:ignore="RtlHardcoded"/>
+
+                        <Spinner
+                            android:id="@+id/sp_city_name_shops_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:gravity="right"
+                            android:background="@android:color/transparent"
+                            android:visibility="visible"/>
+                    </LinearLayout>
+
 
                     <LinearLayout
                         android:layout_width="@dimen/_1sdp"
@@ -290,7 +309,7 @@
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_weight="0"
                         android:background="@color/colorGrey"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -298,15 +317,15 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_weight="0"
-                        android:background="@drawable/ic_my_location"
-                        tools:ignore="ContentDescription,RtlHardcoded" />
+                        android:background="@drawable/ic_arrow_down"
+                        tools:ignore="ContentDescription,RtlHardcoded"/>
 
                 </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:background="@color/colorChelseaGem" />
+                    android:background="@color/colorChelseaGem"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -332,7 +351,7 @@
                         android:text="@string/tv_sorting"
                         android:textColor="@android:color/white"
                         android:textSize="@dimen/_13sdp"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
 
                     <TextView
@@ -350,7 +369,7 @@
                         android:text="@string/tv_filter"
                         android:textColor="@color/colorChelseaGem"
                         android:textSize="@dimen/_13sdp"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
                     <LinearLayout
                         android:id="@+id/lay_et_search_shops_list"
@@ -378,7 +397,7 @@
                             android:textColorHint="@android:color/white"
                             android:textSize="@dimen/_11sdp"
                             android:textStyle="bold"
-                            tools:ignore="Deprecated,UnusedAttribute" />
+                            tools:ignore="Deprecated,UnusedAttribute"/>
 
                         <ImageView
                             android:id="@+id/iv_search_close_shops_list"
@@ -389,7 +408,7 @@
                             android:layout_weight="0"
                             android:background="@android:drawable/ic_menu_close_clear_cancel"
                             android:visibility="gone"
-                            tools:ignore="ContentDescription,RtlHardcoded" />
+                            tools:ignore="ContentDescription,RtlHardcoded"/>
 
                         <ImageView
                             android:id="@+id/iv_search_shops_list"
@@ -400,7 +419,7 @@
                             android:layout_weight="0"
                             android:background="@drawable/ic_search"
                             android:visibility="visible"
-                            tools:ignore="ContentDescription,RtlHardcoded" />
+                            tools:ignore="ContentDescription,RtlHardcoded"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -425,7 +444,7 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:background="@android:color/white" />
+                            android:background="@android:color/white"/>
 
                         <Button
                             android:id="@+id/btn_back_top_shops_list"
@@ -434,11 +453,11 @@
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentRight="true"
                             android:layout_margin="@dimen/_20sdp"
+                            android:background="@drawable/ic_arrow_up"
                             android:backgroundTint="#000"
-                            android:visibility="gone"
                             android:clickable="true"
 
-                            android:background="@drawable/ic_arrow_up"/>
+                            android:visibility="gone"/>
                     </RelativeLayout>
                 </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -446,7 +465,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_15sdp"
                     android:layout_alignParentBottom="true"
-                    android:background="@drawable/dr_grey_bottom" />
+                    android:background="@drawable/dr_grey_bottom"/>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
@@ -465,5 +484,5 @@
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
         app:itemIconTint="@drawable/dr_tv_selection"
         app:itemTextColor="@drawable/dr_tv_selection"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"/>
 </android.support.v4.widget.DrawerLayout>

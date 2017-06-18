@@ -286,7 +286,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             tv_shop_name_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_shop_list);
             tv_service_type_shop_list = (TextView) v.findViewById(R.id.tv_service_type_shop_list);
             tv_desc_shop_list = (TextView) v.findViewById(R.id.tv_desc_shop_list);
-            tv_desc_short_shop_list= (TextView) v.findViewById(R.id.tv_desc_short_shop_list);
+            tv_desc_short_shop_list = (TextView) v.findViewById(R.id.tv_desc_short_shop_list);
             rb_shop_shop_list = (RatingBar) v.findViewById(R.id.rb_shop_shop_list);
             rb_shop_large__shop_list = (RatingBar) v.findViewById(R.id.rb_shop_large__shop_list);
             lay_shop_item = (LinearLayout) v.findViewById(R.id.lay_shop_item);
@@ -620,17 +620,14 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     //sorting Function
-    public static void SortingShopsWithNameRating(final String SortingType, final String sortOrderType, LatLng mLatlngCurrent) {
+    public static void SortingShopsWithNameRatingCity(final String SortingType, final String sortOrderType, LatLng mLatlngCurrent, String cityName) {
         if (_ShopslistRecordList != null) {
+            Locale locale=new Locale("ar");
             if (SortingType.equals("Rating")) {
                 _ShopslistRecordList.clear();
                 _ShopslistRecordList.addAll(ShopsRatingSorting.MatchRating(_ShopslistRecordListFilter, "Ascending"));
             } else if (SortingType.equals("Distance")) {
 
-                final List<ShopsListModel.ShopslistRecord> _Shops1Km = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _Shops5Km = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _Shops20Km = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _ShopsHighestKm = new ArrayList<ShopsListModel.ShopslistRecord>();
                 Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
 
                 if (mLatlngCurrent != null) {
@@ -660,7 +657,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                     }
                     _ShopslistRecordList.clear();
                     Arrays.sort(distanceArray, Collections.reverseOrder());
-                    for (int i = distanceArray.length- 1 ; i >= 0 ; i--) {
+                    for (int i = distanceArray.length - 1; i >= 0; i--) {
                         for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
                             LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(j).getLongitude()));
                             Location userLoc = new Location("");
@@ -681,7 +678,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                             }
                         }
                     }
-                   int i= _ShopslistRecordList.size();
+                    int i = _ShopslistRecordList.size();
 //                    _ShopslistRecordList.addAll(_Shops1Km);
 //                    _ShopslistRecordList.addAll(_Shops5Km);
 //                    _ShopslistRecordList.addAll(_Shops20Km);
@@ -693,9 +690,25 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                 _ShopslistRecordList.clear();
                 ArabicNamesSortingModel mArabicNamesSortingModel = new ArabicNamesSortingModel();
                 _ShopslistRecordList.addAll(mArabicNamesSortingModel.MatchWithName(_ShopslistRecordListFilter, sortOrderType));
+            } else if (SortingType.equals("City")) {
+                _ShopslistRecordList.clear();
+                if (!cityName.equals("")) {
+                    for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
+                        if (_ShopslistRecordListFilter.get(j).getCity().toLowerCase(locale)
+                                .equals(cityName.toLowerCase(locale))) {
+                            _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
+                        }
+
+                    }
+                }
+                else {
+                    _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
+                }
             }
 
-
+            if (_ShopslistRecordList.size() == 0) {
+                Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
+            }
         }
 
     }

@@ -68,7 +68,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private String ShopsData;
     RecyclerView recyclerView;
     Button btn_back_top_shops_list;
-    String ShopsListDataResponse;
+    String ShopsListDataResponse = "", citiesNamesIDsResponse = "";
+    private final List listCities = new ArrayList();
 
     @SuppressWarnings("deprecation")
     @Override
@@ -94,20 +95,47 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         SetShaderToViews();
         SetUpLeftbar();
         ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
+        citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
         getDataForView();
         setDataToView();
         setDataToViews();
-        if (ShopsListDataResponse != null && !ShopsListDataResponse.equals("")) {
+        if (ShopsListDataResponse != null && !ShopsListDataResponse.equals("") && citiesNamesIDsResponse != null && !citiesNamesIDsResponse.equals("")) {
             ShopsData = ShopsListDataResponse;
             mShopsListModel = gson.fromJson(ShopsListDataResponse, ShopsListModel.class);
             if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                 mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
                 SetListData("List", mShopsListModel.getShopsList().size());
+                if (citiesNamesIDsResponse != null && !citiesNamesIDsResponse.equals("")) {
+                    if (listCities != null) {
+                        listCities.clear();
+                    }
+                    if (mplaceName != null && !mplaceName.equals("")) {
+                        listCities.add(0, mplaceName);
+                    } else {
+                        listCities.add(0, getResources().getString(R.string.tv_city));
+                    }
+
+                    JSONArray jsonArray = null;
+                    try {
+                        jsonArray = new JSONArray(citiesNamesIDsResponse);
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                            String ID = jsonObject.getString("ID");
+                            String name = jsonObject.getString("name");
+                            listCities.add(name);
+                        }
+                        setCityDropDownData();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
         } else {
             if (Validations.isInternetAvailable(activity, true)) {
                 loading.show();
-                APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
+                APiGetShopslistData(AppConfig.APiShopsListData, "Shops", "City");
             }
         }
 
@@ -233,6 +261,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         if (mplaceName != null && !mplaceName.equals("")) {
             aQuery.find(R.id.tv_location_name_shops_list).text(mplaceName);
         }
+
     }
 
 
@@ -418,7 +447,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Rating", "", mLatlngCurrent);
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Rating", "", mLatlngCurrent, "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
@@ -430,7 +459,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_distance_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Distance", "", mLatlngCurrent);
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Distance", "", mLatlngCurrent, "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
@@ -467,7 +496,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name", "Ascending", mLatlngCurrent);
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Name", "Ascending", mLatlngCurrent, "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
@@ -479,7 +508,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRating("Name", "Descending", mLatlngCurrent);
+                ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Name", "Descending", mLatlngCurrent, "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
@@ -523,7 +552,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     @Override
     public void onRefresh() {
         if (Validations.isInternetAvailable(activity, true)) {
-            APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
+            APiGetShopslistData(AppConfig.APiShopsListData, "Shops", "");
         } else {
             if (lay_pull_refresh_shops_list.isRefreshing()) {
                 lay_pull_refresh_shops_list.setRefreshing(false);
@@ -531,7 +560,52 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    private void APiGetShopslistData(final String Url, final String Type) {
+    public void setCityDropDownData() {
+
+        ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listCities);
+        aQuery.id(R.id.sp_city_name_shops_list).adapter(StringModeldataAdapter);
+
+        aQuery.id(R.id.tv_location_name_shops_list).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aQuery.id(R.id.sp_city_name_shops_list).getSpinner().performClick();
+            }
+        });
+        aQuery.id(R.id.sp_city_name_shops_list).itemSelected(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String CityName = aQuery.id(R.id.sp_city_name_shops_list).getSpinner().getSelectedItem().toString();
+
+                if (position == 0) {
+                    aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
+                    ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("City", "", mLatlngCurrent, "");
+                    if (mshopsListRecycleViewAdapter != null) {
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                        aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
+                        tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+
+
+                    }
+                } else {
+                    ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("City", "", mLatlngCurrent, CityName);
+                    if (mshopsListRecycleViewAdapter != null) {
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                        aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
+                        tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void APiGetShopslistData(final String Url, final String Type, final String City) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
@@ -540,34 +614,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
+
                         try {
-                            List listservices = new ArrayList();
-                            //noinspection unchecked
-                            listservices.add(0, "Service Type");
-                            List brands = new ArrayList();
-                            //noinspection unchecked
-                            brands.add(0, "Brand");
-                            if (Type.equals("Services")) {
-                                JSONArray brandsData = response.getJSONArray("serviceTypeData");
-                                for (int i = 0; i < brandsData.length(); i++) {
-                                    JSONObject jsonObject = brandsData.getJSONObject(i);
-                                    //noinspection unchecked
-                                    listservices.add(jsonObject.getString("serviceTypeName"));
-                                }
-                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapter = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, listservices);
-                                sp_service_type_shops_list.setAdapter(StringdataAdapter);
-//                                APiGetShopslistData(AppConfig.APiBrandData, "Brands");
-                            } else if (Type.equals("Brands")) {
-                                JSONArray brandsData = response.getJSONArray("brandsData");
-                                for (int i = 0; i < brandsData.length(); i++) {
-                                    JSONObject jsonObject = brandsData.getJSONObject(i);
-                                    //noinspection unchecked
-                                    brands.add(jsonObject.getString("brandName"));
-                                }
-                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, android.R.layout.simple_spinner_item, brands);
-                                sp_brand_type_shop_list.setAdapter(StringdataAdapterbrands);
-//                                APiGetShopslistData(AppConfig.APiShopsListData, "Shops");
-                            } else {
+                            if (Type.equals("Shops") && City.equals("City") || City.equals("")) {
                                 ShopsData = response.toString();
                                 mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                                 if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
@@ -580,10 +629,32 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     }
                                     loading.close();
                                     showToast(getResources().getString(R.string.no_record_found));
-
                                 }
-//                                setSpinnerFilter();
+                                if (City.equals("City")) {
+                                    APiGetShopslistData(AppConfig.APiGetCitiesList, "", "City");
+                                }
+                            } else if (Type.equals("") && City.equals("City")) {
+                                if (mplaceName != null && !mplaceName.equals("")) {
+                                    if (listCities != null) {
+                                        listCities.clear();
+                                    }
+                                    listCities.add(0, mplaceName);
+                                } else {
+                                    listCities.add(0, getResources().getString(R.string.tv_city));
+                                }
+                                citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
+                                JSONArray jsonArray = new JSONArray(citiesNamesIDsResponse);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                                    String ID = jsonObject.getString("ID");
+                                    String name = jsonObject.getString("name");
+                                    listCities.add(name);
+                                }
+                                setCityDropDownData();
+                                loading.close();
                             }
+//                                setSpinnerFilter();
+
 
                         } catch (JSONException e) {
                             loading.close();

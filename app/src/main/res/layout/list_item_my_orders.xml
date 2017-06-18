@@ -25,6 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:clickable="false"
                 android:gravity="center"
 
                 >
@@ -34,8 +35,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/dr_corner_grey"
                     android:clickable="true"
+                    android:background="@drawable/dr_list_item_fav_click"
+
                     android:duplicateParentState="false"
                     android:orientation="horizontal"
                     android:padding="@dimen/_3sdp"

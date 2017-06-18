@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -56,6 +57,13 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
         holder.rb_quality_rate.setRating(Float.parseFloat(_shopReviews.get(position).getQualityRating()));
         holder.rb_time_rate.setRating(Float.parseFloat(_shopReviews.get(position).getTimeRating()));
         holder.tv_coments_rate.setMovementMethod(new ScrollingMovementMethod());
+        holder.tv_coments_rate.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                holder.tv_coments_rate.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
     }
 
 

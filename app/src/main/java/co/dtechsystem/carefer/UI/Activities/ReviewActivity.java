@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -39,7 +40,9 @@ public class ReviewActivity extends BaseActivity {
             }
         }
     }
-
+    protected void CloseActivity(View v) {
+        finish();
+    }
     private void SetListData() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_reviews);
         recyclerView.getItemAnimator().setChangeDuration(700);

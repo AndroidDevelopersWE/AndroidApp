@@ -176,7 +176,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     public void GotoShopDetailsOrder(@SuppressWarnings("UnusedParameters") View V) {
         if (Validations.isInternetAvailable(activity, true)) {
             Intent i = new Intent(this, ShopDetailsOrderActivity.class);
-            if (mShopsDetailsModel.getShopsDetail().size() > 0) {
+            if (mShopsDetailsModel.getShopsDetail()!=null&&mShopsDetailsModel.getShopsDetail().size() > 0) {
                 i.putExtra("shopID", mShopID);
                 i.putExtra("shopName", mShopsDetailsModel.getShopsDetail().get(0).getShopName());
                 i.putExtra("shopType", mShopsDetailsModel.getShopsDetail().get(0).getShopType());

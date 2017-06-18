@@ -26,10 +26,11 @@ public abstract class ShopsRatingSorting {
         final List<ShopsListModel.ShopslistRecord> _ShopRating0_5 = new ArrayList<ShopsListModel.ShopslistRecord>();
         final List<ShopsListModel.ShopslistRecord> _ShopRating0 = new ArrayList<ShopsListModel.ShopslistRecord>();
         for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-            if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 5.5) {
+            if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 5) {
                 _ShopRating5.add(_ShopslistRecordListFilter.get(i));
 
             }
+
             if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 4.5) {
                 _ShopRating4_5.add(_ShopslistRecordListFilter.get(i));
 
@@ -60,9 +61,10 @@ public abstract class ShopsRatingSorting {
                 _ShopRating0_5.add(_ShopslistRecordListFilter.get(i));
             } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 0) {
                 _ShopRating0.add(_ShopslistRecordListFilter.get(i));
-            } else {
-                _ShopRating0.add(_ShopslistRecordListFilter.get(i));
             }
+//            else {
+//                _ShopRating0.add(_ShopslistRecordListFilter.get(i));
+//            }
 
         }
         _ShopslistRecordList.addAll(_ShopRating5);

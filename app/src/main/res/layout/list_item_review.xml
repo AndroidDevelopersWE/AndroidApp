@@ -179,7 +179,7 @@
                         <TextView
                             android:id="@+id/tv_coments_rate"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_50sdp"
                             android:gravity="right"
                             android:ellipsize="marquee"
                             android:hint="@string/lorem_ispum"

@@ -76,8 +76,7 @@ public class MainActivity extends BaseActivity
     private LatLng mLatLngCurrent;
     Location mNewLocation, mOldLocation;
     int idle;
-    String ShopsListDataResponse = "";
-    Map<String, String> citiesNamesIDs = new HashMap<String, String>();
+    String ShopsListDataResponse = "",citiesNamesIDsResponse="";
 
     @Override
 
@@ -113,6 +112,7 @@ public class MainActivity extends BaseActivity
             Bundle args = new Bundle();
             args.putParcelable("LatLngCurrent", mLatLngCurrent);
             Intent i = new Intent(this, ShopsListActivity.class);
+            i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
             i.putExtra("placeName", mPlaceName);
             i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
             i.putExtra("bundle", args);
@@ -224,24 +224,25 @@ public class MainActivity extends BaseActivity
                     public void onResponse(JSONObject response) {
                         // display response
                         try {
-                            JSONArray results = response.getJSONArray("citiesList");
-                            for (int i = 0; i < results.length(); i++) {
-                                JSONObject jsonObject = results.getJSONObject(i);
-                                String ID = jsonObject.getString("ID");
-                                String name = jsonObject.getString("name");
-                                citiesNamesIDs.put(name, ID);
-                            }
-                            if (citiesNamesIDs != null) {
-                                for (int j = 0; j < citiesNamesIDs.keySet().toArray().length; j++) {
-                                    if (mPlaceName!=null&&mPlaceName.toLowerCase(locale).contains(citiesNamesIDs.keySet().toArray()[j].toString().toLowerCase(locale))) {
-                                        String id = citiesNamesIDs.get(j).toString();
-                                    }
-                                    else if (mPlaceName!=null&&mPlaceName.toLowerCase(localeEn).contains(citiesNamesIDs.keySet().toArray()[j].toString().toLowerCase(locale))) {
-                                        String id = citiesNamesIDs.get(j).toString();
-                                    }
-
-                                }
-                            }
+                            citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
+                            JSONArray jsonArray=new JSONArray(citiesNamesIDsResponse);
+//                            for (int i = 0; i < results.length(); i++) {
+//                                JSONObject jsonObject = results.getJSONObject(i);
+//                                String ID = jsonObject.getString("ID");
+//                                String name = jsonObject.getString("name");
+//                                citiesNamesIDs.put(name, ID);
+//                            }
+//                            if (citiesNamesIDs != null) {
+//                                for (int j = 0; j < citiesNamesIDs.keySet().toArray().length; j++) {
+//                                    if (mPlaceName!=null&&mPlaceName.toLowerCase(locale).contains(citiesNamesIDs.keySet().toArray()[j].toString().toLowerCase(locale))) {
+//                                        String id = citiesNamesIDs.get(j).toString();
+//                                    }
+//                                    else if (mPlaceName!=null&&mPlaceName.toLowerCase(localeEn).contains(citiesNamesIDs.keySet().toArray()[j].toString().toLowerCase(locale))) {
+//                                        String id = citiesNamesIDs.get(j).toString();
+//                                    }
+//
+//                                }
+//                            }
                         } catch (JSONException e) {
                             loading.close();
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
@@ -283,7 +284,7 @@ public class MainActivity extends BaseActivity
                             if (Type.equals("Location")) {
                                 if (Validations.isInternetAvailable(activity, true)) {
                                     aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
-//                                    APiGetShopslistData(location);
+                                    APiGetShopslistData(location);
                                 }
                             }
                         } catch (JSONException e) {
@@ -320,8 +321,9 @@ public class MainActivity extends BaseActivity
                         ShopsListDataResponse = response.toString();
                         ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                         if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+                            APiGetAllCities();
                             if (location != null) {
-                                APiGetAllCities();
+
                                 SetShopsPointMap(mShopsListModel.getShopsList(), location);
                             }
                         } else {

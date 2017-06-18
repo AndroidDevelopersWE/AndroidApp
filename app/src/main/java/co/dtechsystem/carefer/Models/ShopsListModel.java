@@ -38,6 +38,7 @@ public class ShopsListModel {
         private String shopType = "";
         private String provideReplaceParts = "";
         private String shopImage = "";
+        private String city = "";
 
 
         public String getID() {
@@ -136,6 +137,14 @@ public class ShopsListModel {
 
         public void setShopImage(String shopImage) {
             this.shopImage = shopImage;
+        }
+
+        public String getCity() {
+            return city;
+        }
+
+        public void setCity(String city) {
+            this.city = city;
         }
     }
 }

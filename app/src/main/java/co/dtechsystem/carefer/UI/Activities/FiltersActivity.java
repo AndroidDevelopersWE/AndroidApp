@@ -311,11 +311,11 @@ public class FiltersActivity extends BaseActivity {
                         try {
                             List listservices = new ArrayList();
                             //noinspection unchecked
-                            listservices.add(0, getResources().getString(R.string.dp_service_type));
+//                            listservices.add(0, getResources().getString(R.string.dp_service_type));
                             List brands = new ArrayList();
                             List placeType = new ArrayList();
                             //noinspection unchecked
-                            brands.add(0, getResources().getString(R.string.dp_brand));
+//                            brands.add(0, getResources().getString(R.string.dp_brand));
                             JSONArray serviceTypeData = response.getJSONArray("serviceTypeData");
                             for (int i = 0; i < serviceTypeData.length(); i++) {
                                 JSONObject jsonObject = serviceTypeData.getJSONObject(i);
@@ -577,7 +577,9 @@ public class FiltersActivity extends BaseActivity {
 
         dialog.show();
     }
-
+    protected void CloseActivity(View v) {
+        finish();
+    }
     public void ShowFilterServicesListViewDialog() {
         // custom dialog
         final Dialog dialog = new Dialog(activity);
