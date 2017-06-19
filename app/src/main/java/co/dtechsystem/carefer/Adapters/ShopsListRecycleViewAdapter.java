@@ -86,6 +86,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     @SuppressLint({"RecyclerView", "SetTextI18n"})
     @Override
     public void onBindViewHolder(final ShopsListRecycleViewAdapter.ViewHolder holder, final int position) {
+
 //        List<String> serviceType = Arrays.asList(_ShopslistRecordList.get(position).getServiceType().split(","));
 //        String serviceType = _ShopslistRecordList.get(position).getServiceType().replaceAll(",", " \u2022");
         setAnimation(holder.itemView, position);

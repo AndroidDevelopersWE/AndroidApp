@@ -23,16 +23,16 @@ public class ShopsImagesPagerAdapter extends PagerAdapter {
     private final LayoutInflater mLayoutInflater;
     private final List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails;
     private final String mShopID;
-    private boolean clicked;
-    private final int getPosition;
+//    private boolean clicked;
+//    private final int getPosition;
 
     @SuppressWarnings("unused")
-    public ShopsImagesPagerAdapter(Activity mActivity, List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails, String ShopID, int getPosition) {
+    public ShopsImagesPagerAdapter(Activity mActivity, List<ShopsDetailsModel.ShopsImagessRecord> _ShopsImagesDetails, String ShopID) {
         this.mActivity = mActivity;
         this._ShopsImagesDetails = _ShopsImagesDetails;
         this.mShopID = ShopID;
-        this.clicked = true;
-        this.getPosition = getPosition;
+//        this.clicked = true;
+//        this.getPosition = getPosition;
         mLayoutInflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -52,17 +52,17 @@ public class ShopsImagesPagerAdapter extends PagerAdapter {
 
 
         ImageView iv_full_image = (ImageView) itemView.findViewById(R.id.image);
-        if (clicked && getPosition < _ShopsImagesDetails.size()) {
-            final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
-            Glide.with(mActivity).load(Url + _ShopsImagesDetails.get(getPosition)
-                    .getImageName()).into(iv_full_image);
-            clicked = false;
-
-        } else {
+//        if (clicked && getPosition < _ShopsImagesDetails.size()) {
+//            final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
+//            Glide.with(mActivity).load(Url + _ShopsImagesDetails.get(getPosition)
+//                    .getImageName()).into(iv_full_image);
+//            clicked = false;
+//
+//        } else {
             final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
             Glide.with(mActivity).load(Url + _ShopsImagesDetails.get(position)
                     .getImageName()).into(iv_full_image);
-        }
+//        }
 
         container.addView(itemView);
 

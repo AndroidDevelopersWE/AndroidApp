@@ -50,7 +50,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     private String mServicesId;
     private String mBrandsId;
     private String mModelsId;
-    private String morderType;
+    private String morderType="";
     private String mshopImage;
     private String mContact;
 
@@ -248,6 +248,11 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
+            if (morderType.equals("call")) {
+                Intent i = new Intent(activity, MainActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
             super.onBackPressed();
         }
     }

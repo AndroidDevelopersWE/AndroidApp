@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_5sdp"
-    android:orientation="vertical">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:card_view="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_margin="@dimen/_5sdp"
+              android:orientation="vertical">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="false"
+        android:duplicateParentState="false"
         app:cardBackgroundColor="@android:color/transparent"
         card_view:cardElevation="@dimen/_5sdp">
 
@@ -18,6 +20,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:clickable="false"
+            android:duplicateParentState="false"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -25,7 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:clickable="false"
+                android:background="@drawable/dr_list_item_fav_click"
+                android:clickable="true"
+                android:duplicateParentState="true"
                 android:gravity="center"
 
                 >
@@ -35,10 +40,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:clickable="true"
-                    android:background="@drawable/dr_list_item_fav_click"
+                    android:clickable="false"
 
-                    android:duplicateParentState="false"
+                    android:duplicateParentState="true"
                     android:orientation="horizontal"
                     android:padding="@dimen/_3sdp"
                     android:visibility="visible"
@@ -49,7 +53,8 @@
                         android:id="@+id/lay_iv_down"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
+                        android:clickable="false"
+                        android:duplicateParentState="false"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:weightSum="2">
@@ -70,7 +75,7 @@
                                 android:layout_marginStart="@dimen/_5sdp"
                                 android:layout_weight="0"
                                 android:background="@drawable/ic_arrow_down_grey"
-                                card_view:ignore="ContentDescription,InefficientWeight,NestedWeights" />
+                                card_view:ignore="ContentDescription,InefficientWeight,NestedWeights"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -78,6 +83,8 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1.1"
+                            android:clickable="false"
+                            android:duplicateParentState="false"
                             android:gravity="center_vertical">
 
                             <TextView
@@ -87,13 +94,14 @@
                                 android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:clickable="false"
+                                android:duplicateParentState="false"
                                 android:gravity="end"
                                 android:padding="@dimen/_5sdp"
                                 android:singleLine="true"
                                 android:text="@string/tv_order_number"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="@dimen/_12sdp"
-                                card_view:ignore="Deprecated,InefficientWeight,NestedWeights,RtlHardcoded" />
+                                card_view:ignore="Deprecated,InefficientWeight,NestedWeights,RtlHardcoded"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -102,13 +110,19 @@
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:layout_marginRight="@dimen/_5sdp"
                             android:layout_weight="0"
-                            android:background="@color/colorGrey" />
+                            android:background="@color/colorGrey"
+                            android:clickable="false"
+                            android:duplicateParentState="false"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="0.9"
+                            android:clickable="false"
+
+                            android:duplicateParentState="false"
+
                             android:gravity="end">
 
                             <TextView
@@ -117,13 +131,14 @@
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center"
                                 android:clickable="false"
+                                android:duplicateParentState="false"
                                 android:gravity="center"
                                 android:padding="@dimen/_2sdp"
                                 android:singleLine="true"
                                 android:text="@string/tv_date_order"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="@dimen/_12sdp"
-                                card_view:ignore="Deprecated,RtlHardcoded" />
+                                card_view:ignore="Deprecated,RtlHardcoded"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -131,13 +146,14 @@
                                 android:layout_gravity="center"
                                 android:layout_marginRight="@dimen/_4sdp"
                                 android:clickable="false"
+                                android:duplicateParentState="false"
                                 android:gravity="center"
                                 android:padding="@dimen/_2sdp"
                                 android:singleLine="true"
                                 android:text="@string/tv_date"
                                 android:textColor="@color/colorGrey"
                                 android:textSize="@dimen/_12sdp"
-                                card_view:ignore="Deprecated,RtlHardcoded" />
+                                card_view:ignore="Deprecated,RtlHardcoded"/>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -182,7 +198,7 @@
                                 android:layout_gravity="left"
                                 android:layout_weight="0"
                                 android:background="@drawable/ic_arrow_up_white"
-                                card_view:ignore="ContentDescription,InefficientWeight,RtlHardcoded" />
+                                card_view:ignore="ContentDescription,InefficientWeight,RtlHardcoded"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -202,7 +218,7 @@
                                 android:text="@string/dummy_order_no"
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/_12sdp"
-                                card_view:ignore="Deprecated" />
+                                card_view:ignore="Deprecated"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -214,7 +230,7 @@
                                 android:text="@string/tv_order_number"
                                 android:textColor="@android:color/white"
                                 android:textSize="@dimen/_12sdp"
-                                card_view:ignore="Deprecated,RtlHardcoded" />
+                                card_view:ignore="Deprecated,RtlHardcoded"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -222,7 +238,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
-                        android:background="@drawable/dr_line_hover" />
+                        android:background="@drawable/dr_line_hover"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -243,7 +259,7 @@
                             android:textColor="@android:color/white"
 
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -254,7 +270,7 @@
                             android:text="@string/tv_date_order"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
 
                     </LinearLayout>
@@ -262,7 +278,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
-                        android:background="@drawable/dr_line_hover" />
+                        android:background="@drawable/dr_line_hover"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -283,7 +299,7 @@
                             android:text="@string/dummy_text_list_item"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -294,7 +310,7 @@
                             android:text="@string/tv_shop"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
 
                     </LinearLayout>
@@ -302,7 +318,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
-                        android:background="@drawable/dr_line_hover" />
+                        android:background="@drawable/dr_line_hover"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -322,7 +338,7 @@
                             android:text="@string/dummy_order_type"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -333,7 +349,7 @@
                             android:text="@string/tv_order_type"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
 
                     </LinearLayout>
@@ -341,7 +357,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
-                        android:background="@drawable/dr_line_hover" />
+                        android:background="@drawable/dr_line_hover"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -361,7 +377,7 @@
                             android:text="@string/dummy_rating"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -372,7 +388,7 @@
                             android:text="@string/tv_shop_rating"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
 
                     </LinearLayout>
@@ -380,7 +396,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"
-                        android:background="@drawable/dr_line_hover" />
+                        android:background="@drawable/dr_line_hover"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -401,7 +417,7 @@
                             android:text="@string/dummy_status"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -412,7 +428,7 @@
                             android:text="@string/tv_status"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_12sdp"
-                            card_view:ignore="Deprecated,RtlHardcoded" />
+                            card_view:ignore="Deprecated,RtlHardcoded"/>
 
                     </LinearLayout>
 
@@ -428,7 +444,7 @@
                         android:text="@string/btn_rate_this_shop"
                         android:textAllCaps="false"
                         android:textColor="@drawable/dr_tv_selection_rating"
-                        android:textSize="@dimen/_10sdp" />
+                        android:textSize="@dimen/_10sdp"/>
 
                 </LinearLayout>
 

@@ -577,9 +577,9 @@ public class FiltersActivity extends BaseActivity {
 
         dialog.show();
     }
-    protected void CloseActivity(View v) {
-        finish();
-    }
+//    protected void CloseActivity(View v) {
+//        finish();
+//    }
     public void ShowFilterServicesListViewDialog() {
         // custom dialog
         final Dialog dialog = new Dialog(activity);

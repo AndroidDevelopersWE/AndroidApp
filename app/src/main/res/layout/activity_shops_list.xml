@@ -317,6 +317,7 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:layout_weight="0"
+                        android:backgroundTint="@android:color/white"
                         android:background="@drawable/ic_arrow_down"
                         tools:ignore="ContentDescription,RtlHardcoded"/>
 

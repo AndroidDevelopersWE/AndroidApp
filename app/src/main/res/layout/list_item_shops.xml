@@ -334,7 +334,7 @@
                                     android:drawablePadding="@dimen/_2sdp"
                                     android:drawableRight="@drawable/ic_km"
                                     android:gravity="center"
-                                    android:text="2.5 km"
+                                    android:text=" km"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="bold"
                                     tools:ignore="HardcodedText,RtlHardcoded" />

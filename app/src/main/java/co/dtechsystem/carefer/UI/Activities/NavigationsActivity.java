@@ -358,6 +358,9 @@ public class NavigationsActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
+            Intent i = new Intent(activity, MainActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
             super.onBackPressed();
         }
     }

@@ -163,6 +163,9 @@
     <string name="toast_shop_added_fav">تم إضافة الورشة في قائمتك المفضلة</string>
     <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي ...!</string>
     <string name="toast_record_found_out_of"> سجل العثور على الخروج من </string>
+    <string name="toast_review_added">تمت إضافة المراجعة</string>
+    <string name="toast_please_give_rating">يرجى إعطاء تقييم واحد على الأقل</string>
+    <string name="toast_please_add_comments">الرجاء إضافة تعليقات</string>
 
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>

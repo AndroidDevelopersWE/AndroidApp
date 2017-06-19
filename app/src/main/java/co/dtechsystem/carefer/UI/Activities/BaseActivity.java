@@ -95,7 +95,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @SuppressWarnings({"unused", "UnusedParameters"})
-    protected void CloseActivity(View v) {
+    public void CloseActivity(View v) {
         finish();
     }
 

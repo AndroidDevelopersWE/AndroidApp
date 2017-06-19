@@ -1,6 +1,7 @@
 package co.dtechsystem.carefer.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,6 +22,7 @@ import java.util.List;
 
 import co.dtechsystem.carefer.Models.FavouriteShopsModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
 
@@ -69,16 +72,16 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
                         }
                     })
                     .into(holder.iv_shop_fav);
-//            holder.tv_fav_shop_name.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
-//                    mIntent.putExtra("ShopID", _FavouriteShopsDetails.get(position).getID().toString());
-//                    activity.startActivity(mIntent);
-//                }
-//            });
-        }
 
+        }
+        holder.lay_main_fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
+                mIntent.putExtra("ShopID", _FavouriteShopsDetails.get(position).getID().toString());
+                activity.startActivity(mIntent);
+            }
+        });
 
     }
 
@@ -87,6 +90,7 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
         public final TextView tv_fav_shop_name;
         public final ImageView iv_shop_fav;
         public final ProgressBar pg_image_load;
+        LinearLayout lay_main_fav;
 
         public ViewHolder(View v) {
 
@@ -94,6 +98,7 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
             pg_image_load = (ProgressBar) v.findViewById(R.id.pg_image_load);
             tv_fav_shop_name = (TextView) v.findViewById(R.id.tv_fav_shop_name);
             iv_shop_fav = (ImageView) v.findViewById(R.id.iv_shop_fav);
+            lay_main_fav = (LinearLayout) v.findViewById(R.id.lay_main_fav);
         }
 
     }

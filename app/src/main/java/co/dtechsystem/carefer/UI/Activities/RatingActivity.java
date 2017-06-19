@@ -85,11 +85,11 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                 APisendRating(sUser_ID, mshopID, morderID, String.valueOf(price_rate), String.valueOf(quality_rate),
                         String.valueOf(time_rate), et_coments_rate);
             } else {
-                showToast("Please give at least one rating .");
+                showToast(getResources().getString(R.string.toast_please_give_rating));
 
             }
         } else {
-            showToast("Please Add Comments");
+            showToast(getResources().getString(R.string.toast_please_add_comments));
         }
     }
 
@@ -115,7 +115,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                             JSONObject jsonObject = new JSONObject(response);
                             String result = jsonObject.getString("result");
                             if (result.equals("1")) {
-                                showToast("Review Added...");
+                                showToast(getResources().getString(R.string.toast_review_added));
                                 finish();
                                 loading.close();
                             }

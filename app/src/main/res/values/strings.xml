@@ -146,6 +146,9 @@
     <string name="toast_shop_added_fav">Shop Added in your favourite list...</string>
     <string name="toast_location_not_found">Your current location could not be found.</string>
     <string name="toast_record_found_out_of">Rocord Found Out of </string>
+    <string name="toast_review_added">Review Added</string>
+    <string name="toast_please_give_rating">Please give at least one rating</string>
+    <string name="toast_please_add_comments">Please Add Comments</string>
 
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Ok</string>

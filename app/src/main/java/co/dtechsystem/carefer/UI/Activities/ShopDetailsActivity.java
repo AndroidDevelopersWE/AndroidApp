@@ -106,9 +106,10 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
                             lay_full_image.setVisibility(View.VISIBLE);
                             lay_shop_details.setVisibility(View.GONE);
-                            mShopsImagesPagerAdapter = new ShopsImagesPagerAdapter(activity, mShopsDetailsModel.getShopImages(), mShopID, position);
+                            mShopsImagesPagerAdapter = new ShopsImagesPagerAdapter(activity, mShopsDetailsModel.getShopImages(), mShopID);
                             mViewPager = (ViewPager) findViewById(R.id.pager);
                             mViewPager.setAdapter(mShopsImagesPagerAdapter);
+                            mViewPager.setCurrentItem(position);
 //                            mShopsImagesPagerAdapter.notifyDataSetChanged();
                             final CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
                             indicator.setViewPager(mViewPager);
@@ -176,7 +177,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     public void GotoShopDetailsOrder(@SuppressWarnings("UnusedParameters") View V) {
         if (Validations.isInternetAvailable(activity, true)) {
             Intent i = new Intent(this, ShopDetailsOrderActivity.class);
-            if (mShopsDetailsModel.getShopsDetail()!=null&&mShopsDetailsModel.getShopsDetail().size() > 0) {
+            if (mShopsDetailsModel.getShopsDetail() != null && mShopsDetailsModel.getShopsDetail().size() > 0) {
                 i.putExtra("shopID", mShopID);
                 i.putExtra("shopName", mShopsDetailsModel.getShopsDetail().get(0).getShopName());
                 i.putExtra("shopType", mShopsDetailsModel.getShopsDetail().get(0).getShopType());
