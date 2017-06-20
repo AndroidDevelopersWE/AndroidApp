@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -90,14 +91,21 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
             }
         });
+        if (_MyOrdersRecords.get(position).getIsRated().equals("1")) {
+            holder.btn_add_rate_shop.setAlpha(.7f);
+        }
         holder.btn_add_rate_shop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, RatingActivity.class);
-                intent.putExtra("orderID", _MyOrdersRecords.get(position).getID());
-                intent.putExtra("shopID", _MyOrdersRecords.get(position).getShopID());
-                intent.putExtra("ShopName", _MyOrdersRecords.get(position).getShopName());
-                activity.startActivity(intent);
+                if (!_MyOrdersRecords.get(position).getIsRated().equals("1")) {
+                    Intent intent = new Intent(activity, RatingActivity.class);
+                    intent.putExtra("orderID", _MyOrdersRecords.get(position).getID());
+                    intent.putExtra("shopID", _MyOrdersRecords.get(position).getShopID());
+                    intent.putExtra("ShopName", _MyOrdersRecords.get(position).getShopName());
+                    activity.startActivity(intent);
+                } else {
+                    Toast.makeText(activity, activity.getResources().getString(R.string.toast_review_already_added), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

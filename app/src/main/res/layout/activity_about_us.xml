@@ -189,17 +189,7 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_mail"
-                            android:drawablePadding="@dimen/_5sdp"
-                            android:gravity="center"
-                            android:text="@string/tv_email_icon"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/_10sdp"
-                            android:textStyle="bold"
-                            tools:ignore="RtlHardcoded" />
+
 
                         <TextView
                             android:layout_width="match_parent"
@@ -211,6 +201,17 @@
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableLeft="@drawable/ic_mail"
+                            android:drawablePadding="@dimen/_5sdp"
+                            android:gravity="center"
+                            android:text="@string/tv_email_icon"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold"
+                            tools:ignore="RtlHardcoded" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -222,6 +223,15 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_3sdp"
+                            android:gravity="center"
+                            android:text="@string/carefer_phone"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:drawableLeft="@drawable/ic_phone"
                             android:drawablePadding="@dimen/_5sdp"
                             android:gravity="center"
@@ -230,16 +240,6 @@
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold"
                             tools:ignore="RtlHardcoded" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_3sdp"
-                            android:gravity="center"
-                            android:text="@string/carefer_phone"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/_10sdp"
-                            android:textStyle="bold" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -248,6 +248,15 @@
                         android:layout_gravity="center"
                         android:orientation="horizontal">
 
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/carefer_site"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -260,14 +269,6 @@
                             android:textStyle="bold"
                             tools:ignore="RtlHardcoded" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="@string/carefer_site"
-                            android:textColor="@android:color/white"
-                            android:textSize="@dimen/_10sdp"
-                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 

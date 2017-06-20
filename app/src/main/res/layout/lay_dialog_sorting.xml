@@ -49,17 +49,18 @@
         android:background="@color/colorCinnabar"
         android:text="@string/spinner_distance"
         android:textAllCaps="false"
+        android:visibility="gone"
         android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btn_cancel_sorting"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:textSize="@dimen/_14sdp"
-        android:layout_marginTop="@dimen/_40sdp"
-        android:background="@color/colorDustyGrey"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@android:color/transparent"
         android:text="@string/dialog_cancel"
-        android:clickable="true"
         android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/colorOrange"
+        android:textSize="@dimen/_14sdp"/>
 </LinearLayout>

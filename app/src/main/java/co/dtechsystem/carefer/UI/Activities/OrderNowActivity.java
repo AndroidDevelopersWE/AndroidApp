@@ -171,7 +171,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                 params.put("brandID", brandID);
                 params.put("modelID", modelID);
                 params.put("orderType", orderType);
-                params.put("customerMobileNo", customerMobileNo);
+//                params.put("customerMobileNo", customerMobileNo);
 
 
                 return params;
@@ -214,7 +214,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     public void DirectionsToShop(View v) {
         if (mOrderPlaced == false) {
             //noinspection StatementWithEmptyBody
-            if (morderType != null && !morderType.equals("navigate")) {
+            if (morderType != null && morderType.equals("call")) {
             } else {
                 morderType = "navigate";
             }

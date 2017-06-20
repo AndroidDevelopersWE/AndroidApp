@@ -44,11 +44,10 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         tv_title_my_orders = (TextView) findViewById(R.id.tv_title_my_orders);
         SetShaderToViews();
         SetUpLeftbar();
-        if (Validations.isInternetAvailable(activity, true)) {
-            loading.show();
-            APiGetShopslistData();
-        }
+
     }
+
+
 
     private void SetShaderToViews() {
         Utils.gradientTextViewShort(tv_title_my_orders, activity);
@@ -61,7 +60,14 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mgridLayoutManager);
     }
-
+    @Override
+    protected void onResume() {
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            APiGetShopslistData();
+        }
+        super.onResume();
+    }
     private void APiGetShopslistData() {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);

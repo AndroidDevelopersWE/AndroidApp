@@ -31,7 +31,7 @@ public class MyOrdersModel {
         private String orderType = "";
         private String orderStatus = "";
         private String orderDate = "";
-
+        private String isRated="";
 
         public String getID() {
             return ID;
@@ -104,6 +104,13 @@ public class MyOrdersModel {
 
         public void setOrderDate(String orderDate) {
             this.orderDate = orderDate;
+        }
+        public String getIsRated() {
+            return isRated;
+        }
+
+        public void setIsRated(String isRated) {
+            this.isRated = isRated;
         }
 
     }

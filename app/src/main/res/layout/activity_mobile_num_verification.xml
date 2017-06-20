@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:visibility="gone"
                 android:text="@string/confirm_mobile_number"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_18sdp" />

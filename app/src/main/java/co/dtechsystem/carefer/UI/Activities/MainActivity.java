@@ -1,5 +1,6 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -76,7 +77,7 @@ public class MainActivity extends BaseActivity
     private LatLng mLatLngCurrent;
     Location mNewLocation, mOldLocation;
     int idle;
-    String ShopsListDataResponse = "",citiesNamesIDsResponse="";
+    String ShopsListDataResponse = "", citiesNamesIDsResponse = "";
 
     @Override
 
@@ -95,7 +96,15 @@ public class MainActivity extends BaseActivity
 
             // Getting reference to the SupportMapFragment of activity_main.xml
             mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                    android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
+//            return;
+            } else {
+                mapFragment.getMapAsync(this);
+
+            }
         }
         SetUpLeftbar();
         tv_title_main = (TextView) findViewById(R.id.tv_title_main);
@@ -149,14 +158,11 @@ public class MainActivity extends BaseActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setMapToolbarEnabled(false);
         GPSServiceRequest.displayLocationSettingsRequest(activity);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
-            return;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mMap.setMyLocationEnabled(true);
         }
-        mMap.setMyLocationEnabled(true);
 
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
@@ -225,7 +231,7 @@ public class MainActivity extends BaseActivity
                         // display response
                         try {
                             citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
-                            JSONArray jsonArray=new JSONArray(citiesNamesIDsResponse);
+                            JSONArray jsonArray = new JSONArray(citiesNamesIDsResponse);
 //                            for (int i = 0; i < results.length(); i++) {
 //                                JSONObject jsonObject = results.getJSONObject(i);
 //                                String ID = jsonObject.getString("ID");
@@ -279,7 +285,9 @@ public class MainActivity extends BaseActivity
                         try {
                             JSONArray results = response.getJSONArray("results");
                             JSONObject jsonObject = results.getJSONObject(0);
-                            mPlaceName = jsonObject.getString("formatted_address");
+                            JSONArray address_components = jsonObject.getJSONArray("address_components");
+                            JSONObject jsonObject1 = address_components.getJSONObject(2);
+                            mPlaceName = jsonObject1.getString("short_name");
 
                             if (Type.equals("Location")) {
                                 if (Validations.isInternetAvailable(activity, true)) {
@@ -552,10 +560,31 @@ public class MainActivity extends BaseActivity
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    mapFragment.getMapAsync(this);
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    mMap.setMyLocationEnabled(true);
 
                 } else {
                     // User refused to grant permission. You can add AlertDialog here
+                    mLatLngCurrent = new LatLng(24.7255553, 46.5423347);
+                    mNewLocation = new Location("");
+                    mOldLocation = new Location("");
+                    mOldLocation.setLatitude(mLatLngCurrent.latitude);
+                    mOldLocation.setLongitude(mLatLngCurrent.longitude);
+                    mNewLocation.setLatitude(mLatLngCurrent.latitude);
+                    mNewLocation.setLongitude(mLatLngCurrent.longitude);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLngCurrent, 13));
+                    if (Validations.isInternetAvailable(activity, true) && mOldLocation != null) {
+                        APiGetCurrentAddress("Location", mOldLocation);
+                    }
                     showToast(getResources().getString(R.string.toast_permission));
                 }
                 return;

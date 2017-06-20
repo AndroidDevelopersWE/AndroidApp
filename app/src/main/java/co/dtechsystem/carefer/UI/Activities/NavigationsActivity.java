@@ -84,6 +84,11 @@ public class NavigationsActivity extends BaseActivity
         }
     }
 
+    public void GotoMyOrder(View v) {
+        intent = new Intent(activity, MyOrdersActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -95,6 +100,7 @@ public class NavigationsActivity extends BaseActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setMapToolbarEnabled(true);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
