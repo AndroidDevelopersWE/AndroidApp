@@ -249,9 +249,11 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             drawer.closeDrawer(GravityCompat.END);
         } else {
             if (morderType.equals("call")) {
-                Intent i = new Intent(activity, MainActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                intent = new Intent(activity, MyOrdersActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("callType", "callOrder");
+                startActivity(intent);
+                finish();
             }
             super.onBackPressed();
         }

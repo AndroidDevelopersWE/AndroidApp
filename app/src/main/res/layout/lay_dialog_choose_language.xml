@@ -24,8 +24,7 @@
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_35sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/dr_border_drawyer"
-        android:text="@string/dialog_language_english"
+        android:background="@drawable/dr_btn_round_corner_white_90"        android:text="@string/dialog_language_english"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="@dimen/_14sdp"/>
@@ -35,8 +34,7 @@
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_35sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/dr_border_drawyer"
-        android:text="@string/dialog_language_arabic"
+        android:background="@drawable/dr_btn_round_corner_white_90"        android:text="@string/dialog_language_arabic"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="@dimen/_14sdp"/>

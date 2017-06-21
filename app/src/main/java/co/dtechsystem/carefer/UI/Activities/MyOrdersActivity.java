@@ -36,17 +36,23 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     private DrawerLayout mDrawerLayout;
     private MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
     private TextView tv_title_my_orders;
+    String callType = "";
 
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         tv_title_my_orders = (TextView) findViewById(R.id.tv_title_my_orders);
+        if (intent.getExtras() != null) {
+            callType = intent.getStringExtra("callType");
+        } else {
+            callType = "";
+        }
         SetShaderToViews();
         SetUpLeftbar();
 
     }
-
 
 
     private void SetShaderToViews() {
@@ -60,15 +66,17 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
         recyclerView.setLayoutManager(mgridLayoutManager);
     }
+
     @Override
     protected void onResume() {
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
-            APiGetShopslistData();
+            APiGetMyorderslistData();
         }
         super.onResume();
     }
-    private void APiGetShopslistData() {
+
+    private void APiGetMyorderslistData() {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiMyOrdersList + sUser_ID, null,
@@ -122,9 +130,16 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
+            if (callType != null && callType.equals("Navigation") || callType.equals("callOrder")) {
+                intent = new Intent(activity, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
             super.onBackPressed();
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

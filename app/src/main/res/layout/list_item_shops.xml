@@ -1,59 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="2">
+              xmlns:card_view="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:weightSum="2">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
         android:layout_weight="1"
-        card_view:cardElevation="@dimen/_5sdp"
+        card_view:cardElevation="@dimen/_3sdp"
         tools:ignore="InefficientWeight">
 
         <LinearLayout
+            android:id="@+id/lay_shop_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/dr_corner_grey"
+            android:clickable="true"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/lay_shop_item"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
+                android:clickable="false"
+                android:duplicateParentState="false"
                 android:visibility="visible">
 
                 <LinearLayout
                     android:id="@+id/lay_expand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                                    android:background="@drawable/dr_list_item_fav_click"
-                    android:clickable="true"
-                    android:orientation="horizontal">
+                    android:clickable="false"
+                    android:duplicateParentState="false"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_10sdp">
 
                     <RelativeLayout
-                        android:layout_width="@dimen/_110sdp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent">
 
-                        <ImageView
+
+                        <com.joooonho.SelectableRoundedImageView
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/iv_item_top_shops_list"
-                            android:layout_width="@dimen/_110sdp"
-                            android:layout_height="match_parent"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_50sdp"
                             android:background="@drawable/ic_img_place_holder"
                             android:scaleType="centerCrop"
-                            tools:ignore="ContentDescription" />
+                            app:sriv_border_color="@android:color/transparent"
+                            app:sriv_border_width="@dimen/_5sdp"
+                            app:sriv_left_bottom_corner_radius="@dimen/_5sdp"
+                            app:sriv_left_top_corner_radius="@dimen/_5sdp"
+                            app:sriv_oval="false"
+                            app:sriv_right_bottom_corner_radius="@dimen/_5sdp"
+                            app:sriv_right_top_corner_radius="@dimen/_5sdp"/>
 
                         <ProgressBar
                             android:id="@+id/pg_image_load"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
                             android:layout_centerHorizontal="true"
                             android:layout_centerVertical="true"
-                            android:visibility="gone" />
+                            android:visibility="visible"/>
 
 
                     </RelativeLayout>
@@ -62,6 +75,8 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:duplicateParentState="false"
                         android:orientation="vertical">
 
                         <LinearLayout
@@ -84,12 +99,13 @@
                                 android:progressDrawable="@drawable/dr_rating_bar_yellow"
                                 android:rating="2"
                                 android:stepSize="0.5"
-                                tools:ignore="RtlHardcoded" />
+                                tools:ignore="RtlHardcoded"/>
 
                             <TextView
                                 android:id="@+id/tv_shop_name_shop_list"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="center"
                                 android:layout_weight="1"
                                 android:gravity="right"
                                 android:maxLines="1"
@@ -98,7 +114,7 @@
                                 android:textColor="@android:color/black"
                                 android:textSize="@dimen/_12sdp"
                                 android:textStyle="bold"
-                                tools:ignore="RtlHardcoded" />
+                                tools:ignore="RtlHardcoded"/>
 
 
                             <LinearLayout
@@ -107,7 +123,7 @@
                                 android:layout_marginRight="@dimen/_10sdp"
                                 android:background="@color/colorGrey"
                                 android:visibility="gone"
-                                tools:ignore="RtlHardcoded" />
+                                tools:ignore="RtlHardcoded"/>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -123,7 +139,7 @@
                                     android:layout_gravity="center"
                                     android:layout_marginRight="@dimen/_10sdp"
                                     android:background="@drawable/ic_arrow_down"
-                                    tools:ignore="ContentDescription,RtlHardcoded" />
+                                    tools:ignore="ContentDescription,RtlHardcoded"/>
                             </LinearLayout>
 
                         </LinearLayout>
@@ -131,53 +147,63 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_1sdp"
-                            android:background="@color/colorDustyGrey" />
+                            android:background="@color/colorDustyGrey"
+                            android:visibility="gone"/>
 
-                        <TextView
-                            android:id="@+id/tv_service_type_shop_list"
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginLeft="@dimen/_2sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_10sdp"
-                            android:gravity="right"
-                            android:maxLines="1"
-                            android:text="@string/prompt_service"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_11sdp"
-                            android:textStyle="normal"
-                            android:visibility="visible"
-                            tools:ignore="RtlHardcoded" />
+                            android:orientation="horizontal"
+                            >
 
-                        <TextView
-                            android:id="@+id/tv_desc_short_shop_list"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:layout_weight="1"
-                            android:maxLines="2"
-                            android:gravity="right"
-                            android:padding="@dimen/_2sdp"
-                            android:scrollHorizontally="true"
-                            android:text="@string/lorem_ispum"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_8sdp"
-                            tools:ignore="InefficientWeight,RtlHardcoded" />
+                            <TextView
+                                android:id="@+id/tv_distance_item"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_2sdp"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:drawableRight="@drawable/ic_km"
+                                android:gravity="top"
+                                android:text=" km"
+                                android:textSize="@dimen/_11sdp"
+                                tools:ignore="HardcodedText,RtlHardcoded"/>
 
-                        <TextView
-                            android:id="@+id/tv_distance_item"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_2sdp"
-                            android:layout_marginLeft="@dimen/_5sdp"
-                            android:drawablePadding="@dimen/_5sdp"
-                            android:drawableRight="@drawable/ic_km"
-                            android:gravity="top"
-                            android:text=" km"
-                            android:textSize="@dimen/_11sdp"
-                            tools:ignore="HardcodedText,RtlHardcoded" />
+                            <TextView
+                                android:id="@+id/tv_service_type_shop_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginLeft="@dimen/_2sdp"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:gravity="right"
+                                android:maxLines="1"
+                                android:text="@string/prompt_service"
+                                android:textSize="@dimen/_11sdp"
+                                android:textStyle="normal"
+                                android:visibility="visible"
+                                tools:ignore="RtlHardcoded"/>
+
+                            <TextView
+                                android:id="@+id/tv_desc_short_shop_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="right"
+                                android:layout_marginRight="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:maxLines="2"
+                                android:padding="@dimen/_2sdp"
+                                android:scrollHorizontally="true"
+                                android:text="@string/lorem_ispum"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/_8sdp"
+                                android:visibility="gone"
+                                tools:ignore="InefficientWeight,RtlHardcoded"/>
+
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -186,7 +212,9 @@
             <LinearLayout
                 android:id="@+id/lay_details"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:duplicateParentState="false"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -194,7 +222,6 @@
                     android:id="@+id/lay_collapse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/dr_list_item_fav_click"
                     android:clickable="true"
                     android:orientation="vertical"
                     tools:ignore="UselessParent">
@@ -203,7 +230,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorLightBlue"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone">
 
 
                         <RatingBar
@@ -220,7 +248,7 @@
                             android:progressDrawable="@drawable/dr_rating_bar_yellow"
                             android:rating="2"
                             android:stepSize="0.5"
-                            tools:ignore="RtlHardcoded" />
+                            tools:ignore="RtlHardcoded"/>
 
                         <TextView
                             android:id="@+id/tv_shop_name_large_shop_list"
@@ -234,7 +262,7 @@
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/_12sdp"
                             android:textStyle="bold"
-                            tools:ignore="RtlHardcoded" />
+                            tools:ignore="RtlHardcoded"/>
 
 
                         <LinearLayout
@@ -243,7 +271,7 @@
                             android:layout_marginRight="@dimen/_10sdp"
                             android:background="@color/colorGrey"
                             android:visibility="gone"
-                            tools:ignore="RtlHardcoded" />
+                            tools:ignore="RtlHardcoded"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -257,7 +285,7 @@
                                 android:layout_gravity="center"
                                 android:layout_marginRight="@dimen/_10sdp"
                                 android:background="@drawable/ic_arrow_up"
-                                tools:ignore="ContentDescription,RtlHardcoded" />
+                                tools:ignore="ContentDescription,RtlHardcoded"/>
 
                         </LinearLayout>
                     </LinearLayout>
@@ -271,7 +299,8 @@
 
                         <RelativeLayout
                             android:layout_width="@dimen/_130sdp"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:visibility="gone">
 
                             <ImageView
                                 android:id="@+id/iv_shop_detail_large_expand"
@@ -280,7 +309,7 @@
                                 android:layout_margin="@dimen/_5sdp"
                                 android:background="@drawable/ic_img_place_holder"
                                 android:scaleType="centerCrop"
-                                tools:ignore="ContentDescription" />
+                                tools:ignore="ContentDescription"/>
 
                             <ProgressBar
                                 android:id="@+id/pg_image_load_large_shops"
@@ -288,7 +317,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:visibility="gone" />
+                                android:visibility="gone"/>
 
                         </RelativeLayout>
 
@@ -299,27 +328,28 @@
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:layout_weight="1">
 
                                 <TextView
                                     android:id="@+id/tv_desc_shop_list"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="@dimen/_50sdp"
                                     android:layout_gravity="right"
-                                    android:gravity="right"
                                     android:layout_weight="1"
-                                    android:maxLines="6"
+                                    android:gravity="right"
+                                    android:maxLines="8"
                                     android:padding="@dimen/_5sdp"
                                     android:text="@string/lorem_ispum"
                                     android:textColor="@android:color/black"
                                     android:textSize="@dimen/_8sdp"
-                                    tools:ignore="InefficientWeight,NestedWeights,RtlHardcoded" />
+                                    tools:ignore="InefficientWeight,NestedWeights,RtlHardcoded"/>
                             </LinearLayout>
 
-                            <LinearLayout
+                            <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_gravity="right"
                                 android:layout_marginBottom="@dimen/_5sdp"
                                 android:layout_weight="0"
                                 android:gravity="bottom"
@@ -327,7 +357,6 @@
 
                                 <TextView
                                     android:id="@+id/tv_distance_details"
-
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/_2sdp"
@@ -337,22 +366,25 @@
                                     android:text=" km"
                                     android:textSize="@dimen/_10sdp"
                                     android:textStyle="bold"
-                                    tools:ignore="HardcodedText,RtlHardcoded" />
+                                    android:visibility="gone"
+                                    tools:ignore="HardcodedText,RtlHardcoded"/>
 
                                 <Button
                                     android:id="@+id/btn_details_shops_list"
-                                    android:layout_width="match_parent"
+                                    android:layout_width="@dimen/_100sdp"
                                     android:layout_height="@dimen/_25sdp"
+                                    android:layout_alignParentRight="true"
                                     android:layout_gravity="right"
                                     android:layout_marginLeft="@dimen/_15sdp"
                                     android:layout_marginRight="@dimen/_10sdp"
-                                    android:background="@drawable/dr_btn_orange_angle_90"
+                                    android:background="@drawable/dr_btn_round_corner_orange_90"
+                                    android:gravity="center"
                                     android:padding="@dimen/_2sdp"
                                     android:text="@string/shop_details"
                                     android:textColor="@android:color/white"
                                     android:textSize="@dimen/_8sdp"
-                                    tools:ignore="RtlHardcoded" />
-                            </LinearLayout>
+                                    tools:ignore="RtlHardcoded"/>
+                            </RelativeLayout>
                         </LinearLayout>
 
 

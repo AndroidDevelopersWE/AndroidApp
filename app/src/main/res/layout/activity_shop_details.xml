@@ -45,9 +45,9 @@
                         android:layout_gravity="right"
                         android:layout_weight="0"
                         android:clickable="true"
-                        android:drawableLeft="@drawable/ic_map"
+                        android:drawableRight="@drawable/ic_map"
                         android:drawablePadding="@dimen/_5sdp"
-                        android:gravity="right"
+                        android:gravity="center"
                         android:onClick="GotoHome"
                         android:padding="@dimen/_10sdp"
                         android:text="@string/tv_title_top_a_map"
@@ -346,7 +346,6 @@
 
 
                                 </LinearLayout>
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -372,7 +371,94 @@
                                         android:textColor="@android:color/black"
                                         android:textSize="@dimen/_12sdp"/>
                                 </LinearLayout>
+                                <LinearLayout
 
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:clickable="true"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tv_specialised_Brand_shop"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:layout_weight="0"
+                                        android:clickable="false"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:textColor="@android:color/black"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/tv_specilized_brand"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+                                </LinearLayout>
+                                <LinearLayout
+
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:clickable="true"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tv_nationality_shop"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:layout_weight="0"
+                                        android:clickable="false"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:textColor="@android:color/black"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/tv_nationality"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:clickable="true"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:id="@+id/tv_services_shops"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:text="@string/dp_service_type"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_12sdp"/>
+                                </LinearLayout>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -418,8 +504,7 @@
                 android:layout_marginRight="@dimen/_80sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:layout_weight="0"
-                android:background="@drawable/dr_btn_orange_angle_90"
-                android:clickable="true"
+                android:background="@drawable/dr_btn_round_corner_orange_90"                android:clickable="true"
                 android:onClick="GotoShopDetailsOrder"
                 android:padding="@dimen/_5sdp"
                 android:text="@string/btn_order"

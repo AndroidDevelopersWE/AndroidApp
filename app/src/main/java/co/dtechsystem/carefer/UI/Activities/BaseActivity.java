@@ -92,6 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Intent i = new Intent(activity, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
+        finish();
     }
 
     @SuppressWarnings({"unused", "UnusedParameters"})

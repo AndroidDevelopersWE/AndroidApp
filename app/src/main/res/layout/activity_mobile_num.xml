@@ -93,7 +93,7 @@
                 android:layout_marginLeft="@dimen/_80sdp"
                 android:layout_marginRight="@dimen/_80sdp"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:background="@android:color/white"
+                android:background="@drawable/dr_btn_round_corner_white_90"
                 android:clickable="true"
                 android:gravity="center"
                 android:padding="@dimen/_5sdp"

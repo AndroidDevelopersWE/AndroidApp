@@ -236,6 +236,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        mShopsDetailsModel = gson.fromJson("{shopsDetail: []}", ShopsDetailsModel.class);
+
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                     }
@@ -328,6 +330,20 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                 return false;
             }
         });
+        if (mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand() != null) {
+            aQuery.id(R.id.tv_specialised_Brand_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand());
+        }
+        if (mShopsDetailsModel.getShopsDetail().get(0).getServiceType() != null) {
+            String[] serviceArray = mShopsDetailsModel.getShopsDetail().get(0).getServiceType().split(",");
+            aQuery.id(R.id.tv_services_shops).text(serviceArray[0]);
+
+        }
+        if (mShopsDetailsModel.getShopsDetail().get(0).getNationality() != null) {
+            String[] nationalityArray = mShopsDetailsModel.getShopsDetail().get(0).getNationality().split(",");
+            aQuery.id(R.id.tv_nationality_shop).text(nationalityArray[0]);
+
+        }
+
         aQuery.id(R.id.tv_city_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getCity());
         if (mShopsDetailsModel.getShopsDetail().get(0).getProvideWarranty().equals("1")) {
             aQuery.id(R.id.tv_provide_warrnty_shop).text(getResources().getString(R.string.tv_yes));

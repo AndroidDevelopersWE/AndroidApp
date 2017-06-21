@@ -168,7 +168,8 @@
     <string name="tv_name_anonymous">مجهول الإسم</string>
     <string name="tv_yes">نعم</string>
     <string name="tv_no"> لا</string>
-
+    <string name="tv_specilized_brand">العلامة التجارية المتخصصة</string>
+    <string name="tv_nationality">جنسية</string>
 
 
 </resources>

@@ -46,6 +46,8 @@ public class ShopsDetailsModel {
         private String city = "";
         private String provideWarranty = "";
         private String provideReplaceParts = "";
+        private String specialisedBrand = "";
+        private String nationality;
 
         public String getID() {
             return ID;
@@ -166,6 +168,20 @@ public class ShopsDetailsModel {
 
         public void setProvideReplaceParts(String provideReplaceParts) {
             this.provideReplaceParts = provideReplaceParts;
+        }
+        public String getSpecialisedBrand() {
+            return specialisedBrand;
+        }
+
+        public void setSpecialisedBrand(String specialisedBrand) {
+            this.specialisedBrand = specialisedBrand;
+        }
+        public String getNationality() {
+            return nationality;
+        }
+
+        public void setNationality(String nationality) {
+            this.nationality = nationality;
         }
 
     }

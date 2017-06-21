@@ -22,12 +22,11 @@
         android:id="@+id/btn_name_sorting"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="@dimen/_35sdp"
-        android:background="@color/colorCinnabar"
-        android:text="@string/dialog_ascending"
+        android:background="@drawable/dr_btn_round_corner_white_90"         android:text="@string/dialog_ascending"
         android:textAllCaps="false"
         android:textSize="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/holo_orange_dark" />
 
     <Button
         android:id="@+id/btn_rating_sorting"
@@ -35,10 +34,9 @@
         android:layout_height="@dimen/_35sdp"
         android:textSize="@dimen/_14sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@color/colorCinnabar"
-        android:text="@string/dialog_descending"
+        android:background="@drawable/dr_btn_round_corner_white_90"         android:text="@string/dialog_descending"
         android:textAllCaps="false"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/holo_orange_dark" />
 
     <Button
         android:id="@+id/btn_cancel_sorting"
@@ -49,6 +47,6 @@
         android:background="@android:color/transparent"
         android:text="@string/dialog_cancel"
         android:textAllCaps="false"
-        android:textColor="@color/colorOrange"
+        android:textColor="@android:color/holo_orange_dark"
         android:textSize="@dimen/_14sdp"/>
 </LinearLayout>

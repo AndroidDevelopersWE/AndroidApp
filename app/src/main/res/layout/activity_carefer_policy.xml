@@ -101,7 +101,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_80sdp"
                 android:layout_marginRight="@dimen/_80sdp"
-                android:background="@drawable/dr_btn_orange_angle_90"
+                android:background="@drawable/dr_btn_round_corner_orange_90"
                 android:clickable="true"
                 android:onClick="btn_Next_to_mainmenu_Click"
                 android:padding="@dimen/_5sdp"

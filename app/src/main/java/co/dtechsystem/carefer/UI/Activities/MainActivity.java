@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -78,6 +79,8 @@ public class MainActivity extends BaseActivity
     Location mNewLocation, mOldLocation;
     int idle;
     String ShopsListDataResponse = "", citiesNamesIDsResponse = "";
+    String CityId = "";
+    JSONArray totalDataofCurrentLatlngNames;
 
     @Override
 
@@ -140,8 +143,12 @@ public class MainActivity extends BaseActivity
             if (mNewLocation != null) {
                 mOldLocation = mNewLocation;
                 aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
-                APiGetShopslistData(mNewLocation);
+                if (CityId != null && !CityId.equals("")) {
+                    APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, mNewLocation, CityId);
+                } else {
+                    APiGetShopslistData(AppConfig.APiShopsListData, mNewLocation, CityId);
 
+                }
             }
 
         }
@@ -221,7 +228,7 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    private void APiGetAllCities() {
+    private void APiGetAllCities(final Location location) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiGetCitiesList, null,
@@ -231,7 +238,32 @@ public class MainActivity extends BaseActivity
                         // display response
                         try {
                             citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
-                            JSONArray jsonArray = new JSONArray(citiesNamesIDsResponse);
+                            JSONArray jsonArray = response.getJSONArray("citiesList");
+
+                            for (int i = 0; i < citiesNamesIDsResponse.length(); i++) {
+                                for (int j = 0; j < totalDataofCurrentLatlngNames.length(); j++) {
+
+                                    JSONObject jsonObjectcities = jsonArray.getJSONObject(i);
+                                    String cityName = jsonObjectcities.getString("name");
+                                    JSONObject jsonObject = totalDataofCurrentLatlngNames.getJSONObject(j);
+                                    JSONArray address_components = jsonObject.getJSONArray("address_components");
+                                    for (int k = 0; k < address_components.length(); k++) {
+                                        JSONObject jsonObject1 = address_components.getJSONObject(k);
+                                        mPlaceName = jsonObject1.getString("short_name");
+                                        if (mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+                                            CityId = jsonObject.getString("ID");
+                                            break;
+                                        }
+                                    }
+                                }
+                                    if (CityId != null && !CityId.equals("")) {
+                                        APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, location, CityId);
+                                    } else {
+                                        APiGetShopslistData(AppConfig.APiShopsListData, location, CityId);
+
+                                    }
+                                }
+
 //                            for (int i = 0; i < results.length(); i++) {
 //                                JSONObject jsonObject = results.getJSONObject(i);
 //                                String ID = jsonObject.getString("ID");
@@ -250,6 +282,8 @@ public class MainActivity extends BaseActivity
 //                                }
 //                            }
                         } catch (JSONException e) {
+                            aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
+
                             loading.close();
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
@@ -261,6 +295,8 @@ public class MainActivity extends BaseActivity
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
+
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
@@ -283,16 +319,17 @@ public class MainActivity extends BaseActivity
                     public void onResponse(JSONObject response) {
                         // display response
                         try {
-                            JSONArray results = response.getJSONArray("results");
-                            JSONObject jsonObject = results.getJSONObject(0);
-                            JSONArray address_components = jsonObject.getJSONArray("address_components");
-                            JSONObject jsonObject1 = address_components.getJSONObject(2);
-                            mPlaceName = jsonObject1.getString("short_name");
+                             totalDataofCurrentLatlngNames = response.getJSONArray("results");
+//                            JSONObject jsonObject = results.getJSONObject(2);
+//                            JSONArray address_components = jsonObject.getJSONArray("address_components");
+//                            JSONObject jsonObject1 = address_components.getJSONObject(0);
+//                            mPlaceName = jsonObject1.getString("short_name");
 
                             if (Type.equals("Location")) {
                                 if (Validations.isInternetAvailable(activity, true)) {
                                     aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
-                                    APiGetShopslistData(location);
+
+                                    APiGetAllCities(location);
                                 }
                             }
                         } catch (JSONException e) {
@@ -318,10 +355,10 @@ public class MainActivity extends BaseActivity
         queue.add(getRequest);
     }
 
-    private void APiGetShopslistData(final Location location) {
+    private void APiGetShopslistData2(String Url, final Location location, final String CityID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiShopsListData, null,
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -329,7 +366,7 @@ public class MainActivity extends BaseActivity
                         ShopsListDataResponse = response.toString();
                         ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
                         if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-                            APiGetAllCities();
+
                             if (location != null) {
 
                                 SetShopsPointMap(mShopsListModel.getShopsList(), location);
@@ -360,6 +397,65 @@ public class MainActivity extends BaseActivity
         getRequest.setRetryPolicy(policy);
 // add it to the RequestQueue
         queue.add(getRequest);
+    }
+
+    private void APiGetShopslistData(String Url, final Location location, final String CityID) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+
+                            // display response
+                            ShopsListDataResponse = response;
+                            ShopsListModel mShopsListModel = gson.fromJson(response, ShopsListModel.class);
+                            if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+
+                                if (location != null) {
+
+                                    SetShopsPointMap(mShopsListModel.getShopsList(), location);
+                                }
+                            } else {
+                                loading.close();
+                                aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
+                                showToast(activity.getResources().getString(R.string.no_record_found));
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                }
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("cityID", CityID);
+                return params;
+            }
+        };
+// add it to the RequestQueue
+        int socketTimeout = 30000; // 30 seconds. You can change it
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+        postRequest.setRetryPolicy(policy);
+        queue.add(postRequest);
     }
 
     private void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {

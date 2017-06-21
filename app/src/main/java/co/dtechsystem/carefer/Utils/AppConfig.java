@@ -28,6 +28,7 @@ public class AppConfig {
     public static String APiGetFilterTypes = BaseUrl + "filter-types";
     public static String APiGetShopReviews = BaseUrl + "get-shop-reviews";
     public static String APiGetCitiesList = BaseUrl + "get-city-list";
+    public static String APiPostShopsListDataByCity = BaseUrl + "city-shops-data";
 
 
 
