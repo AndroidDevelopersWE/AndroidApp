@@ -255,7 +255,7 @@ public class MainActivity extends BaseActivity
                                 JSONObject jsonObjectCities = jsonArray.getJSONObject(i);
                                 String cityName = jsonObjectCities.getString("name");
 
-                                if (mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+                                if (mPlaceName!=null&&mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                     CityId = jsonObjectCities.getString("ID");
                                     break;
 

@@ -108,9 +108,9 @@
     <string name="tv_last_changed_oil">آخر تغير الزيت</string>
     <string name="tv_title_top_a_map">الخريطة</string>
     <string name="tv_title_share">شارك التطبيق</string>
-    <string name="tv_website_icon">:الموقع </string>
-    <string name="tv_phone_icon">:الهاتف </string>
-    <string name="tv_email_icon">:البريد الإلكتروني </string>
+    <string name="tv_website_icon">الموقع :</string>
+    <string name="tv_phone_icon">الهاتف :</string>
+    <string name="tv_email_icon">البريد الإلكتروني :</string>
     <string name="tv_expand_your_choices">زد النتائج عن طريق إزالة فلتر أو فلترين.</string>
     <string name="tv_good_choice_see_shops"></string>
 

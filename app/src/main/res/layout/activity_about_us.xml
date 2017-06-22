@@ -204,7 +204,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_mail"
+                            android:drawableRight="@drawable/ic_mail"
                             android:drawablePadding="@dimen/_5sdp"
                             android:gravity="center"
                             android:text="@string/tv_email_icon"
@@ -232,7 +232,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_phone"
+                            android:drawableRight="@drawable/ic_phone"
                             android:drawablePadding="@dimen/_5sdp"
                             android:gravity="center"
                             android:text="@string/tv_phone_icon"
@@ -260,7 +260,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableLeft="@drawable/ic_website"
+                            android:drawableRight="@drawable/ic_website"
                             android:drawablePadding="@dimen/_5sdp"
                             android:gravity="center"
                             android:text="@string/tv_website_icon"
