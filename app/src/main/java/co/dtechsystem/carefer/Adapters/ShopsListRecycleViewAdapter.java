@@ -126,7 +126,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         holder.lay_shop_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (expand == false) {
+                if (holder.lay_details.getVisibility()!=View.VISIBLE) {
 ////                    holder.lay_shops_names.setBackgroundColor(activity.getResources().getColor(R.color.colorCreamDark));
 //                    holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));
 //                    holder.iv_drop_details_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));

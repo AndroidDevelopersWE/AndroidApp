@@ -9,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -55,6 +57,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +83,6 @@ public class MainActivity extends BaseActivity
     int idle;
     String ShopsListDataResponse = "", citiesNamesIDsResponse = "";
     String CityId = "";
-    JSONArray totalDataofCurrentLatlngNames;
 
     @Override
 
@@ -127,6 +129,7 @@ public class MainActivity extends BaseActivity
             i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
             i.putExtra("placeName", mPlaceName);
             i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+            i.putExtra("CityId",CityId);
             i.putExtra("bundle", args);
             startActivity(i);
 
@@ -144,9 +147,9 @@ public class MainActivity extends BaseActivity
                 mOldLocation = mNewLocation;
                 aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
                 if (CityId != null && !CityId.equals("")) {
-                    APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, mNewLocation, CityId);
+                    APiGetAllCities(mNewLocation);
                 } else {
-                    APiGetShopslistData(AppConfig.APiShopsListData, mNewLocation, CityId);
+                    APiGetAllCities(mNewLocation);
 
                 }
             }
@@ -185,13 +188,15 @@ public class MainActivity extends BaseActivity
                     mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
 //                    loading.show();
                     if (Validations.isInternetAvailable(activity, true) && location != null) {
-                        APiGetCurrentAddress("Location", location);
+//                        APiGetCurrentAddress("Location", location);
+                        APiGetAllCities(location);
                     }
                 } else {
                     if (mPlaceName != null && !mPlaceName.equals("")) {
                     } else {
                         if (Validations.isInternetAvailable(activity, true) && location != null) {
-                            APiGetCurrentAddress("Address", location);
+//                            APiGetCurrentAddress("Address", location);
+                            APiGetAllCities(location);
                         }
                     }
 
@@ -239,31 +244,30 @@ public class MainActivity extends BaseActivity
                         try {
                             citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
                             JSONArray jsonArray = response.getJSONArray("citiesList");
+                            try {
+                                Geocoder geocoder = new Geocoder(activity, locale);
+                                List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                                mPlaceName = addresses.get(0).getLocality();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObjectCities = jsonArray.getJSONObject(i);
+                                String cityName = jsonObjectCities.getString("name");
 
-                            for (int i = 0; i < citiesNamesIDsResponse.length(); i++) {
-                                for (int j = 0; j < totalDataofCurrentLatlngNames.length(); j++) {
+                                if (mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+                                    CityId = jsonObjectCities.getString("ID");
+                                    break;
 
-                                    JSONObject jsonObjectcities = jsonArray.getJSONObject(i);
-                                    String cityName = jsonObjectcities.getString("name");
-                                    JSONObject jsonObject = totalDataofCurrentLatlngNames.getJSONObject(j);
-                                    JSONArray address_components = jsonObject.getJSONArray("address_components");
-                                    for (int k = 0; k < address_components.length(); k++) {
-                                        JSONObject jsonObject1 = address_components.getJSONObject(k);
-                                        mPlaceName = jsonObject1.getString("short_name");
-                                        if (mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
-                                            CityId = jsonObject.getString("ID");
-                                            break;
-                                        }
-                                    }
                                 }
-                                    if (CityId != null && !CityId.equals("")) {
-                                        APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, location, CityId);
-                                    } else {
-                                        APiGetShopslistData(AppConfig.APiShopsListData, location, CityId);
+                            }
 
-                                    }
-                                }
+                            if (CityId != null && !CityId.equals("")) {
+                                APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, location, CityId);
+                            } else {
+                                APiGetShopslistData(AppConfig.APiShopsListData, location, CityId);
 
+                            }
 //                            for (int i = 0; i < results.length(); i++) {
 //                                JSONObject jsonObject = results.getJSONObject(i);
 //                                String ID = jsonObject.getString("ID");
@@ -283,8 +287,6 @@ public class MainActivity extends BaseActivity
 //                            }
                         } catch (JSONException e) {
                             aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
-
-                            loading.close();
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
@@ -318,25 +320,25 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void onResponse(JSONObject response) {
                         // display response
-                        try {
-                             totalDataofCurrentLatlngNames = response.getJSONArray("results");
-//                            JSONObject jsonObject = results.getJSONObject(2);
-//                            JSONArray address_components = jsonObject.getJSONArray("address_components");
-//                            JSONObject jsonObject1 = address_components.getJSONObject(0);
-//                            mPlaceName = jsonObject1.getString("short_name");
-
-                            if (Type.equals("Location")) {
-                                if (Validations.isInternetAvailable(activity, true)) {
-                                    aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
-
-                                    APiGetAllCities(location);
-                                }
-                            }
-                        } catch (JSONException e) {
-                            loading.close();
-                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            totalDataofCurrentLatlngNames = response.getJSONArray("results");
+////                            JSONObject jsonObject = results.getJSONObject(2);
+////                            JSONArray address_components = jsonObject.getJSONArray("address_components");
+////                            JSONObject jsonObject1 = address_components.getJSONObject(0);
+////                            mPlaceName = jsonObject1.getString("short_name");
+//
+//                            if (Type.equals("Location")) {
+//                                if (Validations.isInternetAvailable(activity, true)) {
+//                                    aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.VISIBLE);
+//
+//                                    APiGetAllCities(location);
+//                                }
+//                            }
+//                        } catch (JSONException e) {
+//                            loading.close();
+//                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+//                            e.printStackTrace();
+//                        }
 
 
                     }
@@ -679,7 +681,8 @@ public class MainActivity extends BaseActivity
                     mNewLocation.setLongitude(mLatLngCurrent.longitude);
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLngCurrent, 13));
                     if (Validations.isInternetAvailable(activity, true) && mOldLocation != null) {
-                        APiGetCurrentAddress("Location", mOldLocation);
+                        APiGetAllCities(mOldLocation);
+//                        APiGetCurrentAddress("Location", mOldLocation);
                     }
                     showToast(getResources().getString(R.string.toast_permission));
                 }

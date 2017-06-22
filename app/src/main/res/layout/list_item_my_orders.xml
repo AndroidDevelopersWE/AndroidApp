@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:clickable="false"
+android:background="@android:color/transparent"
             android:duplicateParentState="false"
             android:gravity="center"
             android:orientation="vertical">
@@ -40,8 +41,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:clickable="false"
+                    android:background="@android:color/transparent"
 
+                    android:clickable="false"
                     android:duplicateParentState="true"
                     android:orientation="horizontal"
                     android:padding="@dimen/_3sdp"
@@ -438,7 +440,7 @@
                         android:layout_height="@dimen/_25sdp"
                         android:layout_gravity="left"
                         android:layout_margin="@dimen/_5sdp"
-                        android:background="@drawable/dr_list_item_drawyer_menu_click"
+                        android:background="@drawable/dr_list_item_fav_click_round"
                         android:gravity="center"
                         android:padding="@dimen/_5sdp"
                         android:text="@string/btn_rate_this_shop"

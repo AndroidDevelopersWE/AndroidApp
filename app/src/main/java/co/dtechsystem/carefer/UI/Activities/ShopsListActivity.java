@@ -32,6 +32,7 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -40,7 +41,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import co.dtechsystem.carefer.Adapters.ShopsListRecycleViewAdapter;
 import co.dtechsystem.carefer.Models.ShopsListModel;
@@ -68,9 +71,12 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private String ShopsData;
     RecyclerView recyclerView;
     Button btn_back_top_shops_list;
-    String ShopsListDataResponse = "", citiesNamesIDsResponse = "";
+    String ShopsListDataResponse = "", citiesNamesIDsResponse = "", CityId = "";
     private final List listCities = new ArrayList();
+    private final List listCitiesId = new ArrayList();
     int check = 0;
+    boolean found = false;
+    String CityName = "";
 
     @SuppressWarnings("deprecation")
     @Override
@@ -95,8 +101,11 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         Utils.hideKeyboard(activity);
         SetShaderToViews();
         SetUpLeftbar();
-        ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
-        citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
+        if (intent.getExtras() != null) {
+            ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
+            citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
+            CityId = intent.getStringExtra("CityId");
+        }
         getDataForView();
         setDataToView();
         setDataToViews();
@@ -106,14 +115,16 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                 mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
                 SetListData("List", mShopsListModel.getShopsList().size());
+                SetListData("List", mShopsListModel.getShopsList().size());
                 if (citiesNamesIDsResponse != null && !citiesNamesIDsResponse.equals("")) {
                     if (listCities != null) {
                         listCities.clear();
                     }
                     if (mplaceName != null && !mplaceName.equals("")) {
-                        listCities.add(0, mplaceName);
+//                        listCities.add(0, mplaceName);
                     } else {
                         listCities.add(0, getResources().getString(R.string.tv_city));
+                        listCitiesId.add(0, "0");
                     }
 
                     JSONArray jsonArray = null;
@@ -122,21 +133,24 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                            String ID = jsonObject.getString("ID");
                             String name = jsonObject.getString("name");
+                            String CityId = jsonObject.getString("ID");
                             listCities.add(name);
+                            listCitiesId.add(CityId);
                         }
                         setCityDropDownData();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                } else {
+
                 }
 
             }
         } else {
             if (Validations.isInternetAvailable(activity, true)) {
                 loading.show();
-                APiGetShopslistData(AppConfig.APiShopsListData, "Shops", "City");
+                APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, "Shops", "City", CityId);
             }
         }
 
@@ -553,7 +567,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     @Override
     public void onRefresh() {
         if (Validations.isInternetAvailable(activity, true)) {
-            APiGetShopslistData(AppConfig.APiShopsListData, "Shops", "");
+            APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, "Shops", "", CityId);
         } else {
             if (lay_pull_refresh_shops_list.isRefreshing()) {
                 lay_pull_refresh_shops_list.setRefreshing(false);
@@ -563,7 +577,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
     public void setCityDropDownData() {
 
-        ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listCities);
+        final ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listCities);
         aQuery.id(R.id.sp_city_name_shops_list).adapter(StringModeldataAdapter);
 
         aQuery.id(R.id.tv_location_name_shops_list).clicked(new View.OnClickListener() {
@@ -572,32 +586,46 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 aQuery.id(R.id.sp_city_name_shops_list).getSpinner().performClick();
             }
         });
+
         aQuery.id(R.id.sp_city_name_shops_list).itemSelected(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String CityName = aQuery.id(R.id.sp_city_name_shops_list).getSpinner().getSelectedItem().toString();
-                if(++check > 1) {
-                    if (position == 0) {
+                if (++check > 1) {
+                    CityName = aQuery.id(R.id.sp_city_name_shops_list).getSpinner().getSelectedItem().toString();
+                    if (CityName.equals(getResources().getString(R.string.tv_city))) {
                         aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
-                        ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("City", "", mLatlngCurrent, "");
-                        if (mshopsListRecycleViewAdapter != null) {
-                            mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                            aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
-                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
-
-
-                        }
+//                        ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("City", "", mLatlngCurrent, "");
+//                        if (mshopsListRecycleViewAdapter != null) {
+//                            mshopsListRecycleViewAdapter.notifyDataSetChanged();
+//                            aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
+//                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+//
+//
+//                        }
                     } else {
-                        ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("City", "", mLatlngCurrent, CityName);
-                        if (mshopsListRecycleViewAdapter != null) {
-                            mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                            aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
-                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                        CityId = listCitiesId.get(position).toString();
+                        if (CityId != null && !CityId.equals("")) {
+                            if (Validations.isInternetAvailable(activity, true)) {
+                                loading.show();
+                                APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, "Shops", "", CityId);
 
+                            }
+                        } else {
+                            APiGetShopslistData(AppConfig.APiGetCitiesList, "", "City", CityId);
 
                         }
                     }
+//                        ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("City", "", mLatlngCurrent, CityName);
+//                        if (mshopsListRecycleViewAdapter != null) {
+//                            mshopsListRecycleViewAdapter.notifyDataSetChanged();
+//                            aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
+//                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+//
+//
+//                        }
+
                 }
+
             }
 
             @Override
@@ -605,10 +633,18 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
             }
         });
+        for (int i = 0; i < listCities.size(); i++) {
+            String name = listCities.get(i).toString().toLowerCase(locale);
+            if (name.contains(mplaceName.toLowerCase(locale))) {
+                aQuery.id(R.id.sp_city_name_shops_list).getSpinner().setSelection(i);
+                found = true;
+                break;
+            }
+        }
 
     }
 
-    private void APiGetShopslistData(final String Url, final String Type, final String City) {
+    private void APiGetShopslistData2(final String Url, final String Type, final String City) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
@@ -635,24 +671,26 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     showToast(getResources().getString(R.string.no_record_found));
                                 }
                                 if (City.equals("City")) {
-                                    APiGetShopslistData(AppConfig.APiGetCitiesList, "", "City");
+                                    APiGetShopslistData(AppConfig.APiGetCitiesList, "", "City", CityId);
                                 }
                             } else if (Type.equals("") && City.equals("City")) {
                                 if (mplaceName != null && !mplaceName.equals("")) {
                                     if (listCities != null) {
                                         listCities.clear();
                                     }
-                                    listCities.add(0, mplaceName);
+//                                    listCities.add(0, mplaceName);
                                 } else {
                                     listCities.add(0, getResources().getString(R.string.tv_city));
+                                    listCitiesId.add(0, "0");
                                 }
                                 citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
                                 JSONArray jsonArray = new JSONArray(citiesNamesIDsResponse);
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                    String ID = jsonObject.getString("ID");
+                                    String ID = jsonObject.getString("ID");
                                     String name = jsonObject.getString("name");
                                     listCities.add(name);
+                                    listCitiesId.add(ID);
                                 }
                                 setCityDropDownData();
                                 loading.close();
@@ -692,6 +730,107 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         getRequest.setRetryPolicy(policy);
 // add it to the RequestQueue
         queue.add(getRequest);
+    }
+
+    private void APiGetShopslistData(final String Url, final String Type, final String City, final String CityID) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+
+                        try {
+                            if (Type.equals("Shops") && City.equals("City") || City.equals("")) {
+                                ShopsData = response.toString();
+                                mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
+                                if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+                                    mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
+                                    if (CityName != null && !CityName.equals("")) {
+                                        aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
+                                    } else {
+                                        aQuery.id(R.id.tv_location_name_shops_list).text(mplaceName);
+
+                                    }
+
+                                    SetListData("List", mShopsListModel.getShopsList().size());
+                                    loading.close();
+                                } else {
+                                    if (lay_pull_refresh_shops_list.isRefreshing()) {
+                                        lay_pull_refresh_shops_list.setRefreshing(false);
+                                    }
+                                    loading.close();
+                                    showToast(getResources().getString(R.string.no_record_found));
+                                }
+                                if (City.equals("City")) {
+                                    APiGetShopslistData(AppConfig.APiGetCitiesList, "", "City", CityID);
+                                }
+                            } else if (Type.equals("") && City.equals("City")) {
+                                if (mplaceName != null && !mplaceName.equals("")) {
+                                    if (listCities != null) {
+                                        listCities.clear();
+                                    }
+//                                    listCities.add(0, mplaceName);
+                                } else {
+                                    listCities.add(0, getResources().getString(R.string.tv_city));
+                                    listCitiesId.add(0, "0");
+                                }
+                                JSONArray jsonArray = new JSONArray(citiesNamesIDsResponse);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    String ID = jsonObject.getString("ID");
+                                    String name = jsonObject.getString("name");
+                                    listCities.add(name);
+                                    listCitiesId.add(ID);
+                                }
+                                setCityDropDownData();
+                                loading.close();
+                            }
+//                                setSpinnerFilter();
+
+
+                        } catch (JSONException e) {
+                            loading.close();
+                            if (lay_pull_refresh_shops_list.isRefreshing()) {
+                                lay_pull_refresh_shops_list.setRefreshing(false);
+                            }
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (lay_pull_refresh_shops_list.isRefreshing()) {
+                            lay_pull_refresh_shops_list.setRefreshing(false);
+                        }
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        Log.d("Error.Response", String.valueOf(error));
+                        error.printStackTrace();
+                    }
+                }
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("cityID", CityID);
+                return params;
+            }
+        };
+// add it to the RequestQueue
+        int socketTimeout = 30000; // 30 seconds. You can change it
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+
+        postRequest.setRetryPolicy(policy);
+        queue.add(postRequest);
     }
 
     //Setting Shops List Data

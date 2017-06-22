@@ -29,12 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import co.dtechsystem.carefer.Adapters.ExpandableListAdapterBrands;
-import co.dtechsystem.carefer.Adapters.ExpandableListAdapterPlaceType;
-import co.dtechsystem.carefer.Adapters.ExpandableListAdapterServices;
 import co.dtechsystem.carefer.Filter.ShopsFilterClass;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
@@ -43,17 +39,6 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 public class FiltersActivity extends BaseActivity {
     ExpandableListView lv_service_type, lv_brands, lv_place_type;
 
-    ExpandableListAdapterServices listAdapterServices;
-    ExpandableListAdapterBrands listAdapterBrands;
-    ExpandableListAdapterPlaceType listAdapterPlaceType;
-
-    List<String> listDataHeaderService;
-    List<String> listDataHeaderBrands;
-    List<String> listDataHeaderPlaceType;
-
-    HashMap<String, List<String>> listDataChildService;
-    HashMap<String, List<String>> listDataChildBrands;
-    HashMap<String, List<String>> listDataChildPlaceType;
     String ShopsDataResponse;
 
     public ShopsListModel mShopsListModel;
@@ -91,17 +76,6 @@ public class FiltersActivity extends BaseActivity {
         sw_provide_replace_parts_filter = (SwitchCompat) findViewById(R.id.sw_provide_replace_parts_filter);
         sw_top_rated_filter = (SwitchCompat) findViewById(R.id.sw_top_rated_filter);
 
-        listDataHeaderService = new ArrayList<String>();
-        listDataHeaderBrands = new ArrayList<String>();
-        listDataHeaderPlaceType = new ArrayList<String>();
-
-        listDataChildService = new HashMap<String, List<String>>();
-        listDataChildBrands = new HashMap<String, List<String>>();
-        listDataChildPlaceType = new HashMap<String, List<String>>();
-
-        listDataHeaderService.add("Services");
-        listDataHeaderBrands.add("Brands");
-        listDataHeaderPlaceType.add("Place Type");
         ShopsDataResponse = intent.getStringExtra("ShopsDataResponse");
         Bundle bundle = intent.getParcelableExtra("bundle");
         if (bundle != null) {
@@ -113,6 +87,13 @@ public class FiltersActivity extends BaseActivity {
             TotalRecord = _ShopslistBeforeFiltration.size();
             FilterRecord = TotalRecord;
             aQuery.find(R.id.tv_total_record_found_filter).text(TotalRecord + getResources().getString(R.string.toast_record_found_out_of) + TotalRecord);
+            if (FilterRecord < 20) {
+                aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorFroly));
+                aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_expand_your_choices));
+            } else {
+                aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
+                aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
+            }
         }
     }
 
