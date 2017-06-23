@@ -13,30 +13,33 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
         android:layout_weight="0"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/btn_cancel_dialog_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_30sdp"
             android:background="@drawable/dr_btn_round_corner_orange_90"
             android:text="@string/dialog_cancel"
             android:textAllCaps="false"
             android:textColor="@color/pf_white"
-            android:textSize="@dimen/_14sdp"/>
+            android:textSize="@dimen/_12sdp"/>
+
         <Button
             android:id="@+id/btn_ok_dialog_filter"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_30sdp"
             android:background="@drawable/dr_btn_round_corner_orange_90"
             android:text="@string/dialog_ok"
             android:textAllCaps="false"
             android:textColor="@color/pf_white"
-            android:textSize="@dimen/_14sdp"/>
+            android:textSize="@dimen/_12sdp"/>
 
 
     </LinearLayout>

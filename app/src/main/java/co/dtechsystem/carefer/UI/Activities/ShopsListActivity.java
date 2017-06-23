@@ -76,8 +76,11 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private final List listCitiesId = new ArrayList();
     int check = 0;
     boolean found = false;
-    String CityName = "";
-
+    String CityName = "", provide_warranty = "", provide_ReplaceParts = "", topRated = "", placeType = "", brandType = "", serviceType = "", FilterRecord = "";
+    Intent FilteredData;
+    ArrayList<Integer> CheckedServices = new ArrayList<Integer>();
+    ArrayList<Integer> CheckedBrands = new ArrayList<Integer>();
+    ArrayList<Integer> CheckedShopTypes = new ArrayList<Integer>();
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -186,6 +189,18 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     Bundle args = new Bundle();
                     args.putParcelable("LatLngCurrent", mLatlngCurrent);
                     intent.putExtra("ShopsDataResponse", ShopsData);
+                    if (FilteredData != null && FilteredData.getExtras() != null) {
+                        intent.putExtra("provide_warranty", provide_warranty);
+                        intent.putExtra("provide_ReplaceParts", provide_ReplaceParts);
+                        intent.putExtra("topRated", topRated);
+                        intent.putExtra("placeType", placeType);
+                        intent.putExtra("brandType", brandType);
+                        intent.putExtra("serviceType", serviceType);
+                        intent.putExtra("FilterRecord", FilterRecord);
+                        intent.putIntegerArrayListExtra("CheckedBrands", CheckedBrands);
+                        intent.putIntegerArrayListExtra("CheckedShopTypes", CheckedShopTypes);
+                        intent.putIntegerArrayListExtra("CheckedServices", CheckedServices);
+                    }
                     startActivityForResult(intent, 1);
                 } else {
 
@@ -567,6 +582,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     @Override
     public void onRefresh() {
         if (Validations.isInternetAvailable(activity, true)) {
+            FilteredData = null;
             APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, "Shops", "", CityId);
         } else {
             if (lay_pull_refresh_shops_list.isRefreshing()) {
@@ -875,13 +891,27 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                FilteredData = data;
                 ArrayList<String> ShopsIds = data.getStringArrayListExtra("ShopslistAfterFiltration");
                 String response = data.getStringExtra("response");
+
+                provide_warranty = data.getStringExtra("provide_warranty");
+                provide_ReplaceParts = data.getStringExtra("provide_ReplaceParts");
+                topRated = data.getStringExtra("topRated");
+                placeType = data.getStringExtra("placeType");
+                brandType = data.getStringExtra("brandType");
+                serviceType = data.getStringExtra("serviceType");
+                FilterRecord = data.getStringExtra("FilterRecord");
                 mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
+                CheckedServices=data.getIntegerArrayListExtra("CheckedServices");
+                CheckedBrands=data.getIntegerArrayListExtra("CheckedBrands");
+                CheckedShopTypes=data.getIntegerArrayListExtra("CheckedShopTypes");
+
 
                 List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
                 List<ShopsListModel.ShopslistRecord> _ShopslistAfterFiltration = new ArrayList<ShopsListModel.ShopslistRecord>();
                 if (_ShopslistBeforeFiltration != null) {
+
 //                    if (_ShopslistBeforeFiltration.size() == 0) {
 //                        _ShopslistBeforeFiltration.addAll(_ShopslistAfterFiltration);
 //                    }

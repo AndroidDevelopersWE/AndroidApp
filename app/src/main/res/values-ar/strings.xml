@@ -136,10 +136,11 @@
     <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي ...!</string>
     <string name="toast_record_found_out_of"> سجل العثور على الخروج من </string>
 
-    <string name="toast_review_added">تمت إضافة المراجعة</string>
+    <string name="toast_review_added">تمت إضافة التعليق</string>
     <string name="toast_please_give_rating">يرجى إعطاء تقييم واحد على الأقل</string>
-    <string name="toast_please_add_comments">الرجاء إضافة تعليقات</string>
+    <string name="toast_please_add_comments">الرجاء إضافة تعليق</string>
     <string name="toast_review_already_added">تمت إضافة المراجعة من قبل</string>
+    <string name="toast_please_wait">أرجو الإنتظار</string>
 
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>
@@ -161,15 +162,15 @@
     <string name="order_type_call">مكالمة</string>
     <string name="order_type_shop">الخريطة</string>
 
-    <string name="btn_apply_filter">تطبيق عامل التصفية</string>
+    <string name="btn_apply_filter">تطبيق التصفية</string>
     <string name="btn_reset_filter">إعادة تعيين الفلتر</string>
-    <string name="tv_city">مدينة</string>
-    <string name="tv_reviews">إظهار التعليقات</string>
+    <string name="tv_city">المدينة</string>
+    <string name="tv_reviews">التعليقات</string>
     <string name="tv_name_anonymous">مجهول الإسم</string>
     <string name="tv_yes">نعم</string>
     <string name="tv_no"> لا</string>
-    <string name="tv_specilized_brand">العلامة التجارية المتخصصة</string>
-    <string name="tv_nationality">جنسية</string>
-
-
+    <string name="tv_specilized_brand">تخصص ماركة السيارات</string>
+    <string name="tv_nationality">الجنسية</string>
+    <string name="tv_about_us">تطبيق كاريفر هو منصة بين مزودين الخدمة (الورش) وبين طالبين الخدمة</string>
+    <string name="tv_share_app">أبجد هوز هو مجرد دمية النص من صناعة الطباعة والتنضيد. كان معيار الصناعة القياسية دمية من أي وقت مضى</string>
 </resources>

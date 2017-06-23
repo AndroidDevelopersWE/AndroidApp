@@ -151,6 +151,7 @@
     <string name="toast_please_give_rating">Please give at least one rating</string>
     <string name="toast_please_add_comments">Please Add Comments</string>
     <string name="toast_review_already_added">Review is already added</string>
+    <string name="toast_please_wait">Please Wait</string>
 
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_ok">Ok</string>
@@ -181,4 +182,6 @@
     <string name="tv_specilized_brand">Specilized Brand</string>
     <string name="tv_nationality">Nationality</string>
 
+    <string name="tv_about_us">Carefer application is a platform between service providers (workshops) and two service applicants</string>
+    <string name="tv_share_app">Abjad Hose is just a text doll of the printing and compositing industry. It was the standard industry standard doll ever</string>
 </resources>

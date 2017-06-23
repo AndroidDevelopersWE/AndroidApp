@@ -151,7 +151,7 @@
                     android:layout_margin="@dimen/_3sdp"
                     android:gravity="center"
                     android:padding="@dimen/_5sdp"
-                    android:text="@string/lorem_ispum"
+                    android:text="@string/tv_about_us"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="normal" />

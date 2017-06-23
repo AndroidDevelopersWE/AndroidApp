@@ -122,17 +122,22 @@ public class MainActivity extends BaseActivity
 
     @SuppressWarnings("UnusedParameters")
     public void btnExploereClick(View v) {
-        if (Validations.isInternetAvailable(activity, true)) {
-            Bundle args = new Bundle();
-            args.putParcelable("LatLngCurrent", mLatLngCurrent);
-            Intent i = new Intent(this, ShopsListActivity.class);
-            i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
-            i.putExtra("placeName", mPlaceName);
-            i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
-            i.putExtra("CityId",CityId);
-            i.putExtra("bundle", args);
-            startActivity(i);
+        if (ShopsListDataResponse != null&&!ShopsListDataResponse.equals("")) {
+            if (Validations.isInternetAvailable(activity, true)) {
+                Bundle args = new Bundle();
+                args.putParcelable("LatLngCurrent", mLatLngCurrent);
+                Intent i = new Intent(this, ShopsListActivity.class);
+                i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                i.putExtra("placeName", mPlaceName);
+                i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                i.putExtra("CityId", CityId);
+                i.putExtra("bundle", args);
+                startActivity(i);
+            }
 
+        }
+        else {
+            showToast(getResources().getString(R.string.toast_please_wait));
         }
     }
 
@@ -255,7 +260,7 @@ public class MainActivity extends BaseActivity
                                 JSONObject jsonObjectCities = jsonArray.getJSONObject(i);
                                 String cityName = jsonObjectCities.getString("name");
 
-                                if (mPlaceName!=null&&mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+                                if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                     CityId = jsonObjectCities.getString("ID");
                                     break;
 

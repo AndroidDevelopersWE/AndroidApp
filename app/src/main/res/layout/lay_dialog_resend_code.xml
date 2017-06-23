@@ -43,13 +43,13 @@
     <Button
         android:id="@+id/btn_cancel_mobile"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_25sdp"
         android:layout_gravity="right"
+        android:layout_marginBottom="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_30sdp"
         android:background="@drawable/dr_btn_round_corner_orange_90"
         android:text="@string/dialog_cancel"
-
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/_14sdp"/>
+        android:textSize="@dimen/_12sdp"/>
 </LinearLayout>
