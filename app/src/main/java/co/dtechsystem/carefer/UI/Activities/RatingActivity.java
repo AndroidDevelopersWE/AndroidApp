@@ -81,9 +81,11 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         if (et_coments_rate != null && !et_coments_rate.equals("")) {
 
             if (price_rate != 0.0 || quality_rate != 0.0 || time_rate != 0.0) {
-                loading.show();
-                APisendRating(sUser_ID, mshopID, morderID, String.valueOf(price_rate), String.valueOf(quality_rate),
-                        String.valueOf(time_rate), et_coments_rate);
+                if (Validations.isInternetAvailable(activity, true)) {
+                    loading.show();
+                    APisendRating(sUser_ID, mshopID, morderID, String.valueOf(price_rate), String.valueOf(quality_rate),
+                            String.valueOf(time_rate), et_coments_rate);
+                }
             } else {
                 showToast(getResources().getString(R.string.toast_please_give_rating));
 

@@ -54,7 +54,7 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
         holder.tv_fav_shop_name.setText(_FavouriteShopsDetails.get(position).getShopName());
         if (_FavouriteShopsDetails.get(position).getShopImage() != null) {
             holder.pg_image_load.setVisibility(View.VISIBLE);
-            Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _FavouriteShopsDetails.get(position).getID() + "/" + _FavouriteShopsDetails.get(position)
+            Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _FavouriteShopsDetails.get(position).getID() + "/thumbnails/" + _FavouriteShopsDetails.get(position)
                     .getShopImage())
                     .override((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp))
 //                    .placeholder(android.R.drawable.progress_indeterminate_horizontal)

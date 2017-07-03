@@ -570,7 +570,9 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                     }
 
                                     SetData();
-                                    APiGetBrandsServiceModelsData(AppConfig.APiBrandData, "Brands", "");
+                                    if (Validations.isInternetAvailable(activity, true)) {
+                                        APiGetBrandsServiceModelsData(AppConfig.APiBrandData, "Brands", "");
+                                    }
                                 } else {
                                     showToast(getResources().getString(R.string.no_record_found));
                                 }

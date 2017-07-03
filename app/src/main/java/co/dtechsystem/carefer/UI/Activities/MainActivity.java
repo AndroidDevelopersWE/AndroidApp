@@ -485,7 +485,7 @@ public class MainActivity extends BaseActivity
                 try {
 
                     Glide.with(activity)
-                            .load(AppConfig.BaseUrlImages + "shop-" + shopsList.get(i).getID() + "/" + shopsList.get(i).getShopImage())
+                            .load(AppConfig.BaseUrlImages + "shop-" + shopsList.get(i).getID() + "/thumbnails/" + shopsList.get(i).getShopImage())
                             .asBitmap()
                             .override((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp))
                             .diskCacheStrategy(DiskCacheStrategy.ALL)

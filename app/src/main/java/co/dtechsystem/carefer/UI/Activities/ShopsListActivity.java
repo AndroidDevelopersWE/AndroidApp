@@ -3,6 +3,7 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -81,6 +82,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     ArrayList<Integer> CheckedServices = new ArrayList<Integer>();
     ArrayList<Integer> CheckedBrands = new ArrayList<Integer>();
     ArrayList<Integer> CheckedShopTypes = new ArrayList<Integer>();
+
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -117,8 +119,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             mShopsListModel = gson.fromJson(ShopsListDataResponse, ShopsListModel.class);
             if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                 mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
-                SetListData("List", mShopsListModel.getShopsList().size());
-                SetListData("List", mShopsListModel.getShopsList().size());
+//                SetListData("List", mShopsListModel.getShopsList().size());
+                AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+                asyncTaskRunner.execute("List", String.valueOf(mShopsListModel.getShopsList().size()));
                 if (citiesNamesIDsResponse != null && !citiesNamesIDsResponse.equals("")) {
                     if (listCities != null) {
                         listCities.clear();
@@ -677,7 +680,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                 if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
                                     mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
 
-                                    SetListData("List", mShopsListModel.getShopsList().size());
+                                    AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+                                    asyncTaskRunner.execute("List", String.valueOf(mShopsListModel.getShopsList().size()));
+//                                    SetListData("List", mShopsListModel.getShopsList().size());
                                     loading.close();
                                 } else {
                                     if (lay_pull_refresh_shops_list.isRefreshing()) {
@@ -770,8 +775,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                         aQuery.id(R.id.tv_location_name_shops_list).text(mplaceName);
 
                                     }
-
-                                    SetListData("List", mShopsListModel.getShopsList().size());
+                                    AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+                                    asyncTaskRunner.execute("List", String.valueOf(mShopsListModel.getShopsList().size()));
+//                                    SetListData("List", mShopsListModel.getShopsList().size());
                                     loading.close();
                                 } else {
                                     if (lay_pull_refresh_shops_list.isRefreshing()) {
@@ -849,6 +855,26 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         queue.add(postRequest);
     }
 
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+        ArrayList<String> prams = new ArrayList<>();
+
+        @Override
+        protected String doInBackground(String... params) {
+            prams.clear();
+            prams.add(0, params[0]);
+            prams.add(1, params[1]);
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            SetListData(prams.get(0), Integer.parseInt(prams.get(1)));
+            // execution of result of Long time consuming operation
+
+        }
+    }
+
     //Setting Shops List Data
     @SuppressLint("SetTextI18n")
     private void SetListData(String Type, int Size) {
@@ -903,9 +929,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 serviceType = data.getStringExtra("serviceType");
                 FilterRecord = data.getStringExtra("FilterRecord");
                 mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
-                CheckedServices=data.getIntegerArrayListExtra("CheckedServices");
-                CheckedBrands=data.getIntegerArrayListExtra("CheckedBrands");
-                CheckedShopTypes=data.getIntegerArrayListExtra("CheckedShopTypes");
+                CheckedServices = data.getIntegerArrayListExtra("CheckedServices");
+                CheckedBrands = data.getIntegerArrayListExtra("CheckedBrands");
+                CheckedShopTypes = data.getIntegerArrayListExtra("CheckedShopTypes");
 
 
                 List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
@@ -936,7 +962,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                 }
                 mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistAfterFiltration, mLatlngCurrent, btn_back_top_shops_list);
-                SetListData("Filter", _ShopslistAfterFiltration.size());
+                AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+                asyncTaskRunner.execute("Filter", String.valueOf(mShopsListModel.getShopsList().size()));
+//                SetListData("Filter", _ShopslistAfterFiltration.size());
 
             }
         }

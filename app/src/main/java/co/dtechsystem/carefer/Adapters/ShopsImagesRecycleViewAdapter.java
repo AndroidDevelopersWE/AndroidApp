@@ -54,7 +54,7 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
         setAnimation(holder.itemView, position);
         if (_ShopsImagesDetails.get(position).getImageName() != null) {
             holder.pg_image_load.setVisibility(View.VISIBLE);
-            Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + ShopID + "/" + _ShopsImagesDetails.get(position)
+            Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + ShopID + "/thumbnails/" + _ShopsImagesDetails.get(position)
                     .getImageName())
                     .override((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp))
 //                    .placeholder(android.R.drawable.progress_indeterminate_horizontal)

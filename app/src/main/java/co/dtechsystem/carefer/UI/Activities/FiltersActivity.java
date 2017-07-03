@@ -35,6 +35,7 @@ import co.dtechsystem.carefer.Filter.ShopsFilterClass;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Validations;
 
 public class FiltersActivity extends BaseActivity {
     ExpandableListView lv_service_type, lv_brands, lv_place_type;
@@ -63,8 +64,10 @@ public class FiltersActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
         SetDragAbleFilterViews();
-        loading.show();
-        APiGetShopslistData(AppConfig.APiGetFilterTypes);
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            APiGetShopslistData(AppConfig.APiGetFilterTypes);
+        }
 
     }
 
