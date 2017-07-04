@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity
     private LatLng mLatLngCurrent;
     Location mNewLocation, mOldLocation;
     int idle;
-    String ShopsListDataResponse = "", citiesNamesIDsResponse = "";
+    String ShopsListDataResponse = "", citiesNamesIDsResponse = "", isLocationAvail = "";
     String CityId = "";
 
     @Override
@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity
 
     @SuppressWarnings("UnusedParameters")
     public void btnExploereClick(View v) {
-        if (ShopsListDataResponse != null&&!ShopsListDataResponse.equals("")) {
+        if (ShopsListDataResponse != null && !ShopsListDataResponse.equals("")) {
             if (Validations.isInternetAvailable(activity, true)) {
                 Bundle args = new Bundle();
                 args.putParcelable("LatLngCurrent", mLatLngCurrent);
@@ -131,12 +131,13 @@ public class MainActivity extends BaseActivity
                 i.putExtra("placeName", mPlaceName);
                 i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
                 i.putExtra("CityId", CityId);
+                i.putExtra("isLocationAvail", isLocationAvail);
+
                 i.putExtra("bundle", args);
                 startActivity(i);
             }
 
-        }
-        else {
+        } else {
             showToast(getResources().getString(R.string.toast_please_wait));
         }
     }
@@ -190,6 +191,7 @@ public class MainActivity extends BaseActivity
                     firstCAll = true;
                     mNewLocation = location;
                     mOldLocation = mNewLocation;
+                    isLocationAvail = "Yes";
                     mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
 //                    loading.show();
                     if (Validations.isInternetAvailable(activity, true) && location != null) {
@@ -252,7 +254,12 @@ public class MainActivity extends BaseActivity
                             try {
                                 Geocoder geocoder = new Geocoder(activity, locale);
                                 List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                                mPlaceName = addresses.get(0).getLocality();
+                                if (addresses != null && addresses.size() > 0) {
+                                    mPlaceName = addresses.get(0).getLocality();
+                                } else {
+                                    mPlaceName = "الرياض";
+                                }
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -263,8 +270,31 @@ public class MainActivity extends BaseActivity
                                 if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                     CityId = jsonObjectCities.getString("ID");
                                     break;
-
+                                } else if (!isProbablyArabic(mPlaceName)) {
+                                    mPlaceName = "الرياض";
+                                    if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+                                        CityId = jsonObjectCities.getString("ID");
+                                        break;
+                                    }
                                 }
+//                                } else {
+//                                    if (isProbablyArabic(mPlaceName)) {
+//                                    } else {
+//                                        if (mPlaceName != null && !mPlaceName.equals("")) {
+//                                            if (!isProbablyArabic(mPlaceName)) {
+//                                                mPlaceName = "الرياض";
+//                                            }
+//                                        } else {
+//                                            mPlaceName = "الرياض";
+//                                        }
+//                                        if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+//                                            CityId = jsonObjectCities.getString("ID");
+//                                            break;
+//
+//                                        }
+//                                    }
+//
+//                                }
                             }
 
                             if (CityId != null && !CityId.equals("")) {
@@ -313,6 +343,18 @@ public class MainActivity extends BaseActivity
 
 // add it to the RequestQueue
         queue.add(getRequest);
+    }
+
+    public static boolean isProbablyArabic(String s) {
+        if (s != null) {
+            for (int i = 0; i < s.length(); ) {
+                int c = s.codePointAt(i);
+                if (c >= 0x0600 && c <= 0x06E0)
+                    return true;
+                i += Character.charCount(c);
+            }
+        }
+        return false;
     }
 
     private void APiGetCurrentAddress(final String Type, final Location location) {
@@ -677,7 +719,8 @@ public class MainActivity extends BaseActivity
 
                 } else {
                     // User refused to grant permission. You can add AlertDialog here
-                    mLatLngCurrent = new LatLng(24.7255553, 46.5423347);
+                    isLocationAvail = "No";
+                    mLatLngCurrent = new LatLng(24.586867, 46.741052);
                     mNewLocation = new Location("");
                     mOldLocation = new Location("");
                     mOldLocation.setLatitude(mLatLngCurrent.latitude);

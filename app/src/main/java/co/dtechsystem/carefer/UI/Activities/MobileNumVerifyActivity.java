@@ -117,7 +117,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
     }
 
     private void SetFocusForEdit() {
-        Utils.gradientTextView(btn_verify_pin, activity);
+//        Utils.gradientTextView(btn_verify_pin, activity);
         et_1_verify.setFocusableInTouchMode(true);
         et_1_verify.requestFocus();
         et_1_verify.addTextChangedListener(new TextWatcher() {

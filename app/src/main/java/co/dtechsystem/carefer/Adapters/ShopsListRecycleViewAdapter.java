@@ -58,10 +58,11 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     private static Boolean expand;
     private final LatLng mLatlngCurrent;
     Button btn_back_top_shops_list;
+    String isLocationAvail;
 
     @SuppressWarnings({"unused", "Convert2Diamond"})
     public ShopsListRecycleViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList,
-                                       LatLng mLatlngCurrent, Button btn_back_top_shops_list) {
+                                       LatLng mLatlngCurrent, Button btn_back_top_shops_list, String isLocationAvail) {
         ShopsListRecycleViewAdapter._ShopslistRecordList = _ShopslistRecordList;
         _ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
         _ShopslistRecordListFilter.addAll(_ShopslistRecordList);
@@ -70,6 +71,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         this.expand = false;
         this.mLatlngCurrent = mLatlngCurrent;
         this.btn_back_top_shops_list = btn_back_top_shops_list;
+        this.isLocationAvail = isLocationAvail;
         setHasStableIds(true);
     }
 
@@ -126,7 +128,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         holder.lay_shop_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.lay_details.getVisibility()!=View.VISIBLE) {
+                if (holder.lay_details.getVisibility() != View.VISIBLE) {
 ////                    holder.lay_shops_names.setBackgroundColor(activity.getResources().getColor(R.color.colorCreamDark));
 //                    holder.iv_drop_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));
 //                    holder.iv_drop_details_shop_details.setBackground(activity.getResources().getDrawable(android.R.drawable.arrow_down_float));
@@ -145,7 +147,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
                     int i = (int) activity.getResources().getDimension(R.dimen._80sdp);
                     expand(holder.lay_details, 500, i, holder);
-                    expand=true;
+                    expand = true;
 
                 } else {
                     holder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_grey, null));
@@ -245,22 +247,25 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 //
 //        }
         try {
+            if (isLocationAvail != null && isLocationAvail.equals("Yes")) {
+                if (mLatlngCurrent != null) {
+                    Location curentLocation = new Location("");
+                    curentLocation.setLatitude(mLatlngCurrent.latitude);
+                    curentLocation.setLongitude(mLatlngCurrent.longitude);
 
-            if (mLatlngCurrent != null) {
-                Location curentLocation = new Location("");
-                curentLocation.setLatitude(mLatlngCurrent.latitude);
-                curentLocation.setLongitude(mLatlngCurrent.longitude);
+                    Location destination = new Location("");
+                    destination.setLatitude(Double.parseDouble(_ShopslistRecordList.get(position).getLatitude()));
+                    destination.setLongitude(Double.parseDouble(_ShopslistRecordList.get(position).getLongitude()));
 
-                Location destination = new Location("");
-                destination.setLatitude(Double.parseDouble(_ShopslistRecordList.get(position).getLatitude()));
-                destination.setLongitude(Double.parseDouble(_ShopslistRecordList.get(position).getLongitude()));
-
-                double distanceInMeters = curentLocation.distanceTo(destination) / 1000;
+                    double distanceInMeters = curentLocation.distanceTo(destination) / 1000;
 //                    DecimalFormat newFormat = new DecimalFormat("#####");
 //                    double kmInDec = Float.valueOf(newFormat.format(distanceInMeters));
-                distanceInMeters = Math.round(distanceInMeters * 10) / 10.0d;
-                holder.tv_distance_item.setText(distanceInMeters + " km");
-                holder.tv_distance_details.setText(distanceInMeters + " km");
+                    distanceInMeters = Math.round(distanceInMeters * 10) / 10.0d;
+                    holder.tv_distance_item.setText(distanceInMeters + " km");
+                    holder.tv_distance_details.setText(distanceInMeters + " km");
+                }
+            } else {
+                holder.tv_distance_item.setText("-- km");
             }
         } catch (Exception e) {
             holder.tv_distance_item.setText("0 km");
@@ -731,8 +736,6 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     public void SortFilterDistanceDefault() {
-        {
-
             Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
 
             if (mLatlngCurrent != null) {
@@ -778,7 +781,6 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             } else {
                 Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
             }
-        }
     }
 
 

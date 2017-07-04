@@ -3,8 +3,10 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -32,7 +34,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.model.LatLng;
@@ -72,7 +73,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private String ShopsData;
     RecyclerView recyclerView;
     Button btn_back_top_shops_list;
-    String ShopsListDataResponse = "", citiesNamesIDsResponse = "", CityId = "";
+    String ShopsListDataResponse = "", citiesNamesIDsResponse = "", CityId = "", isLocationAvail = "";
     private final List listCities = new ArrayList();
     private final List listCitiesId = new ArrayList();
     int check = 0;
@@ -82,6 +83,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     ArrayList<Integer> CheckedServices = new ArrayList<Integer>();
     ArrayList<Integer> CheckedBrands = new ArrayList<Integer>();
     ArrayList<Integer> CheckedShopTypes = new ArrayList<Integer>();
+
 
     @SuppressWarnings("deprecation")
     @Override
@@ -110,46 +112,42 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
             citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
             CityId = intent.getStringExtra("CityId");
+            isLocationAvail = intent.getStringExtra("isLocationAvail");
         }
         getDataForView();
         setDataToView();
         setDataToViews();
         if (ShopsListDataResponse != null && !ShopsListDataResponse.equals("") && citiesNamesIDsResponse != null && !citiesNamesIDsResponse.equals("")) {
             ShopsData = ShopsListDataResponse;
-            mShopsListModel = gson.fromJson(ShopsListDataResponse, ShopsListModel.class);
-            if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-                mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
+            loading.show();
 //                SetListData("List", mShopsListModel.getShopsList().size());
-                AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
-                asyncTaskRunner.execute("List", String.valueOf(mShopsListModel.getShopsList().size()));
-                if (citiesNamesIDsResponse != null && !citiesNamesIDsResponse.equals("")) {
-                    if (listCities != null) {
-                        listCities.clear();
-                    }
-                    if (mplaceName != null && !mplaceName.equals("")) {
+            AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+            asyncTaskRunner.execute("List", "");
+            if (citiesNamesIDsResponse != null && !citiesNamesIDsResponse.equals("")) {
+                if (listCities != null) {
+                    listCities.clear();
+                }
+                if (mplaceName != null && !mplaceName.equals("")) {
 //                        listCities.add(0, mplaceName);
-                    } else {
-                        listCities.add(0, getResources().getString(R.string.tv_city));
-                        listCitiesId.add(0, "0");
-                    }
-
-                    JSONArray jsonArray = null;
-                    try {
-                        jsonArray = new JSONArray(citiesNamesIDsResponse);
-
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            String name = jsonObject.getString("name");
-                            String CityId = jsonObject.getString("ID");
-                            listCities.add(name);
-                            listCitiesId.add(CityId);
-                        }
-                        setCityDropDownData();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                 } else {
+                    listCities.add(0, getResources().getString(R.string.tv_city));
+                    listCitiesId.add(0, "0");
+                }
 
+                JSONArray jsonArray = null;
+                try {
+                    jsonArray = new JSONArray(citiesNamesIDsResponse);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        String name = jsonObject.getString("name");
+                        String CityId = jsonObject.getString("ID");
+                        listCities.add(name);
+                        listCitiesId.add(CityId);
+                    }
+                    setCityDropDownData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -480,6 +478,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_rating_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Rating", "", mLatlngCurrent, "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
@@ -492,13 +491,29 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         btn_distance_sorting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Distance", "", mLatlngCurrent, "");
-                if (mshopsListRecycleViewAdapter != null) {
-                    mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                if (isLocationAvail != null && isLocationAvail.equals("Yes")) {
+                    ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Distance", "", mLatlngCurrent, "");
+                    if (mshopsListRecycleViewAdapter != null) {
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                        tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+
+                    }
+                    dialog.dismiss();
+                } else {
+                    showToast(getResources().getString(R.string.toast_location_not_found));
+                    try {
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                        dialog.dismiss();
+                    } catch (Exception e) {
+                        dialog.dismiss();
+                        e.printStackTrace();
+                    }
 
                 }
-                dialog.dismiss();
             }
         });
         btn_cancel_sorting.setOnClickListener(new View.OnClickListener() {
@@ -663,96 +678,6 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
     }
 
-    private void APiGetShopslistData2(final String Url, final String Type, final String City) {
-        // prepare the Request
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
-                new Response.Listener<JSONObject>() {
-                    @SuppressWarnings("IfCanBeSwitch")
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // display response
-
-                        try {
-                            if (Type.equals("Shops") && City.equals("City") || City.equals("")) {
-                                ShopsData = response.toString();
-                                mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
-                                if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-                                    mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
-
-                                    AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
-                                    asyncTaskRunner.execute("List", String.valueOf(mShopsListModel.getShopsList().size()));
-//                                    SetListData("List", mShopsListModel.getShopsList().size());
-                                    loading.close();
-                                } else {
-                                    if (lay_pull_refresh_shops_list.isRefreshing()) {
-                                        lay_pull_refresh_shops_list.setRefreshing(false);
-                                    }
-                                    loading.close();
-                                    showToast(getResources().getString(R.string.no_record_found));
-                                }
-                                if (City.equals("City")) {
-                                    APiGetShopslistData(AppConfig.APiGetCitiesList, "", "City", CityId);
-                                }
-                            } else if (Type.equals("") && City.equals("City")) {
-                                if (mplaceName != null && !mplaceName.equals("")) {
-                                    if (listCities != null) {
-                                        listCities.clear();
-                                    }
-//                                    listCities.add(0, mplaceName);
-                                } else {
-                                    listCities.add(0, getResources().getString(R.string.tv_city));
-                                    listCitiesId.add(0, "0");
-                                }
-                                citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
-                                JSONArray jsonArray = new JSONArray(citiesNamesIDsResponse);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    String ID = jsonObject.getString("ID");
-                                    String name = jsonObject.getString("name");
-                                    listCities.add(name);
-                                    listCitiesId.add(ID);
-                                }
-                                setCityDropDownData();
-                                loading.close();
-                            }
-//                                setSpinnerFilter();
-
-
-                        } catch (JSONException e) {
-                            loading.close();
-                            if (lay_pull_refresh_shops_list.isRefreshing()) {
-                                lay_pull_refresh_shops_list.setRefreshing(false);
-                            }
-                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
-                            e.printStackTrace();
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (lay_pull_refresh_shops_list.isRefreshing()) {
-                            lay_pull_refresh_shops_list.setRefreshing(false);
-                        }
-                        loading.close();
-                        showToast(getResources().getString(R.string.some_went_wrong));
-                        Log.d("Error.Response", String.valueOf(error));
-                        error.printStackTrace();
-                    }
-                }
-        );
-        int socketTimeout = 30000; // 30 seconds. You can change it
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
-        getRequest.setRetryPolicy(policy);
-// add it to the RequestQueue
-        queue.add(getRequest);
-    }
-
     private void APiGetShopslistData(final String Url, final String Type, final String City, final String CityID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -766,26 +691,27 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                         try {
                             if (Type.equals("Shops") && City.equals("City") || City.equals("")) {
                                 ShopsData = response.toString();
-                                mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
-                                if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-                                    mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list);
-                                    if (CityName != null && !CityName.equals("")) {
-                                        aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
-                                    } else {
-                                        aQuery.id(R.id.tv_location_name_shops_list).text(mplaceName);
-
-                                    }
-                                    AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
-                                    asyncTaskRunner.execute("List", String.valueOf(mShopsListModel.getShopsList().size()));
-//                                    SetListData("List", mShopsListModel.getShopsList().size());
-                                    loading.close();
+                                ShopsListDataResponse = response.toString();
+//                                mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
+//                                if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+//                                    mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list, isLocationAvail);
+                                if (CityName != null && !CityName.equals("")) {
+                                    aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
                                 } else {
-                                    if (lay_pull_refresh_shops_list.isRefreshing()) {
-                                        lay_pull_refresh_shops_list.setRefreshing(false);
-                                    }
-                                    loading.close();
-                                    showToast(getResources().getString(R.string.no_record_found));
+                                    aQuery.id(R.id.tv_location_name_shops_list).text(mplaceName);
+
                                 }
+                                AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
+                                asyncTaskRunner.execute("List", "");
+//                                    SetListData("List", mShopsListModel.getShopsList().size());
+//                                    loading.close();
+//                                } else {
+//                                    if (lay_pull_refresh_shops_list.isRefreshing()) {
+//                                        lay_pull_refresh_shops_list.setRefreshing(false);
+//                                    }
+//                                    loading.close();
+//                                    showToast(getResources().getString(R.string.no_record_found));
+//                                }
                                 if (City.equals("City")) {
                                     APiGetShopslistData(AppConfig.APiGetCitiesList, "", "City", CityID);
                                 }
@@ -860,16 +786,28 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
         @Override
         protected String doInBackground(String... params) {
+            mShopsListModel = gson.fromJson(ShopsListDataResponse, ShopsListModel.class);
             prams.clear();
             prams.add(0, params[0]);
-            prams.add(1, params[1]);
             return null;
         }
 
 
         @Override
         protected void onPostExecute(String result) {
-            SetListData(prams.get(0), Integer.parseInt(prams.get(1)));
+            if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+                if (!prams.get(0).equals("Filter")) {
+                    mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, mShopsListModel.getShopsList(), mLatlngCurrent, btn_back_top_shops_list, isLocationAvail);
+                }
+                SetListData(prams.get(0), mShopsListModel.getShopsList().size());
+                loading.close();
+            } else {
+                if (lay_pull_refresh_shops_list.isRefreshing()) {
+                    lay_pull_refresh_shops_list.setRefreshing(false);
+                }
+                loading.close();
+                showToast(getResources().getString(R.string.no_record_found));
+            }
             // execution of result of Long time consuming operation
 
         }
@@ -883,8 +821,23 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             recyclerView.getItemAnimator().setChangeDuration(700);
             recyclerView.setAdapter(mshopsListRecycleViewAdapter);
             if (!Type.equals("Filter")) {
-                mshopsListRecycleViewAdapter.SortFilterDistanceDefault();
-                mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                if (isLocationAvail != null && isLocationAvail.equals("Yes")) {
+                    mshopsListRecycleViewAdapter.SortFilterDistanceDefault();
+                    mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                } else {
+                    ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Name", "Ascending", mLatlngCurrent, "");
+                    if (mshopsListRecycleViewAdapter != null) {
+                        mshopsListRecycleViewAdapter.notifyDataSetChanged();
+                        tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+
+                    }
+                }
+
+            } else {
+                if (mshopsListRecycleViewAdapter != null) {
+                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+
+                }
             }
 
             GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
@@ -961,7 +914,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     }
 
                 }
-                mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistAfterFiltration, mLatlngCurrent, btn_back_top_shops_list);
+                mshopsListRecycleViewAdapter = new ShopsListRecycleViewAdapter(activity, _ShopslistAfterFiltration, mLatlngCurrent, btn_back_top_shops_list, isLocationAvail);
                 AsyncTaskRunner asyncTaskRunner = new AsyncTaskRunner();
                 asyncTaskRunner.execute("Filter", String.valueOf(mShopsListModel.getShopsList().size()));
 //                SetListData("Filter", _ShopslistAfterFiltration.size());

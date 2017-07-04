@@ -92,7 +92,7 @@ public class FiltersActivity extends BaseActivity {
             if (provide_ReplaceParts.equals("1")) {
                 sw_provide_replace_parts_filter.setChecked(true);
             }
-            if (topRated.equals("1")) {
+            if (topRated.equals("5")) {
                 sw_top_rated_filter.setChecked(true);
             }
 
