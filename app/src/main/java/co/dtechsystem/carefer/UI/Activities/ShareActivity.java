@@ -57,7 +57,7 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
                 Utils.SharePublic(activity, "https://mobile.twitter.com/compose/tweet", "com.twitter.android");
                 break;
             case R.id.btn_share_gtalk:
-                Utils.SharePublic(activity, "https://developers.google.com/+/", "com.google.android.apps.plus");
+                Utils.SharePublic(activity, "https://plus.google.com/share?url=https://play.google.com/store/apps/details?id=" + getPackageName(), "com.google.android.apps.plus");
                 break;
 
             case R.id.btn_share_insta:

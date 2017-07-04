@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
@@ -44,6 +45,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -404,50 +406,6 @@ public class MainActivity extends BaseActivity
         queue.add(getRequest);
     }
 
-    private void APiGetShopslistData2(String Url, final Location location, final String CityID) {
-        // prepare the Request
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, Url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // display response
-                        ShopsListDataResponse = response.toString();
-                        ShopsListModel mShopsListModel = gson.fromJson(response.toString(), ShopsListModel.class);
-                        if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
-
-                            if (location != null) {
-
-                                SetShopsPointMap(mShopsListModel.getShopsList(), location);
-                            }
-                        } else {
-                            loading.close();
-                            aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
-                            showToast(activity.getResources().getString(R.string.no_record_found));
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
-                        loading.close();
-                        showToast(getResources().getString(R.string.some_went_wrong));
-                        Log.d("Error.Response", String.valueOf(error));
-                    }
-                }
-        );
-        int socketTimeout = 30000; // 30 seconds. You can change it
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
-        getRequest.setRetryPolicy(policy);
-// add it to the RequestQueue
-        queue.add(getRequest);
-    }
-
     private void APiGetShopslistData(String Url, final Location location, final String CityID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -608,8 +566,10 @@ public class MainActivity extends BaseActivity
                         }
                     }
                 });
-                arg0.setInfoWindowAnchor((float) -5.2, (float) 3.2);
-
+                Projection projection = mMap.getProjection();
+                LatLng markerLocation = arg0.getPosition();
+                Point screenPosition = projection.toScreenLocation(markerLocation);
+                arg0.setInfoWindowAnchor((float) -3.6, (float) 2.5);
                 return customMarkerView;
             }
 

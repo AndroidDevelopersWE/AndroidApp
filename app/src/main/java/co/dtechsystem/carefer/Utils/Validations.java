@@ -22,7 +22,7 @@ import co.dtechsystem.carefer.R;
 
 
 public abstract class Validations {
-		
+
 	/**
 	 * Check Internet Connectivity
 	 * Input:
@@ -45,19 +45,19 @@ public abstract class Validations {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Display Toast Message
 	 * Inputs:
 	 * 1. Context
 	 * 2. Message
-	 * Output: It will display Toast of given message 
+	 * Output: It will display Toast of given message
 	 */
 	public static void showMessage(Context context, String msg)
 	{
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}
-	
+
 	/**
 	 * Check String is Empty or not
 	 * Input:
@@ -68,7 +68,7 @@ public abstract class Validations {
 	{
 		return TextUtils.isEmpty(text.trim());
 	}
-	
+
 	/**
 	 * Check EditText is Empty or not
 	 * Input:
@@ -126,7 +126,7 @@ public abstract class Validations {
 	 */
 	public static boolean isValidPassword(Context context, EditText etPassword) {
 		String temp = etPassword.getText().toString();
-		
+
 		if(temp.length()>0 && isEditTextEmpty(etPassword)){
 //			showMessage(context, context.getResources().getString(R.string.v_password_valid));
 			return false;

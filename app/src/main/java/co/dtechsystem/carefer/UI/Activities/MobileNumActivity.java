@@ -121,7 +121,7 @@ public class MobileNumActivity extends BaseActivity {
                             if (phoneEditText.isValid()) {
                                 loading.show();
                                 if (Phone.startsWith("+")) {
-                                    Phone.replaceFirst("\\u002B", "");
+                                    Phone=Phone.replaceFirst("\\u002B", "");
                                 }
                                 APiCreateUserPhone(Phone, "Mobile");
                             } else {

@@ -447,7 +447,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 String myFormat = "yyyy-MM-dd"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat,localeEn);
 
                 aQuery.find(R.id.et_last_oil_my_details).text(sdf.format(myCalendar.getTime()));
             }
