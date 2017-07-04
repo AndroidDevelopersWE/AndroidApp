@@ -569,7 +569,7 @@ public class MainActivity extends BaseActivity
                 Projection projection = mMap.getProjection();
                 LatLng markerLocation = arg0.getPosition();
                 Point screenPosition = projection.toScreenLocation(markerLocation);
-                arg0.setInfoWindowAnchor((float) -3.6, (float) 2.5);
+                arg0.setInfoWindowAnchor((float) -3.4, (float) 2.4);
                 return customMarkerView;
             }
 
