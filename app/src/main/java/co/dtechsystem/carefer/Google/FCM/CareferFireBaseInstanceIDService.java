@@ -7,8 +7,8 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-public class CreferFirebaseInstanceIDService extends FirebaseInstanceIdService {
-    private static final String TAG = CreferFirebaseInstanceIDService.class.getSimpleName();
+public class CareferFireBaseInstanceIDService extends FirebaseInstanceIdService {
+    private static final String TAG = CareferFireBaseInstanceIDService.class.getSimpleName();
 
     @Override
     public void onTokenRefresh() {

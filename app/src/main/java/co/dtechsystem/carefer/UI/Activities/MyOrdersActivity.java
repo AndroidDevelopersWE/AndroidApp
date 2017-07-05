@@ -44,11 +44,11 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
         tv_title_my_orders = (TextView) findViewById(R.id.tv_title_my_orders);
-        if (intent.getExtras() != null) {
-            callType = intent.getStringExtra("callType");
-        } else {
-            callType = "";
-        }
+//        if (intent.getExtras() != null) {
+//            callType = intent.getStringExtra("callType");
+//        } else {
+//            callType = "";
+//        }
         SetShaderToViews();
         SetUpLeftbar();
 
@@ -130,12 +130,12 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
-            if (callType != null && callType.equals("Navigation") || callType.equals("callOrder")) {
-                intent = new Intent(activity, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-            }
+//            if (callType != null && callType.equals("Navigation") || callType.equals("callOrder")) {
+//                intent = new Intent(activity, MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+//                finish();
+//            }
             super.onBackPressed();
         }
     }

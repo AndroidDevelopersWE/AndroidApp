@@ -16,8 +16,8 @@ android {
         applicationId "co.carefer"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 12
-        versionName "1.0.9.3"
+        versionCode 14
+        versionName "1.0.9.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.config
     }

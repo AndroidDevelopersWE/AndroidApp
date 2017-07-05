@@ -84,8 +84,8 @@ public class NavigationsActivity extends BaseActivity
         }
     }
 
-    public void GotoMyOrder(View v) {
-        intent = new Intent(activity, MyOrdersActivity.class);
+    public void GotoShopsList(View v) {
+        intent = new Intent(activity, ShopsListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("callType", "Navigation");
         startActivity(intent);
@@ -366,7 +366,7 @@ public class NavigationsActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
-            intent = new Intent(activity, MyOrdersActivity.class);
+            intent = new Intent(activity, ShopsListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("callType", "Navigation");
             startActivity(intent);

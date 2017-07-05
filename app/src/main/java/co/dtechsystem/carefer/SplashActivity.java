@@ -37,12 +37,13 @@ public class SplashActivity extends BaseActivity {
         // Obtain the shared Tracker instance.
 //        AnalyticsApplication application = (AnalyticsApplication) getApplication().getApplicationContext();
 //        mTracker = application.getDefaultTracker();
-         Language = Utils.readPreferences(activity, "language", "");
-        if (Language != null && !Language.equals("")) {
-            SplashScreenThread();
-        } else {
-            CustomLanguageDialog();
-        }
+        SplashScreenThread();
+//         Language = Utils.readPreferences(activity, "language", "");
+//        if (Language != null && !Language.equals("")) {
+//            SplashScreenThread();
+//        } else {
+//            CustomLanguageDialog();
+//        }
 
 //        mScaler.scaleImage(R.drawable.img_splash_screen,iv_splash );
 //        getCallDetails();

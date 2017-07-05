@@ -83,7 +83,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     ArrayList<Integer> CheckedServices = new ArrayList<Integer>();
     ArrayList<Integer> CheckedBrands = new ArrayList<Integer>();
     ArrayList<Integer> CheckedShopTypes = new ArrayList<Integer>();
-
+    String callType = "";
 
     @SuppressWarnings("deprecation")
     @Override
@@ -113,6 +113,11 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
             CityId = intent.getStringExtra("CityId");
             isLocationAvail = intent.getStringExtra("isLocationAvail");
+            if (intent.getExtras().getString("callType") != null) {
+                callType = intent.getStringExtra("callType");
+            } else {
+                callType = "";
+            }
         }
         getDataForView();
         setDataToView();
@@ -593,6 +598,12 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
+            if (callType != null && callType.equals("Navigation") || callType.equals("callOrder")) {
+                intent = new Intent(activity, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
             super.onBackPressed();
         }
     }

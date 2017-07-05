@@ -38,7 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected AQuery aQuery;
     protected Gson gson;
     protected Intent intent;
-    protected String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID;
+    protected String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID, sRegId = "";
     Locale locale, localeEn;
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -57,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         activity = this;
         loading = new Loading(this, getResources().getString(R.string.loading));
         intent = getIntent();
-        String sRegId = Utils.readPreferences(activity, "regId", "");
+        sRegId = Utils.readPreferences(activity, "regId", "");
         if (sRegId != null && !sRegId.equals("")) {
         } else {
             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
@@ -69,11 +69,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         sUser_ID = Utils.readPreferences(activity, "User_ID", "");
         locale = new Locale("ar");
         localeEn = new Locale("en");
-        String Language = Utils.readPreferences(activity, "language", "");
-        if (Language != null && !Language.equals("")) {
-            locale = new Locale(Language);
-            setLanguage(locale);
-        }
+//        String Language = Utils.readPreferences(activity, "language", "");
+//        if (Language != null && !Language.equals("")) {
+//            locale = new Locale(Language);
+        setLanguage(locale);
+//        }
 
     }
 

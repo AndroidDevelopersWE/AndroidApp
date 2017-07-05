@@ -1,13 +1,17 @@
 package co.dtechsystem.carefer.UI.Activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -50,7 +54,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     private String mServicesId;
     private String mBrandsId;
     private String mModelsId;
-    private String morderType="";
+    private String morderType = "";
     private String mshopImage;
     private String mContact;
 
@@ -212,6 +216,16 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 
     @SuppressWarnings({"PointlessBooleanExpression", "UnusedParameters"})
     public void DirectionsToShop(View v) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            dirShopsIntents();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
+
+        }
+    }
+
+    public void dirShopsIntents() {
         if (mOrderPlaced == false) {
             //noinspection StatementWithEmptyBody
             if (morderType != null && morderType.equals("call")) {
@@ -242,6 +256,37 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
+    @SuppressWarnings({"UnnecessaryReturnStatement", "NullableProblems"})
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 123: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    dirShopsIntents();
+                    return;
+                } else {
+                    showToast(getResources().getString(R.string.toast_location_not_found));
+                    try {
+                        Intent intent = new Intent();
+                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                return;
+            }
+
+        }
+    }
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -249,7 +294,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             drawer.closeDrawer(GravityCompat.END);
         } else {
             if (morderType.equals("call")) {
-                intent = new Intent(activity, MyOrdersActivity.class);
+                intent = new Intent(activity, ShopsListActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("callType", "callOrder");
                 startActivity(intent);
