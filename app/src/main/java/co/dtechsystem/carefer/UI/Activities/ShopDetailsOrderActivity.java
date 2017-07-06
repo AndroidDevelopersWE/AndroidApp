@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,12 +45,13 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
     private final ArrayList<String> mModelsIdArray = new ArrayList<>();
     private String mServicesId;
-    private String mBrandsId;
-    private String mModelsId;
+    private String mBrandsId, mplaceName;
+    private String mModelsId, CityId, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
     private final List listservices = new ArrayList();
     private final List brands = new ArrayList();
     List models = new ArrayList();
     private TextView tv_title_shops_details_order;
+    private LatLng mLatlngCurrent;
 
     @Override
 
@@ -79,6 +81,15 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
             mlongitude = intent.getStringExtra("longitude");
             mshopImage = intent.getStringExtra("shopImage");
             mContact = intent.getStringExtra("contact");
+            CityId = intent.getStringExtra("CityId");
+            ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
+            citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
+            isLocationAvail = intent.getStringExtra("isLocationAvail");
+            Bundle bundle = intent.getParcelableExtra("bundle");
+            if (bundle != null) {
+                mLatlngCurrent = bundle.getParcelable("LatLngCurrent");
+            }
+            mplaceName = intent.getStringExtra("placeName");
         }
     }
 
@@ -284,7 +295,16 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                 i.putExtra("modelID", mModelsId);
                 i.putExtra("shopImage", mshopImage);
                 i.putExtra("contact", mContact);
-
+                if (CityId != null && !CityId.equals("")) {
+                    i.putExtra("CityId", CityId);
+                    i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                    i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                    i.putExtra("isLocationAvail", isLocationAvail);
+                    Bundle args = new Bundle();
+                    args.putParcelable("LatLngCurrent", mLatlngCurrent);
+                    i.putExtra("placeName", mplaceName);
+                    i.putExtra("bundle", args);
+                }
 
                 startActivity(i);
             }

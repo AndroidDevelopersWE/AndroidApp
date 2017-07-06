@@ -108,7 +108,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
                 String VerificationCode = et_1_verify.getText().toString() + et_2_verify.getText().toString() +
                         et_3_verify.getText().toString() + et_4_verify.getText().toString();
                 loading.show();
-                APiVarifyCustomer(sUser_ID, VerificationCode);
+                APiVarifyCustomer(sUser_ID, VerificationCode,sRegId);
             } else {
                 showToast(getResources().getString(R.string.toast_fill_all_fields));
             }
@@ -274,7 +274,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
                                 chronometer_sms.setVisibility(View.GONE);
                                 mAutoReceivedCode = true;
                                 loading.show();
-                                APiVarifyCustomer(sUser_ID, pin);
+                                APiVarifyCustomer(sUser_ID, pin, sRegId);
                             }
 //                            Toast.makeText(context, "Pin received: " + pin, Toast.LENGTH_LONG).show();
 
@@ -286,7 +286,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
         }
     };
 
-    private void APiVarifyCustomer(final String UserID, final String verificationCode) {
+    private void APiVarifyCustomer(final String UserID, final String verificationCode, final String regID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiVarifyCustomer,
@@ -340,6 +340,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("customerID", UserID);
                 params.put("verificationCode", verificationCode);
+                params.put("regID", regID);
+                params.put("mobileType", "Android");
+
 
                 return params;
             }

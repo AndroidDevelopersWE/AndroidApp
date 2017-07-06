@@ -59,9 +59,9 @@
         android:layout_gravity="right"
         android:layout_marginTop="@dimen/_30sdp"
         android:layout_marginBottom="@dimen/_5sdp"
-        android:background="@drawable/dr_btn_round_corner_orange_90"
+        android:background="@android:color/transparent"
         android:text="@string/dialog_cancel"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/_12sdp"/>
 </LinearLayout>

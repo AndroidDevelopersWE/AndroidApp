@@ -733,6 +733,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     }
 //                                    listCities.add(0, mplaceName);
                                 } else {
+                                    citiesNamesIDsResponse=response.toString();
                                     listCities.add(0, getResources().getString(R.string.tv_city));
                                     listCitiesId.add(0, "0");
                                 }

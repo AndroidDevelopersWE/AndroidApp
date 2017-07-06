@@ -1,39 +1,27 @@
 {
   "project_info": {
-    "project_number": "562879189074",
-    "firebase_url": "https://carefer-164212.firebaseio.com",
-    "project_id": "carefer-164212",
-    "storage_bucket": "carefer-164212.appspot.com"
+    "project_number": "626512627063",
+    "firebase_url": "https://carefer-6b3f8.firebaseio.com",
+    "project_id": "carefer-6b3f8",
+    "storage_bucket": "carefer-6b3f8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:562879189074:android:a5bbc838bac24d8b",
+        "mobilesdk_app_id": "1:626512627063:android:a5bbc838bac24d8b",
         "android_client_info": {
           "package_name": "co.carefer"
         }
       },
       "oauth_client": [
         {
-          "client_id": "562879189074-i8b41llsd4fe62706o4arfv1v0mlq6tj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "co.carefer",
-            "certificate_hash": "f7a5dd0dc806cb2e4716afbfa6a26e671a9f6fc8"
-          }
-        },
-        {
-          "client_id": "562879189074-va13p0pug3c9bm09bgi70hgh2bagebkp.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "562879189074-v5r6qsr8ee1srj0rhuc4ihrrmhmea06a.apps.googleusercontent.com",
+          "client_id": "626512627063-t039vrfjvua1g6cg07r8b2m47enoneg9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCSH2H3AvnQNuR4IvILtY9iwYaohFAjYwY"
+          "current_key": "AIzaSyART1yiswZrKvM0OERbSlVAIlWNYmfRty0"
         }
       ],
       "services": {
@@ -41,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "562879189074-va13p0pug3c9bm09bgi70hgh2bagebkp.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2

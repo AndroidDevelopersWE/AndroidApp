@@ -32,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,15 +55,16 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     private String mServicesId;
     private String mBrandsId;
     private String mModelsId;
-    private String morderType = "";
+    private String morderType = "", mplaceName;
     private String mshopImage;
-    private String mContact;
+    private String mContact, CityId, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
 
     private ImageView iv_shop_image_blur;
     private CircleImageView iv_shop_profile;
     private TextView tv_title_order_now;
     private int morderID;
     private boolean mOrderPlaced;
+    private LatLng mLatlngCurrent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,15 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             mModelsId = intent.getStringExtra("modelID");
             mshopImage = intent.getStringExtra("shopImage");
             mContact = intent.getStringExtra("contact");
+            CityId = intent.getStringExtra("CityId");
+            ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
+            citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
+            isLocationAvail = intent.getStringExtra("isLocationAvail");
+            Bundle bundle = intent.getParcelableExtra("bundle");
+            if (bundle != null) {
+                mLatlngCurrent = bundle.getParcelable("LatLngCurrent");
+            }
+            mplaceName = intent.getStringExtra("placeName");
         }
     }
 
@@ -241,6 +252,16 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         i.putExtra("latitude", mlatitude);
         i.putExtra("longitude", mlongitude);
         i.putExtra("shopID", mshopID);
+        if (CityId != null && !CityId.equals("")) {
+            i.putExtra("CityId", CityId);
+            i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+            i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+            i.putExtra("isLocationAvail", isLocationAvail);
+            Bundle args = new Bundle();
+            args.putParcelable("LatLngCurrent", mLatlngCurrent);
+            i.putExtra("placeName", mplaceName);
+            i.putExtra("bundle", args);
+        }
         startActivity(i);
     }
 
@@ -297,6 +318,16 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                 intent = new Intent(activity, ShopsListActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("callType", "callOrder");
+                if (CityId != null && !CityId.equals("")) {
+                    intent.putExtra("CityId", CityId);
+                    intent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                    intent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                    intent.putExtra("isLocationAvail", isLocationAvail);
+                    Bundle args = new Bundle();
+                    args.putParcelable("LatLngCurrent", mLatlngCurrent);
+                    intent.putExtra("placeName", mplaceName);
+                    intent.putExtra("bundle", args);
+                }
                 startActivity(intent);
                 finish();
             }

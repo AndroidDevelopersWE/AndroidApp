@@ -207,13 +207,13 @@
                         <RatingBar
                             android:id="@+id/rb_shop_rating_shop_details"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_20sdp"
+                            android:layout_height="@dimen/_15sdp"
                             android:layout_gravity="right"
                             android:layout_marginLeft="@dimen/_12sdp"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:isIndicator="true"
                             android:numStars="5"
-                            android:progressDrawable="@drawable/dr_rating_bar_yellow"
+                            android:progressDrawable="@drawable/dr_rating_bar_orange"
                             android:rating="5"
                             android:stepSize="0.5"
                             tools:ignore="RtlHardcoded"/>

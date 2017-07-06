@@ -64,7 +64,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import co.dtechsystem.carefer.Google.GPSServiceRequest;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
@@ -177,7 +176,7 @@ public class MainActivity extends BaseActivity
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setMapToolbarEnabled(false);
-        GPSServiceRequest.displayLocationSettingsRequest(activity);
+//        GPSServiceRequest.displayLocationSettingsRequest(activity);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         }
@@ -562,6 +561,14 @@ public class MainActivity extends BaseActivity
                         if (Validations.isInternetAvailable(activity, true)) {
                             Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
                             mIntent.putExtra("ShopID", finalId);
+                            mIntent.putExtra("CityId", CityId);
+                            mIntent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                            mIntent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                            mIntent.putExtra("isLocationAvail", isLocationAvail);
+                            Bundle args = new Bundle();
+                            args.putParcelable("LatLngCurrent", mLatLngCurrent);
+                            mIntent.putExtra("placeName", mPlaceName);
+                            mIntent.putExtra("bundle", args);
                             activity.startActivity(mIntent);
                         }
                     }

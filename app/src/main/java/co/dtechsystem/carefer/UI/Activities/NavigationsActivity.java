@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,10 +52,10 @@ public class NavigationsActivity extends BaseActivity
     private final ArrayList markerPoints = new ArrayList();
     private boolean firstCAll = false;
     private SupportMapFragment mapFragment;
-    private LatLng mShopLatlng;
-
+    private LatLng mShopLatlng, mUserLatlng;
+    String CityId,ShopsListDataResponse,citiesNamesIDsResponse,isLocationAvail,mplaceName;
     private TextView tv_title_navigation;
-
+    private LatLng mLatlngCurrent;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +78,15 @@ public class NavigationsActivity extends BaseActivity
         if (intent != null) {
             String mlatitude = intent.getStringExtra("latitude");
             String mlongitude = intent.getStringExtra("longitude");
+            CityId = intent.getStringExtra("CityId");
+            ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
+            citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
+            isLocationAvail = intent.getStringExtra("isLocationAvail");
+            Bundle bundle = intent.getParcelableExtra("bundle");
+            if (bundle != null) {
+                mLatlngCurrent = bundle.getParcelable("LatLngCurrent");
+            }
+            mplaceName = intent.getStringExtra("placeName");
             if (mlatitude != null && mlongitude != null) {
 
                 mShopLatlng = new LatLng(Double.parseDouble(mlatitude), Double.parseDouble(mlongitude));
@@ -88,6 +98,16 @@ public class NavigationsActivity extends BaseActivity
         intent = new Intent(activity, ShopsListActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("callType", "Navigation");
+        if (CityId != null && !CityId.equals("")) {
+            intent.putExtra("CityId", CityId);
+            intent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+            intent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+            intent.putExtra("isLocationAvail", isLocationAvail);
+            Bundle args = new Bundle();
+            args.putParcelable("LatLngCurrent", mLatlngCurrent);
+            intent.putExtra("placeName", mplaceName);
+            intent.putExtra("bundle", args);
+        }
         startActivity(intent);
         finish();
     }
@@ -98,11 +118,37 @@ public class NavigationsActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public void directionsToShop(View v) {
+        try {
+            String UserLatlng = mUserLatlng.latitude + "," + mUserLatlng.longitude;
+            String ShopLatlng = mShopLatlng.latitude + "," + mShopLatlng.longitude;
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse("http://maps.google.com/maps?saddr=" + UserLatlng + "&daddr=" + ShopLatlng));
+            startActivity(intent);
+        } catch (Exception e) {
+            showToast(getResources().getString(R.string.toast_location_not_found));
+            e.printStackTrace();
+        }
+    }
+
+    public void openGoogleMaps(View v) {
+        try {
+            String uri = "http://maps.google.com/";
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+            startActivity(intent);
+        } catch (Exception e) {
+            showToast(getResources().getString(R.string.toast_location_not_found));
+            e.printStackTrace();
+        }
+    }
+
     @SuppressWarnings("deprecation")
     @Override
+
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.getUiSettings().setMapToolbarEnabled(true);
+        mMap.getUiSettings().setMapToolbarEnabled(false);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -117,6 +163,7 @@ public class NavigationsActivity extends BaseActivity
             public void onMyLocationChange(Location arg0) {
                 // TODO Auto-generated method stub
                 if (firstCAll != true) {
+                    mUserLatlng = new LatLng(arg0.getLatitude(), arg0.getLongitude());
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(arg0.getLatitude(), arg0.getLongitude()), 13));
                     firstCAll = true;
                     AddMarkerForRoute(new LatLng(arg0.getLatitude(), arg0.getLongitude()));
@@ -369,6 +416,16 @@ public class NavigationsActivity extends BaseActivity
             intent = new Intent(activity, ShopsListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("callType", "Navigation");
+            if (CityId != null && !CityId.equals("")) {
+                intent.putExtra("CityId", CityId);
+                intent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                intent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                intent.putExtra("isLocationAvail", isLocationAvail);
+                Bundle args = new Bundle();
+                args.putParcelable("LatLngCurrent", mLatlngCurrent);
+                intent.putExtra("placeName", mplaceName);
+                intent.putExtra("bundle", args);
+            }
             startActivity(intent);
             finish();
             super.onBackPressed();

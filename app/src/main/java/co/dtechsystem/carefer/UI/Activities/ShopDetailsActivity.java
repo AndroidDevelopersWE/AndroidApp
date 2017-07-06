@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,7 +49,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     private DrawerLayout mDrawerLayout;
     private ShopsImagesRecycleViewAdapter mShopsImagesRecycleViewAdapter;
     private ShopsDetailsModel mShopsDetailsModel;
-    private String mShopID;
+    private String mShopID, CityId,mplaceName;
     private int mStatus = 0;
     private LinearLayout lay_full_image;
     private LinearLayout lay_shop_details;
@@ -57,8 +58,10 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     private ShopsImagesPagerAdapter mShopsImagesPagerAdapter;
     private ViewPager mViewPager;
     @SuppressWarnings("unused")
-    private String responsePublic;
+    private String responsePublic, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
     private TextView tv_title_shop_details;
+    private LatLng mLatlngCurrent;
+
 
     @Override
 
@@ -75,6 +78,15 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         Intent mIntent = getIntent();
         if (mIntent != null) {
             mShopID = mIntent.getStringExtra("ShopID");
+            CityId = mIntent.getStringExtra("CityId");
+            ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
+            citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
+            isLocationAvail = intent.getStringExtra("isLocationAvail");
+            Bundle bundle = intent.getParcelableExtra("bundle");
+            if (bundle != null) {
+                mLatlngCurrent = bundle.getParcelable("LatLngCurrent");
+            }
+            mplaceName = intent.getStringExtra("placeName");
             if (Validations.isInternetAvailable(activity, true)) {
                 loading.show();
                 APiGetShopsDetailsData(mShopID);
@@ -185,6 +197,16 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                 i.putExtra("latitude", mShopsDetailsModel.getShopsDetail().get(0).getLatitude());
                 i.putExtra("longitude", mShopsDetailsModel.getShopsDetail().get(0).getLongitude());
                 i.putExtra("contact", mShopsDetailsModel.getShopsDetail().get(0).getContactNumber());
+                if (CityId != null && !CityId.equals("")) {
+                    i.putExtra("CityId", CityId);
+                    i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                    i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                    i.putExtra("isLocationAvail", isLocationAvail);
+                    Bundle args = new Bundle();
+                    args.putParcelable("LatLngCurrent", mLatlngCurrent);
+                    i.putExtra("placeName", mplaceName);
+                    i.putExtra("bundle", args);
+                }
                 if (mShopsDetailsModel.getShopsDetail().get(0).getShopImage() != null) {
                     final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
                     i.putExtra("shopImage", Url + mShopsDetailsModel.getShopsDetail().get(0).getShopImage());

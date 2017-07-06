@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorGreylight"
-    android:focusable="false"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    tools:context=".UI.Activities.NavigationsActivity"
-    tools:ignore="Overdraw">
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/colorGreylight"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="true"
+                                        android:orientation="vertical"
+                                        tools:context=".UI.Activities.NavigationsActivity"
+                                        tools:ignore="Overdraw">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,14 +43,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:gravity="center"
                         android:layout_marginLeft="@dimen/_15sdp"
+                        android:gravity="center"
                         android:padding="@dimen/_10sdp"
                         android:text="@string/title_navigate"
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
 
                 </LinearLayout>
@@ -71,7 +71,7 @@
                         android:background="@drawable/ic_menu"
                         android:backgroundTint="@color/colorGrey"
                         android:clickable="false"
-                        tools:ignore="ContentDescription,UnusedAttribute" />
+                        tools:ignore="ContentDescription,UnusedAttribute"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -85,37 +85,74 @@
 
 
             <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/map"
-                class="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                      android:id="@+id/map"
+                      class="com.google.android.gms.maps.SupportMapFragment"
+                      android:layout_width="match_parent"
+                      android:layout_height="match_parent"/>
 
-
-            <Button
-                android:id="@+id/btn_explorer_main"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_38sdp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="17dp"
-                android:layout_marginLeft="@dimen/_80sdp"
-                android:layout_marginRight="@dimen/_80sdp"
-                android:background="@drawable/dr_btn_round_corner_orange_90"                android:clickable="true"
-                android:onClick="GotoShopsList"
-                android:padding="@dimen/_5sdp"
-                android:text="@string/btn_done"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
-                android:textSize="@dimen/_15sdp"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
                 android:layout_above="@+id/view"
-                android:layout_centerHorizontal="true"/>
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_explorer_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_38sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_80sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/dr_btn_round_corner_orange_90"
+                    android:clickable="true"
+                    android:onClick="GotoShopsList"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/btn_done"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_weight="0"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:onClick="directionsToShop"
+                        android:background="@drawable/ic_directions"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:onClick="openGoogleMaps"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:background="@drawable/ic_google_maps"/>
+                </LinearLayout>
+            </LinearLayout>
 
             <View
+                android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_15sdp"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/dr_grey_bottom"
-                android:id="@+id/view"/>
+                android:background="@drawable/dr_grey_bottom"/>
         </RelativeLayout>
     </RelativeLayout>
 
@@ -133,5 +170,5 @@
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
         app:itemIconTint="@drawable/dr_tv_selection"
         app:itemTextColor="@drawable/dr_tv_selection"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"/>
 </android.support.v4.widget.DrawerLayout>

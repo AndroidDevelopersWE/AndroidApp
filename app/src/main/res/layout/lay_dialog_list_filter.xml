@@ -23,10 +23,10 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_30sdp"
-            android:background="@drawable/dr_btn_round_corner_orange_90"
+            android:background="@android:color/transparent"
             android:text="@string/dialog_cancel"
             android:textAllCaps="false"
-            android:textColor="@color/pf_white"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_12sdp"/>
 
         <Button
@@ -35,10 +35,10 @@
             android:layout_height="@dimen/_25sdp"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_30sdp"
-            android:background="@drawable/dr_btn_round_corner_orange_90"
+            android:background="@android:color/transparent"
             android:text="@string/dialog_ok"
             android:textAllCaps="false"
-            android:textColor="@color/pf_white"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/_12sdp"/>
 
 
