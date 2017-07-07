@@ -176,4 +176,6 @@
     <string name="tv_nationality">الجنسية</string>
     <string name="tv_about_us">تطبيق كاريفر هو منصة بين مزودين الخدمة (الورش) وبين طالبين الخدمة</string>
     <string name="tv_share_app">أبجد هوز هو مجرد دمية النص من صناعة الطباعة والتنضيد. كان معيار الصناعة القياسية دمية من أي وقت مضى</string>
+    <string name="tv_version_name">الإصدار:  </string>
+    <string name="tv_km_after_oil_change">كم بعد تغيير الزيت</string>
 </resources>

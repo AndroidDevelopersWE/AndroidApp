@@ -188,4 +188,6 @@
 
     <string name="tv_about_us">Carefer application is a platform between service providers (workshops) and two service applicants</string>
     <string name="tv_share_app">Abjad Hose is just a text doll of the printing and compositing industry. It was the standard industry standard doll ever</string>
+    <string name="tv_version_name">Version:</string>
+    <string name="tv_km_after_oil_change">Km after the oil was changed</string>
 </resources>

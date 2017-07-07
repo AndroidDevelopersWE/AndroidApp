@@ -406,6 +406,7 @@ android:background="@android:color/transparent"
                         android:layout_gravity="right"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:gravity="right"
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:padding="@dimen/_5sdp"
                         card_view:ignore="RtlHardcoded">

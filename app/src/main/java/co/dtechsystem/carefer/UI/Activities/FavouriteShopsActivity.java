@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 import co.dtechsystem.carefer.Adapters.FavouriteShopsRecycleViewAdapter;
+import co.dtechsystem.carefer.Google.Analytics.AnalyticsApplication;
 import co.dtechsystem.carefer.Models.FavouriteShopsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
@@ -80,6 +81,8 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        AnalyticsApplication.getInstance().trackException(error);
+
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));

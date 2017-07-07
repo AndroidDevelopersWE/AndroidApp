@@ -239,10 +239,10 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     aQuery.find(R.id.iv_search_close_shops_list).visibility(View.GONE);
                     aQuery.find(R.id.iv_search_shops_list).visibility(View.VISIBLE);
                 }
-                ShopsListRecycleViewAdapter.filterShopsName(s.toString());
+                ShopsListRecycleViewAdapter.filterShopsName(s.toString(),mLatlngCurrent);
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                   tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                 }
                 try {
@@ -273,7 +273,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 et_search_shops_main.setText("");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                   tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                 }
 
@@ -321,7 +321,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                         ShopsListRecycleViewAdapter.filterShops("Service", "No", selectedItemService, selectedItemBrand);
                         if (mshopsListRecycleViewAdapter != null) {
                             mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                           tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                         }
                     } else if (selectedItemService
@@ -330,7 +330,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                         ShopsListRecycleViewAdapter.filterShops("Service Type", "Yes", selectedItemService, selectedItemBrand);
                         if (mshopsListRecycleViewAdapter != null) {
                             mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                           tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                         }
 
@@ -340,7 +340,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                             ShopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
                             if (mshopsListRecycleViewAdapter != null) {
                                 mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                                tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                               tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                             }
                         }
@@ -366,7 +366,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
                         ShopsListRecycleViewAdapter.filterShops("Brand", "No", selectedItemService, selectedItemBrand);
                         mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                        tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                       tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
 
                     } else if (selectedItemService
@@ -374,7 +374,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                             selectedItemBrand != null && !selectedItemBrand.equals("Brand")) {
                         ShopsListRecycleViewAdapter.filterShops("Brand", "Yes", selectedItemService, selectedItemBrand);
                         mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                        tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                       tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
 
                     } else {
@@ -382,7 +382,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                         if ((selectedItemService != null && selectedItemService.equals("Service Type")) && selectedItemBrand.equals("Brand")) {
                             ShopsListRecycleViewAdapter.filterShops("Default", "No", selectedItemService, selectedItemBrand);
                             mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                           tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                         }
                     }
@@ -450,7 +450,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             ShopsListRecycleViewAdapter.filterShopsWithProviders(selectedItems, ProvideWarranty, ProvideReplacementParts, shopType, topRated, Distance, mLatlngCurrent);
             if (mshopsListRecycleViewAdapter != null) {
                 mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+               tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
             }
 //            Toast.makeText(activity, builder.toString(), Toast.LENGTH_SHORT).show();
         }
@@ -487,7 +487,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Rating", "", mLatlngCurrent, "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                   tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                 }
                 dialog.dismiss();
@@ -500,7 +500,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Distance", "", mLatlngCurrent, "");
                     if (mshopsListRecycleViewAdapter != null) {
                         mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                        tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                       tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                     }
                     dialog.dismiss();
@@ -552,7 +552,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Name", "Ascending", mLatlngCurrent, "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                   tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                 }
                 dialog.dismiss();
@@ -564,7 +564,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Name", "Descending", mLatlngCurrent, "");
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                   tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                 }
                 dialog.dismiss();
@@ -625,6 +625,12 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         final ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listCities);
         aQuery.id(R.id.sp_city_name_shops_list).adapter(StringModeldataAdapter);
 
+        aQuery.id(R.id.lay_city_drop_ic_shops_list).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aQuery.id(R.id.sp_city_name_shops_list).getSpinner().performClick();
+            }
+        });
         aQuery.id(R.id.tv_location_name_shops_list).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -643,7 +649,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 //                        if (mshopsListRecycleViewAdapter != null) {
 //                            mshopsListRecycleViewAdapter.notifyDataSetChanged();
 //                            aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
-//                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+//                           tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 //
 //
 //                        }
@@ -664,7 +670,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 //                        if (mshopsListRecycleViewAdapter != null) {
 //                            mshopsListRecycleViewAdapter.notifyDataSetChanged();
 //                            aQuery.id(R.id.tv_location_name_shops_list).text(CityName);
-//                            tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+//                           tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 //
 //
 //                        }
@@ -733,7 +739,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                     }
 //                                    listCities.add(0, mplaceName);
                                 } else {
-                                    citiesNamesIDsResponse=response.toString();
+                                    citiesNamesIDsResponse = response.toString();
                                     listCities.add(0, getResources().getString(R.string.tv_city));
                                     listCitiesId.add(0, "0");
                                 }
@@ -798,7 +804,11 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
         @Override
         protected String doInBackground(String... params) {
-            mShopsListModel = gson.fromJson(ShopsListDataResponse, ShopsListModel.class);
+            if (ShopsListDataResponse != null && !ShopsListDataResponse.equals("")) {
+                mShopsListModel = gson.fromJson(ShopsListDataResponse, ShopsListModel.class);
+            } else {
+                ShopsListDataResponse = "{\"shopsList\":[{}]}";
+            }
             prams.clear();
             prams.add(0, params[0]);
             return null;
@@ -829,7 +839,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     @SuppressLint("SetTextI18n")
     private void SetListData(String Type, int Size) {
         try {
-            tv_total_results_shops_list.setText(Integer.toString(Size) + getResources().getString(R.string.tv_total_results));
+            tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+Integer.toString(Size));
             recyclerView.getItemAnimator().setChangeDuration(700);
             recyclerView.setAdapter(mshopsListRecycleViewAdapter);
             if (!Type.equals("Filter")) {
@@ -840,14 +850,14 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     ShopsListRecycleViewAdapter.SortingShopsWithNameRatingCity("Name", "Ascending", mLatlngCurrent, "");
                     if (mshopsListRecycleViewAdapter != null) {
                         mshopsListRecycleViewAdapter.notifyDataSetChanged();
-                        tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                        tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                     }
                 }
 
             } else {
                 if (mshopsListRecycleViewAdapter != null) {
-                    tv_total_results_shops_list.setText(mshopsListRecycleViewAdapter.getItemCount() + getResources().getString(R.string.tv_total_results));
+                    tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results)+" "+mshopsListRecycleViewAdapter.getItemCount() );
 
                 }
             }

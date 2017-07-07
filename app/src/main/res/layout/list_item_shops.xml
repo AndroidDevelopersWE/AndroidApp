@@ -372,9 +372,8 @@
                                 <Button
                                     android:id="@+id/btn_details_shops_list"
                                     android:layout_width="@dimen/_100sdp"
-                                    android:layout_height="@dimen/_25sdp"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_gravity="right"
+                                    android:layout_height="@dimen/_27sdp"
+                                    android:layout_centerInParent="true"
                                     android:layout_marginLeft="@dimen/_15sdp"
                                     android:layout_marginRight="@dimen/_10sdp"
                                     android:background="@drawable/dr_btn_round_corner_orange_90"
@@ -382,7 +381,7 @@
                                     android:padding="@dimen/_2sdp"
                                     android:text="@string/shop_details"
                                     android:textColor="@android:color/white"
-                                    android:textSize="@dimen/_8sdp"
+                                    android:textSize="@dimen/_11sdp"
                                     tools:ignore="RtlHardcoded"/>
                             </RelativeLayout>
                         </LinearLayout>

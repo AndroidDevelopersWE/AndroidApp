@@ -56,10 +56,10 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     private static Activity activity;
     @SuppressWarnings("unused")
     private static Boolean expand;
-    private final LatLng mLatlngCurrent;
+    private static LatLng mLatlngCurrent;
     Button btn_back_top_shops_list;
     String isLocationAvail;
-    int selectedPosition=-1;
+    int selectedPosition = -2;
     ArrayList<Integer> totalIds = new ArrayList();
 
     @SuppressWarnings({"unused", "Convert2Diamond"})
@@ -134,7 +134,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         final int height = holder.lay_details.getMeasuredHeight();
         if (selectedPosition == position) {
 
-            if (holder.lay_details.getVisibility() != View.VISIBLE&&expand==false) {
+            if (holder.lay_details.getVisibility() != View.VISIBLE && expand == false) {
                 holder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_orange_three_color, null));
                 int i = (int) activity.getResources().getDimension(R.dimen._80sdp);
                 expand(holder.lay_details, 500, i, holder);
@@ -146,9 +146,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
 
             }
-        }
-
-        else {
+        } else {
             holder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_grey, null));
             collapse(holder.lay_details, holder);
 //            expand = false;
@@ -534,22 +532,130 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
     // Filter for Shops Names Class
     @SuppressWarnings("unused")
-    public static void filterShopsName(String Text) {
+    public static void filterShopsName(String Text, LatLng mLatlngCurrent) {
         Text = Text.toLowerCase(Locale.getDefault());
         if (_ShopslistRecordList != null) {
             _ShopslistRecordList.clear();
             if (Text.length() == 0) {
-                _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
-            } else {
+                {
 
-                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-                    if (_ShopslistRecordListFilter.get(i).getShopName().toLowerCase(Locale.getDefault())
-                            .contains(Text)) {
-                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                    Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
+
+                    if (mLatlngCurrent != null) {
+                        for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                            LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
+                            Location userLoc = new Location("");
+                            userLoc.setLatitude(mLatlngCurrent.latitude);
+                            userLoc.setLongitude(mLatlngCurrent.longitude);
+                            Location shopLoc = new Location("");
+                            shopLoc.setLatitude(shopLatlng.latitude);
+                            shopLoc.setLongitude(shopLatlng.longitude);
+                            float lo = userLoc.distanceTo(shopLoc);
+                            distanceArray[i] = lo;
+//                        if (userLoc.distanceTo(shopLoc) <= 1000) {
+//                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
+//                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
+//                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
+//                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
+//                            _Shops20Km.add(_ShopslistRecordListFilter.get(i));
+//                        } else if (userLoc.distanceTo(shopLoc) > 20000) {
+//                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
+//                        }
+//                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
+//                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
+
+//                            sortDistance(myLocation,myShop);
+                        }
+                        _ShopslistRecordList.clear();
+                        Arrays.sort(distanceArray, Collections.reverseOrder());
+                        for (int i = distanceArray.length - 1; i >= 0; i--) {
+                            for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
+                                LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(j).getLongitude()));
+                                Location userLoc = new Location("");
+                                userLoc.setLatitude(mLatlngCurrent.latitude);
+                                userLoc.setLongitude(mLatlngCurrent.longitude);
+                                Location shopLoc = new Location("");
+                                shopLoc.setLatitude(shopLatlng.latitude);
+                                shopLoc.setLongitude(shopLatlng.longitude);
+                                float lo = userLoc.distanceTo(shopLoc);
+                                if (distanceArray[i] == lo) {
+                                    _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
+                                    break;
+                                } else {
+//                                _ShopslistAfterFiltration.remove(i);
+//                                break;
+//                                _ShopslistBeforeFiltration.remove(i);
+//                                break;
+                                }
+                            }
+                        }
+                        int i = _ShopslistRecordList.size();
+//                    _ShopslistRecordList.addAll(_Shops1Km);
+//                    _ShopslistRecordList.addAll(_Shops5Km);
+//                    _ShopslistRecordList.addAll(_Shops20Km);
+//                    _ShopslistRecordList.addAll(_ShopsHighestKm);
+                    } else {
+                        Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
                     }
                 }
+            } else {
+                ArrayList<Float> distances = new ArrayList<>();
+                distances.clear();
+                if (mLatlngCurrent != null) {
+                    for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                        if (_ShopslistRecordListFilter.get(i).getShopName().toLowerCase(Locale.getDefault())
+                                .contains(Text)) {
+                            LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
+                            Location userLoc = new Location("");
+                            userLoc.setLatitude(mLatlngCurrent.latitude);
+                            userLoc.setLongitude(mLatlngCurrent.longitude);
+                            Location shopLoc = new Location("");
+                            shopLoc.setLatitude(shopLatlng.latitude);
+                            shopLoc.setLongitude(shopLatlng.longitude);
+                            float lo = userLoc.distanceTo(shopLoc);
+//                            distanceArray[i] = lo;
+                            distances.add(lo);
+                            _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                        }
+                    }
+                } else {
+                    Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
+                }
                 if (_ShopslistRecordList.size() == 0) {
+
                     Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
+                } else {
+                     List<ShopsListModel.ShopslistRecord> _ShopslistRecordListNames= new ArrayList<ShopsListModel.ShopslistRecord>();;
+                    _ShopslistRecordListNames.addAll(_ShopslistRecordList);
+//                    Float distanceArrayNew[] = new Float[_ShopslistRecordListFilter.size()];
+                    Float distanceArray[] = new Float[distances.size()];
+
+                    _ShopslistRecordList.clear();
+                    for (int k = 0; k < distances.size(); k++) {
+                        distanceArray[k]=distances.get(k);
+                    }
+                    if (distanceArray.length > 0) {
+                        Arrays.sort(distanceArray, Collections.reverseOrder());
+                        for (int i = distanceArray.length - 1; i >= 0; i--) {
+                            for (int j = 0; j < _ShopslistRecordListNames.size(); j++) {
+                                LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListNames.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListNames.get(j).getLongitude()));
+                                Location userLoc = new Location("");
+                                userLoc.setLatitude(mLatlngCurrent.latitude);
+                                userLoc.setLongitude(mLatlngCurrent.longitude);
+                                Location shopLoc = new Location("");
+                                shopLoc.setLatitude(shopLatlng.latitude);
+                                shopLoc.setLongitude(shopLatlng.longitude);
+                                float lo = userLoc.distanceTo(shopLoc);
+                                if (distanceArray[i] == lo) {
+                                    _ShopslistRecordList.add(_ShopslistRecordListNames.get(j));
+                                    break;
+                                } else {
+
+                                }
+                            }
+                        }
+
+                    }
                 }
             }
 

@@ -62,7 +62,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     private TextView tv_name_my_details;
     private TextView tv_car_brand_my_details;
     private TextView tv_car_model_my_details;
-    private TextView tv_last_oil_my_details;
+    private TextView tv_last_oil_my_details,tv_km_my_details;
     private final Calendar myCalendar = Calendar.getInstance(locale);
     private final ArrayList<String> mServicesIdArray = new ArrayList<>();
     private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
@@ -104,6 +104,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         tv_car_brand_my_details = (TextView) findViewById(R.id.tv_car_brand_my_details);
         tv_car_model_my_details = (TextView) findViewById(R.id.tv_car_model_my_details);
         tv_last_oil_my_details = (TextView) findViewById(R.id.tv_last_oil_my_details);
+        tv_km_my_details= (TextView) findViewById(R.id.tv_km_my_details);
         SetShaderToViews();
 
     }
@@ -467,6 +468,9 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         Utils.gradientTextViewShort(tv_car_brand_my_details, activity);
         Utils.gradientTextViewShort(tv_car_model_my_details, activity);
         Utils.gradientTextViewShort(tv_last_oil_my_details, activity);
+        Utils.gradientTextViewLong(tv_km_my_details, activity);
+
+
     }
 
     private void SetUpLeftbar() {

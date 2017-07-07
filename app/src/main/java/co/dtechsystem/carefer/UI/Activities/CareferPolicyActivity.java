@@ -13,6 +13,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.analytics.HitBuilders;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import co.dtechsystem.carefer.Google.Analytics.AnalyticsApplication;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
@@ -78,6 +80,7 @@ public class CareferPolicyActivity extends BaseActivity {
                             }
 
                         } catch (JSONException e) {
+                            AnalyticsApplication.getInstance().trackException(e);
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             loading.close();
                             e.printStackTrace();
@@ -88,6 +91,7 @@ public class CareferPolicyActivity extends BaseActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        AnalyticsApplication.getInstance().trackException(error);
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
@@ -116,6 +120,13 @@ public class CareferPolicyActivity extends BaseActivity {
         if (Validations.isInternetAvailable(activity, true)) {
             if (cb_carefer_policy.isChecked()) {
                 loading.show();
+                mTracker.send(new HitBuilders.EventBuilder()
+
+                        .setCategory("CareferPolicyActivity ")
+
+                        .setAction("View Policy")
+
+                        .build());
                 APiCareferPolicyData(AppConfig.APiVarifyPolicy, "VarifyPolicy", sUser_ID);
             } else {
                 showToast(getResources().getString(R.string.toast_carefer_policy));

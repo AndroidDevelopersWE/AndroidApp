@@ -1,22 +1,25 @@
 package co.dtechsystem.carefer.Adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+
 import java.util.List;
+import java.util.Random;
 
 import co.dtechsystem.carefer.Models.ReviewsModel;
 import co.dtechsystem.carefer.R;
-import co.dtechsystem.carefer.Utils.Utils;
 
 
 public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecycleViewAdapter.ViewHolder> {
@@ -44,32 +47,45 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
     @Override
     public void onBindViewHolder(final ReviewsRecycleViewAdapter.ViewHolder holder, final int position) {
         setAnimation(holder.itemView, position);
-        if (_shopReviews.get(position).getCustomerName().equals("")) {
-            holder.tv_customer_name_rate.setText(activity.getResources().getString(R.string.tv_name_anonymous));
+        String customerName = _shopReviews.get(position).getCustomerName();
+        if (customerName != null && !customerName.equals("")) {
+            holder.tv_customer_name_rate.setText(customerName);
 
         } else {
-            holder.tv_customer_name_rate.setText(_shopReviews.get(position).getCustomerName());
+            customerName = activity.getResources().getString(R.string.tv_name_anonymous);
+            holder.tv_customer_name_rate.setText(customerName);
         }
-        String DateFormed = Utils.formattedDateFromString("yyyy-MM-dd", "dd-MMM-yyyy", _shopReviews.get(position).getDateAdded());
-        holder.tv_date_rate.setText(DateFormed);
+//        String DateFormed = Utils.formattedDateFromString("yyyy-MM-dd", "dd-MMM-yyyy", _shopReviews.get(position).getDateAdded());
+        holder.tv_date_rate.setText(_shopReviews.get(position).getDateAdded());
         holder.tv_coments_rate.setText(_shopReviews.get(position).getComment());
         holder.rb_price_rate.setRating(Float.parseFloat(_shopReviews.get(position).getPriceRating()));
         holder.rb_quality_rate.setRating(Float.parseFloat(_shopReviews.get(position).getQualityRating()));
         holder.rb_time_rate.setRating(Float.parseFloat(_shopReviews.get(position).getTimeRating()));
         holder.tv_coments_rate.setMovementMethod(new ScrollingMovementMethod());
-        holder.tv_coments_rate.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                holder.tv_coments_rate.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
+        Float AvgRate = Float.parseFloat(_shopReviews.get(position).getPriceRating()) + Float.parseFloat(_shopReviews.get(position).getQualityRating()) + Float.parseFloat(_shopReviews.get(position).getTimeRating());
+        AvgRate=AvgRate/3;
+        String avgRate = String.format("%.01f", AvgRate);
+        holder.tv_avg_rate_review.setText(avgRate);
+        Random rnd = new Random();
+        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRoundRect(String.valueOf(customerName.charAt(0)), color, 90);
+        holder.iv_first_letter_of_name.setImageDrawable(drawable);
+//        holder.tv_coments_rate.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                holder.tv_coments_rate.getParent().requestDisallowInterceptTouchEvent(true);
+//                return false;
+//            }
+//        });
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final RatingBar rb_price_rate, rb_quality_rate, rb_time_rate;
-        public final TextView tv_coments_rate, tv_customer_name_rate, tv_date_rate;
+        public final TextView tv_coments_rate, tv_customer_name_rate, tv_date_rate, tv_avg_rate_review;
+        public final ImageView iv_first_letter_of_name;
 
         public ViewHolder(View v) {
 
@@ -80,6 +96,8 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
             rb_quality_rate = (RatingBar) v.findViewById(R.id.rb_quality_rate);
             rb_time_rate = (RatingBar) v.findViewById(R.id.rb_time_rate);
             tv_coments_rate = (TextView) v.findViewById(R.id.tv_coments_rate);
+            iv_first_letter_of_name = (ImageView) v.findViewById(R.id.iv_first_letter_of_name);
+            tv_avg_rate_review = (TextView) v.findViewById(R.id.tv_avg_rate_review);
 
         }
 

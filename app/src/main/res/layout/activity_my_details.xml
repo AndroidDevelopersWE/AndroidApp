@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:focusable="false"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    tools:context=".UI.Activities.MyDetailsActivity"
-    tools:ignore="Overdraw">
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@android:color/white"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="true"
+                                        android:orientation="vertical"
+                                        tools:context=".UI.Activities.MyDetailsActivity"
+                                        tools:ignore="Overdraw">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -44,8 +44,8 @@
                         android:layout_gravity="right"
                         android:layout_weight="0"
                         android:clickable="true"
-                        android:drawableRight="@drawable/ic_map"
                         android:drawablePadding="@dimen/_5sdp"
+                        android:drawableRight="@drawable/ic_map"
                         android:gravity="center"
                         android:onClick="GotoHome"
                         android:padding="@dimen/_10sdp"
@@ -53,7 +53,7 @@
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold"
-                        tools:ignore="RtlHardcoded" />
+                        tools:ignore="RtlHardcoded"/>
 
 
                     <TextView
@@ -67,7 +67,7 @@
                         android:text="@string/my_details"
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"/>
 
 
                 </LinearLayout>
@@ -88,7 +88,7 @@
                         android:background="@drawable/ic_menu"
                         android:backgroundTint="@color/colorGrey"
                         android:clickable="false"
-                        tools:ignore="ContentDescription,UnusedAttribute" />
+                        tools:ignore="ContentDescription,UnusedAttribute"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -111,7 +111,7 @@
                 android:padding="@dimen/_10sdp"
                 android:text="@string/my_details"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                     android:padding="@dimen/_5sdp"
                     android:text="@string/your_mobile"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"/>
 
                 <EditText
                     android:id="@+id/et_mobile_my_details"
@@ -145,7 +145,7 @@
                     android:maxLines="1"
                     android:padding="@dimen/_7sdp"
                     android:textColor="@android:color/black"
-                    tools:ignore="RtlHardcoded" />
+                    tools:ignore="RtlHardcoded"/>
 
                 <TextView
                     android:id="@+id/tv_name_my_details"
@@ -155,7 +155,7 @@
                     android:padding="@dimen/_5sdp"
                     android:text="@string/your_name"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"/>
 
 
                 <EditText
@@ -168,9 +168,36 @@
                     android:hint="@string/your_name"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:singleLine="true"
                     android:padding="@dimen/_7sdp"
                     android:textColor="@android:color/black"
-                    tools:ignore="RtlHardcoded" />
+                    tools:ignore="RtlHardcoded"/>
+
+                <TextView
+                    android:id="@+id/tv_km_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/tv_km_after_oil_change"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp"/>
+
+
+                <EditText
+                    android:id="@+id/et_oil_change_km_my_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_corner_black"
+                    android:digits="0123456789"
+                    android:drawableLeft="@drawable/ic_edit"
+                    android:gravity="right"
+                    android:hint="@string/tv_km_after_oil_change"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/_7sdp"
+                    android:singleLine="true"
+                    android:textColor="@android:color/black"
+                    tools:ignore="RtlHardcoded"/>
 
                 <TextView
                     android:id="@+id/tv_car_brand_my_details"
@@ -180,7 +207,7 @@
                     android:padding="@dimen/_5sdp"
                     android:text="@string/tv_car_brand"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"/>
 
 
                 <TextView
@@ -198,7 +225,7 @@
                     android:padding="@dimen/_7sdp"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_17sdp"
-                    tools:ignore="RtlHardcoded" />
+                    tools:ignore="RtlHardcoded"/>
 
                 <Spinner
                     android:id="@+id/sp_brand_type_shop_details_order"
@@ -206,7 +233,7 @@
                     android:layout_height="1dp"
                     android:background="@drawable/dr_spinner_ic"
                     android:gravity="center"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/tv_car_model_my_details"
@@ -216,7 +243,7 @@
                     android:padding="@dimen/_5sdp"
                     android:text="@string/tv_car_model"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"/>
 
 
                 <TextView
@@ -236,7 +263,7 @@
                     android:padding="@dimen/_7sdp"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_17sdp"
-                    tools:ignore="RtlHardcoded" />
+                    tools:ignore="RtlHardcoded"/>
 
                 <Spinner
                     android:id="@+id/sp_car_model_order"
@@ -244,7 +271,7 @@
                     android:layout_height="1dp"
                     android:background="@drawable/dr_spinner_ic"
                     android:gravity="center"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"/>
 
                 <TextView
                     android:id="@+id/tv_last_oil_my_details"
@@ -254,7 +281,7 @@
                     android:padding="@dimen/_5sdp"
                     android:text="@string/tv_last_changed_oil"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_12sdp"/>
 
 
                 <TextView
@@ -272,7 +299,7 @@
                     android:singleLine="true"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_17sdp"
-                    tools:ignore="Deprecated,RtlHardcoded" />
+                    tools:ignore="Deprecated,RtlHardcoded"/>
 
                 <Button
                     android:layout_width="match_parent"
@@ -280,14 +307,15 @@
                     android:layout_marginLeft="@dimen/_80sdp"
                     android:layout_marginRight="@dimen/_80sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/dr_btn_round_corner_orange_90"                    android:clickable="true"
+                    android:background="@drawable/dr_btn_round_corner_orange_90"
+                    android:clickable="true"
                     android:onClick="submitUserData"
                     android:padding="@dimen/_5sdp"
                     android:text="@string/btn_save_changes"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_17sdp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -297,7 +325,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_15sdp"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/dr_grey_bottom" />
+            android:background="@drawable/dr_grey_bottom"/>
     </RelativeLayout>
 
     <android.support.design.widget.NavigationView
@@ -314,5 +342,5 @@
         app:itemBackground="@drawable/dr_list_item_drawyer_menu_click"
         app:itemIconTint="@drawable/dr_tv_selection"
         app:itemTextColor="@drawable/dr_tv_selection"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"/>
 </android.support.v4.widget.DrawerLayout>

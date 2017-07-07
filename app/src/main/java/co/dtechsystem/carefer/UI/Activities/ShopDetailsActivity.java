@@ -10,12 +10,18 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,10 +55,10 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     private DrawerLayout mDrawerLayout;
     private ShopsImagesRecycleViewAdapter mShopsImagesRecycleViewAdapter;
     private ShopsDetailsModel mShopsDetailsModel;
-    private String mShopID, CityId,mplaceName;
+    private String mShopID, CityId, mplaceName;
     private int mStatus = 0;
     private LinearLayout lay_full_image;
-    private LinearLayout lay_shop_details;
+    private LinearLayout lay_shop_details, lay_specialised_Brand_shop;
     private RecyclerView rv_images_shop_details;
 
     private ShopsImagesPagerAdapter mShopsImagesPagerAdapter;
@@ -70,6 +76,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         setContentView(R.layout.activity_shop_details);
         lay_full_image = (LinearLayout) findViewById(R.id.lay_full_image);
         lay_shop_details = (LinearLayout) findViewById(R.id.lay_shop_details);
+        lay_specialised_Brand_shop = (LinearLayout) findViewById(R.id.lay_specialised_Brand_shop);
         rv_images_shop_details = (RecyclerView) findViewById(R.id.rv_images_shop_details);
         tv_title_shop_details = (TextView) findViewById(R.id.tv_title_shop_details);
 
@@ -345,6 +352,15 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
         aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
         aQuery.id(R.id.tv_shop_des_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
+        TextView tv_shop_des_shop_details = (TextView) findViewById(R.id.tv_shop_des_shop_details);
+        if (tv_shop_des_shop_details.getLayout() != null && tv_shop_des_shop_details.getLayout().getLineCount() > 4) {
+//            makeTextViewResizable(tv_shop_des_shop_details, 4, "View More", true);
+            aQuery.id(R.id.tv_shop_des_view_more_shop_details).getTextView().setVisibility(View.VISIBLE);
+
+        } else {
+            aQuery.id(R.id.tv_shop_des_view_more_shop_details).getTextView().setVisibility(View.GONE);
+
+        }
         aQuery.id(R.id.tv_shop_des_shop_details).getTextView().setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -352,8 +368,12 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                 return false;
             }
         });
-        if (mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand() != null) {
+        if (mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand() != null&&!mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand().equals("")) {
             aQuery.id(R.id.tv_specialised_Brand_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand());
+            lay_specialised_Brand_shop.setVisibility(View.VISIBLE);
+
+        } else {
+            lay_specialised_Brand_shop.setVisibility(View.GONE);
         }
         if (mShopsDetailsModel.getShopsDetail().get(0).getServiceType() != null) {
             String[] serviceArray = mShopsDetailsModel.getShopsDetail().get(0).getServiceType().split(",");
@@ -388,7 +408,17 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         }
     }
 
-//    public void loadImagesSliderbulits() {
+    public void showDescriptionActivity(View c) {
+        if (mShopsDetailsModel.getShopsDetail() != null && mShopsDetailsModel.getShopsDetail().size() > 0) {
+
+            intent = new Intent(activity, ShopDescriptionActivity.class);
+            intent.putExtra("shopName", mShopsDetailsModel.getShopsDetail().get(0).getShopName());
+            intent.putExtra("shopDescription", mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
+            startActivity(intent);
+        }
+    }
+
+    //    public void loadImagesSliderbulits() {
 //        if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
 //            for (int i = 0; i < mShopsDetailsModel.getShopImages().size(); i++) {
 //
@@ -403,6 +433,80 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 //
 //
 //    }
+    public static void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
+
+        if (tv.getTag() == null) {
+            tv.setTag(tv.getText());
+        }
+        ViewTreeObserver vto = tv.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onGlobalLayout() {
+
+                ViewTreeObserver obs = tv.getViewTreeObserver();
+                obs.removeGlobalOnLayoutListener(this);
+                if (maxLine == 0) {
+                    int lineEndIndex = tv.getLayout().getLineEnd(0);
+                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                } else if (maxLine > 0 && tv.getLineCount() >= maxLine) {
+                    int lineEndIndex = tv.getLayout().getLineEnd(maxLine - 1);
+                    String text = tv.getText().subSequence(0, lineEndIndex - expandText.length() + 1) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, maxLine, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                } else {
+                    int lineEndIndex = tv.getLayout().getLineEnd(tv.getLayout().getLineCount() - 1);
+                    String text = tv.getText().subSequence(0, lineEndIndex) + " " + expandText;
+                    tv.setText(text);
+                    tv.setMovementMethod(LinkMovementMethod.getInstance());
+                    tv.setText(
+                            addClickablePartTextViewResizable(Html.fromHtml(tv.getText().toString()), tv, lineEndIndex, expandText,
+                                    viewMore), TextView.BufferType.SPANNABLE);
+                }
+            }
+        });
+
+    }
+
+    private static SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
+                                                                            final int maxLine, final String spanableText, final boolean viewMore) {
+        String str = strSpanned.toString();
+        SpannableStringBuilder ssb = new SpannableStringBuilder(strSpanned);
+
+        if (str.contains(spanableText)) {
+            ssb.setSpan(new ClickableSpan() {
+
+                @Override
+                public void onClick(View widget) {
+
+                    if (viewMore) {
+                        tv.setLayoutParams(tv.getLayoutParams());
+                        tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
+                        tv.invalidate();
+                        makeTextViewResizable(tv, -1, "View Less", false);
+                    } else {
+                        tv.setLayoutParams(tv.getLayoutParams());
+                        tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
+                        tv.invalidate();
+                        makeTextViewResizable(tv, 3, "View More", true);
+                    }
+
+                }
+            }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length(), 0);
+
+        }
+        return ssb;
+
+    }
 
     @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(@SuppressWarnings("UnusedParameters") View v) {

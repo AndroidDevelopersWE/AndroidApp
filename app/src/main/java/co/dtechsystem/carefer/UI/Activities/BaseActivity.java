@@ -19,11 +19,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.google.android.gms.analytics.Tracker;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import java.util.Locale;
 
+import co.dtechsystem.carefer.Google.Analytics.AnalyticsApplication;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.Loading;
 import co.dtechsystem.carefer.Utils.Utils;
@@ -40,7 +42,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Intent intent;
     protected String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID, sRegId = "";
     Locale locale, localeEn;
+    AnalyticsApplication sAnalyticsApplication;
 
+    protected Tracker mTracker;
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         activity = this;
         loading = new Loading(this, getResources().getString(R.string.loading));
         intent = getIntent();
+        sAnalyticsApplication = (AnalyticsApplication) getApplication();
+
+        mTracker = sAnalyticsApplication.getDefaultTracker();
         sRegId = Utils.readPreferences(activity, "regId", "");
         if (sRegId != null && !sRegId.equals("")) {
         } else {

@@ -1,11 +1,13 @@
 package co.dtechsystem.carefer.UI.Activities;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,11 +27,24 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
         setContentView(R.layout.activity_about_us);
         tv_title_about_us = (TextView) findViewById(R.id.tv_title_about_us);
         SetShaderToViews();
+        setVersionName();
         SetUpLeftbar();
     }
 
     private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_about_us, activity);
+    }
+
+    public void setVersionName() {
+        PackageInfo pInfo = null;
+        try {
+            pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            aQuery.id(R.id.tv_version_name_app).text(getResources().getString(R.string.tv_version_name) +" "+ version);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void SetUpLeftbar() {
