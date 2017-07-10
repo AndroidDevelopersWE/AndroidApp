@@ -195,7 +195,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     public void GotoShopDetailsOrder(@SuppressWarnings("UnusedParameters") View V) {
         if (Validations.isInternetAvailable(activity, true)) {
-            Intent i = new Intent(this, ShopDetailsOrderActivity.class);
+            Intent i = new Intent(this, OrderNowActivity.class);
             if (mShopsDetailsModel.getShopsDetail() != null && mShopsDetailsModel.getShopsDetail().size() > 0) {
                 i.putExtra("shopID", mShopID);
                 i.putExtra("shopName", mShopsDetailsModel.getShopsDetail().get(0).getShopName());
@@ -215,7 +215,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                     i.putExtra("bundle", args);
                 }
                 if (mShopsDetailsModel.getShopsDetail().get(0).getShopImage() != null) {
-                    final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
+                    final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/thumbnails/";
                     i.putExtra("shopImage", Url + mShopsDetailsModel.getShopsDetail().get(0).getShopImage());
                 } else {
                     i.putExtra("shopImage", "");

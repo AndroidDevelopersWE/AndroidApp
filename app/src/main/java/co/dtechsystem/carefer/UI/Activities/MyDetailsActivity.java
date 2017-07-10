@@ -55,6 +55,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     private String mCarBrandName;
     private String mCarBrandModel;
     private String mLastOilChange;
+    private String mOilKM;
 
 
     private TextView tv_title_my_details;
@@ -62,7 +63,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     private TextView tv_name_my_details;
     private TextView tv_car_brand_my_details;
     private TextView tv_car_model_my_details;
-    private TextView tv_last_oil_my_details,tv_km_my_details;
+    private TextView tv_last_oil_my_details, tv_km_my_details;
     private final Calendar myCalendar = Calendar.getInstance(locale);
     private final ArrayList<String> mServicesIdArray = new ArrayList<>();
     private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
@@ -92,7 +93,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         SetUpLeftbar();
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
-            APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "", "", "", "");
+            APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "", "", "", "", "");
         }
 
     }
@@ -104,7 +105,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         tv_car_brand_my_details = (TextView) findViewById(R.id.tv_car_brand_my_details);
         tv_car_model_my_details = (TextView) findViewById(R.id.tv_car_model_my_details);
         tv_last_oil_my_details = (TextView) findViewById(R.id.tv_last_oil_my_details);
-        tv_km_my_details= (TextView) findViewById(R.id.tv_km_my_details);
+        tv_km_my_details = (TextView) findViewById(R.id.tv_km_my_details);
         SetShaderToViews();
 
     }
@@ -239,6 +240,29 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
             }
         });
+        aQuery.find(R.id.et_oil_change_km_my_details).getTextView().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    aQuery.find(R.id.et_oil_change_km_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit_hover), null, null, null);
+                } else {
+                    aQuery.find(R.id.et_oil_change_km_my_details).getTextView().setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.ic_edit), null, null, null);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         aQuery.find(R.id.et_last_oil_my_details).getTextView().setInputType(InputType.TYPE_NULL);
         aQuery.find(R.id.et_mobile_my_details).getEditText().setInputType(InputType.TYPE_NULL);
 
@@ -448,7 +472,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 String myFormat = "yyyy-MM-dd"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat,localeEn);
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, localeEn);
 
                 aQuery.find(R.id.et_last_oil_my_details).text(sdf.format(myCalendar.getTime()));
             }
@@ -488,11 +512,12 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             String et_car_brand_my_details = aQuery.find(R.id.et_car_brand_my_details).getText().toString();
             String et_car_model_my_details = aQuery.find(R.id.et_car_model_my_details).getText().toString();
             String et_last_oil_my_details = aQuery.find(R.id.et_last_oil_my_details).getText().toString();
+            String et_oil_change_km_my_details = aQuery.find(R.id.et_oil_change_km_my_details).getText().toString();
 //            if (!customerMobile.equals(sUser_Mobile)) {
 //                showMobileChangeAlert();
 //            }
             if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
-                    et_car_model_my_details.equals("") || et_last_oil_my_details.equals("")) {
+                    et_car_model_my_details.equals("") || et_last_oil_my_details.equals("") || et_oil_change_km_my_details.equals("")) {
                 showToast(getResources().getString(R.string.toast_fill_all_fields));
             } else if (et_car_brand_my_details.equals(getResources().getString(R.string.dp_brand)) ||
                     et_car_model_my_details.equals(getResources().getString(R.string.dp_model))) {
@@ -503,7 +528,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 //                Utils.savePreferences(activity, "CustomerCarOilChange", et_last_oil_my_details);
                 if (Validations.isInternetAvailable(activity, true)) {
                     loading.show();
-                    APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify, mBrandsId, mModelsId, et_last_oil_my_details);
+                    APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify, mBrandsId, mModelsId, et_last_oil_my_details, et_oil_change_km_my_details);
                 }
             }
         }
@@ -538,7 +563,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
     private void APiMyDetails(String URL, final String Type, final String customerName,
                               final String customerMobile, final String isVerified, final String carBrand, final String carModel,
-                              final String lastOilChange) {
+                              final String lastOilChange, final String oilKm) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
@@ -559,6 +584,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                     mLastOilChange = jsonObject1.getString("lastOilChange");
                                     mBrandsId = jsonObject1.getString("carBrandId");
                                     mModelsId = jsonObject1.getString("carModelId");
+                                    mOilKM = jsonObject1.getString("oilKM");
                                     if (mBrandsId != null && !mBrandsId.equals("0")) {
                                         mModelData = true;
                                     }
@@ -572,7 +598,9 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                     if (!mLastOilChange.equals("null")) {
                                         aQuery.find(R.id.et_last_oil_my_details).text(mLastOilChange);
                                     }
-
+                                    if (!mOilKM.equals("null")) {
+                                        aQuery.id(R.id.et_oil_change_km_my_details).text(mOilKM);
+                                    }
                                     SetData();
                                     if (Validations.isInternetAvailable(activity, true)) {
                                         APiGetBrandsServiceModelsData(AppConfig.APiBrandData, "Brands", "");
@@ -615,6 +643,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     params.put("carBrand", carBrand);
                     params.put("carModel", carModel);
                     params.put("lastOilChange", lastOilChange);
+                    params.put("oilKM", oilKm);
 
 
                 }

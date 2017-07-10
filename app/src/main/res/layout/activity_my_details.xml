@@ -116,8 +116,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/_10sdp"
                 android:background="@android:color/white"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
                 android:orientation="vertical">
 
 
@@ -126,7 +128,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="@dimen/_5sdp"
+                    android:padding="@dimen/_4sdp"
                     android:text="@string/your_mobile"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp"/>
@@ -143,8 +145,9 @@
                     android:hint="@string/phone_eg"
                     android:inputType="phone"
                     android:maxLines="1"
-                    android:padding="@dimen/_7sdp"
+                    android:padding="@dimen/_4sdp"
                     android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sdp"
                     tools:ignore="RtlHardcoded"/>
 
                 <TextView
@@ -152,7 +155,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="@dimen/_5sdp"
+                    android:padding="@dimen/_4sdp"
                     android:text="@string/your_name"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp"/>
@@ -168,9 +171,10 @@
                     android:hint="@string/your_name"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:padding="@dimen/_4sdp"
                     android:singleLine="true"
-                    android:padding="@dimen/_7sdp"
                     android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sdp"
                     tools:ignore="RtlHardcoded"/>
 
                 <TextView
@@ -178,7 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="@dimen/_5sdp"
+                    android:padding="@dimen/_4sdp"
                     android:text="@string/tv_km_after_oil_change"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp"/>
@@ -194,9 +198,10 @@
                     android:gravity="right"
                     android:hint="@string/tv_km_after_oil_change"
                     android:inputType="numberDecimal"
-                    android:padding="@dimen/_7sdp"
+                    android:padding="@dimen/_4sdp"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sdp"
                     tools:ignore="RtlHardcoded"/>
 
                 <TextView
@@ -204,7 +209,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="@dimen/_5sdp"
+                    android:padding="@dimen/_4sdp"
                     android:text="@string/tv_car_brand"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp"/>
@@ -222,9 +227,9 @@
                     android:hint="@string/tv_car_brand"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:padding="@dimen/_7sdp"
+                    android:padding="@dimen/_4sdp"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_17sdp"
+                    android:textSize="@dimen/_14sdp"
                     tools:ignore="RtlHardcoded"/>
 
                 <Spinner
@@ -240,7 +245,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="@dimen/_5sdp"
+                    android:padding="@dimen/_4sdp"
                     android:text="@string/tv_car_model"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp"/>
@@ -260,9 +265,9 @@
                     android:inputType="numberDecimal"
                     android:maxEms="4"
                     android:maxLines="1"
-                    android:padding="@dimen/_7sdp"
+                    android:padding="@dimen/_4sdp"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_17sdp"
+                    android:textSize="@dimen/_14sdp"
                     tools:ignore="RtlHardcoded"/>
 
                 <Spinner
@@ -278,7 +283,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:padding="@dimen/_5sdp"
+                    android:padding="@dimen/_4sdp"
                     android:text="@string/tv_last_changed_oil"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp"/>
@@ -295,10 +300,10 @@
                     android:gravity="right"
                     android:hint="@string/tv_last_changed_oil"
                     android:inputType="text"
-                    android:padding="@dimen/_7sdp"
+                    android:padding="@dimen/_4sdp"
                     android:singleLine="true"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_17sdp"
+                    android:textSize="@dimen/_14sdp"
                     tools:ignore="Deprecated,RtlHardcoded"/>
 
                 <Button
@@ -310,7 +315,7 @@
                     android:background="@drawable/dr_btn_round_corner_orange_90"
                     android:clickable="true"
                     android:onClick="submitUserData"
-                    android:padding="@dimen/_5sdp"
+                    android:padding="@dimen/_4sdp"
                     android:text="@string/btn_save_changes"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"

@@ -52,11 +52,11 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     private String mlatitude;
     private String mlongitude;
     private String mshopID;
-    private String mServicesId;
-    private String mBrandsId;
-    private String mModelsId;
+    private String mServicesId="";
+    private String mBrandsId="";
+    private String mModelsId="";
     private String morderType = "", mplaceName;
-    private String mshopImage;
+    private String mshopImage="";
     private String mContact, CityId, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
 
     private ImageView iv_shop_image_blur;
@@ -108,7 +108,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     }
 
     private void SetdataToViews() {
-        if (mshopImage != null && !mModelsId.equals("")) {
+        if (mshopImage != null && !mshopImage.equals("")) {
             aQuery.find(R.id.pg_shop_image_blur).visibility(View.VISIBLE);
             Glide.with(activity).load(mshopImage)
                     .into(iv_shop_profile);
