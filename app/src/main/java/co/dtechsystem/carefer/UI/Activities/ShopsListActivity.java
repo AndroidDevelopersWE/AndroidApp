@@ -12,7 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -862,7 +862,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                 }
             }
 
-            GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
+            LinearLayoutManager mgridLayoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(mgridLayoutManager);
             if (!Type.equals("Filter")) {
                 if (lay_pull_refresh_shops_list.isRefreshing()) {

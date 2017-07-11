@@ -52,11 +52,11 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     private String mlatitude;
     private String mlongitude;
     private String mshopID;
-    private String mServicesId="";
-    private String mBrandsId="";
-    private String mModelsId="";
+    private String mServicesId = "";
+    private String mBrandsId = "";
+    private String mModelsId = "";
     private String morderType = "", mplaceName;
-    private String mshopImage="";
+    private String mshopImage = "";
     private String mContact, CityId, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
 
     private ImageView iv_shop_image_blur;
@@ -156,6 +156,12 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                             JSONObject jsonObject = new JSONObject(response);
                             morderID = jsonObject.getInt("orderID");
                             if (morderID != 0) {
+                                if (orderType.equals("call")) {
+                                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                                    intent.setData(Uri.parse("tel:" + mContact));
+                                    startActivity(intent);
+                                }
+
                                 showToast(getResources().getString(R.string.toast_order_placed));
                                 mOrderPlaced = true;
                             }
@@ -173,6 +179,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
+                        error.printStackTrace();
                         Log.d("Error.Response", error.toString());
                     }
                 }
@@ -182,9 +189,9 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                 @SuppressWarnings("Convert2Diamond") Map<String, String> params = new HashMap<String, String>();
                 params.put("customerID", UserId);
                 params.put("shopID", shopID);
-                params.put("serviceTypeID", serviceID);
-                params.put("brandID", brandID);
-                params.put("modelID", modelID);
+//                params.put("serviceTypeID", serviceID);
+//                params.put("brandID", brandID);
+//                params.put("modelID", modelID);
                 params.put("orderType", orderType);
 //                params.put("customerMobileNo", customerMobileNo);
 
@@ -195,6 +202,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 // add it to the RequestQueue
         queue.add(postRequest);
     }
+
 
     @SuppressWarnings({"PointlessBooleanExpression", "UnusedParameters"})
     public void CAllToShop(View V) {
@@ -213,9 +221,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                         APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
 
                     }
-                    Intent intent = new Intent(Intent.ACTION_DIAL);
-                    intent.setData(Uri.parse("tel:" + mContact));
-                    startActivity(intent);
+
                 } else {
                     showToast(getResources().getString(R.string.toast_no_shop_contact_found));
                 }
@@ -231,7 +237,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 
             dirShopsIntents();
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
 
         }
     }
@@ -306,6 +312,28 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             }
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        if (morderType.equals("call")) {
+            intent = new Intent(activity, ShopsListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("callType", "callOrder");
+            if (CityId != null && !CityId.equals("")) {
+                intent.putExtra("CityId", CityId);
+                intent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                intent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                intent.putExtra("isLocationAvail", isLocationAvail);
+                Bundle args = new Bundle();
+                args.putParcelable("LatLngCurrent", mLatlngCurrent);
+                intent.putExtra("placeName", mplaceName);
+                intent.putExtra("bundle", args);
+            }
+            startActivity(intent);
+            finish();
+        }
+        super.onResume();
     }
 
     @Override

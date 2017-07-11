@@ -57,13 +57,15 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
         }
 //        String DateFormed = Utils.formattedDateFromString("yyyy-MM-dd", "dd-MMM-yyyy", _shopReviews.get(position).getDateAdded());
         holder.tv_date_rate.setText(_shopReviews.get(position).getDateAdded());
-        holder.tv_coments_rate.setText(_shopReviews.get(position).getComment());
+        if (_shopReviews.get(position).getHidAction().equals("0")) {
+            holder.tv_coments_rate.setText(_shopReviews.get(position).getComment());
+        }
         holder.rb_price_rate.setRating(Float.parseFloat(_shopReviews.get(position).getPriceRating()));
         holder.rb_quality_rate.setRating(Float.parseFloat(_shopReviews.get(position).getQualityRating()));
         holder.rb_time_rate.setRating(Float.parseFloat(_shopReviews.get(position).getTimeRating()));
         holder.tv_coments_rate.setMovementMethod(new ScrollingMovementMethod());
         Float AvgRate = Float.parseFloat(_shopReviews.get(position).getPriceRating()) + Float.parseFloat(_shopReviews.get(position).getQualityRating()) + Float.parseFloat(_shopReviews.get(position).getTimeRating());
-        AvgRate=AvgRate/3;
+        AvgRate = AvgRate / 3;
         String avgRate = String.format("%.01f", AvgRate);
         holder.tv_avg_rate_review.setText(avgRate);
         Random rnd = new Random();

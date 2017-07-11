@@ -79,7 +79,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
             @Override
             public void onClick(View v) {
                 holder.lay_top_my_order.setVisibility(View.GONE);
-                int i = (int) activity.getResources().getDimension(R.dimen._210sdp);
+                int i = (int) activity.getResources().getDimension(R.dimen._180sdp);
                 expand(holder.lay_bottom_my_order, 1000, i, holder);
 
             }
