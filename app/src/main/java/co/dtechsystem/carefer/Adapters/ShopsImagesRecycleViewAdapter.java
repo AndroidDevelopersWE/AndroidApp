@@ -51,7 +51,7 @@ public class ShopsImagesRecycleViewAdapter extends RecyclerView.Adapter<ShopsIma
 
     @Override
     public void onBindViewHolder(final ShopsImagesRecycleViewAdapter.ViewHolder holder, final int position) {
-        setAnimation(holder.itemView, position);
+//        setAnimation(holder.itemView, position);
         if (_ShopsImagesDetails.get(position).getImageName() != null) {
             holder.pg_image_load.setVisibility(View.VISIBLE);
             Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + ShopID + "/thumbnails/" + _ShopsImagesDetails.get(position)

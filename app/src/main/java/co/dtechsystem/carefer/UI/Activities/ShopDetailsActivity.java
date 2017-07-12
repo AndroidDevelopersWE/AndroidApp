@@ -82,6 +82,12 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
         SetUpLeftbar();
         SetShaderToViews();
+        getIntents();
+        favouriteClicks();
+
+    }
+
+    public void getIntents() {
         Intent mIntent = getIntent();
         if (mIntent != null) {
             mShopID = mIntent.getStringExtra("ShopID");
@@ -96,11 +102,11 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
             mplaceName = intent.getStringExtra("placeName");
             if (Validations.isInternetAvailable(activity, true)) {
                 loading.show();
-                APiGetShopsDetailsData(mShopID);
+                if (mShopID != null && !mShopID.equals("")) {
+                    APiGetShopsDetailsData(mShopID);
+                }
             }
         }
-        favouriteClicks();
-
     }
 
     public void btn_reviews_click(View v) {
@@ -227,6 +233,13 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
             }
         }
     }
+
+    @Override
+    protected void onRestart() {
+//        getIntents();
+        super.onRestart();
+    }
+
 
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -368,7 +381,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                 return false;
             }
         });
-        if (mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand() != null&&!mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand().equals("")) {
+        if (mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand() != null && !mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand().equals("")) {
             aQuery.id(R.id.tv_specialised_Brand_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand());
             lay_specialised_Brand_shop.setVisibility(View.VISIBLE);
 

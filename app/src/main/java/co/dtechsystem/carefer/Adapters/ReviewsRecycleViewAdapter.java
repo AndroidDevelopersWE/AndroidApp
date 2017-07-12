@@ -46,7 +46,7 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
 
     @Override
     public void onBindViewHolder(final ReviewsRecycleViewAdapter.ViewHolder holder, final int position) {
-        setAnimation(holder.itemView, position);
+//        setAnimation(holder.itemView, position);
         String customerName = _shopReviews.get(position).getCustomerName();
         if (customerName != null && !customerName.equals("")) {
             holder.tv_customer_name_rate.setText(customerName);

@@ -100,7 +100,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
 //        List<String> serviceType = Arrays.asList(_ShopslistRecordList.get(position).getServiceType().split(","));
 //        String serviceType = _ShopslistRecordList.get(position).getServiceType().replaceAll(",", " \u2022");
-        setAnimation(holder.itemView, position);
+//        setAnimation(holder.itemView, position);
         String stringTypeArr[] = _ShopslistRecordList.get(position).getServiceType().split(",");
         if (stringTypeArr != null) {
             holder.tv_service_type_shop_list.setText(stringTypeArr[0]);

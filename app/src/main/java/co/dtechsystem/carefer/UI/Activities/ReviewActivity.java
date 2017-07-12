@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,18 +20,21 @@ import co.dtechsystem.carefer.Adapters.ReviewsRecycleViewAdapter;
 import co.dtechsystem.carefer.Models.ReviewsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class ReviewActivity extends BaseActivity {
     private String mshopID;
     RecyclerView rv_shop_reviews;
     ReviewsRecycleViewAdapter mReviewsRecycleViewAdapter;
+    TextView tv_title_review;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
         rv_shop_reviews = (RecyclerView) findViewById(R.id.rv_shop_reviews);
+        tv_title_review = (TextView) findViewById(R.id.tv_title_review);
         mshopID = intent.getStringExtra("ShopID");
         if (mshopID != null && !mshopID.equals("")) {
             if (Validations.isInternetAvailable(activity, true)) {
@@ -38,8 +42,14 @@ public class ReviewActivity extends BaseActivity {
                 APiShopReviews(mshopID);
             }
         }
+        SetShaderToViews();
     }
-//    public void CloseActivity(View v) {
+
+    private void SetShaderToViews() {
+        Utils.gradientTextView(tv_title_review, activity);
+    }
+
+    //    public void CloseActivity(View v) {
 //        finish();
 //    }
     private void SetListData() {

@@ -197,7 +197,9 @@ public class MainActivity extends BaseActivity
                     mNewLocation = location;
                     mOldLocation = mNewLocation;
                     isLocationAvail = "Yes";
+                    Utils.savePreferences(activity,"isLocationAvail","Yes");
                     mLatLngCurrent = new LatLng(location.getLatitude(), location.getLongitude());
+                    Utils.savePreferences(activity,"mLatLngCurrent", String.valueOf(mLatLngCurrent.latitude+","+mLatLngCurrent.longitude));
 //                    loading.show();
                     if (Validations.isInternetAvailable(activity, true) && location != null) {
 //                        APiGetCurrentAddress("Location", location);
@@ -257,6 +259,7 @@ public class MainActivity extends BaseActivity
                         // display response
                         try {
                             citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
+                            Utils.savePreferences(activity,"citiesNamesIDsResponse",citiesNamesIDsResponse);
                             JSONArray jsonArray = response.getJSONArray("citiesList");
                             List<Address> addresses = null;
                             try {
@@ -264,8 +267,10 @@ public class MainActivity extends BaseActivity
                                 addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                 if (addresses != null && addresses.size() > 0) {
                                     mPlaceName = addresses.get(0).getLocality();
+                                    Utils.savePreferences(activity,"mPlaceName",mPlaceName);
                                 } else {
                                     mPlaceName = "الرياض";
+                                    Utils.savePreferences(activity,"mPlaceName","الرياض");
                                 }
 
                             } catch (IOException e) {
@@ -279,11 +284,14 @@ public class MainActivity extends BaseActivity
 
                                     if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                         CityId = jsonObjectCities.getString("ID");
+                                        Utils.savePreferences(activity,"CityId",CityId);
                                         break;
                                     } else if (!isProbablyArabic(mPlaceName)) {
+                                        Utils.savePreferences(activity,"mPlaceName","الرياض");
                                         mPlaceName = "الرياض";
                                         if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                             CityId = jsonObjectCities.getString("ID");
+                                            Utils.savePreferences(activity,"CityId",CityId);
                                             break;
                                         }
                                     }
@@ -395,7 +403,9 @@ public class MainActivity extends BaseActivity
 
                                                 if (mPlaceName1 != null && mPlaceName1.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                                     mPlaceName = cityName;
+                                                    Utils.savePreferences(activity,"mPlaceName",mPlaceName);
                                                     CityId = jsonObjectCities.getString("ID");
+                                                    Utils.savePreferences(activity,"CityId",CityId);
                                                     SearchingCityfinished = true;
                                                     break;
 
@@ -417,6 +427,8 @@ public class MainActivity extends BaseActivity
                                     if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                         mPlaceName = cityName;
                                         CityId = jsonObjectCities.getString("ID");
+                                        Utils.savePreferences(activity,"CityId",CityId);
+                                        Utils.savePreferences(activity,"mPlaceName",mPlaceName);
                                         break;
 
                                     }
@@ -465,6 +477,7 @@ public class MainActivity extends BaseActivity
 
                             // display response
                             ShopsListDataResponse = response;
+                            Utils.savePreferences(activity,"ShopsListDataResponse",ShopsListDataResponse);
                             ShopsListModel mShopsListModel = gson.fromJson(response, ShopsListModel.class);
                             if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
 
@@ -734,7 +747,9 @@ public class MainActivity extends BaseActivity
                 } else {
                     // User refused to grant permission. You can add AlertDialog here
                     isLocationAvail = "No";
+                    Utils.savePreferences(activity,"isLocationAvail","No");
                     mLatLngCurrent = new LatLng(24.586867, 46.741052);
+                    Utils.savePreferences(activity,"mLatLngCurrent", String.valueOf(mLatLngCurrent.latitude+","+mLatLngCurrent.longitude));
                     mNewLocation = new Location("");
                     mOldLocation = new Location("");
                     mOldLocation.setLatitude(mLatLngCurrent.latitude);

@@ -55,7 +55,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        setAnimation(holder.itemView, position);
+//        setAnimation(holder.itemView, position);
         if (_MyOrdersRecords.get(position).getOrderStatus().equals("1")) {
             holder.tv_my_order_status.setText(activity.getResources().getString(R.string.tv_completed_status));
         } else {

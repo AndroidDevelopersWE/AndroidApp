@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,6 +36,7 @@ import co.dtechsystem.carefer.Filter.ShopsFilterClass;
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class FiltersActivity extends BaseActivity {
@@ -57,13 +59,16 @@ public class FiltersActivity extends BaseActivity {
     ArrayList<Integer> CheckedServices = new ArrayList<Integer>();
     ArrayList<Integer> CheckedBrands = new ArrayList<Integer>();
     ArrayList<Integer> CheckedShopTypes = new ArrayList<Integer>();
+    TextView tv_title_filter;
 
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filters);
+        tv_title_filter = (TextView) findViewById(R.id.tv_title_filter);
         SetDragAbleFilterViews();
+        SetShaderToViews();
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
             APiGetShopslistData(AppConfig.APiGetFilterTypes);
@@ -71,20 +76,24 @@ public class FiltersActivity extends BaseActivity {
 
     }
 
+    private void SetShaderToViews() {
+        Utils.gradientTextView(tv_title_filter, activity);
+    }
+
     public void GetIntents() {
         if (intent.getStringExtra("provide_warranty") != null && intent.getStringExtra("provide_ReplaceParts") != null &&
-                intent.getStringExtra("topRated") != null && intent.getStringExtra("placeType") != null && intent.getStringExtra("brandType") != null && intent.getStringExtra("serviceType") != null && intent.getStringExtra("FilterRecord") != null&&
-                intent.getIntegerArrayListExtra("CheckedServices")!=null&&intent.getIntegerArrayListExtra("CheckedBrands")!=null&&
-                intent.getIntegerArrayListExtra("CheckedShopTypes")!=null) {
+                intent.getStringExtra("topRated") != null && intent.getStringExtra("placeType") != null && intent.getStringExtra("brandType") != null && intent.getStringExtra("serviceType") != null && intent.getStringExtra("FilterRecord") != null &&
+                intent.getIntegerArrayListExtra("CheckedServices") != null && intent.getIntegerArrayListExtra("CheckedBrands") != null &&
+                intent.getIntegerArrayListExtra("CheckedShopTypes") != null) {
             provide_warranty = intent.getStringExtra("provide_warranty");
             provide_ReplaceParts = intent.getStringExtra("provide_ReplaceParts");
             topRated = intent.getStringExtra("topRated");
             placeType = intent.getStringExtra("placeType");
             brandType = intent.getStringExtra("brandType");
             serviceType = intent.getStringExtra("serviceType");
-            CheckedServices=intent.getIntegerArrayListExtra("CheckedServices");
-            CheckedBrands=intent.getIntegerArrayListExtra("CheckedBrands");
-            CheckedShopTypes=intent.getIntegerArrayListExtra("CheckedShopTypes");
+            CheckedServices = intent.getIntegerArrayListExtra("CheckedServices");
+            CheckedBrands = intent.getIntegerArrayListExtra("CheckedBrands");
+            CheckedShopTypes = intent.getIntegerArrayListExtra("CheckedShopTypes");
             FilterRecord = Integer.parseInt(intent.getStringExtra("FilterRecord"));
             if (provide_warranty.equals("1")) {
                 sw_provide_warranty_filter.setChecked(true);
@@ -118,8 +127,7 @@ public class FiltersActivity extends BaseActivity {
                 aQuery.find(R.id.lay_filter_rocords_found).backgroundColor(ContextCompat.getColor(activity, R.color.colorNarvik));
                 aQuery.find(R.id.tv_choice_type_filter).text(getResources().getString(R.string.tv_good_choice_see_shops));
             }
-        }
-        else {
+        } else {
             if (_ShopslistBeforeFiltration.size() > 0) {
                 TotalRecord = _ShopslistBeforeFiltration.size();
                 FilterRecord = TotalRecord;
@@ -545,8 +553,8 @@ public class FiltersActivity extends BaseActivity {
 
                         long id = lv_filter_list.getItemIdAtPosition(i);
 //                        if (id != 0) {
-                            CheckedBrands.add((int) id);
-                            brands.add(lv_filter_list.getItemAtPosition(i).toString());
+                        CheckedBrands.add((int) id);
+                        brands.add(lv_filter_list.getItemAtPosition(i).toString());
 //                        }
                     }
 
@@ -649,8 +657,8 @@ public class FiltersActivity extends BaseActivity {
                     if (checked.get(i)) {
                         long id = lv_filter_list.getItemIdAtPosition(i);
 //                        if (id != 0) {
-                            CheckedServices.add((int) id);
-                            services.add(lv_filter_list.getItemAtPosition(i).toString());
+                        CheckedServices.add((int) id);
+                        services.add(lv_filter_list.getItemAtPosition(i).toString());
 //                        }
                     }
                 }
