@@ -32,20 +32,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.joooonho.SelectableRoundedImageView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Sorting.ArabicNamesSortingModel;
-import co.dtechsystem.carefer.Sorting.ShopsRatingSorting;
-import co.dtechsystem.carefer.Sorting.SortByDistance;
 import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
-
-import static co.dtechsystem.carefer.Sorting.SortByDistance.sort;
 
 
 public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListRecycleViewAdapter.ViewHolder> {
@@ -532,137 +528,59 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
     // Filter for Shops Names Class
     @SuppressWarnings("unused")
-    public static void filterShopsName(String Text, LatLng mLatlngCurrent) {
+
+
+    public static void filterShopsName(String Text, final LatLng mLatlngCurrent) {
         Text = Text.toLowerCase(Locale.getDefault());
         if (_ShopslistRecordList != null) {
             _ShopslistRecordList.clear();
             if (Text.length() == 0) {
-                {
-
-                    Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
-
-                    if (mLatlngCurrent != null) {
-                        for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-                            LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
-                            Location userLoc = new Location("");
-                            userLoc.setLatitude(mLatlngCurrent.latitude);
-                            userLoc.setLongitude(mLatlngCurrent.longitude);
-                            Location shopLoc = new Location("");
-                            shopLoc.setLatitude(shopLatlng.latitude);
-                            shopLoc.setLongitude(shopLatlng.longitude);
-                            float lo = userLoc.distanceTo(shopLoc);
-                            distanceArray[i] = lo;
-//                        if (userLoc.distanceTo(shopLoc) <= 1000) {
-//                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
-//                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
-//                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
-//                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
-//                            _Shops20Km.add(_ShopslistRecordListFilter.get(i));
-//                        } else if (userLoc.distanceTo(shopLoc) > 20000) {
-//                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
-//                        }
-//                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
-//                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
-
-//                            sortDistance(myLocation,myShop);
-                        }
-                        _ShopslistRecordList.clear();
-                        Arrays.sort(distanceArray, Collections.reverseOrder());
-                        for (int i = distanceArray.length - 1; i >= 0; i--) {
-                            for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
-                                LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(j).getLongitude()));
-                                Location userLoc = new Location("");
-                                userLoc.setLatitude(mLatlngCurrent.latitude);
-                                userLoc.setLongitude(mLatlngCurrent.longitude);
-                                Location shopLoc = new Location("");
-                                shopLoc.setLatitude(shopLatlng.latitude);
-                                shopLoc.setLongitude(shopLatlng.longitude);
-                                float lo = userLoc.distanceTo(shopLoc);
-                                if (distanceArray[i] == lo) {
-                                    _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
-                                    break;
-                                } else {
-//                                _ShopslistAfterFiltration.remove(i);
-//                                break;
-//                                _ShopslistBeforeFiltration.remove(i);
-//                                break;
-                                }
-                            }
-                        }
-                        int i = _ShopslistRecordList.size();
-//                    _ShopslistRecordList.addAll(_Shops1Km);
-//                    _ShopslistRecordList.addAll(_Shops5Km);
-//                    _ShopslistRecordList.addAll(_Shops20Km);
-//                    _ShopslistRecordList.addAll(_ShopsHighestKm);
-                    } else {
-                        Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
-                    }
-                }
+                _ShopslistRecordList.addAll(_ShopslistRecordListFilter);
             } else {
-                ArrayList<Float> distances = new ArrayList<>();
-                distances.clear();
-                if (mLatlngCurrent != null) {
-                    for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-                        if (_ShopslistRecordListFilter.get(i).getShopName().toLowerCase(Locale.getDefault())
-                                .contains(Text)) {
-                            LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
-                            Location userLoc = new Location("");
-                            userLoc.setLatitude(mLatlngCurrent.latitude);
-                            userLoc.setLongitude(mLatlngCurrent.longitude);
-                            Location shopLoc = new Location("");
-                            shopLoc.setLatitude(shopLatlng.latitude);
-                            shopLoc.setLongitude(shopLatlng.longitude);
-                            float lo = userLoc.distanceTo(shopLoc);
-//                            distanceArray[i] = lo;
-                            distances.add(lo);
-                            _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
-                        }
-                    }
-                } else {
-                    Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
-                }
-                if (_ShopslistRecordList.size() == 0) {
-
-                    Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
-                } else {
-                     List<ShopsListModel.ShopslistRecord> _ShopslistRecordListNames= new ArrayList<ShopsListModel.ShopslistRecord>();;
-                    _ShopslistRecordListNames.addAll(_ShopslistRecordList);
-//                    Float distanceArrayNew[] = new Float[_ShopslistRecordListFilter.size()];
-                    Float distanceArray[] = new Float[distances.size()];
-
-                    _ShopslistRecordList.clear();
-                    for (int k = 0; k < distances.size(); k++) {
-                        distanceArray[k]=distances.get(k);
-                    }
-                    if (distanceArray.length > 0) {
-                        Arrays.sort(distanceArray, Collections.reverseOrder());
-                        for (int i = distanceArray.length - 1; i >= 0; i--) {
-                            for (int j = 0; j < _ShopslistRecordListNames.size(); j++) {
-                                LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListNames.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListNames.get(j).getLongitude()));
-                                Location userLoc = new Location("");
-                                userLoc.setLatitude(mLatlngCurrent.latitude);
-                                userLoc.setLongitude(mLatlngCurrent.longitude);
-                                Location shopLoc = new Location("");
-                                shopLoc.setLatitude(shopLatlng.latitude);
-                                shopLoc.setLongitude(shopLatlng.longitude);
-                                float lo = userLoc.distanceTo(shopLoc);
-                                if (distanceArray[i] == lo) {
-                                    _ShopslistRecordList.add(_ShopslistRecordListNames.get(j));
-                                    break;
-                                } else {
-
-                                }
-                            }
-                        }
-
+                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+                    if (_ShopslistRecordListFilter.get(i).getShopName().toLowerCase(Locale.getDefault()).contains(Text)) {
+                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
                     }
                 }
+
             }
-
         }
+        if (_ShopslistRecordList.size() == 0) {
+
+            Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
+        } else {
+            if (mLatlngCurrent != null) {
+                Comparator<ShopsListModel.ShopslistRecord> byFirstElement = new Comparator<ShopsListModel.ShopslistRecord>() {
+                    @Override
+                    public int compare(ShopsListModel.ShopslistRecord shop1, ShopsListModel.ShopslistRecord shop2) {
+
+                        LatLng shopLatlng1 = new LatLng(Double.parseDouble(shop1.getLatitude()), Double.parseDouble(shop1.getLongitude()));
+                        Location userLoc = new Location("");
+                        userLoc.setLatitude(mLatlngCurrent.latitude);
+                        userLoc.setLongitude(mLatlngCurrent.longitude);
+                        Location shopLoc1 = new Location("");
+                        shopLoc1.setLatitude(shopLatlng1.latitude);
+                        shopLoc1.setLongitude(shopLatlng1.longitude);
+                        float loc1Shop = userLoc.distanceTo(shopLoc1);
+
+                        LatLng shopLatlng2 = new LatLng(Double.parseDouble(shop2.getLatitude()), Double.parseDouble(shop2.getLongitude()));
+
+                        Location shopLoc2 = new Location("");
+                        shopLoc2.setLatitude(shopLatlng2.latitude);
+                        shopLoc2.setLongitude(shopLatlng2.longitude);
+                        float loc2Shop = userLoc.distanceTo(shopLoc2);
+                        return Float.compare(loc1Shop, loc2Shop);
+                    }
 
 
+                };
+                Collections.sort(_ShopslistRecordList, byFirstElement);
+            } else {
+                Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
 
     // Filter Class
     @SuppressWarnings("unused")
@@ -736,87 +654,134 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         }
     }
 
-    public static void sortDistance(final SortByDistance.Location myLocation, final SortByDistance.Location shopLocation) {
-        List<SortByDistance.Location> locations = new ArrayList<>();
-        locations.add(shopLocation);
-        sort(locations, new SortByDistance.ToComparable<SortByDistance.Location, Double>() {
-            @Override
-            public Double toComparable(SortByDistance.Location location) {
-                return SortByDistance.Location.distance(location, myLocation);
-            }
-        });
-
-        for (SortByDistance.Location location : locations)
-            System.out.println(location);
-    }
-
     //sorting Function
-    public static void SortingShopsWithNameRatingCity(final String SortingType, final String sortOrderType, LatLng mLatlngCurrent, String cityName) {
+    public static void SortingShopsWithNameRatingCity(final String SortingType, final String sortOrderType, final LatLng mLatlngCurrent, String cityName) {
         if (_ShopslistRecordList != null) {
             Locale locale = new Locale("ar");
             if (SortingType.equals("Rating")) {
-                _ShopslistRecordList.clear();
-                _ShopslistRecordList.addAll(ShopsRatingSorting.MatchRating(_ShopslistRecordListFilter, "Ascending"));
+//                _ShopslistRecordList.clear();
+                Comparator<ShopsListModel.ShopslistRecord> byFirstElement = new Comparator<ShopsListModel.ShopslistRecord>() {
+                    @Override
+                    public int compare(ShopsListModel.ShopslistRecord shop1, ShopsListModel.ShopslistRecord shop2) {
+                        return Float.compare(Float.parseFloat(shop2.getShopRating()), Float.parseFloat(shop1.getShopRating()));
+                    }
+
+
+                };
+                Collections.sort(_ShopslistRecordList, byFirstElement);
+//                _ShopslistRecordList.addAll(ShopsRatingSorting.MatchRating(_ShopslistRecordListFilter, "Ascending"));
+//                Float ratingArray[] = new Float[_ShopslistRecordListFilter.size()];
+////                ArrayList<String> shopIds = new ArrayList<String>();
+//                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+//                    ratingArray[i] = Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating() + Float.parseFloat(_ShopslistRecordListFilter.get(i).getID()));
+////                    shopIds.add(i, _ShopslistRecordListFilter.get(i).getID());
+//                }
+//                Arrays.sort(ratingArray, Collections.reverseOrder());
+//                for (int i = 0; i < ratingArray.length; i++) {
+//                    for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
+//                        float id = ratingArray[i] - Float.parseFloat(_ShopslistRecordListFilter.get(i).getID());
+//                        if (ratingArray[i] > 0 && ratingArray[i] == Float.parseFloat(_ShopslistRecordListFilter.get(j).getShopRating())) {
+//                            _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
+//                            break;
+//                        }
+//
+//
+////                        else if (ratingArray[i] == 0&&Integer.parseInt(shopIds.get(i)) == Integer.parseInt(_ShopslistRecordListFilter.get(j).getID())) {
+////                            _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
+////                            break;
+////                        }
+//                    }
+//                }
             } else if (SortingType.equals("Distance")) {
 
-                Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
+//                Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
 
-                if (mLatlngCurrent != null) {
-                    for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-                        LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
-                        Location userLoc = new Location("");
-                        userLoc.setLatitude(mLatlngCurrent.latitude);
-                        userLoc.setLongitude(mLatlngCurrent.longitude);
-                        Location shopLoc = new Location("");
-                        shopLoc.setLatitude(shopLatlng.latitude);
-                        shopLoc.setLongitude(shopLatlng.longitude);
-                        float lo = userLoc.distanceTo(shopLoc);
-                        distanceArray[i] = lo;
-//                        if (userLoc.distanceTo(shopLoc) <= 1000) {
-//                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
-//                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
-//                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
-//                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
-//                            _Shops20Km.add(_ShopslistRecordListFilter.get(i));
-//                        } else if (userLoc.distanceTo(shopLoc) > 20000) {
-//                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
+//                if (mLatlngCurrent != null) {
+//                    for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
+//                        LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
+//                        Location userLoc = new Location("");
+//                        userLoc.setLatitude(mLatlngCurrent.latitude);
+//                        userLoc.setLongitude(mLatlngCurrent.longitude);
+//                        Location shopLoc = new Location("");
+//                        shopLoc.setLatitude(shopLatlng.latitude);
+//                        shopLoc.setLongitude(shopLatlng.longitude);
+//                        float lo = userLoc.distanceTo(shopLoc);
+//                        distanceArray[i] = lo;
+////                        if (userLoc.distanceTo(shopLoc) <= 1000) {
+////                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
+////                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
+////                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
+////                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
+////                            _Shops20Km.add(_ShopslistRecordListFilter.get(i));
+////                        } else if (userLoc.distanceTo(shopLoc) > 20000) {
+////                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
+////                        }
+////                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
+////                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
+//
+////                            sortDistance(myLocation,myShop);
+//                    }
+//                    _ShopslistRecordList.clear();
+//                    Arrays.sort(distanceArray, Collections.reverseOrder());
+//                    for (int i = distanceArray.length - 1; i >= 0; i--) {
+//                        for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
+//                            LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(j).getLongitude()));
+//                            Location userLoc = new Location("");
+//                            userLoc.setLatitude(mLatlngCurrent.latitude);
+//                            userLoc.setLongitude(mLatlngCurrent.longitude);
+//                            Location shopLoc = new Location("");
+//                            shopLoc.setLatitude(shopLatlng.latitude);
+//                            shopLoc.setLongitude(shopLatlng.longitude);
+//                            float lo = userLoc.distanceTo(shopLoc);
+//                            if (distanceArray[i] == lo) {
+//                                _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
+//                                break;
+//                            } else {
+////                                _ShopslistAfterFiltration.remove(i);
+////                                break;
+////                                _ShopslistBeforeFiltration.remove(i);
+////                                break;
+//                            }
 //                        }
-//                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
-//                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
+//                    }
+//                    int i = _ShopslistRecordList.size();
+////                    _ShopslistRecordList.addAll(_Shops1Km);
+////                    _ShopslistRecordList.addAll(_Shops5Km);
+////                    _ShopslistRecordList.addAll(_Shops20Km);
+////                    _ShopslistRecordList.addAll(_ShopsHighestKm);
+////                } else {
+//                    Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
+//                }
+                if (mLatlngCurrent != null) {
+                    Comparator<ShopsListModel.ShopslistRecord> byFirstElement = new Comparator<ShopsListModel.ShopslistRecord>() {
+                        @Override
+                        public int compare(ShopsListModel.ShopslistRecord shop1, ShopsListModel.ShopslistRecord shop2) {
 
-//                            sortDistance(myLocation,myShop);
-                    }
-                    _ShopslistRecordList.clear();
-                    Arrays.sort(distanceArray, Collections.reverseOrder());
-                    for (int i = distanceArray.length - 1; i >= 0; i--) {
-                        for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
-                            LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(j).getLongitude()));
+                            LatLng shopLatlng1 = new LatLng(Double.parseDouble(shop1.getLatitude()), Double.parseDouble(shop1.getLongitude()));
                             Location userLoc = new Location("");
                             userLoc.setLatitude(mLatlngCurrent.latitude);
                             userLoc.setLongitude(mLatlngCurrent.longitude);
-                            Location shopLoc = new Location("");
-                            shopLoc.setLatitude(shopLatlng.latitude);
-                            shopLoc.setLongitude(shopLatlng.longitude);
-                            float lo = userLoc.distanceTo(shopLoc);
-                            if (distanceArray[i] == lo) {
-                                _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
-                                break;
-                            } else {
-//                                _ShopslistAfterFiltration.remove(i);
-//                                break;
-//                                _ShopslistBeforeFiltration.remove(i);
-//                                break;
-                            }
+                            Location shopLoc1 = new Location("");
+                            shopLoc1.setLatitude(shopLatlng1.latitude);
+                            shopLoc1.setLongitude(shopLatlng1.longitude);
+                            float loc1Shop = userLoc.distanceTo(shopLoc1);
+
+                            LatLng shopLatlng2 = new LatLng(Double.parseDouble(shop2.getLatitude()), Double.parseDouble(shop2.getLongitude()));
+
+                            Location shopLoc2 = new Location("");
+                            shopLoc2.setLatitude(shopLatlng2.latitude);
+                            shopLoc2.setLongitude(shopLatlng2.longitude);
+                            float loc2Shop = userLoc.distanceTo(shopLoc2);
+                            return Float.compare(loc1Shop, loc2Shop);
                         }
-                    }
-                    int i = _ShopslistRecordList.size();
-//                    _ShopslistRecordList.addAll(_Shops1Km);
-//                    _ShopslistRecordList.addAll(_Shops5Km);
-//                    _ShopslistRecordList.addAll(_Shops20Km);
-//                    _ShopslistRecordList.addAll(_ShopsHighestKm);
+
+
+                    };
+                    Collections.sort(_ShopslistRecordList, byFirstElement);
                 } else {
                     Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
                 }
+
             } else if (SortingType.equals("Name")) {
                 _ShopslistRecordList.clear();
                 ArabicNamesSortingModel mArabicNamesSortingModel = new ArabicNamesSortingModel();
@@ -844,52 +809,38 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     }
 
     public void SortFilterDistanceDefault() {
-        Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
-
         if (mLatlngCurrent != null) {
-            for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-                LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
-                Location userLoc = new Location("");
-                userLoc.setLatitude(mLatlngCurrent.latitude);
-                userLoc.setLongitude(mLatlngCurrent.longitude);
-                Location shopLoc = new Location("");
-                shopLoc.setLatitude(shopLatlng.latitude);
-                shopLoc.setLongitude(shopLatlng.longitude);
-                float lo = userLoc.distanceTo(shopLoc);
-                distanceArray[i] = lo;
-            }
-            _ShopslistRecordList.clear();
-            Arrays.sort(distanceArray, Collections.reverseOrder());
-            for (int i = distanceArray.length - 1; i >= 0; i--) {
-                for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
-                    LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(j).getLongitude()));
+            Comparator<ShopsListModel.ShopslistRecord> byFirstElement = new Comparator<ShopsListModel.ShopslistRecord>() {
+                @Override
+                public int compare(ShopsListModel.ShopslistRecord shop1, ShopsListModel.ShopslistRecord shop2) {
+
+                    LatLng shopLatlng1 = new LatLng(Double.parseDouble(shop1.getLatitude()), Double.parseDouble(shop1.getLongitude()));
                     Location userLoc = new Location("");
                     userLoc.setLatitude(mLatlngCurrent.latitude);
                     userLoc.setLongitude(mLatlngCurrent.longitude);
-                    Location shopLoc = new Location("");
-                    shopLoc.setLatitude(shopLatlng.latitude);
-                    shopLoc.setLongitude(shopLatlng.longitude);
-                    float lo = userLoc.distanceTo(shopLoc);
-                    if (distanceArray[i] == lo) {
-                        _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
-                        break;
-                    } else {
-//                                _ShopslistAfterFiltration.remove(i);
-//                                break;
-//                                _ShopslistBeforeFiltration.remove(i);
-//                                break;
-                    }
+                    Location shopLoc1 = new Location("");
+                    shopLoc1.setLatitude(shopLatlng1.latitude);
+                    shopLoc1.setLongitude(shopLatlng1.longitude);
+                    float loc1Shop = userLoc.distanceTo(shopLoc1);
+
+                    LatLng shopLatlng2 = new LatLng(Double.parseDouble(shop2.getLatitude()), Double.parseDouble(shop2.getLongitude()));
+
+                    Location shopLoc2 = new Location("");
+                    shopLoc2.setLatitude(shopLatlng2.latitude);
+                    shopLoc2.setLongitude(shopLatlng2.longitude);
+                    float loc2Shop = userLoc.distanceTo(shopLoc2);
+                    return Float.compare(loc1Shop, loc2Shop);
                 }
-            }
-            int i = _ShopslistRecordList.size();
-//                    _ShopslistRecordList.addAll(_Shops1Km);
-//                    _ShopslistRecordList.addAll(_Shops5Km);
-//                    _ShopslistRecordList.addAll(_Shops20Km);
-//                    _ShopslistRecordList.addAll(_ShopsHighestKm);
+
+
+            };
+            Collections.sort(_ShopslistRecordList, byFirstElement);
         } else {
             Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
 
 }

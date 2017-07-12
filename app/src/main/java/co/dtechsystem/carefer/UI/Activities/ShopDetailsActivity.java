@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -389,27 +390,30 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
             lay_specialised_Brand_shop.setVisibility(View.GONE);
         }
         if (mShopsDetailsModel.getShopsDetail().get(0).getServiceType() != null) {
-            String[] serviceArray = mShopsDetailsModel.getShopsDetail().get(0).getServiceType().split(",");
-            aQuery.id(R.id.tv_services_shops).text(serviceArray[0]);
+//            String[] serviceArray = mShopsDetailsModel.getShopsDetail().get(0).getServiceType().split(",");
+            aQuery.id(R.id.tv_services_shops).text(mShopsDetailsModel.getShopsDetail().get(0).getServiceType());
 
         }
         if (mShopsDetailsModel.getShopsDetail().get(0).getNationality() != null) {
-            String[] nationalityArray = mShopsDetailsModel.getShopsDetail().get(0).getNationality().split(",");
-            aQuery.id(R.id.tv_nationality_shop).text(nationalityArray[0]);
+//            String[] nationalityArray = mShopsDetailsModel.getShopsDetail().get(0).getNationality().split(",");
+            aQuery.id(R.id.tv_nationality_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getNationality());
 
         }
 
         aQuery.id(R.id.tv_city_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getCity());
         if (mShopsDetailsModel.getShopsDetail().get(0).getProvideWarranty().equals("1")) {
-            aQuery.id(R.id.tv_provide_warrnty_shop).text(getResources().getString(R.string.tv_yes));
+            aQuery.id(R.id.iv_provide_warrnty_shop).getImageView().setBackground(ContextCompat.getDrawable(activity, R.drawable.ic_yes));
 
         } else {
-            aQuery.id(R.id.tv_provide_warrnty_shop).text(getResources().getString(R.string.tv_no));
+            aQuery.id(R.id.iv_provide_warrnty_shop).getImageView().setBackground(ContextCompat.getDrawable(activity, R.drawable.ic_no));
+
         }
         if (mShopsDetailsModel.getShopsDetail().get(0).getProvideReplaceParts().equals("1")) {
-            aQuery.id(R.id.tv_replace_parts_shop).text(getResources().getString(R.string.tv_yes));
+            aQuery.id(R.id.iv_replace_parts_shop).getImageView().setBackground(ContextCompat.getDrawable(activity, R.drawable.ic_yes));
+
         } else {
-            aQuery.id(R.id.tv_replace_parts_shop).text(getResources().getString(R.string.tv_yes));
+            aQuery.id(R.id.iv_replace_parts_shop).getImageView().setBackground(ContextCompat.getDrawable(activity, R.drawable.ic_no));
+
         }
         if (mShopsDetailsModel.getShopsDetail().get(0).getFavourite() != null &&
                 mShopsDetailsModel.getShopsDetail().get(0).getFavourite().equals("true")) {
@@ -419,6 +423,39 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
             mStatus = 0;
             aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_empty);
         }
+
+        if (mShopsDetailsModel.getShopsDetail().get(0).getShopRating() != null && Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()) > 0) {
+            aQuery.id(R.id.tv_reviews_shop_details).text(getResources().getString(R.string.tv_reviews));
+            aQuery.id(R.id.tv_avg_rating).getTextView().setVisibility(View.VISIBLE);
+            aQuery.id(R.id.tv_total_rating).getTextView().setVisibility(View.VISIBLE);
+            aQuery.id(R.id.tv_rating_type).getTextView().setVisibility(View.VISIBLE);
+            float totalRatingShop = Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating());
+            String avgRate = String.format("%.01f", totalRatingShop);
+            aQuery.id(R.id.tv_avg_rating).text(avgRate);
+            aQuery.id(R.id.tv_total_rating).text(getResources().getString(R.string.tv_see_all) + " " + mShopsDetailsModel.getShopsDetail().get(0).getReviewCount() + " " + getResources().getString(R.string.tv_reviews));
+            if (totalRatingShop > 4.4) {
+                aQuery.id(R.id.tv_rating_type).text(getResources().getString(R.string.tv_excelent));
+
+            } else if (totalRatingShop > 3.4) {
+                aQuery.id(R.id.tv_rating_type).text(getResources().getString(R.string.tv_good));
+
+
+            } else if (totalRatingShop > 2.4) {
+                aQuery.id(R.id.tv_rating_type).text(getResources().getString(R.string.tv_average));
+
+            } else {
+                aQuery.id(R.id.tv_rating_type).text(getResources().getString(R.string.tv_lower));
+
+            }
+
+        } else {
+            aQuery.id(R.id.tv_avg_rating).getTextView().setVisibility(View.GONE);
+            aQuery.id(R.id.tv_total_rating).getTextView().setVisibility(View.GONE);
+            aQuery.id(R.id.tv_rating_type).getTextView().setVisibility(View.GONE);
+            aQuery.id(R.id.tv_reviews_shop_details).text(getResources().getString(R.string.tv_not_enough_reviews));
+
+        }
+
     }
 
     public void showDescriptionActivity(View c) {

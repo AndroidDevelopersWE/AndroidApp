@@ -98,7 +98,7 @@
                                 android:numStars="5"
                                 android:progressDrawable="@drawable/dr_rating_bar_orange"
                                 android:rating="2"
-                                android:stepSize="0.5"
+                                android:stepSize="0.1"
                                 tools:ignore="RtlHardcoded"/>
 
                             <TextView

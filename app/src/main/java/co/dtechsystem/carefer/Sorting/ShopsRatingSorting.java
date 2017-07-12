@@ -2,7 +2,6 @@ package co.dtechsystem.carefer.Sorting;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import co.dtechsystem.carefer.Models.ShopsListModel;
 
@@ -26,40 +25,38 @@ public abstract class ShopsRatingSorting {
         final List<ShopsListModel.ShopslistRecord> _ShopRating0_5 = new ArrayList<ShopsListModel.ShopslistRecord>();
         final List<ShopsListModel.ShopslistRecord> _ShopRating0 = new ArrayList<ShopsListModel.ShopslistRecord>();
         for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-            if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 5) {
+            Float shopRating = Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating());
+            if (shopRating >= 4.5) {
                 _ShopRating5.add(_ShopslistRecordListFilter.get(i));
-
-            }
-
-            if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 4.5) {
+            } else if (shopRating >= 4) {
                 _ShopRating4_5.add(_ShopslistRecordListFilter.get(i));
 
             } else if (
-                    Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 4) {
+                    shopRating >= 3.5) {
                 _ShopRating4.add(_ShopslistRecordListFilter.get(i));
 
-            } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 3.5) {
+            } else if (shopRating >= 3) {
                 _ShopRating3_5.add(_ShopslistRecordListFilter.get(i));
 
             } else if (
-                    Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 3) {
+                    shopRating >= 2.5) {
                 _ShopRating3.add(_ShopslistRecordListFilter.get(i));
 
-            } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2.5) {
+            } else if (shopRating >= 2) {
                 _ShopRating2_5.add(_ShopslistRecordListFilter.get(i));
 
-            } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 2) {
+            } else if (shopRating >= 1.5) {
                 _ShopRating2.add(_ShopslistRecordListFilter.get(i));
 
-            } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 1.5) {
+            } else if (shopRating >= 1) {
                 _ShopRating1_5.add(_ShopslistRecordListFilter.get(i));
 
-            } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 1) {
+            } else if (shopRating >= 0.5) {
                 _ShopRating1.add(_ShopslistRecordListFilter.get(i));
 
-            } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 0.5) {
+            } else if (shopRating >= 0) {
                 _ShopRating0_5.add(_ShopslistRecordListFilter.get(i));
-            } else if (Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(Locale.getDefault())) == 0) {
+            } else if (shopRating == 0) {
                 _ShopRating0.add(_ShopslistRecordListFilter.get(i));
             }
 //            else {

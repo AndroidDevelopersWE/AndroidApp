@@ -47,7 +47,8 @@ public class ShopsDetailsModel {
         private String provideWarranty = "";
         private String provideReplaceParts = "";
         private String specialisedBrand = "";
-        private String nationality;
+        private String nationality="";
+        private String reviewCount="";
 
         public String getID() {
             return ID;
@@ -183,7 +184,13 @@ public class ShopsDetailsModel {
         public void setNationality(String nationality) {
             this.nationality = nationality;
         }
+        public String getReviewCount() {
+            return reviewCount;
+        }
 
+        public void setReviewCount(String reviewCount) {
+            this.reviewCount = reviewCount;
+        }
     }
 
     public class ShopsImagessRecord {

@@ -215,7 +215,7 @@
                             android:numStars="5"
                             android:progressDrawable="@drawable/dr_rating_bar_orange"
                             android:rating="5"
-                            android:stepSize="0.5"
+                            android:stepSize="0.1"
                             tools:ignore="RtlHardcoded"/>
 
 
@@ -287,7 +287,7 @@
                                 android:onClick="showDescriptionActivity"
                                 android:padding="@dimen/_5sdp"
                                 android:text="Read Full Description"
-                                android:textColor="@color/colorPrimary"
+                                android:textColor="@android:color/holo_blue_dark"
                                 android:textSize="@dimen/_11sdp"
                                 android:textStyle="bold"
                                 android:visibility="gone"
@@ -307,17 +307,17 @@
                                     android:clickable="true"
                                     android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/tv_provide_warrnty_shop"
+                                    <ImageView
+                                        android:id="@+id/iv_provide_warrnty_shop"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="right"
+                                        android:layout_marginLeft="@dimen/_10sdp"
                                         android:layout_weight="0"
                                         android:clickable="false"
                                         android:gravity="right"
-                                        android:padding="@dimen/_5sdp"
-                                        android:textColor="@android:color/black"
-                                        android:textSize="@dimen/_12sdp"/>
+
+                                        />
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -338,16 +338,17 @@
                                     android:clickable="true"
                                     android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/tv_replace_parts_shop"
+                                    <ImageView
+                                        android:id="@+id/iv_replace_parts_shop"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="right"
+                                        android:layout_marginLeft="@dimen/_10sdp"
                                         android:layout_weight="0"
                                         android:clickable="false"
                                         android:gravity="right"
-                                        android:padding="@dimen/_5sdp"
-                                        android:textColor="@android:color/black"/>
+
+                                        />
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -402,22 +403,22 @@
                                         android:layout_gravity="right"
                                         android:layout_weight="0"
                                         android:clickable="false"
-                                        android:visibility="visible"
                                         android:gravity="right"
                                         android:padding="@dimen/_5sdp"
-                                        android:textColor="@android:color/black"/>
+                                        android:textColor="@android:color/black"
+                                        android:visibility="visible"/>
 
                                     <TextView
                                         android:id="@+id/tv_title_specialised_Brand_shop"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:visibility="visible"
                                         android:gravity="right"
                                         android:padding="@dimen/_5sdp"
                                         android:text="@string/tv_specilized_brand"
                                         android:textColor="@android:color/black"
-                                        android:textSize="@dimen/_12sdp"/>
+                                        android:textSize="@dimen/_12sdp"
+                                        android:visibility="visible"/>
 
 
                                 </LinearLayout>
@@ -427,18 +428,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:clickable="true"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/tv_nationality_shop"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="right"
-                                        android:layout_weight="0"
-                                        android:clickable="false"
-                                        android:gravity="right"
-                                        android:padding="@dimen/_5sdp"
-                                        android:textColor="@android:color/black"/>
+                                    android:orientation="vertical">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -450,6 +440,18 @@
                                         android:textColor="@android:color/black"
                                         android:textSize="@dimen/_12sdp"/>
 
+                                    <TextView
+                                        android:id="@+id/tv_nationality_shop"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="right"
+                                        android:layout_weight="0"
+                                        android:clickable="false"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:textColor="@android:color/black"
+                                        android:textSize="@dimen/_10sdp"/>
+
 
                                 </LinearLayout>
 
@@ -457,16 +459,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:clickable="true"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/tv_services_shops"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:gravity="right"
-                                        android:padding="@dimen/_5sdp"
-                                        android:textColor="@android:color/black"
-                                        android:textSize="@dimen/_12sdp"/>
+                                    android:orientation="vertical">
 
                                     <TextView
                                         android:layout_width="match_parent"
@@ -477,6 +470,15 @@
                                         android:text="@string/dp_service_type"
                                         android:textColor="@android:color/black"
                                         android:textSize="@dimen/_12sdp"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_services_shops"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="right"
+                                        android:padding="@dimen/_5sdp"
+                                        android:textColor="@android:color/darker_gray"
+                                        android:textSize="@dimen/_10sdp"/>
                                 </LinearLayout>
 
                                 <LinearLayout
@@ -486,16 +488,62 @@
                                     android:clickable="true"
                                     android:orientation="horizontal">
 
-                                    <ImageView
+                                    <TextView
+                                        android:id="@+id/tv_avg_rating"
+                                        android:layout_width="@dimen/_35sdp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_gravity="center"
+                                        android:layout_marginLeft="@dimen/_10sdp"
+                                        android:background="@drawable/ic_rating_avg"
+                                        android:clickable="true"
+                                        android:gravity="center"
+                                        android:onClick="btn_reviews_click"
+                                        android:paddingTop="@dimen/_2sdp"
+                                        android:text="4.5"
+                                        android:textColor="@android:color/white"
+                                        android:textSize="@dimen/_13sdp"
+                                        android:textStyle="bold"
+                                        android:visibility="gone"/>
+
+                                    <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:background="@drawable/ic_reviews"
-                                        android:clickable="true"
-                                        android:onClick="btn_reviews_click"/>
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/tv_rating_type"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:clickable="true"
+                                            android:gravity="center"
+                                            android:onClick="btn_reviews_click"
+                                            android:padding="@dimen/_2sdp"
+                                            android:text="Good"
+                                            android:textColor="@android:color/black"
+                                            android:textSize="@dimen/_13sdp"
+                                            android:textStyle="bold"
+                                            android:visibility="gone"/>
+
+                                        <TextView
+                                            android:id="@+id/tv_total_rating"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:clickable="true"
+                                            android:gravity="left"
+                                            android:onClick="btn_reviews_click"
+                                            android:padding="@dimen/_2sdp"
+                                            android:textAlignment="gravity"
+                                            android:textColor="@android:color/black"
+                                            android:textDirection="firstStrongLtr"
+                                            android:textStyle="normal"
+                                            android:visibility="visible"/>
+                                    </LinearLayout>
 
                                     <TextView
+                                        android:id="@+id/tv_reviews_shop_details"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
                                         android:gravity="right"
                                         android:padding="@dimen/_5sdp"
                                         android:text="@string/tv_reviews"

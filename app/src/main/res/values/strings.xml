@@ -190,4 +190,10 @@
     <string name="tv_share_app">Abjad Hose is just a text doll of the printing and compositing industry. It was the standard industry standard doll ever</string>
     <string name="tv_version_name">Version:</string>
     <string name="tv_km_after_oil_change">Km after the oil was changed</string>
+    <string name="tv_see_all">See All
+     <string name="tv_excelent">Excelent</string>
+    <string name="tv_good">Good</string>
+    <string name="tv_average">Average</string>
+    <string name="tv_lower">Lower</string>
+    <string name="tv_not_enough_reviews">This Shop Does not have enough reviews</string></string>
 </resources>
