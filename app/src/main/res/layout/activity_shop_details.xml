@@ -286,7 +286,7 @@
                                 android:gravity="right"
                                 android:onClick="showDescriptionActivity"
                                 android:padding="@dimen/_5sdp"
-                                android:text="Read Full Description"
+                                android:text="@string/tv_read_full_des"
                                 android:textColor="@android:color/holo_blue_dark"
                                 android:textSize="@dimen/_11sdp"
                                 android:textStyle="bold"
