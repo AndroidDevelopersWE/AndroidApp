@@ -168,7 +168,7 @@
     <string name="btn_apply_filter">تطبيق التصفية</string>
     <string name="btn_reset_filter">إعادة تعيين الفلتر</string>
     <string name="tv_city">المدينة</string>
-    <string name="tv_reviews">التعليقات</string>
+    <string name="tv_reviews">إظهار التعليقات</string>
     <string name="tv_name_anonymous">مجهول الإسم</string>
     <string name="tv_yes">نعم</string>
     <string name="tv_no"> لا</string>

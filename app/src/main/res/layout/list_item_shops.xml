@@ -335,7 +335,7 @@
                                     android:id="@+id/tv_desc_shop_list"
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/_50sdp"
-                                    android:layout_gravity="right"
+                                    android:layout_gravity="top"
                                     android:layout_weight="1"
                                     android:gravity="right"
                                     android:maxLines="8"
