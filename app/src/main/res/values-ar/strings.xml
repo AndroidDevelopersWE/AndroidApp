@@ -186,4 +186,5 @@
     <string name="tv_lower">خفض</string>
     <string name="tv_not_enough_reviews">هذا المحل ليس لديها ما يكفي من الاستعراضات</string>
     <string name="tv_read_full_des">قراءة الوصف الكامل</string>
+    <string name="dialog_need_your_permission">يلزم أذونات الموقع لهذا الإجراء</string>
 </resources>

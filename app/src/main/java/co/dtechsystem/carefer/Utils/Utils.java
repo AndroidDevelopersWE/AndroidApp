@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Shader;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
@@ -35,7 +37,13 @@ public abstract class Utils {
         editor.putString(key, value);
         editor.commit();
     }
-
+    public static boolean isLocationServiceEnabled(Activity activity) {
+        LocationManager lm = (LocationManager)
+                activity.getSystemService(Context.LOCATION_SERVICE);
+        String provider = lm.getBestProvider(new Criteria(), true);
+        return (!provider.equals("") &&
+                !LocationManager.PASSIVE_PROVIDER.equals(provider));
+    }
     public static String readPreferences(Activity activity, String key, String defaultValue) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         return sp.getString(key, defaultValue);
@@ -52,7 +60,7 @@ public abstract class Utils {
         String outputDate = "";
 
         SimpleDateFormat df_input = new SimpleDateFormat(inputFormat);
-        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat,new Locale("ar"));
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat,new Locale("en"));
 
         // You can set a different Locale, This example set a locale of Country Mexico.
 //            SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, new Locale("es", "MX"));

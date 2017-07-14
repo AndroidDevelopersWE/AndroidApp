@@ -185,32 +185,7 @@ public class MainActivity extends BaseActivity
 //        GPSServiceRequest.displayLocationSettingsRequest(activity);
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-        } else {
-            if (mMap.getCameraPosition().target.latitude == 0.0) {
-                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    // User refused to grant permission. You can add AlertDialog here
-                    isLocationAvail = "No";
-                    Utils.savePreferences(activity, "isLocationAvail", "No");
-                    mLatLngCurrent = new LatLng(24.586867, 46.741052);
-                    Utils.savePreferences(activity, "mLatLngCurrent", String.valueOf(mLatLngCurrent.latitude + "," + mLatLngCurrent.longitude));
-                    mNewLocation = new Location("");
-                    mOldLocation = new Location("");
-                    mOldLocation.setLatitude(mLatLngCurrent.latitude);
-                    mOldLocation.setLongitude(mLatLngCurrent.longitude);
-                    mNewLocation.setLatitude(mLatLngCurrent.latitude);
-                    mNewLocation.setLongitude(mLatLngCurrent.longitude);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLngCurrent, 13));
-                    if (Validations.isInternetAvailable(activity, true) && mOldLocation != null) {
-                        SearchingCityfinished = false;
-                        APiGetAllCities(mOldLocation);
-//                        APiGetCurrentAddress("Location", mOldLocation);
-                    }
-                    showToast(getResources().getString(R.string.toast_permission));
-                }
-            }
         }
-
-
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
             @SuppressWarnings("PointlessBooleanExpression")
@@ -273,6 +248,31 @@ public class MainActivity extends BaseActivity
 
             }
         });
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            mMap.setMyLocationEnabled(true);
+        }
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M && mLatLngCurrent == null && Utils.isLocationServiceEnabled(activity) == false) {
+            mMap.setMyLocationEnabled(true);
+            // User refused to grant permission. You can add AlertDialog here
+            isLocationAvail = "No";
+            Utils.savePreferences(activity, "isLocationAvail", "No");
+            mLatLngCurrent = new LatLng(24.586867, 46.741052);
+            Utils.savePreferences(activity, "mLatLngCurrent", String.valueOf(mLatLngCurrent.latitude + "," + mLatLngCurrent.longitude));
+            mNewLocation = new Location("");
+            mOldLocation = new Location("");
+            mOldLocation.setLatitude(mLatLngCurrent.latitude);
+            mOldLocation.setLongitude(mLatLngCurrent.longitude);
+            mNewLocation.setLatitude(mLatLngCurrent.latitude);
+            mNewLocation.setLongitude(mLatLngCurrent.longitude);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLngCurrent, 13));
+            if (Validations.isInternetAvailable(activity, true) && mOldLocation != null) {
+                SearchingCityfinished = false;
+                APiGetAllCities(mOldLocation);
+//                        APiGetCurrentAddress("Location", mOldLocation);
+            }
+            showToast(getResources().getString(R.string.toast_permission));
+        }
+
     }
 
     private void APiGetAllCities(final Location location) {

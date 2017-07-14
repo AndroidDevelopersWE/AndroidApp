@@ -71,6 +71,9 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
             aQuery.find(R.id.tv_shop_name_rating).text(mShopName);
 
         }
+        aQuery.find(R.id.rb_price_rate).getRatingBar().setRating(0);
+        aQuery.find(R.id.rb_quality_rate).getRatingBar().setRating(0);
+        aQuery.find(R.id.rb_time_rate).getRatingBar().setRating(0);
     }
 
     public void RatingbtnClick(@SuppressWarnings("UnusedParameters") View v) {

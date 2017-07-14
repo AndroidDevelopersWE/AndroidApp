@@ -53,9 +53,10 @@ public class NavigationsActivity extends BaseActivity
     private boolean firstCAll = false;
     private SupportMapFragment mapFragment;
     private LatLng mShopLatlng, mUserLatlng;
-    String CityId,ShopsListDataResponse,citiesNamesIDsResponse,isLocationAvail,mplaceName;
+    String CityId, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail, mplaceName, mPermissionsNowGiven="";
     private TextView tv_title_navigation;
     private LatLng mLatlngCurrent;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +84,7 @@ public class NavigationsActivity extends BaseActivity
             citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
             isLocationAvail = intent.getStringExtra("isLocationAvail");
             Bundle bundle = intent.getParcelableExtra("bundle");
+            mPermissionsNowGiven = intent.getStringExtra("mPermissionsNowGiven");
             if (bundle != null) {
                 mLatlngCurrent = bundle.getParcelable("LatLngCurrent");
             }
@@ -95,21 +97,28 @@ public class NavigationsActivity extends BaseActivity
     }
 
     public void GotoShopsList(View v) {
-        intent = new Intent(activity, ShopsListActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("callType", "Navigation");
-        if (CityId != null && !CityId.equals("")) {
-            intent.putExtra("CityId", CityId);
-            intent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
-            intent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
-            intent.putExtra("isLocationAvail", isLocationAvail);
-            Bundle args = new Bundle();
-            args.putParcelable("LatLngCurrent", mLatlngCurrent);
-            intent.putExtra("placeName", mplaceName);
-            intent.putExtra("bundle", args);
-        }
-        startActivity(intent);
-        finish();
+//        if (mPermissionsNowGiven != null && mPermissionsNowGiven.equals("true")) {
+//            intent= new Intent(activity, MainActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivityForResult(intent, 1);
+//            finish();
+//        } else {
+            intent = new Intent(activity, ShopsListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("callType", "Navigation");
+            if (CityId != null && !CityId.equals("")) {
+                intent.putExtra("CityId", CityId);
+                intent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                intent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                intent.putExtra("isLocationAvail", isLocationAvail);
+                Bundle args = new Bundle();
+                args.putParcelable("LatLngCurrent", mLatlngCurrent);
+                intent.putExtra("placeName", mplaceName);
+                intent.putExtra("bundle", args);
+            }
+            startActivity(intent);
+            finish();
+//        }
     }
 
     private void SetUpLeftbar() {
@@ -413,21 +422,28 @@ public class NavigationsActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
-            intent = new Intent(activity, ShopsListActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("callType", "Navigation");
-            if (CityId != null && !CityId.equals("")) {
-                intent.putExtra("CityId", CityId);
-                intent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
-                intent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
-                intent.putExtra("isLocationAvail", isLocationAvail);
-                Bundle args = new Bundle();
-                args.putParcelable("LatLngCurrent", mLatlngCurrent);
-                intent.putExtra("placeName", mplaceName);
-                intent.putExtra("bundle", args);
-            }
-            startActivity(intent);
-            finish();
+//            if (mPermissionsNowGiven != null && mPermissionsNowGiven.equals("true")) {
+//                intent= new Intent(activity, MainActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivityForResult(intent, 1);
+//                finish();
+//            } else {
+                intent = new Intent(activity, ShopsListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("callType", "Navigation");
+                if (CityId != null && !CityId.equals("")) {
+                    intent.putExtra("CityId", CityId);
+                    intent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                    intent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                    intent.putExtra("isLocationAvail", isLocationAvail);
+                    Bundle args = new Bundle();
+                    args.putParcelable("LatLngCurrent", mLatlngCurrent);
+                    intent.putExtra("placeName", mplaceName);
+                    intent.putExtra("bundle", args);
+                }
+                startActivity(intent);
+                finish();
+//            }
             super.onBackPressed();
         }
     }

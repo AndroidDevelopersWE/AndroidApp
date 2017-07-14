@@ -486,6 +486,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="@dimen/_5sdp"
                                     android:clickable="true"
+                                    android:onClick="btn_reviews_click"
                                     android:orientation="horizontal">
 
                                     <TextView
@@ -497,7 +498,6 @@
                                         android:background="@drawable/ic_rating_avg"
                                         android:clickable="true"
                                         android:gravity="center"
-                                        android:onClick="btn_reviews_click"
                                         android:paddingTop="@dimen/_2sdp"
                                         android:text="4.5"
                                         android:textColor="@android:color/white"
@@ -532,10 +532,7 @@
                                             android:gravity="left"
                                             android:onClick="btn_reviews_click"
                                             android:padding="@dimen/_2sdp"
-                                            android:textAlignment="gravity"
                                             android:textColor="@android:color/black"
-                                            android:textDirection="firstStrongLtr"
-                                            android:textStyle="normal"
                                             android:visibility="visible"/>
                                     </LinearLayout>
 

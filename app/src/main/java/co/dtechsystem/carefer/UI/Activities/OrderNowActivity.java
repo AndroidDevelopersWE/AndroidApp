@@ -2,11 +2,13 @@ package co.dtechsystem.carefer.UI.Activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -65,8 +68,11 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     private int morderID;
     private boolean mOrderPlaced;
     private LatLng mLatlngCurrent;
+    String mPermissionsNowGiven = "";
+    boolean locationSettings = false;
 
     @Override
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_now);
@@ -237,8 +243,26 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 
             dirShopsIntents();
         } else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
-
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 123);
+            } else {
+                AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+                alertDialog.setTitle(getResources().getString(R.string.app_name));
+                alertDialog.setMessage(getResources().getString(R.string.dialog_need_your_permission));
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.dialog_ok),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    dialog.dismiss();
+                                    locationSettings = true;
+                                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                } catch (Exception e) {
+                                    dialog.dismiss();
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+            }
         }
     }
 
@@ -258,6 +282,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         i.putExtra("latitude", mlatitude);
         i.putExtra("longitude", mlongitude);
         i.putExtra("shopID", mshopID);
+        i.putExtra("mPermissionsNowGiven", mPermissionsNowGiven);
         if (CityId != null && !CityId.equals("")) {
             i.putExtra("CityId", CityId);
             i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
@@ -267,6 +292,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             args.putParcelable("LatLngCurrent", mLatlngCurrent);
             i.putExtra("placeName", mplaceName);
             i.putExtra("bundle", args);
+
+
         }
         startActivity(i);
     }
@@ -296,16 +323,44 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                     dirShopsIntents();
                     return;
                 } else {
-                    showToast(getResources().getString(R.string.toast_location_not_found));
-                    try {
-                        Intent intent = new Intent();
-                        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package", getPackageName(), null);
-                        intent.setData(uri);
-                        startActivity(intent);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+//                    showToast(getResources().getString(R.string.toast_location_not_found));
+                    AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+                    alertDialog.setTitle(getResources().getString(R.string.app_name));
+                    alertDialog.setMessage(getResources().getString(R.string.dialog_need_your_permission));
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.dialog_ok),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    try {
+                                        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                                            Intent intent = new Intent();
+                                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                            Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                            intent.setData(uri);
+                                            startActivity(intent);
+                                            dialog.dismiss();
+                                            locationSettings = true;
+                                        } else {
+                                            dialog.dismiss();
+                                            locationSettings = true;
+                                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                                        }
+                                    } catch (Exception e) {
+                                        dialog.dismiss();
+                                        e.printStackTrace();
+                                    }
+                                }
+
+
+                            });
+                    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.dialog_cancel),
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
+
 
                 }
                 return;
@@ -332,9 +387,20 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
             }
             startActivity(intent);
             finish();
+        } else {
+            if (locationSettings) {
+                if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    mPermissionsNowGiven = "true";
+                } else {
+                    if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Utils.isLocationServiceEnabled(activity)) {
+                        mPermissionsNowGiven = "true";
+                    }
+                }
+            }
         }
         super.onResume();
     }
+
 
     @Override
     public void onBackPressed() {
