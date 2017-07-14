@@ -87,6 +87,7 @@ public class MainActivity extends BaseActivity
     String CityId = "";
     JSONArray totalDataofCurrentLatlngNames;
     boolean SearchingCityfinished = false;
+    String fromListLocation = "";
 
     @Override
 
@@ -182,9 +183,33 @@ public class MainActivity extends BaseActivity
         mMap = googleMap;
         mMap.getUiSettings().setMapToolbarEnabled(false);
 //        GPSServiceRequest.displayLocationSettingsRequest(activity);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
+        } else {
+            if (mMap.getCameraPosition().target.latitude == 0.0) {
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    // User refused to grant permission. You can add AlertDialog here
+                    isLocationAvail = "No";
+                    Utils.savePreferences(activity, "isLocationAvail", "No");
+                    mLatLngCurrent = new LatLng(24.586867, 46.741052);
+                    Utils.savePreferences(activity, "mLatLngCurrent", String.valueOf(mLatLngCurrent.latitude + "," + mLatLngCurrent.longitude));
+                    mNewLocation = new Location("");
+                    mOldLocation = new Location("");
+                    mOldLocation.setLatitude(mLatLngCurrent.latitude);
+                    mOldLocation.setLongitude(mLatLngCurrent.longitude);
+                    mNewLocation.setLatitude(mLatLngCurrent.latitude);
+                    mNewLocation.setLongitude(mLatLngCurrent.longitude);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLngCurrent, 13));
+                    if (Validations.isInternetAvailable(activity, true) && mOldLocation != null) {
+                        SearchingCityfinished = false;
+                        APiGetAllCities(mOldLocation);
+//                        APiGetCurrentAddress("Location", mOldLocation);
+                    }
+                    showToast(getResources().getString(R.string.toast_permission));
+                }
+            }
         }
+
 
         mMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
@@ -225,30 +250,7 @@ public class MainActivity extends BaseActivity
                             location.setLongitude(cameraPosition.target.longitude);
                             if (location != null) {
                                 mNewLocation = location;
-                            } else {
-                                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                                    // User refused to grant permission. You can add AlertDialog here
-                                    isLocationAvail = "No";
-                                    Utils.savePreferences(activity, "isLocationAvail", "No");
-                                    mLatLngCurrent = new LatLng(24.586867, 46.741052);
-                                    Utils.savePreferences(activity, "mLatLngCurrent", String.valueOf(mLatLngCurrent.latitude + "," + mLatLngCurrent.longitude));
-                                    mNewLocation = new Location("");
-                                    mOldLocation = new Location("");
-                                    mOldLocation.setLatitude(mLatLngCurrent.latitude);
-                                    mOldLocation.setLongitude(mLatLngCurrent.longitude);
-                                    mNewLocation.setLatitude(mLatLngCurrent.latitude);
-                                    mNewLocation.setLongitude(mLatLngCurrent.longitude);
-                                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLngCurrent, 13));
-                                    if (Validations.isInternetAvailable(activity, true) && mOldLocation != null) {
-                                        SearchingCityfinished = false;
-                                        APiGetAllCities(mOldLocation);
-//                        APiGetCurrentAddress("Location", mOldLocation);
-                                    }
-                                    showToast(getResources().getString(R.string.toast_permission));
-                                }
-
                             }
-
                         }
                     });
 
@@ -282,6 +284,12 @@ public class MainActivity extends BaseActivity
                     public void onResponse(JSONObject response) {
                         // display response
                         try {
+//                            if (location.getLatitude() != 24.586867) {
+//                                isLocationAvail = "Yes";
+//                                mNewLocation = location;
+//                                Utils.savePreferences(activity, "isLocationAvail", "Yes");
+//
+//                            }
                             citiesNamesIDsResponse = response.getJSONArray("citiesList").toString();
                             Utils.savePreferences(activity, "citiesNamesIDsResponse", citiesNamesIDsResponse);
                             JSONArray jsonArray = response.getJSONArray("citiesList");
@@ -556,8 +564,7 @@ public class MainActivity extends BaseActivity
             target.setLatitude(Double.parseDouble(shopsList.get(i).getLatitude()));
             target.setLongitude(Double.parseDouble(shopsList.get(i).getLongitude()));
             float dis = location.distanceTo(target);
-
-            if (location.distanceTo(target) < 10000) {
+            if (mLatLngCurrent.latitude == 24.586867) {
 
 //                marker.setInfoWindowAnchor((float)x, (float)y);
                 count++;
@@ -592,7 +599,44 @@ public class MainActivity extends BaseActivity
                 } catch (Exception d) {
                     d.printStackTrace();
                 }
+            } else {
+                if (location.distanceTo(target) < 10000) {
+                    count++;
+                    mMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(Double.parseDouble(shopsList.get(i).getLatitude()),
+                                    Double.parseDouble(shopsList.get(i).getLongitude()))).icon(icon));
+                    final int finalI = i;
+                    try {
+
+                        Glide.with(activity)
+                                .load(AppConfig.BaseUrlImages + "shop-" + shopsList.get(i).getID() + "/thumbnails/" + shopsList.get(i).getShopImage())
+                                .asBitmap()
+                                .override((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp))
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(new SimpleTarget<Bitmap>() {
+                                    @Override
+                                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                                        // Do something with bitmap here.
+                                        mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), bitmap);
+
+                                    }
+
+                                    @SuppressWarnings("deprecation")
+                                    @Override
+                                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                                        super.onLoadFailed(e, errorDrawable);
+                                        Drawable myDrawable = getResources().getDrawable(R.drawable.ic_img_place_holder);
+                                        Bitmap ic_img_place_holder = ((BitmapDrawable) myDrawable).getBitmap();
+                                        mImagesMaps.put(Integer.parseInt(shopsList.get(finalI).getID()), ic_img_place_holder);
+                                    }
+                                });
+                    } catch (Exception d) {
+                        d.printStackTrace();
+                    }
+                }
+
             }
+
             aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
             loading.close();
         }
@@ -798,5 +842,17 @@ public class MainActivity extends BaseActivity
     protected void onResume() {
         super.onResume();
         mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+//                Intent intent = getIntent();
+//                finish();
+//                startActivity(intent);
+                recreate();
+            }
+        }
     }
 }
