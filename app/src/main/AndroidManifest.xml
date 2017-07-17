@@ -67,7 +67,9 @@
             android:name=".UI.Activities.MyDetailsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:isScrollContainer="true"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".UI.Activities.ShareActivity"
             android:configChanges="orientation|keyboardHidden"

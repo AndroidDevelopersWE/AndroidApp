@@ -254,7 +254,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                 }
                 try {
-                    tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
+                    tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results) + " " + Integer.toString(mShopsListModel.getShopsList().size()));
+
                 } catch (Exception e) {
                     e.printStackTrace();
 
@@ -353,7 +354,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                             }
                         }
                     }
-                    tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
+                    tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results) + " " + Integer.toString(mShopsListModel.getShopsList().size()));
                 }
 
                 @Override
@@ -394,7 +395,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
                         }
                     }
-                    tv_total_results_shops_list.setText(Integer.toString(mShopsListModel.getShopsList().size()) + getResources().getString(R.string.tv_total_results));
+                    tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results) + " " + Integer.toString(mShopsListModel.getShopsList().size()));
                 }
 
                 @Override

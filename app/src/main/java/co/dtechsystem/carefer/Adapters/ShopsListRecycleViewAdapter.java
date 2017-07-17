@@ -253,6 +253,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                     destination.setLongitude(Double.parseDouble(_ShopslistRecordList.get(position).getLongitude()));
 
                     double distanceInMeters = curentLocation.distanceTo(destination) / 1000;
+
 //                    DecimalFormat newFormat = new DecimalFormat("#####");
 //                    double kmInDec = Float.valueOf(newFormat.format(distanceInMeters));
                     distanceInMeters = Math.round(distanceInMeters * 10) / 10.0d;

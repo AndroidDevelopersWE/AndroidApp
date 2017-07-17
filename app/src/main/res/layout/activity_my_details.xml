@@ -116,10 +116,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
+                android:background="@android:color/white"
                 android:orientation="vertical">
 
 
@@ -177,32 +177,6 @@
                     android:textSize="@dimen/_14sdp"
                     tools:ignore="RtlHardcoded"/>
 
-                <TextView
-                    android:id="@+id/tv_km_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    android:text="@string/tv_km_after_oil_change"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"/>
-
-
-                <EditText
-                    android:id="@+id/et_oil_change_km_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/dr_corner_black"
-                    android:digits="0123456789"
-                    android:drawableLeft="@drawable/ic_edit"
-                    android:gravity="right"
-                    android:hint="@string/tv_km_after_oil_change"
-                    android:inputType="numberDecimal"
-                    android:padding="@dimen/_4sdp"
-                    android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_14sdp"
-                    tools:ignore="RtlHardcoded"/>
 
                 <TextView
                     android:id="@+id/tv_car_brand_my_details"
@@ -278,33 +252,81 @@
                     android:gravity="center"
                     android:visibility="invisible"/>
 
-                <TextView
-                    android:id="@+id/tv_last_oil_my_details"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    android:text="@string/tv_last_changed_oil"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"/>
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/_2sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_km_my_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="@dimen/_4sdp"
+                            android:text="@string/tv_km_after_oil_change"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_12sdp"/>
 
 
-                <TextView
-                    android:id="@+id/et_last_oil_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/dr_corner_black"
-                    android:clickable="true"
-                    android:drawableLeft="@drawable/ic_edit"
-                    android:editable="false"
-                    android:gravity="right"
-                    android:hint="@string/tv_last_changed_oil"
-                    android:inputType="text"
-                    android:padding="@dimen/_4sdp"
-                    android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_14sdp"
-                    tools:ignore="Deprecated,RtlHardcoded"/>
+                        <EditText
+                            android:id="@+id/et_oil_change_km_my_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/dr_corner_black"
+                            android:digits="0123456789"
+                            android:drawableLeft="@drawable/ic_edit"
+                            android:gravity="right"
+                            android:hint="@string/tv_km_after_oil_change"
+                            android:inputType="numberDecimal"
+                            android:padding="@dimen/_4sdp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_14sdp"
+                            tools:ignore="RtlHardcoded"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_last_oil_my_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="@dimen/_4sdp"
+                            android:text="@string/tv_last_changed_oil"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_12sdp"/>
+
+
+                        <TextView
+                            android:id="@+id/et_last_oil_my_details"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/dr_corner_black"
+                            android:clickable="true"
+                            android:drawableLeft="@drawable/ic_edit"
+                            android:editable="false"
+                            android:gravity="right"
+                            android:hint="@string/tv_last_changed_oil"
+                            android:inputType="text"
+                            android:padding="@dimen/_4sdp"
+                            android:singleLine="true"
+                            android:textColor="@android:color/black"
+                            android:textSize="@dimen/_14sdp"
+                            tools:ignore="Deprecated,RtlHardcoded"/>
+                    </LinearLayout>
+                </LinearLayout>
 
                 <Button
                     android:layout_width="match_parent"
