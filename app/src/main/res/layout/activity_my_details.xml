@@ -272,7 +272,7 @@
                             android:padding="@dimen/_4sdp"
                             android:text="@string/tv_km_after_oil_change"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp"/>
+                            android:textSize="@dimen/_9sdp"/>
 
 
                         <EditText
@@ -291,6 +291,7 @@
                             android:textSize="@dimen/_14sdp"
                             tools:ignore="RtlHardcoded"/>
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -306,7 +307,7 @@
                             android:padding="@dimen/_4sdp"
                             android:text="@string/tv_last_changed_oil"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_12sdp"/>
+                            android:textSize="@dimen/_9sdp"/>
 
 
                         <TextView

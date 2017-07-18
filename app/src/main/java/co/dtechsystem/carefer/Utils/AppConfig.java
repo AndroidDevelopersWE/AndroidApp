@@ -4,8 +4,10 @@ package co.dtechsystem.carefer.Utils;
 public class AppConfig {
 
     //live base
-    public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
-    public static String BaseUrlImages = "http://carefer.dtechsystems.co/public/uploads/";
+    public static String BaseUrl = "https://carefer.co/public/api/";
+    //live image base
+    public static String BaseUrlImages = "https://carefer.co/public/uploads/";
+
     public static String APiCareferPolicy = BaseUrl + "policy-data";
     public static String APiBrandData = BaseUrl + "get-brands-data";
     public static String APiServiceTypeData = BaseUrl + "get-service-types";
@@ -31,10 +33,11 @@ public class AppConfig {
     public static String APiPostShopsListDataByCity = BaseUrl + "city-shops-data";
 
 
+    //    test base
+    //    public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
 
-
-    //test Base
-//    public static String BaseUrl = "http://carefer.dtechsystems.co/en/public/api/";
+    //test image base
+    //    public static String BaseUrlImages = "http://carefer.dtechsystems.co/public/uploads/";
 }
 
 

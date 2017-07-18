@@ -42,7 +42,7 @@ import co.dtechsystem.carefer.Utils.Validations;
 public class FiltersActivity extends BaseActivity {
     ExpandableListView lv_service_type, lv_brands, lv_place_type;
 
-    String ShopsDataResponse;
+    public static  String ShopsDataResponse="";
 
     public ShopsListModel mShopsListModel;
 
@@ -151,7 +151,7 @@ public class FiltersActivity extends BaseActivity {
         sw_provide_replace_parts_filter = (SwitchCompat) findViewById(R.id.sw_provide_replace_parts_filter);
         sw_top_rated_filter = (SwitchCompat) findViewById(R.id.sw_top_rated_filter);
 
-        ShopsDataResponse = intent.getStringExtra("ShopsDataResponse");
+//        ShopsDataResponse = intent.getStringExtra("ShopsDataResponse");
         Bundle bundle = intent.getParcelableExtra("bundle");
         if (bundle != null) {
             mLatlngCurrent = bundle.getParcelable("LatLngCurrent");
@@ -744,8 +744,8 @@ public class FiltersActivity extends BaseActivity {
 //            finish();
             Intent intent = new Intent();
             intent.putStringArrayListExtra("ShopslistAfterFiltration", ShopsIds);
-            intent.putExtra("response", ShopsDataResponse);
-
+            ShopsListActivity.ShopsListDataResponse=ShopsDataResponse;
+//            intent.putExtra("response", ShopsDataResponse);
             intent.putExtra("provide_warranty", provide_warranty);
             intent.putExtra("provide_ReplaceParts", provide_ReplaceParts);
             intent.putExtra("topRated", topRated);

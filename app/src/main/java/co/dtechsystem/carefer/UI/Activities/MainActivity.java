@@ -134,7 +134,8 @@ public class MainActivity extends BaseActivity
                 Intent i = new Intent(this, ShopsListActivity.class);
                 i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
                 i.putExtra("placeName", mPlaceName);
-                i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                ShopsListActivity.ShopsListDataResponse = ShopsListDataResponse;
+//                i.putExtra("ShopsListDataResponse",ShopsListActivity.ShopsListDataResponse);
                 i.putExtra("CityId", CityId);
                 i.putExtra("isLocationAvail", isLocationAvail);
 

@@ -25,6 +25,7 @@ import java.util.List;
 import co.dtechsystem.carefer.Models.FavouriteShopsModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
+import co.dtechsystem.carefer.UI.Activities.ShopsListActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 
@@ -83,10 +84,12 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
                 Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
                 mIntent.putExtra("ShopID", _FavouriteShopsDetails.get(position).getID().toString());
                 mIntent.putExtra("CityId", Utils.readPreferences(activity, "CityId", ""));
-                mIntent.putExtra("ShopsListDataResponse", Utils.readPreferences(activity, "ShopsListDataResponse", ""));
+                ShopsListActivity shopsListActivity = new ShopsListActivity();
+                shopsListActivity.ShopsListDataResponse = Utils.readPreferences(activity, "ShopsListDataResponse", "");
+//                mIntent.putExtra("ShopsListDataResponse", Utils.readPreferences(activity, "ShopsListDataResponse", ""));
                 mIntent.putExtra("citiesNamesIDsResponse", Utils.readPreferences(activity, "citiesNamesIDsResponse", ""));
                 mIntent.putExtra("isLocationAvail", Utils.readPreferences(activity, "isLocationAvail", ""));
-                String ltlng=Utils.readPreferences(activity, "mLatLngCurrent", "");
+                String ltlng = Utils.readPreferences(activity, "mLatLngCurrent", "");
                 String latLngString[] = ltlng.split(",");
                 Bundle args = new Bundle();
                 if (latLngString.length > 0) {

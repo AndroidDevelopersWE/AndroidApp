@@ -179,7 +179,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 //                }
             }
         });
-        if (_ShopslistRecordList.get(position).getShopImage() != null) {
+        if (_ShopslistRecordList.get(position).getShopImage() != null && !_ShopslistRecordList.get(position).getShopImage().equals("null")) {
             holder.pg_image_load.setVisibility(View.VISIBLE);
             //noinspection deprecation
             try {
@@ -203,6 +203,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                         })
                         .into(holder.iv_item_top_shops_list);
             } catch (Exception e) {
+                holder.pg_image_load.setVisibility(View.GONE);
                 e.printStackTrace();
             }
 
@@ -546,7 +547,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
             }
         }
-        if (_ShopslistRecordList.size() == 0) {
+        if (_ShopslistRecordList != null && _ShopslistRecordList.size() == 0) {
 
             Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
         } else {
@@ -840,8 +841,6 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
         }
     }
-
-
 
 
 }

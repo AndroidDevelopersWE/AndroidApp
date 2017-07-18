@@ -285,7 +285,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         i.putExtra("mPermissionsNowGiven", mPermissionsNowGiven);
         if (CityId != null && !CityId.equals("")) {
             i.putExtra("CityId", CityId);
-            i.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+            ShopsListActivity.ShopsListDataResponse = ShopsListDataResponse;
+//            i.putExtra("ShopsListDataResponse", ShopsListActivity.ShopsListDataResponse);
             i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
             i.putExtra("isLocationAvail", isLocationAvail);
             Bundle args = new Bundle();

@@ -79,7 +79,10 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private String ShopsData;
     RecyclerView recyclerView;
     Button btn_back_top_shops_list;
-    String ShopsListDataResponse = "", citiesNamesIDsResponse = "", CityId = "", isLocationAvail = "";
+    public static String ShopsListDataResponse = "";
+    String citiesNamesIDsResponse = "";
+    String CityId = "";
+    String isLocationAvail = "";
     private final List listCities = new ArrayList();
     private final List listCitiesId = new ArrayList();
     int check = 0;
@@ -202,7 +205,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     Intent intent = new Intent(activity, FiltersActivity.class);
                     Bundle args = new Bundle();
                     args.putParcelable("LatLngCurrent", mLatlngCurrent);
-                    intent.putExtra("ShopsDataResponse", ShopsData);
+//                    intent.putExtra("ShopsDataResponse", ShopsData);
+                    FiltersActivity.ShopsDataResponse = ShopsData;
                     if (FilteredData != null && FilteredData.getExtras() != null) {
                         intent.putExtra("provide_warranty", provide_warranty);
                         intent.putExtra("provide_ReplaceParts", provide_ReplaceParts);
@@ -541,7 +545,6 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                         e.printStackTrace();
                                     }
                                 }
-
 
 
                             });
@@ -953,8 +956,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             if (resultCode == RESULT_OK) {
                 FilteredData = data;
                 ArrayList<String> ShopsIds = data.getStringArrayListExtra("ShopslistAfterFiltration");
-                String response = data.getStringExtra("response");
-
+//                String response = data.getStringExtra("response");
+                String response=ShopsListDataResponse;
                 provide_warranty = data.getStringExtra("provide_warranty");
                 provide_ReplaceParts = data.getStringExtra("provide_ReplaceParts");
                 topRated = data.getStringExtra("topRated");
