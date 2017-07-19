@@ -136,107 +136,6 @@
         </android.support.v7.widget.CardView>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            android:weightSum="2"
-            tools:ignore="DisableBaselineAlignment">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_7sdp"
-                android:layout_weight="1"
-                android:background="@drawable/dr_corner_view_straight"
-                android:padding="@dimen/_2sdp"
-                tools:ignore="RtlHardcoded">
-
-                <Spinner
-                    android:id="@+id/sp_brand_type_shop_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-
-                    android:prompt="@string/prompt_service"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_2sdp"
-                android:layout_weight="1"
-                android:background="@drawable/dr_corner_view_straight"
-                android:padding="@dimen/_2sdp"
-                tools:ignore="RtlHardcoded">
-
-                <Spinner
-                    android:id="@+id/sp_service_type_shops_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:prompt="@string/prompt_service"/>
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:orientation="horizontal"
-            android:visibility="gone"
-            android:weightSum="2"
-            tools:ignore="DisableBaselineAlignment">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_7sdp"
-                android:layout_weight="1"
-                android:background="@drawable/dr_corner_view_straight"
-                android:padding="@dimen/_2sdp"
-                tools:ignore="RtlHardcoded">
-
-                <co.dtechsystem.carefer.Widget.MultiSpinner
-                    android:id="@+id/sp_providers_shop_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:visibility="visible"/>
-
-                <TextView
-
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:backgroundTint="@android:color/black"
-                    android:drawableLeft="@android:drawable/arrow_down_float"
-                    android:padding="@dimen/_5sdp"
-                    tools:ignore="RtlHardcoded,UnusedAttribute"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_2sdp"
-                android:layout_weight="1"
-                android:background="@drawable/dr_corner_view_straight"
-                android:padding="@dimen/_2sdp"
-                tools:ignore="RtlHardcoded">
-
-                <Spinner
-                    android:id="@+id/sp_cities_shops_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:prompt="@string/prompt_service"
-                    android:visibility="visible"/>
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -442,18 +341,26 @@
                 <android.support.v4.widget.SwipeRefreshLayout
                     android:id="@+id/lay_pull_refresh_shops_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
-
+                        <ListView
+                            android:id="@+id/list"
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:divider="@null"
+                            android:visibility="visible"
+                            >
+                        </ListView>
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_shop_list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
+                            android:visibility="gone"
                             android:background="@android:color/white"/>
 
                         <Button

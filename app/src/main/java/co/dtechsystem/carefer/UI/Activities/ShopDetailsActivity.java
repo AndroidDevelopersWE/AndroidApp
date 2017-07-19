@@ -222,7 +222,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                     i.putExtra("placeName", mplaceName);
                     i.putExtra("bundle", args);
                 }
-                if (mShopsDetailsModel.getShopsDetail().get(0).getShopImage() != null) {
+                if (mShopsDetailsModel.getShopsDetail().get(0).getShopImage() != null&&!mShopsDetailsModel.getShopsDetail().get(0).getShopImage() .equals("null")) {
                     final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/thumbnails/";
                     i.putExtra("shopImage", Url + mShopsDetailsModel.getShopsDetail().get(0).getShopImage());
                 } else {

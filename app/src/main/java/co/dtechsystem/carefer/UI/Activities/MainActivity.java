@@ -505,7 +505,7 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Log.d("Response", response);
+//                        Log.d("Response", response);
                         try {
 
                             // display response

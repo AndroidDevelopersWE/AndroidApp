@@ -176,7 +176,10 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                             loading.close();
                             e.printStackTrace();
                         }
-                        loading.close();
+                        if (loading != null) {
+                            loading.close();
+                        }
+
                     }
                 },
                 new Response.ErrorListener() {
