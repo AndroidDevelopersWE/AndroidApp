@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     String isLocationAvail;
     int selectedPosition = -2;
     ArrayList<Integer> totalIds = new ArrayList();
+    int coun;
 
+    //    work on its main thread
     @SuppressWarnings({"unused", "Convert2Diamond"})
     public ShopsListRecycleViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList,
                                        LatLng mLatlngCurrent, Button btn_back_top_shops_list, String isLocationAvail) {
@@ -72,6 +75,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         this.btn_back_top_shops_list = btn_back_top_shops_list;
         this.isLocationAvail = isLocationAvail;
         setHasStableIds(true);
+
 //        totalIds.clear();
 //        for (int i = 0; i < _ShopslistRecordList.size(); i++) {
 //            totalIds.add(Integer.valueOf(_ShopslistRecordList.get(i).getID()));
@@ -82,10 +86,13 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     @Override
     public ShopsListRecycleViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                                      int viewType) {
+
         // create a new view
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_shops, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ShopsListRecycleViewAdapter.ViewHolder vh = new ShopsListRecycleViewAdapter.ViewHolder(v);
+//        ViewHolder vh=new ViewHolder(v);
+        v.setTag(vh);
         return vh;
     }
 
@@ -97,6 +104,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 //        List<String> serviceType = Arrays.asList(_ShopslistRecordList.get(position).getServiceType().split(","));
 //        String serviceType = _ShopslistRecordList.get(position).getServiceType().replaceAll(",", " \u2022");
 //        setAnimation(holder.itemView, position);
+
         String stringTypeArr[] = _ShopslistRecordList.get(position).getServiceType().split(",");
         if (stringTypeArr != null) {
             holder.tv_service_type_shop_list.setText(stringTypeArr[0]);
@@ -269,6 +277,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             holder.tv_distance_details.setText("0 km");
             e.printStackTrace();
         }
+
     }
 
 
@@ -302,6 +311,8 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         public ViewHolder(View v) {
 
             super(v);
+            coun++;
+            Log.d("ViewCall:Call ", String.valueOf(coun));
             tv_shop_name_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_shop_list);
             tv_service_type_shop_list = (TextView) v.findViewById(R.id.tv_service_type_shop_list);
             tv_desc_shop_list = (TextView) v.findViewById(R.id.tv_desc_shop_list);
@@ -326,6 +337,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             tv_distance_details = (TextView) v.findViewById(R.id.tv_distance_details);
 
         }
+
 
     }
 

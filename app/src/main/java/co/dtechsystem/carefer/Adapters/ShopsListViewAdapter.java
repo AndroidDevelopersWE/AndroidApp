@@ -55,34 +55,11 @@ public class ShopsListViewAdapter extends BaseAdapter {
     Button btn_back_top_shops_list;
     String isLocationAvail;
     int selectedPosition = -2;
+    int currentShopId;
+    boolean stateMaintain = false;
     ArrayList<Integer> totalIds = new ArrayList();
     private static LayoutInflater inflater = null;
 
-    public  TextView tv_shop_name_shop_list;
-    public  TextView tv_service_type_shop_list;
-    public  TextView tv_desc_shop_list;
-    public  TextView tv_desc_short_shop_list;
-
-    public  TextView tv_shop_name_large_shop_list;
-    public  TextView tv_distance_item;
-    public  TextView tv_distance_details;
-    public  RatingBar rb_shop_shop_list;
-    public  RatingBar rb_shop_large__shop_list;
-     LinearLayout lay_shop_item;
-    @SuppressWarnings("unused")
-     LinearLayout lay_shops_names;
-     LinearLayout lay_details;
-     LinearLayout lay_expand;
-     LinearLayout lay_collpase;
-    @SuppressWarnings("unused")
-     ImageView iv_fav_shop_list;
-     ImageView iv_drop_shop_details;
-     SelectableRoundedImageView iv_item_top_shops_list;
-     ImageView iv_drop_details_shop_details;
-     ImageView iv_shop_detail_large_expand;
-     Button btn_details_shops_list;
-    public  ProgressBar pg_image_load;
-    public  ProgressBar pg_image_load_large_shops;
 
     public ShopsListViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList,
                                 LatLng mLatlngCurrent, Button btn_back_top_shops_list, String isLocationAvail) {
@@ -111,51 +88,90 @@ public class ShopsListViewAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return Long.parseLong(_ShopslistRecordList.get(position).getID());
     }
-    public void setViews(View v) {
-        tv_shop_name_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_shop_list);
-        tv_service_type_shop_list = (TextView) v.findViewById(R.id.tv_service_type_shop_list);
-        tv_desc_shop_list = (TextView) v.findViewById(R.id.tv_desc_shop_list);
-        tv_desc_short_shop_list = (TextView) v.findViewById(R.id.tv_desc_short_shop_list);
-        rb_shop_shop_list = (RatingBar) v.findViewById(R.id.rb_shop_shop_list);
-        rb_shop_large__shop_list = (RatingBar) v.findViewById(R.id.rb_shop_large__shop_list);
-        lay_shop_item = (LinearLayout) v.findViewById(R.id.lay_shop_item);
-        iv_fav_shop_list = (ImageView) v.findViewById(R.id.iv_fav_shop_list);
-        lay_shops_names = (LinearLayout) v.findViewById(R.id.lay_shops_names);
-        lay_details = (LinearLayout) v.findViewById(R.id.lay_details);
-        lay_expand = (LinearLayout) v.findViewById(R.id.lay_expand);
-        lay_collpase = (LinearLayout) v.findViewById(R.id.lay_collapse);
-        btn_details_shops_list = (Button) v.findViewById(R.id.btn_details_shops_list);
-        iv_drop_shop_details = (ImageView) v.findViewById(R.id.iv_drop_shop_details);
-        iv_drop_details_shop_details = (ImageView) v.findViewById(R.id.iv_drop_details_shop_details);
-        iv_shop_detail_large_expand = (ImageView) v.findViewById(R.id.iv_shop_detail_large_expand);
-        iv_item_top_shops_list = (SelectableRoundedImageView) v.findViewById(R.id.iv_item_top_shops_list);
-        pg_image_load = (ProgressBar) v.findViewById(R.id.pg_image_load);
-        pg_image_load_large_shops = (ProgressBar) v.findViewById(R.id.pg_image_load_large_shops);
-        tv_shop_name_large_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_large_shop_list);
-        tv_distance_item = (TextView) v.findViewById(R.id.tv_distance_item);
-        tv_distance_details = (TextView) v.findViewById(R.id.tv_distance_details);
+
+    public void setViews(View v, ViewHolder viewHolder) {
+        viewHolder.tv_shop_name_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_shop_list);
+        viewHolder.tv_service_type_shop_list = (TextView) v.findViewById(R.id.tv_service_type_shop_list);
+        viewHolder.tv_desc_shop_list = (TextView) v.findViewById(R.id.tv_desc_shop_list);
+        viewHolder.tv_desc_short_shop_list = (TextView) v.findViewById(R.id.tv_desc_short_shop_list);
+        viewHolder.rb_shop_shop_list = (RatingBar) v.findViewById(R.id.rb_shop_shop_list);
+        viewHolder.rb_shop_large__shop_list = (RatingBar) v.findViewById(R.id.rb_shop_large__shop_list);
+        viewHolder.lay_shop_item = (LinearLayout) v.findViewById(R.id.lay_shop_item);
+        viewHolder.iv_fav_shop_list = (ImageView) v.findViewById(R.id.iv_fav_shop_list);
+        viewHolder.lay_shops_names = (LinearLayout) v.findViewById(R.id.lay_shops_names);
+        viewHolder.lay_details = (LinearLayout) v.findViewById(R.id.lay_details);
+        viewHolder.lay_expand = (LinearLayout) v.findViewById(R.id.lay_expand);
+        viewHolder.lay_collpase = (LinearLayout) v.findViewById(R.id.lay_collapse);
+        viewHolder.btn_details_shops_list = (Button) v.findViewById(R.id.btn_details_shops_list);
+        viewHolder.iv_drop_shop_details = (ImageView) v.findViewById(R.id.iv_drop_shop_details);
+        viewHolder.iv_drop_details_shop_details = (ImageView) v.findViewById(R.id.iv_drop_details_shop_details);
+        viewHolder.iv_shop_detail_large_expand = (ImageView) v.findViewById(R.id.iv_shop_detail_large_expand);
+        viewHolder.iv_item_top_shops_list = (SelectableRoundedImageView) v.findViewById(R.id.iv_item_top_shops_list);
+        viewHolder.pg_image_load = (ProgressBar) v.findViewById(R.id.pg_image_load);
+        viewHolder.pg_image_load_large_shops = (ProgressBar) v.findViewById(R.id.pg_image_load_large_shops);
+        viewHolder.tv_shop_name_large_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_large_shop_list);
+        viewHolder.tv_distance_item = (TextView) v.findViewById(R.id.tv_distance_item);
+        viewHolder.tv_distance_details = (TextView) v.findViewById(R.id.tv_distance_details);
     }
+
+    public class ViewHolder {
+        public TextView tv_shop_name_shop_list;
+        public TextView tv_service_type_shop_list;
+        public TextView tv_desc_shop_list;
+        public TextView tv_desc_short_shop_list;
+
+        public TextView tv_shop_name_large_shop_list;
+        public TextView tv_distance_item;
+        public TextView tv_distance_details;
+        public RatingBar rb_shop_shop_list;
+        public RatingBar rb_shop_large__shop_list;
+        LinearLayout lay_shop_item;
+        @SuppressWarnings("unused")
+        LinearLayout lay_shops_names;
+        LinearLayout lay_details;
+        LinearLayout lay_expand;
+        LinearLayout lay_collpase;
+        @SuppressWarnings("unused")
+        ImageView iv_fav_shop_list;
+        ImageView iv_drop_shop_details;
+        SelectableRoundedImageView iv_item_top_shops_list;
+        ImageView iv_drop_details_shop_details;
+        ImageView iv_shop_detail_large_expand;
+        Button btn_details_shops_list;
+        public ProgressBar pg_image_load;
+        public ProgressBar pg_image_load_large_shops;
+
+    }
+
+    ViewHolder viewHolder = null;
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
-        if (convertView == null)
+        viewHolder=new ViewHolder();
+        if (convertView == null) {
             vi = inflater.inflate(R.layout.list_item_shops, null);
-        setViews(vi);
+            setViews(vi, viewHolder);
+            vi.setTag(viewHolder);
+        } else {
+
+            viewHolder = (ViewHolder) convertView.getTag();
+
+        }
         String stringTypeArr[] = _ShopslistRecordList.get(position).getServiceType().split(",");
         if (stringTypeArr != null) {
-            tv_service_type_shop_list.setText(stringTypeArr[0]);
+            viewHolder.tv_service_type_shop_list.setText(stringTypeArr[0]);
         }
         if (position > 10) {
             btn_back_top_shops_list.setVisibility(View.VISIBLE);
         } else {
             btn_back_top_shops_list.setVisibility(View.GONE);
         }
-        tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
-        rb_shop_shop_list.setRating((Float.parseFloat(_ShopslistRecordList.get(position).getShopRating())));
-        tv_desc_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
-        tv_desc_short_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
-        tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
-        btn_details_shops_list.setOnClickListener(new View.OnClickListener() {
+        viewHolder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
+        viewHolder.rb_shop_shop_list.setRating((Float.parseFloat(_ShopslistRecordList.get(position).getShopRating())));
+        viewHolder.tv_desc_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
+        viewHolder.tv_desc_short_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
+        viewHolder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
+        viewHolder.btn_details_shops_list.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("RedundantStringToString")
             @Override
             public void onClick(View v) {
@@ -165,37 +181,44 @@ public class ShopsListViewAdapter extends BaseAdapter {
             }
         });
 
-        iv_item_top_shops_list.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        iv_item_top_shops_list.setCornerRadiiDP(5, 5, 5, 5);
-        iv_item_top_shops_list.setBorderWidthDP(0);
-        iv_item_top_shops_list.setOval(false);
-        lay_details.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        viewHolder.iv_item_top_shops_list.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        viewHolder.iv_item_top_shops_list.setCornerRadiiDP(5, 5, 5, 5);
+        viewHolder.iv_item_top_shops_list.setBorderWidthDP(0);
+        viewHolder.iv_item_top_shops_list.setOval(false);
+        viewHolder.lay_details.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
         //noinspection UnusedAssignment
-         int height = lay_details.getMeasuredHeight();
-        if (selectedPosition == position) {
+        int height = viewHolder.lay_details.getMeasuredHeight();
+        if (currentShopId == Integer.parseInt(_ShopslistRecordList.get(position).getID())) {
 
-            if (lay_details.getVisibility() != View.VISIBLE && expand == false) {
-                lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_orange_three_color, null));
+            if (viewHolder.lay_details.getVisibility() != View.VISIBLE && expand == false) {
+                viewHolder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_orange_three_color, null));
                 int i = (int) activity.getResources().getDimension(R.dimen._80sdp);
-                expand(lay_details, 500, i);
+                expand(viewHolder.lay_details, 500, i);
                 expand = true;
 
             } else {
-                lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_grey, null));
-                collapse(lay_details);
-
+                if (stateMaintain == true) {
+                    viewHolder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_grey, null));
+                    collapse(viewHolder.lay_details);
+                    expand = false;
+                    stateMaintain = false;
+                }
 
             }
         } else {
-            lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_grey, null));
-            collapse(lay_details);
+            viewHolder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_grey, null));
+            collapse(viewHolder.lay_details);
 //            expand = false;
 
         }
-        lay_shop_item.setOnClickListener(new View.OnClickListener() {
+        viewHolder.lay_shop_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectedPosition = position;
+                if (stateMaintain == false) {
+                    stateMaintain = true;
+                }
+                currentShopId = Integer.parseInt(_ShopslistRecordList.get(position).getID());
                 notifyDataSetChanged();
 
 //
@@ -205,6 +228,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
 //            pg_image_load.setVisibility(View.VISIBLE);
             //noinspection deprecation
             try {
+                viewHolder.pg_image_load.setVisibility(View.VISIBLE);
                 Glide.with(activity).load(AppConfig.BaseUrlImages + "shop-" + _ShopslistRecordList.get(position).getID() + "/thumbnails/" + _ShopslistRecordList.get(position)
                         .getShopImage())
                         .override((int) activity.getResources().getDimension(R.dimen._120sdp), (int) activity.getResources().getDimension(R.dimen._120sdp))
@@ -213,19 +237,23 @@ public class ShopsListViewAdapter extends BaseAdapter {
                         .listener(new RequestListener<String, GlideDrawable>() {
                             @Override
                             public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                                pg_image_load.setVisibility(View.GONE);
+                                viewHolder.pg_image_load.setVisibility(View.GONE);
+                                notifyDataSetChanged();
                                 return false;
                             }
 
                             @Override
                             public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                pg_image_load.setVisibility(View.GONE);
+                                viewHolder.pg_image_load.setVisibility(View.GONE);
+                                notifyDataSetChanged();
                                 return false;
                             }
                         })
-                        .into(iv_item_top_shops_list);
+                        .into(viewHolder.iv_item_top_shops_list);
+//                    notifyDataSetChanged();
             } catch (Exception e) {
-                pg_image_load.setVisibility(View.GONE);
+                viewHolder.pg_image_load.setVisibility(View.GONE);
+                notifyDataSetChanged();
                 e.printStackTrace();
             }
 
@@ -248,21 +276,24 @@ public class ShopsListViewAdapter extends BaseAdapter {
 //                    DecimalFormat newFormat = new DecimalFormat("#####");
 //                    double kmInDec = Float.valueOf(newFormat.format(distanceInMeters));
                     distanceInMeters = Math.round(distanceInMeters * 10) / 10.0d;
-                    tv_distance_item.setText(distanceInMeters + " km");
-                    tv_distance_details.setText(distanceInMeters + " km");
+                    viewHolder.tv_distance_item.setText(distanceInMeters + " km");
+                    viewHolder.tv_distance_details.setText(distanceInMeters + " km");
                 }
             } else {
-                tv_distance_item.setText("-- km");
+                viewHolder.tv_distance_item.setText("-- km");
             }
         } catch (Exception e) {
-            tv_distance_item.setText("0 km");
-            tv_distance_details.setText("0 km");
+            viewHolder.tv_distance_item.setText("0 km");
+            viewHolder.tv_distance_details.setText("0 km");
             e.printStackTrace();
         }
+
+
         return vi;
     }
+
     private static void expand(final View v, int duration, int targetHeight
-                               ) {
+    ) {
 
         int prevHeight = v.getHeight();
 
@@ -287,6 +318,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
         valueAnimator.start();
 
     }
+
     private static void collapse(final View v) {
         final int initialHeight = v.getMeasuredHeight();
 
@@ -329,6 +361,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
         a.setDuration(500);
         v.startAnimation(a);
     }
+
     public static void filterShopsName(String Text, final LatLng mLatlngCurrent) {
         Text = Text.toLowerCase(Locale.getDefault());
         if (_ShopslistRecordList != null) {
@@ -379,6 +412,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
             }
         }
     }
+
     public static void SortFilterDistanceDefault() {
         if (mLatlngCurrent != null) {
             Comparator<ShopsListModel.ShopslistRecord> byFirstElement = new Comparator<ShopsListModel.ShopslistRecord>() {
@@ -410,6 +444,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
             Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
         }
     }
+
     //sorting Function
     public static void SortingShopsWithNameRatingCity(final String SortingType, final String sortOrderType, final LatLng mLatlngCurrent, String cityName) {
         if (_ShopslistRecordList != null) {
@@ -563,6 +598,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
         }
 
     }
+
     // Filter Class
     @SuppressWarnings("unused")
     public static void filterShops(String Type, String Both, String service, String Brand) {

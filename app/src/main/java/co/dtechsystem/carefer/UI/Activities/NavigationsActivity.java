@@ -43,6 +43,7 @@ import java.util.List;
 
 import co.dtechsystem.carefer.Google.DirectionsJSONParser;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.SplashActivity;
 import co.dtechsystem.carefer.Utils.Utils;
 
 public class NavigationsActivity extends BaseActivity
@@ -97,12 +98,12 @@ public class NavigationsActivity extends BaseActivity
     }
 
     public void GotoShopsList(View v) {
-//        if (mPermissionsNowGiven != null && mPermissionsNowGiven.equals("true")) {
-//            intent= new Intent(activity, MainActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivityForResult(intent, 1);
-//            finish();
-//        } else {
+        if (mPermissionsNowGiven != null && mPermissionsNowGiven.equals("true")) {
+            intent= new Intent(activity, SplashActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finishAffinity();
+        } else {
             intent = new Intent(activity, ShopsListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.putExtra("callType", "Navigation");
@@ -118,7 +119,7 @@ public class NavigationsActivity extends BaseActivity
             }
             startActivity(intent);
             finish();
-//        }
+        }
     }
 
     private void SetUpLeftbar() {
@@ -422,12 +423,12 @@ public class NavigationsActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.END)) {
             drawer.closeDrawer(GravityCompat.END);
         } else {
-//            if (mPermissionsNowGiven != null && mPermissionsNowGiven.equals("true")) {
-//                intent= new Intent(activity, MainActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivityForResult(intent, 1);
-//                finish();
-//            } else {
+            if (mPermissionsNowGiven != null && mPermissionsNowGiven.equals("true")) {
+                intent= new Intent(activity, SplashActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finishAffinity();
+            } else {
                 intent = new Intent(activity, ShopsListActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("callType", "Navigation");
@@ -443,7 +444,7 @@ public class NavigationsActivity extends BaseActivity
                 }
                 startActivity(intent);
                 finish();
-//            }
+            }
             super.onBackPressed();
         }
     }

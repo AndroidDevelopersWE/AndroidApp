@@ -65,7 +65,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     private ShopsImagesPagerAdapter mShopsImagesPagerAdapter;
     private ViewPager mViewPager;
     @SuppressWarnings("unused")
-    private String responsePublic, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
+    public static String responsePublic, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
     private TextView tv_title_shop_details;
     private LatLng mLatlngCurrent;
 

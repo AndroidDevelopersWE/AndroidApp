@@ -285,6 +285,7 @@ public class MainActivity extends BaseActivity
                     public void onResponse(JSONObject response) {
                         // display response
                         try {
+                            String mPlaceName1 = "";
 //                            if (location.getLatitude() != 24.586867) {
 //                                isLocationAvail = "Yes";
 //                                mNewLocation = location;
@@ -296,13 +297,13 @@ public class MainActivity extends BaseActivity
                             JSONArray jsonArray = response.getJSONArray("citiesList");
                             List<Address> addresses = null;
                             try {
+
                                 Geocoder geocoder = new Geocoder(activity, locale);
                                 addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                                 if (addresses != null && addresses.size() > 0) {
-                                    mPlaceName = addresses.get(0).getLocality();
-                                    Utils.savePreferences(activity, "mPlaceName", mPlaceName);
+                                    mPlaceName1 = addresses.get(0).getLocality();
                                 } else {
-                                    mPlaceName = "الرياض";
+                                    mPlaceName1 = "الرياض";
                                     Utils.savePreferences(activity, "mPlaceName", "الرياض");
                                 }
 
@@ -315,14 +316,16 @@ public class MainActivity extends BaseActivity
                                     JSONObject jsonObjectCities = jsonArray.getJSONObject(i);
                                     String cityName = jsonObjectCities.getString("name");
 
-                                    if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+                                    if (mPlaceName1 != null && mPlaceName1.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                         CityId = jsonObjectCities.getString("ID");
                                         Utils.savePreferences(activity, "CityId", CityId);
+                                        Utils.savePreferences(activity, "mPlaceName", mPlaceName1);
+                                        mPlaceName = mPlaceName1;
                                         break;
-                                    } else if (!isProbablyArabic(mPlaceName)) {
+                                    } else if (!isProbablyArabic(mPlaceName1)) {
                                         Utils.savePreferences(activity, "mPlaceName", "الرياض");
                                         mPlaceName = "الرياض";
-                                        if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+                                        if (mPlaceName1 != null && mPlaceName1.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
                                             CityId = jsonObjectCities.getString("ID");
                                             Utils.savePreferences(activity, "CityId", CityId);
                                             break;
@@ -347,7 +350,22 @@ public class MainActivity extends BaseActivity
 //
 //                                }
                                 }
+                                if (mPlaceName.equals("") && CityId.equals("")) {
+                                    mPlaceName = "الرياض";
+                                    for (int k = 0; k < jsonArray.length(); k++) {
+                                        JSONObject jsonObjectCities = jsonArray.getJSONObject(k);
+                                        String cityName = jsonObjectCities.getString("name");
+                                        if (mPlaceName != null && mPlaceName.toLowerCase(locale).contains(cityName.toLowerCase(locale))) {
+                                            mPlaceName = cityName;
+                                            CityId = jsonObjectCities.getString("ID");
+                                            Utils.savePreferences(activity, "CityId", CityId);
+                                            Utils.savePreferences(activity, "mPlaceName", mPlaceName);
+                                            break;
 
+                                        }
+                                    }
+
+                                }
                                 if (CityId != null && !CityId.equals("")) {
                                     APiGetShopslistData(AppConfig.APiPostShopsListDataByCity, location, CityId);
                                 } else {
@@ -691,7 +709,8 @@ public class MainActivity extends BaseActivity
                             Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
                             mIntent.putExtra("ShopID", finalId);
                             mIntent.putExtra("CityId", CityId);
-                            mIntent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
+                            ShopDetailsActivity.ShopsListDataResponse=ShopsListDataResponse;
+//                            mIntent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
                             mIntent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
                             mIntent.putExtra("isLocationAvail", isLocationAvail);
                             Bundle args = new Bundle();
