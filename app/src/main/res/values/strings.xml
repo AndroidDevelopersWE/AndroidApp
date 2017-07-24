@@ -198,6 +198,7 @@
     <string name="tv_lower">Lower</string>
     <string name="tv_not_enough_reviews">This Shop Does not have enough reviews</string>
     <string name="tv_read_full_des">Read Full Description</string>
+    <string name="tv_read_less_des">Read Less Description</string>
     <string name="dialog_need_your_permission">Need Your location permissions for this action</string>
 
 </resources>

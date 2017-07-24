@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -222,7 +221,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                     i.putExtra("placeName", mplaceName);
                     i.putExtra("bundle", args);
                 }
-                if (mShopsDetailsModel.getShopsDetail().get(0).getShopImage() != null&&!mShopsDetailsModel.getShopsDetail().get(0).getShopImage() .equals("null")) {
+                if (mShopsDetailsModel.getShopsDetail().get(0).getShopImage() != null && !mShopsDetailsModel.getShopsDetail().get(0).getShopImage().equals("null")) {
                     final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/thumbnails/";
                     i.putExtra("shopImage", Url + mShopsDetailsModel.getShopsDetail().get(0).getShopImage());
                 } else {
@@ -367,22 +366,23 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
         aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
         aQuery.id(R.id.tv_shop_des_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
+//        aQuery.id(R.id.tv_shop_des_shop_details).text(getResources().getString(R.string.lorem_ispum));
         TextView tv_shop_des_shop_details = (TextView) findViewById(R.id.tv_shop_des_shop_details);
-        if (tv_shop_des_shop_details.getLayout() != null && tv_shop_des_shop_details.getLayout().getLineCount() > 4) {
-//            makeTextViewResizable(tv_shop_des_shop_details, 4, "View More", true);
-            aQuery.id(R.id.tv_shop_des_view_more_shop_details).getTextView().setVisibility(View.VISIBLE);
+        if (tv_shop_des_shop_details.getLayout() != null && tv_shop_des_shop_details.getLayout().getLineCount() >= 4) {
+            makeTextViewResizable(tv_shop_des_shop_details, 4, getResources().getString(R.string.tv_read_full_des), true);
+//            aQuery.id(R.id.tv_shop_des_view_more_shop_details).getTextView().setVisibility(View.VISIBLE);
 
         } else {
             aQuery.id(R.id.tv_shop_des_view_more_shop_details).getTextView().setVisibility(View.GONE);
 
         }
-        aQuery.id(R.id.tv_shop_des_shop_details).getTextView().setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                aQuery.id(R.id.tv_shop_des_shop_details).getTextView().getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
+//        aQuery.id(R.id.tv_shop_des_shop_details).getTextView().setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                aQuery.id(R.id.tv_shop_des_shop_details).getTextView().getParent().requestDisallowInterceptTouchEvent(true);
+//                return false;
+//            }
+//        });
         if (mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand() != null && !mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand().equals("")) {
             aQuery.id(R.id.tv_specialised_Brand_shop).text(mShopsDetailsModel.getShopsDetail().get(0).getSpecialisedBrand());
             lay_specialised_Brand_shop.setVisibility(View.VISIBLE);
@@ -390,9 +390,9 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         } else {
             lay_specialised_Brand_shop.setVisibility(View.GONE);
         }
-        if (mShopsDetailsModel.getShopsDetail().get(0).getServiceType() != null) {
+        if (mShopsDetailsModel.getShopsDetail().get(0).getBrands() != null) {
 //            String[] serviceArray = mShopsDetailsModel.getShopsDetail().get(0).getServiceType().split(",");
-            aQuery.id(R.id.tv_services_shops).text(mShopsDetailsModel.getShopsDetail().get(0).getServiceType());
+            aQuery.id(R.id.tv_brands_shops).text(mShopsDetailsModel.getShopsDetail().get(0).getBrands());
 
         }
         if (mShopsDetailsModel.getShopsDetail().get(0).getNationality() != null) {
@@ -484,7 +484,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 //
 //
 //    }
-    public static void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
+    public  void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
 
         if (tv.getTag() == null) {
             tv.setTag(tv.getText());
@@ -528,7 +528,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     }
 
-    private static SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
+    public  SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
                                                                             final int maxLine, final String spanableText, final boolean viewMore) {
         String str = strSpanned.toString();
         SpannableStringBuilder ssb = new SpannableStringBuilder(strSpanned);
@@ -543,12 +543,12 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                         tv.setLayoutParams(tv.getLayoutParams());
                         tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
                         tv.invalidate();
-                        makeTextViewResizable(tv, -1, "View Less", false);
+                        makeTextViewResizable(tv, -1, getResources().getString(R.string.tv_read_less_des), false);
                     } else {
                         tv.setLayoutParams(tv.getLayoutParams());
                         tv.setText(tv.getTag().toString(), TextView.BufferType.SPANNABLE);
                         tv.invalidate();
-                        makeTextViewResizable(tv, 3, "View More", true);
+                        makeTextViewResizable(tv, 4, getResources().getString(R.string.tv_read_full_des), true);
                     }
 
                 }

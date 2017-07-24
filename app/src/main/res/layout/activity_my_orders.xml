@@ -133,7 +133,6 @@
                     tools:ignore="InefficientWeight,NestedWeights" />
 
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_15sdp"

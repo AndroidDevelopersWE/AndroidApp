@@ -62,6 +62,7 @@ public class FavouriteShopsRecycleViewAdapter extends RecyclerView.Adapter<Favou
                     .getShopImage())
                     .override((int) activity.getResources().getDimension(R.dimen._100sdp), (int) activity.getResources().getDimension(R.dimen._100sdp))
 //                    .placeholder(android.R.drawable.progress_indeterminate_horizontal)
+                    .error(R.drawable.ic_img_place_holder)
                     .listener(new RequestListener<String, GlideDrawable>() {
                         @Override
                         public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {

@@ -15,26 +15,31 @@
         android:clickable="false"
         android:duplicateParentState="false"
         android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
         tools:ignore="UselessParent">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:duplicateParentState="false">
+            android:duplicateParentState="false"
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                                                           android:id="@+id/iv_shop_fav"
-                                                          android:layout_width="@dimen/_25sdp"
-                                                          android:layout_height="@dimen/_25sdp"
+                                                          android:layout_width="@dimen/_35sdp"
+                                                          android:layout_height="@dimen/_35sdp"
                                                           android:layout_gravity="center"
                                                           android:layout_margin="@dimen/_5sdp"
+                                                          android:src="@drawable/ic_img_place_holder"
                                                           app:civ_border_color="@android:color/transparent"
                                                           app:civ_border_width="0dp"/>
 
             <ProgressBar
                 android:id="@+id/pg_image_load"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:visibility="visible"/>
@@ -53,6 +58,7 @@
             android:clickable="false"
             android:duplicateParentState="false"
             android:gravity="right"
+            android:layout_marginTop="@dimen/_2sdp"
             android:padding="@dimen/_5sdp"
             android:singleLine="true"
             android:text="@string/dummy_text_list_item"

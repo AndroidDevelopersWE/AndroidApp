@@ -27,6 +27,7 @@ import co.dtechsystem.carefer.Utils.Utils;
 public class SplashActivity extends BaseActivity {
     Locale locale;
     String Language;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,5 +184,4 @@ public class SplashActivity extends BaseActivity {
         System.out.println(sb);
     }
 
-
-}
+   }

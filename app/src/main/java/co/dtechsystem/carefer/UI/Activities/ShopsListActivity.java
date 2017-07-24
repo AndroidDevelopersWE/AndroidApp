@@ -75,7 +75,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private String ShopsData;
     RecyclerView recyclerView;
     Button btn_back_top_shops_list;
-   public static String ShopsListDataResponse = "", citiesNamesIDsResponse = "", CityId = "", isLocationAvail = "";
+    public static String ShopsListDataResponse = "", citiesNamesIDsResponse = "", CityId = "", isLocationAvail = "";
     private final List listCities = new ArrayList();
     private final List listCitiesId = new ArrayList();
     int check = 0;
@@ -88,6 +88,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     String callType = "";
     boolean locationSettings = false;
     LinearLayoutManager mLinearLayoutManager;
+
     @SuppressWarnings("deprecation")
     @Override
 
@@ -98,7 +99,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         recyclerView.setItemViewCacheSize(15);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
-         mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLinearLayoutManager);
         btn_back_top_shops_list = (Button) findViewById(R.id.btn_back_top_shops_list);
         //noinspection UnusedAssignment
@@ -239,7 +240,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     aQuery.find(R.id.iv_search_close_shops_list).visibility(View.GONE);
                     aQuery.find(R.id.iv_search_shops_list).visibility(View.VISIBLE);
                 }
-                ShopsListRecycleViewAdapter.filterShopsName(s.toString(), mLatlngCurrent);
+                if (s.length() > 0) {
+                    ShopsListRecycleViewAdapter.filterShopsName(s.toString(), mLatlngCurrent);
+                }
                 if (mshopsListRecycleViewAdapter != null) {
                     mshopsListRecycleViewAdapter.notifyDataSetChanged();
                     tv_total_results_shops_list.setText(getResources().getString(R.string.tv_total_results) + " " + mshopsListRecycleViewAdapter.getItemCount());
@@ -371,7 +374,6 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                                         e.printStackTrace();
                                     }
                                 }
-
 
 
                             });
