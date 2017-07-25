@@ -45,6 +45,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
     private TextView chronometer_sms;
     private boolean mAutoReceivedCode = false;
     CountDownTimer mCountDownTimer;
+    String mCustomerMobile = null;
 
     @Override
 
@@ -60,7 +61,13 @@ public class MobileNumVerifyActivity extends BaseActivity {
         chronometer_sms = (TextView) findViewById(R.id.chronometer_sms);
         SetFocusForEdit();
         setdataToViews();
+        getData();
+    }
 
+    public void getData() {
+        if (intent.getExtras() != null) {
+            mCustomerMobile = intent.getStringExtra("customerMobile");
+        }
     }
 
     public void setdataToViews() {
@@ -108,7 +115,8 @@ public class MobileNumVerifyActivity extends BaseActivity {
                 String VerificationCode = et_1_verify.getText().toString() + et_2_verify.getText().toString() +
                         et_3_verify.getText().toString() + et_4_verify.getText().toString();
                 loading.show();
-                APiVarifyCustomer(sUser_ID, VerificationCode,sRegId);
+                APiVarifyCustomer(sUser_ID, VerificationCode, sRegId,mCustomerMobile);
+
             } else {
                 showToast(getResources().getString(R.string.toast_fill_all_fields));
             }
@@ -215,12 +223,20 @@ public class MobileNumVerifyActivity extends BaseActivity {
         Button btn_re_enter_mobile = (Button) dialog.findViewById(R.id.btn_re_enter_mobile);
         Button btn_cancel_mobile = (Button) dialog.findViewById(R.id.btn_cancel_mobile);
         // if button is clicked, close the custom dialog
-
+        if (mCustomerMobile != null && !mCustomerMobile.equals("")) {
+            btn_re_enter_mobile.setVisibility(View.GONE);
+        } else {
+            btn_re_enter_mobile.setVisibility(View.VISIBLE);
+        }
         btn_resend_code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loading.show();
-                APiCreateUserPhone(sUser_Mobile);
+                if (mCustomerMobile != null && !mCustomerMobile.equals("")) {
+                    APiCreateUserPhone(mCustomerMobile);
+                } else {
+                    APiCreateUserPhone(sUser_Mobile);
+                }
                 dialog.dismiss();
                 StartTimer(120000);
             }
@@ -274,7 +290,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
                                 chronometer_sms.setVisibility(View.GONE);
                                 mAutoReceivedCode = true;
                                 loading.show();
-                                APiVarifyCustomer(sUser_ID, pin, sRegId);
+                                APiVarifyCustomer(sUser_ID, pin, sRegId,mCustomerMobile);
+
+
                             }
 //                            Toast.makeText(context, "Pin received: " + pin, Toast.LENGTH_LONG).show();
 
@@ -286,10 +304,16 @@ public class MobileNumVerifyActivity extends BaseActivity {
         }
     };
 
-    private void APiVarifyCustomer(final String UserID, final String verificationCode, final String regID) {
+    private void APiVarifyCustomer(final String UserID, final String verificationCode, final String regID, final String mCustomerMobile) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiVarifyCustomer,
+        String Url="";
+        if (mCustomerMobile != null && !mCustomerMobile.equals("")) {
+            Url = AppConfig.APiVarifyCustomerNumberChange;
+        } else {
+             Url = AppConfig.APiVarifyCustomer;
+        }
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -306,9 +330,13 @@ public class MobileNumVerifyActivity extends BaseActivity {
                                     mCountDownTimer.cancel();
                                     mCountDownTimer = null;
                                 }
-                                Intent i = new Intent(activity, CareferPolicyActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(i);
+                                if (mCustomerMobile != null && !mCustomerMobile.equals("")) {
+                                    Utils.savePreferences(activity, "User_Mobile", mCustomerMobile);
+                                } else {
+                                    Intent i = new Intent(activity, CareferPolicyActivity.class);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(i);
+                                }
                                 loading.close();
                                 showToast(getResources().getString(R.string.toast_mobile_Verified));
                                 finish();
@@ -342,7 +370,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
                 params.put("verificationCode", verificationCode);
                 params.put("regID", regID);
                 params.put("mobileType", "Android");
-
+                if (mCustomerMobile != null && !mCustomerMobile.equals("")) {
+                    params.put("customerMobile", mCustomerMobile);
+                }
 
                 return params;
             }
@@ -423,6 +453,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+//        if (mCustomerMobile != null && !mCustomerMobile.equals("")) {
+//            finish();
+//            super.onBackPressed();
+//        }
     }
 }

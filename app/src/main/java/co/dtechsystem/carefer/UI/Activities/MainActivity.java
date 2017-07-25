@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -13,12 +14,15 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -67,6 +71,7 @@ import java.util.Map;
 
 import co.dtechsystem.carefer.Models.ShopsListModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.SplashActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
@@ -88,7 +93,7 @@ public class MainActivity extends BaseActivity
     JSONArray totalDataofCurrentLatlngNames;
     boolean SearchingCityfinished = false;
     String fromListLocation = "";
-
+    boolean locationSettings = false;
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
@@ -709,7 +714,7 @@ public class MainActivity extends BaseActivity
                             Intent mIntent = new Intent(activity, ShopDetailsActivity.class);
                             mIntent.putExtra("ShopID", finalId);
                             mIntent.putExtra("CityId", CityId);
-                            ShopDetailsActivity.ShopsListDataResponse=ShopsListDataResponse;
+                            ShopDetailsActivity.ShopsListDataResponse = ShopsListDataResponse;
 //                            mIntent.putExtra("ShopsListDataResponse", ShopsListDataResponse);
                             mIntent.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
                             mIntent.putExtra("isLocationAvail", isLocationAvail);
@@ -833,6 +838,10 @@ public class MainActivity extends BaseActivity
                     mMap.setMyLocationEnabled(true);
 
                 } else {
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                        showPermissionDialog();
+                    }
                     // User refused to grant permission. You can add AlertDialog here
                     isLocationAvail = "No";
                     Utils.savePreferences(activity, "isLocationAvail", "No");
@@ -858,9 +867,64 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    public void showPermissionDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+        alertDialog.setTitle(getResources().getString(R.string.app_name));
+        alertDialog.setMessage(getResources().getString(R.string.dialog_need_your_permission));
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.dialog_ok),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                                Intent intent = new Intent();
+                                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package", getPackageName(), null);
+                                intent.setData(uri);
+                                startActivity(intent);
+                                dialog.dismiss();
+                                locationSettings = true;
+                            } else {
+                                dialog.dismiss();
+                                locationSettings = true;
+                                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            }
+                        } catch (Exception e) {
+                            dialog.dismiss();
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getResources().getString(R.string.dialog_cancel),
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.show();
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        if (locationSettings) {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Intent i = new Intent(activity, SplashActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finishAffinity();
+            } else {
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M && Utils.isLocationServiceEnabled(activity)) {
+                    Intent i = new Intent(activity, SplashActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    finishAffinity();
+                }
+            }
+        }
         mapFragment.getMapAsync(this);
     }
 

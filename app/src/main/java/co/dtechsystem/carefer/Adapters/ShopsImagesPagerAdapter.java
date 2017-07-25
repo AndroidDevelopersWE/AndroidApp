@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -49,9 +53,7 @@ public class ShopsImagesPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item_sliding_images, container, false);
-
-
-        ImageView iv_full_image = (ImageView) itemView.findViewById(R.id.image);
+        final ImageView iv_full_image = (ImageView) itemView.findViewById(R.id.image);
 //        if (clicked && getPosition < _ShopsImagesDetails.size()) {
 //            final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
 //            Glide.with(mActivity).load(Url + _ShopsImagesDetails.get(getPosition)
@@ -59,9 +61,22 @@ public class ShopsImagesPagerAdapter extends PagerAdapter {
 //            clicked = false;
 //
 //        } else {
-            final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
-            Glide.with(mActivity).load(Url + _ShopsImagesDetails.get(position)
-                    .getImageName()).into(iv_full_image);
+        final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
+        Glide.with(mActivity).load(Url + _ShopsImagesDetails.get(position)
+                .getImageName()).listener(new RequestListener<String, GlideDrawable>() {
+            @Override
+            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                iv_full_image.setOnTouchListener(new ImageMatrixTouchHandler(mActivity));
+
+                return false;
+            }
+        }).into(iv_full_image);
+
 //        }
 
         container.addView(itemView);

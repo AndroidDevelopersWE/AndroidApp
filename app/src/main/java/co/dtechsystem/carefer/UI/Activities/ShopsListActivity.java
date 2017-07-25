@@ -190,7 +190,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
 //                sp_providers_shop_list.performClick();
-                if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
+                if (mShopsListModel!= null && mShopsListModel.getShopsList().size() > 0) {
 
                     Intent intent = new Intent(activity, FiltersActivity.class);
                     Bundle args = new Bundle();
@@ -240,7 +240,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     aQuery.find(R.id.iv_search_close_shops_list).visibility(View.GONE);
                     aQuery.find(R.id.iv_search_shops_list).visibility(View.VISIBLE);
                 }
-                if (s.length() > 0) {
+                if (mShopsListModel!=null) {
                     ShopsListRecycleViewAdapter.filterShopsName(s.toString(), mLatlngCurrent);
                 }
                 if (mshopsListRecycleViewAdapter != null) {

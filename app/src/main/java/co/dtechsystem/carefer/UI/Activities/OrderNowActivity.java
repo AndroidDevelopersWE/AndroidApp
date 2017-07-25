@@ -166,19 +166,40 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                                     Intent intent = new Intent(Intent.ACTION_DIAL);
                                     intent.setData(Uri.parse("tel:" + mContact));
                                     startActivity(intent);
+                                } else {
+                                    Intent i = new Intent(activity, NavigationsActivity.class);
+                                    i.putExtra("latitude", mlatitude);
+                                    i.putExtra("longitude", mlongitude);
+                                    i.putExtra("shopID", mshopID);
+                                    i.putExtra("mPermissionsNowGiven", mPermissionsNowGiven);
+                                    if (CityId != null && !CityId.equals("")) {
+                                        i.putExtra("CityId", CityId);
+                                        ShopsListActivity.ShopsListDataResponse = ShopsListDataResponse;
+//            i.putExtra("ShopsListDataResponse", ShopsListActivity.ShopsListDataResponse);
+                                        i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
+                                        i.putExtra("isLocationAvail", isLocationAvail);
+                                        Bundle args = new Bundle();
+                                        args.putParcelable("LatLngCurrent", mLatlngCurrent);
+                                        i.putExtra("placeName", mplaceName);
+                                        i.putExtra("bundle", args);
+
+
+                                    }
+                                    startActivity(i);
                                 }
 
                                 showToast(getResources().getString(R.string.toast_order_placed));
                                 mOrderPlaced = true;
+                                if (loading != null) {
+                                    loading.close();
+                                }
                             }
                         } catch (JSONException e) {
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             loading.close();
                             e.printStackTrace();
                         }
-                        if (loading != null) {
-                            loading.close();
-                        }
+
 
                     }
                 },
@@ -281,25 +302,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                 APiPlaceOrder(sUser_ID, mshopID, mServicesId, mBrandsId, mModelsId, morderType, sUser_Mobile);
             }
         }
-        Intent i = new Intent(this, NavigationsActivity.class);
-        i.putExtra("latitude", mlatitude);
-        i.putExtra("longitude", mlongitude);
-        i.putExtra("shopID", mshopID);
-        i.putExtra("mPermissionsNowGiven", mPermissionsNowGiven);
-        if (CityId != null && !CityId.equals("")) {
-            i.putExtra("CityId", CityId);
-            ShopsListActivity.ShopsListDataResponse = ShopsListDataResponse;
-//            i.putExtra("ShopsListDataResponse", ShopsListActivity.ShopsListDataResponse);
-            i.putExtra("citiesNamesIDsResponse", citiesNamesIDsResponse);
-            i.putExtra("isLocationAvail", isLocationAvail);
-            Bundle args = new Bundle();
-            args.putParcelable("LatLngCurrent", mLatlngCurrent);
-            i.putExtra("placeName", mplaceName);
-            i.putExtra("bundle", args);
 
-
-        }
-        startActivity(i);
     }
 
     private void SetUpLeftbar() {

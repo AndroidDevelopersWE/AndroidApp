@@ -264,7 +264,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         });
 
         aQuery.find(R.id.et_last_oil_my_details).getTextView().setInputType(InputType.TYPE_NULL);
-        aQuery.find(R.id.et_mobile_my_details).getEditText().setInputType(InputType.TYPE_NULL);
+//        aQuery.find(R.id.et_mobile_my_details).getEditText().setInputType(InputType.TYPE_NULL);
 
         aQuery.find(R.id.et_last_oil_my_details).clicked(new View.OnClickListener() {
             @Override
@@ -513,9 +513,14 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             String et_car_model_my_details = aQuery.find(R.id.et_car_model_my_details).getText().toString();
             String et_last_oil_my_details = aQuery.find(R.id.et_last_oil_my_details).getText().toString();
             String et_oil_change_km_my_details = aQuery.find(R.id.et_oil_change_km_my_details).getText().toString();
-//            if (!customerMobile.equals(sUser_Mobile)) {
-//                showMobileChangeAlert();
-//            }
+            if (!customerMobile.equals(sUser_Mobile)) {
+                if (!customerMobile.startsWith("+")) {
+                    customerMobile = "+" + customerMobile;
+                }
+                if (Utils.ValidateNumberFromLibPhone(activity, customerMobile))
+                    showMobileChangeAlert(customerMobile);
+                return;
+            }
             if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
                     et_car_model_my_details.equals("") || et_last_oil_my_details.equals("") || et_oil_change_km_my_details.equals("")) {
                 showToast(getResources().getString(R.string.toast_fill_all_fields));
@@ -534,7 +539,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    private void showMobileChangeAlert() {
+    private void showMobileChangeAlert(final String customerMobile) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.app_name))
                 .setMessage(getResources().getString(R.string.dialog_message))
@@ -543,20 +548,25 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                 .setNegativeButton(getResources().getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Utils.savePreferences(activity, "User_Mobile", "");
-                        Utils.savePreferences(activity, "User_Mobile_varify", "");
-                        Utils.savePreferences(activity, "User_privacy_check", "");
-                        Utils.savePreferences(activity, "User_ID", "");
-                        Intent j = new Intent(activity, MobileNumActivity.class);
-                        j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(j);
+                        //Utils.savePreferences(activity, "User_Mobile", sUser_Mobile);
+//                        Utils.savePreferences(activity, "User_Mobile_varify", "");
+//                        Utils.savePreferences(activity, "User_privacy_check", "");
+                        //Utils.savePreferences(activity, "User_ID", sUser_ID);
+//                        Intent intent = new Intent(activity, MobileNumVerifyActivity.class);
+////                        j.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        intent.putExtra("User_Mobile", User_Mobile);
+//                        intent.putExtra("User_ID", sUser_ID);
+//                        startActivity(intent);
                         dialogInterface.dismiss();
                     }
                 })
                 .setPositiveButton(getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.dismiss();
+                        if (Validations.isInternetAvailable(activity, true)) {
+                            loading.show();
+                            APiChangeUserPhone(customerMobile);
+                        }
                     }
                 }).create().show();
     }
@@ -647,6 +657,65 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
 
                 }
+
+
+                return params;
+            }
+        };
+// add it to the RequestQueue
+//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        queue.add(postRequest);
+    }
+
+    public void APiChangeUserPhone(final String customerMobile) {
+        // prepare the Request
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiChangeUserPhone,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            JSONObject customerDetails = jsonObject.getJSONObject("customer");
+                            String smsAPIResponse = customerDetails.getString("APIResponse");
+//                            String customerMobile = customerDetails.getString("customerMobile");
+                            if (smsAPIResponse != null && !smsAPIResponse.equals("SMS sent successfully.")) {
+                                showToast(smsAPIResponse);
+                            } else {
+                                Intent intent = new Intent(activity, MobileNumVerifyActivity.class);
+                                intent.putExtra("customerMobile", customerMobile);
+                                startActivity(intent);
+                                showToast(getResources().getString(R.string.toast_verfication_sent_mobile));
+                                loading.close();
+                            }
+                        } catch (JSONException e) {
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            loading.close();
+                            e.printStackTrace();
+                        }
+                        loading.close();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        // error
+                        error.printStackTrace();
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("mobileNumber", customerMobile);
+                params.put("customerID", sUser_ID);
 
 
                 return params;

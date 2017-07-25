@@ -23,7 +23,9 @@ public class AppConfig {
     public static String APiRegisterCustomer = BaseUrl + "save-customer-detail";
     public static String APiShopFavourite = BaseUrl + "shop-favourite";
     public static String APiCreateUserPhone = BaseUrl + "receive-mobile-number";
+    public static String APiChangeUserPhone = BaseUrl + "change-mobile-number";
     public static String APiVarifyCustomer = BaseUrl + "verify-customer";
+    public static String APiVarifyCustomerNumberChange = BaseUrl + "verify-customer-number-change";
     public static String APiVarifyPolicy = BaseUrl + "verify-policy";
     public static String APiGetBrandModels = BaseUrl + "get-brand-models";
     public static String APiGetPlaceTypes = BaseUrl + "get-place-type";

@@ -369,8 +369,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 //        aQuery.id(R.id.tv_shop_des_shop_details).text(getResources().getString(R.string.lorem_ispum));
         TextView tv_shop_des_shop_details = (TextView) findViewById(R.id.tv_shop_des_shop_details);
         if (tv_shop_des_shop_details.getLayout() != null && tv_shop_des_shop_details.getLayout().getLineCount() >= 4) {
-            makeTextViewResizable(tv_shop_des_shop_details, 4, getResources().getString(R.string.tv_read_full_des), true);
-//            aQuery.id(R.id.tv_shop_des_view_more_shop_details).getTextView().setVisibility(View.VISIBLE);
+//            makeTextViewResizable(tv_shop_des_shop_details, 4, getResources().getString(R.string.tv_read_full_des), true);
+            aQuery.id(R.id.tv_shop_des_view_more_shop_details).getTextView().setVisibility(View.VISIBLE);
 
         } else {
             aQuery.id(R.id.tv_shop_des_view_more_shop_details).getTextView().setVisibility(View.GONE);
@@ -484,7 +484,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 //
 //
 //    }
-    public  void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
+    public void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
 
         if (tv.getTag() == null) {
             tv.setTag(tv.getText());
@@ -528,8 +528,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     }
 
-    public  SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
-                                                                            final int maxLine, final String spanableText, final boolean viewMore) {
+    public SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
+                                                                    final int maxLine, final String spanableText, final boolean viewMore) {
         String str = strSpanned.toString();
         SpannableStringBuilder ssb = new SpannableStringBuilder(strSpanned);
 
@@ -632,5 +632,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         drawer.closeDrawer(GravityCompat.END);
         return true;
     }
+
+
 
 }

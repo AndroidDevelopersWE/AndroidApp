@@ -37,6 +37,7 @@ public abstract class Utils {
         editor.putString(key, value);
         editor.commit();
     }
+
     public static boolean isLocationServiceEnabled(Activity activity) {
         LocationManager lm = (LocationManager)
                 activity.getSystemService(Context.LOCATION_SERVICE);
@@ -44,6 +45,7 @@ public abstract class Utils {
         return (!provider.equals("") &&
                 !LocationManager.PASSIVE_PROVIDER.equals(provider));
     }
+
     public static String readPreferences(Activity activity, String key, String defaultValue) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         return sp.getString(key, defaultValue);
@@ -60,7 +62,7 @@ public abstract class Utils {
         String outputDate = "";
 
         SimpleDateFormat df_input = new SimpleDateFormat(inputFormat);
-        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat,new Locale("en"));
+        SimpleDateFormat df_output = new SimpleDateFormat(outputFormat, new Locale("en"));
 
         // You can set a different Locale, This example set a locale of Country Mexico.
 //            SimpleDateFormat df_input = new SimpleDateFormat(inputFormat, new Locale("es", "MX"));
@@ -117,7 +119,7 @@ public abstract class Utils {
             Log.e("********   Value ********" + tm.getNetworkCountryIso(), "");
             String CountryCode = tm.getNetworkCountryIso();
             Log.e("********   Upper Value ********" + CountryCode.toUpperCase(), "");
-            // I set the default region to IN (Indian)
+            // I set the default region to SA (Saudi Arabia)
             // You can find your country code here http://www.iso.org/iso/country_names_and_code_elements
             phNumberProto = phoneUtil.parse(number, "SA");
 
@@ -146,10 +148,11 @@ public abstract class Utils {
         } else {
 
             // prompt the user when the number is invalid
-
-            Toast.makeText(context,
-                    "Phone number is INVALID: " + number,
-                    Toast.LENGTH_SHORT).show();
+            if (number.startsWith("+")) {
+                number = number.replace("+", "");
+            }
+            Toast.makeText(context, context.getResources().getString(R.string.invalid_phone_number) + ": \n" + number,
+                    Toast.LENGTH_LONG).show();
             return false;
 
         }
@@ -182,6 +185,7 @@ public abstract class Utils {
         shader.setLocalMatrix(matrix);
         textView.getPaint().setShader(shader);
     }
+
     public static void gradientTextViewLong(TextView textView, Activity activity) {
         int[] rainbow = getRainbowColors(activity);
         Shader shader = new LinearGradient(100, 150, 0, 0, rainbow,
@@ -192,6 +196,7 @@ public abstract class Utils {
         shader.setLocalMatrix(matrix);
         textView.getPaint().setShader(shader);
     }
+
     public static void gradientTextViewShort(TextView textView, Activity activity) {
         int[] rainbow = getRainbowColors(activity);
         Shader shader = new LinearGradient(0, 0, 100, 100, rainbow,
@@ -202,6 +207,7 @@ public abstract class Utils {
         shader.setLocalMatrix(matrix);
         textView.getPaint().setShader(shader);
     }
+
     private static int[] getRainbowColors(Activity activity) {
         return new int[]{
                 activity.getResources().getColor(R.color.colorMandy),
