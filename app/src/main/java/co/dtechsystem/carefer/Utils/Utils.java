@@ -109,6 +109,9 @@ public abstract class Utils {
 
     @SuppressLint("LongLogTag")
     public static boolean ValidateNumberFromLibPhone(Context context, String number) {
+        if (!number.startsWith("+")) {
+            number = "+" + number;
+        }
         PhoneNumberUtil phoneUtil = PhoneNumberUtil
                 .getInstance();
         Phonenumber.PhoneNumber phNumberProto = null;

@@ -514,11 +514,8 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             String et_last_oil_my_details = aQuery.find(R.id.et_last_oil_my_details).getText().toString();
             String et_oil_change_km_my_details = aQuery.find(R.id.et_oil_change_km_my_details).getText().toString();
             if (!customerMobile.equals(sUser_Mobile)) {
-                if (!customerMobile.startsWith("+")) {
-                    customerMobile = "+" + customerMobile;
-                }
                 if (Utils.ValidateNumberFromLibPhone(activity, customerMobile))
-                    showMobileChangeAlert(customerMobile);
+                showMobileChangeAlert(customerMobile);
                 return;
             }
             if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||

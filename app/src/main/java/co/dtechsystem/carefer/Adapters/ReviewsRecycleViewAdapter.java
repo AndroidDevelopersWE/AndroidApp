@@ -1,7 +1,6 @@
 package co.dtechsystem.carefer.Adapters;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
@@ -9,14 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-
 import java.util.List;
-import java.util.Random;
 
 import co.dtechsystem.carefer.Models.ReviewsModel;
 import co.dtechsystem.carefer.R;
@@ -47,6 +42,7 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
     @Override
     public void onBindViewHolder(final ReviewsRecycleViewAdapter.ViewHolder holder, final int position) {
 //        setAnimation(holder.itemView, position);
+        float priceRate=0,timeRate=0,qualityRate=0;
         String customerName = _shopReviews.get(position).getCustomerName();
         if (customerName != null && !customerName.equals("")) {
             holder.tv_customer_name_rate.setText(customerName);
@@ -60,20 +56,38 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
         if (_shopReviews.get(position).getHidAction().equals("0")) {
             holder.tv_coments_rate.setText(_shopReviews.get(position).getComment());
         }
-        holder.rb_price_rate.setRating(Float.parseFloat(_shopReviews.get(position).getPriceRating()));
-        holder.rb_quality_rate.setRating(Float.parseFloat(_shopReviews.get(position).getQualityRating()));
-        holder.rb_time_rate.setRating(Float.parseFloat(_shopReviews.get(position).getTimeRating()));
+        if (_shopReviews.get(position).getPriceRating() != null && !_shopReviews.get(position).getPriceRating().equals("")) {
+            priceRate=Float.parseFloat(_shopReviews.get(position).getPriceRating());
+            holder.rb_price_rate.setRating(priceRate);
+
+        } else {
+            holder.rb_price_rate.setRating(0);
+        }
+        if (_shopReviews.get(position).getQualityRating() != null && !_shopReviews.get(position).getQualityRating().equals("")) {
+            qualityRate=Float.parseFloat(_shopReviews.get(position).getQualityRating());
+            holder.rb_quality_rate.setRating(qualityRate);
+
+        } else {
+            holder.rb_quality_rate.setRating(0);
+        }
+        if (_shopReviews.get(position).getTimeRating() != null && !_shopReviews.get(position).getTimeRating().equals("")) {
+            timeRate=Float.parseFloat(_shopReviews.get(position).getTimeRating());
+            holder.rb_time_rate.setRating(timeRate);
+        } else {
+            holder.rb_time_rate.setRating(0);
+        }
         holder.tv_coments_rate.setMovementMethod(new ScrollingMovementMethod());
-        Float AvgRate = Float.parseFloat(_shopReviews.get(position).getPriceRating()) + Float.parseFloat(_shopReviews.get(position).getQualityRating()) + Float.parseFloat(_shopReviews.get(position).getTimeRating());
+
+        Float AvgRate = priceRate+qualityRate+timeRate;
         AvgRate = AvgRate / 3;
         String avgRate = String.format("%.01f", AvgRate);
         holder.tv_avg_rate_review.setText(avgRate);
-        Random rnd = new Random();
-        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-
-        TextDrawable drawable = TextDrawable.builder()
-                .buildRoundRect(String.valueOf(customerName.charAt(0)), color, 90);
-        holder.iv_first_letter_of_name.setImageDrawable(drawable);
+//        Random rnd = new Random();
+//        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+//
+//        TextDrawable drawable = TextDrawable.builder()
+//                .buildRoundRect(String.valueOf(customerName.charAt(0)), color, 90);
+//        holder.iv_first_letter_of_name.setImageDrawable(drawable);
 //        holder.tv_coments_rate.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
 //            public boolean onTouch(View v, MotionEvent event) {
@@ -87,7 +101,7 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final RatingBar rb_price_rate, rb_quality_rate, rb_time_rate;
         public final TextView tv_coments_rate, tv_customer_name_rate, tv_date_rate, tv_avg_rate_review;
-        public final ImageView iv_first_letter_of_name;
+//        public final ImageView iv_first_letter_of_name;
 
         public ViewHolder(View v) {
 
@@ -98,7 +112,7 @@ public class ReviewsRecycleViewAdapter extends RecyclerView.Adapter<ReviewsRecyc
             rb_quality_rate = (RatingBar) v.findViewById(R.id.rb_quality_rate);
             rb_time_rate = (RatingBar) v.findViewById(R.id.rb_time_rate);
             tv_coments_rate = (TextView) v.findViewById(R.id.tv_coments_rate);
-            iv_first_letter_of_name = (ImageView) v.findViewById(R.id.iv_first_letter_of_name);
+//            iv_first_letter_of_name = (ImageView) v.findViewById(R.id.iv_first_letter_of_name);
             tv_avg_rate_review = (TextView) v.findViewById(R.id.tv_avg_rate_review);
 
         }

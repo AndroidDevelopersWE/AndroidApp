@@ -43,7 +43,7 @@
                     android:layout_weight="0"
                     android:background="@drawable/dr_btn_orange_angle_90"
                     android:gravity="center"
-                    android:padding="@dimen/_2sdp"
+                    android:paddingTop="@dimen/_3sdp"
                     android:text="4.5"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"
@@ -86,6 +86,7 @@
                     android:id="@+id/iv_first_letter_of_name"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp"
+                    android:visibility="gone"
                     android:layout_gravity="center"
                     />
             </LinearLayout>
@@ -127,13 +128,13 @@
                             <RatingBar
                                 android:id="@+id/rb_price_rate"
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/_13sdp"
+                                android:layout_height="@dimen/_10sdp"
                                 android:layout_gravity="center_vertical"
-                                android:layout_margin="@dimen/_11sdp"
+                                android:layout_margin="@dimen/_9sdp"
                                 android:layout_marginLeft="@dimen/_12sdp"
                                 android:isIndicator="true"
                                 android:numStars="5"
-                                android:progressDrawable="@drawable/dr_rating_bar_orange"
+                                android:progressDrawable="@drawable/dr_rating_bar_orange_small"
                                 android:rating="0"
 
                                 android:stepSize="0.1"
@@ -142,13 +143,13 @@
                             <RatingBar
                                 android:id="@+id/rb_quality_rate"
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/_13sdp"
+                                android:layout_height="@dimen/_10sdp"
                                 android:layout_gravity="center_vertical"
-                                android:layout_margin="@dimen/_11sdp"
+                                android:layout_margin="@dimen/_9sdp"
                                 android:layout_marginLeft="@dimen/_12sdp"
                                 android:isIndicator="true"
                                 android:numStars="5"
-                                android:progressDrawable="@drawable/dr_rating_bar_orange"
+                                android:progressDrawable="@drawable/dr_rating_bar_orange_small"
                                 android:rating="0"
 
                                 android:stepSize="0.1"
@@ -158,13 +159,13 @@
                             <RatingBar
                                 android:id="@+id/rb_time_rate"
                                 android:layout_width="wrap_content"
-                                android:layout_height="@dimen/_13sdp"
+                                android:layout_height="@dimen/_10sdp"
                                 android:layout_gravity="center_vertical"
-                                android:layout_margin="@dimen/_11sdp"
+                                android:layout_margin="@dimen/_9sdp"
                                 android:layout_marginLeft="@dimen/_12sdp"
                                 android:isIndicator="true"
                                 android:numStars="5"
-                                android:progressDrawable="@drawable/dr_rating_bar_orange"
+                                android:progressDrawable="@drawable/dr_rating_bar_orange_small"
                                 android:rating="0"
 
                                 android:stepSize="0.1"
@@ -184,10 +185,10 @@
                                 android:layout_margin="@dimen/_3sdp"
                                 android:gravity="right"
                                 android:maxLines="1"
-                                android:padding="@dimen/_8sdp"
+                                android:padding="@dimen/_5sdp"
                                 android:text="@string/price"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/_12sdp"
+                                android:textSize="@dimen/_10sdp"
                                 android:textStyle="bold"/>
 
                             <TextView
@@ -196,10 +197,10 @@
                                 android:layout_margin="@dimen/_3sdp"
                                 android:gravity="right"
                                 android:maxLines="1"
-                                android:padding="@dimen/_8sdp"
+                                android:padding="@dimen/_5sdp"
                                 android:text="@string/quality"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/_12sdp"
+                                android:textSize="@dimen/_10sdp"
                                 android:textStyle="bold"/>
 
                             <TextView
@@ -208,10 +209,10 @@
                                 android:layout_margin="@dimen/_3sdp"
                                 android:gravity="right"
                                 android:maxLines="1"
-                                android:padding="@dimen/_8sdp"
+                                android:padding="@dimen/_5sdp"
                                 android:text="@string/time"
                                 android:textColor="@android:color/black"
-                                android:textSize="@dimen/_12sdp"
+                                android:textSize="@dimen/_10sdp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
 
@@ -232,7 +233,7 @@
                         android:scrollbars="vertical"
                         android:textColor="@android:color/black"
                         android:textColorHint="@android:color/black"
-                        android:textSize="@dimen/_12sdp"/>
+                        android:textSize="@dimen/_10sdp"/>
                     <!--</ScrollView>-->
                 </LinearLayout>
 

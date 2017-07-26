@@ -112,6 +112,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     public void btn_reviews_click(View v) {
         Intent i = new Intent(activity, ReviewActivity.class);
         i.putExtra("ShopID", mShopID);
+        i.putExtra("shopRatings", mShopsDetailsModel.getShopsDetail().get(0).getShopRating());
         startActivity(i);
     }
 
@@ -364,7 +365,10 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     private void SetShopsDetailsData() {
         aQuery.id(R.id.tv_shop_name_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopName());
         aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
-        aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
+
+        if (mShopsDetailsModel.getShopsDetail().get(0).getShopRating() != null && !mShopsDetailsModel.getShopsDetail().get(0).getShopRating().equals("")) {
+            aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));
+        }
         aQuery.id(R.id.tv_shop_des_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopDescription());
 //        aQuery.id(R.id.tv_shop_des_shop_details).text(getResources().getString(R.string.lorem_ispum));
         TextView tv_shop_des_shop_details = (TextView) findViewById(R.id.tv_shop_des_shop_details);
@@ -632,7 +636,6 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         drawer.closeDrawer(GravityCompat.END);
         return true;
     }
-
 
 
 }
