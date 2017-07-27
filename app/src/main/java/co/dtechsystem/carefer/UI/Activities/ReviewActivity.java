@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -31,7 +33,7 @@ public class ReviewActivity extends BaseActivity {
     RecyclerView rv_shop_reviews;
     ReviewsRecycleViewAdapter mReviewsRecycleViewAdapter;
     TextView tv_title_review;
-    String shopRatings="";
+    String shopRatings = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,7 @@ public class ReviewActivity extends BaseActivity {
         } else {
             aQuery.find(R.id.rb_time_rate).getRatingBar().setRating(0);
         }
-        if (shopRatings != null &&!shopRatings.equals("")&& Float.parseFloat(shopRatings) > 0) {
+        if (shopRatings != null && !shopRatings.equals("") && Float.parseFloat(shopRatings) > 0) {
             float totalRatingShop = Float.parseFloat(shopRatings);
             String avgRate = String.format("%.01f", totalRatingShop);
             aQuery.id(R.id.tv_avg_rating).text(avgRate);
@@ -167,6 +169,8 @@ public class ReviewActivity extends BaseActivity {
         };
 // add it to the RequestQueue
 //        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        postRequest.setRetryPolicy(policy);
         queue.add(postRequest);
     }
 }

@@ -16,9 +16,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -115,7 +117,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
                 String VerificationCode = et_1_verify.getText().toString() + et_2_verify.getText().toString() +
                         et_3_verify.getText().toString() + et_4_verify.getText().toString();
                 loading.show();
-                APiVarifyCustomer(sUser_ID, VerificationCode, sRegId,mCustomerMobile);
+                APiVarifyCustomer(sUser_ID, VerificationCode, sRegId, mCustomerMobile);
 
             } else {
                 showToast(getResources().getString(R.string.toast_fill_all_fields));
@@ -290,7 +292,7 @@ public class MobileNumVerifyActivity extends BaseActivity {
                                 chronometer_sms.setVisibility(View.GONE);
                                 mAutoReceivedCode = true;
                                 loading.show();
-                                APiVarifyCustomer(sUser_ID, pin, sRegId,mCustomerMobile);
+                                APiVarifyCustomer(sUser_ID, pin, sRegId, mCustomerMobile);
 
 
                             }
@@ -307,11 +309,11 @@ public class MobileNumVerifyActivity extends BaseActivity {
     private void APiVarifyCustomer(final String UserID, final String verificationCode, final String regID, final String mCustomerMobile) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
-        String Url="";
+        String Url = "";
         if (mCustomerMobile != null && !mCustomerMobile.equals("")) {
             Url = AppConfig.APiVarifyCustomerNumberChange;
         } else {
-             Url = AppConfig.APiVarifyCustomer;
+            Url = AppConfig.APiVarifyCustomer;
         }
         StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
@@ -379,6 +381,8 @@ public class MobileNumVerifyActivity extends BaseActivity {
         };
 // add it to the RequestQueue
 //        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        postRequest.setRetryPolicy(policy);
         queue.add(postRequest);
     }
 

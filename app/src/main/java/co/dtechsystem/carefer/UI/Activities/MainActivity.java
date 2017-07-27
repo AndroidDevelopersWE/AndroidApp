@@ -94,6 +94,7 @@ public class MainActivity extends BaseActivity
     boolean SearchingCityfinished = false;
     String fromListLocation = "";
     boolean locationSettings = false;
+
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
@@ -417,6 +418,8 @@ public class MainActivity extends BaseActivity
         );
 
 // add it to the RequestQueue
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        getRequest.setRetryPolicy(policy);
         queue.add(getRequest);
     }
 
@@ -517,6 +520,8 @@ public class MainActivity extends BaseActivity
         );
 
 // add it to the RequestQueue
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        getRequest.setRetryPolicy(policy);
         queue.add(getRequest);
     }
 
@@ -571,11 +576,7 @@ public class MainActivity extends BaseActivity
             }
         };
 // add it to the RequestQueue
-        int socketTimeout = 30000; // 30 seconds. You can change it
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         postRequest.setRetryPolicy(policy);
         queue.add(postRequest);
     }

@@ -2,7 +2,7 @@ package co.dtechsystem.carefer.Utils;
 
 
 public class AppConfig {
-
+    public static int socketTimeout = 30000;
     //live base
     public static String BaseUrl = "https://carefer.co/public/api/";
     //live image base

@@ -111,11 +111,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
         );
 
 // add it to the RequestQueue
-        int socketTimeout = 30000; // 30 seconds. You can change it
-        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         getRequest.setRetryPolicy(policy);
         queue.add(getRequest);
     }

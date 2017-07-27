@@ -12,9 +12,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.StringRequest;
@@ -43,7 +45,7 @@ public class MobileNumActivity extends BaseActivity {
     String countryCode;
     String number;
     InputStream inStream = null;
-    HurlStack hurlStack  = null;
+    HurlStack hurlStack = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -125,7 +127,7 @@ public class MobileNumActivity extends BaseActivity {
                             if (phoneEditText.isValid()) {
                                 loading.show();
                                 if (Phone.startsWith("+")) {
-                                    Phone=Phone.replaceFirst("\\u002B", "");
+                                    Phone = Phone.replaceFirst("\\u002B", "");
                                 }
                                 APiCreateUserPhone(Phone, "Mobile");
                             } else {
@@ -164,7 +166,7 @@ public class MobileNumActivity extends BaseActivity {
                                 Utils.savePreferences(activity, "User_Mobile", customerMobile);
                                 Intent i = new Intent(activity, MobileNumVerifyActivity.class);
                                 startActivity(i);
-                                    finish();
+                                finish();
                                 showToast(getResources().getString(R.string.toast_verfication_sent_mobile));
                                 loading.close();
                             }
@@ -198,6 +200,8 @@ public class MobileNumActivity extends BaseActivity {
         };
 // add it to the RequestQueue
 //        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        postRequest.setRetryPolicy(policy);
         queue.add(postRequest);
     }
 

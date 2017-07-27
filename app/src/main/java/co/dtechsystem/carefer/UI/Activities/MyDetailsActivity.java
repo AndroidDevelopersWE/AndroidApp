@@ -24,9 +24,11 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -515,7 +517,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
             String et_oil_change_km_my_details = aQuery.find(R.id.et_oil_change_km_my_details).getText().toString();
             if (!customerMobile.equals(sUser_Mobile)) {
                 if (Utils.ValidateNumberFromLibPhone(activity, customerMobile))
-                showMobileChangeAlert(customerMobile);
+                    showMobileChangeAlert(customerMobile);
                 return;
             }
             if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
@@ -661,6 +663,8 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         };
 // add it to the RequestQueue
 //        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        postRequest.setRetryPolicy(policy);
         queue.add(postRequest);
     }
 

@@ -199,6 +199,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
+                                android:visibility="gone"
                                 android:layout_weight="0"
                                 android:background="@drawable/ic_arrow_up_white"
                                 card_view:ignore="ContentDescription,InefficientWeight,RtlHardcoded"/>

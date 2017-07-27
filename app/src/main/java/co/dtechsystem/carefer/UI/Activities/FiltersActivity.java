@@ -16,6 +16,7 @@ import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -42,7 +43,7 @@ import co.dtechsystem.carefer.Utils.Validations;
 public class FiltersActivity extends BaseActivity {
     ExpandableListView lv_service_type, lv_brands, lv_place_type;
 
-    public static  String ShopsDataResponse="";
+    public static String ShopsDataResponse = "";
 
     public ShopsListModel mShopsListModel;
 
@@ -101,7 +102,7 @@ public class FiltersActivity extends BaseActivity {
             if (provide_ReplaceParts.equals("1")) {
                 sw_provide_replace_parts_filter.setChecked(true);
             }
-            if (topRated.equals("5")) {
+            if (topRated.equals("5.00")) {
                 sw_top_rated_filter.setChecked(true);
             }
 
@@ -265,7 +266,7 @@ public class FiltersActivity extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    topRated = "5";
+                    topRated = "5.00";
                     if (_ShopslistAfterFiltration != null) {
                         _ShopslistAfterFiltration.clear();
                     }
@@ -418,24 +419,12 @@ public class FiltersActivity extends BaseActivity {
                 }
         );
 
-        getRequest.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
-
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
-
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-                error.printStackTrace();
-
-            }
-        });
+        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        getRequest.setRetryPolicy(policy);
         // add it to the RequestQueue
+
         queue.add(getRequest);
     }
 
@@ -744,7 +733,7 @@ public class FiltersActivity extends BaseActivity {
 //            finish();
             Intent intent = new Intent();
             intent.putStringArrayListExtra("ShopslistAfterFiltration", ShopsIds);
-            ShopsListActivity.ShopsListDataResponse=ShopsDataResponse;
+            ShopsListActivity.ShopsListDataResponse = ShopsDataResponse;
 //            intent.putExtra("response", ShopsDataResponse);
             intent.putExtra("provide_warranty", provide_warranty);
             intent.putExtra("provide_ReplaceParts", provide_ReplaceParts);

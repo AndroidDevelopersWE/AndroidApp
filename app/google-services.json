@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "626512627063",
-    "firebase_url": "https://carefer-6b3f8.firebaseio.com",
-    "project_id": "carefer-6b3f8",
-    "storage_bucket": "carefer-6b3f8.appspot.com"
+    "project_number": "330927864050",
+    "firebase_url": "https://carefer-46aae.firebaseio.com",
+    "project_id": "carefer-46aae",
+    "storage_bucket": "carefer-46aae.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:626512627063:android:a5bbc838bac24d8b",
+        "mobilesdk_app_id": "1:330927864050:android:a5bbc838bac24d8b",
         "android_client_info": {
           "package_name": "co.carefer"
         }
       },
       "oauth_client": [
         {
-          "client_id": "626512627063-t039vrfjvua1g6cg07r8b2m47enoneg9.apps.googleusercontent.com",
+          "client_id": "330927864050-mbqieicas2hm5fpiuo6ev15ug8rpis4m.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyART1yiswZrKvM0OERbSlVAIlWNYmfRty0"
+          "current_key": "AIzaSyA1qzwW5ghvHon_glZvpz1K33ty3CjH7Tk"
         }
       ],
       "services": {
