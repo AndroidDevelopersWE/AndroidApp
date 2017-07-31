@@ -39,12 +39,14 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
     private FavouriteShopsRecycleViewAdapter mFavouriteShopsRecycleViewAdapter;
     private DrawerLayout mDrawerLayout;
     private TextView tv_title_fav_shops;
+    RecyclerView favShopssRecylerView;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_shops);
+        favShopssRecylerView = (RecyclerView) findViewById(R.id.rv_fav_shops);
         tv_title_fav_shops = (TextView) findViewById(R.id.tv_title_fav_shops);
         SetShaderToViews();
         SetUpLeftbar();
@@ -70,9 +72,13 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
                         FavouriteShopsModel mFavouriteShopsModel = gson.fromJson(response.toString(), FavouriteShopsModel.class);
                         if (mFavouriteShopsModel.getFavouriteShops() != null && mFavouriteShopsModel.getFavouriteShops().size() > 0) {
                             mFavouriteShopsRecycleViewAdapter = new FavouriteShopsRecycleViewAdapter(activity, mFavouriteShopsModel.getFavouriteShops());
+                            favShopssRecylerView.setVisibility(View.VISIBLE);
+                            aQuery.find(R.id.tv_no_record_found).getTextView().setVisibility(View.GONE);
                             SetListData();
                             loading.close();
                         } else {
+                            favShopssRecylerView.setVisibility(View.GONE);
+                            aQuery.find(R.id.tv_no_record_found).getTextView().setVisibility(View.VISIBLE);
                             loading.close();
                             showToast(getResources().getString(R.string.no_record_found));
 
@@ -99,11 +105,10 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
     }
 
     private void SetListData() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_fav_shops);
-        recyclerView.getItemAnimator().setChangeDuration(700);
-        recyclerView.setAdapter(mFavouriteShopsRecycleViewAdapter);
+        favShopssRecylerView.getItemAnimator().setChangeDuration(700);
+        favShopssRecylerView.setAdapter(mFavouriteShopsRecycleViewAdapter);
         GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
-        recyclerView.setLayoutManager(mgridLayoutManager);
+        favShopssRecylerView.setLayoutManager(mgridLayoutManager);
     }
 
     private void SetUpLeftbar() {

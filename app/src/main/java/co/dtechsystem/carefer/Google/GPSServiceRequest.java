@@ -14,7 +14,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
-import static com.google.android.gms.internal.zzt.TAG;
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by DELL on 5/25/2017.

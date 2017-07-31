@@ -2,6 +2,7 @@ package co.dtechsystem.carefer.UI.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -25,6 +26,7 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -440,20 +442,33 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
             aQuery.id(R.id.tv_rating_type).getTextView().setVisibility(View.VISIBLE);
             float totalRatingShop = Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating());
             String avgRate = String.format("%.01f", totalRatingShop);
-            aQuery.id(R.id.tv_avg_rating).text(avgRate);
+            aQuery.id(R.id.tv_avg_rating).text(avgRate + "/5");
             aQuery.id(R.id.tv_total_rating).text(getResources().getString(R.string.tv_see_all) + " " + mShopsDetailsModel.getShopsDetail().get(0).getReviewCount() + " " + getResources().getString(R.string.tv_reviews));
             if (totalRatingShop > 4.4) {
                 aQuery.id(R.id.tv_rating_type).text(getResources().getString(R.string.tv_excelent));
+                TextDrawable drawable = TextDrawable.builder()
+                        .buildRoundRect("", Color.rgb(8, 145, 28), 90);
+                aQuery.id(R.id.iv_bk_avg_rating).getImageView().setImageDrawable(drawable);
+//                aQuery.id(R.id.tv_avg_rating).backgroundColor(Color.rgb(8,145,28));
 
             } else if (totalRatingShop > 3.4) {
                 aQuery.id(R.id.tv_rating_type).text(getResources().getString(R.string.tv_good));
+                TextDrawable drawable = TextDrawable.builder()
+                        .buildRoundRect("", Color.GREEN, 90);
+                aQuery.id(R.id.iv_bk_avg_rating).getImageView().setImageDrawable(drawable);
 
 
             } else if (totalRatingShop > 2.4) {
                 aQuery.id(R.id.tv_rating_type).text(getResources().getString(R.string.tv_average));
+                TextDrawable drawable = TextDrawable.builder()
+                        .buildRoundRect("", Color.BLUE, 90);
+                aQuery.id(R.id.iv_bk_avg_rating).getImageView().setImageDrawable(drawable);
 
             } else {
                 aQuery.id(R.id.tv_rating_type).text(getResources().getString(R.string.tv_lower));
+                TextDrawable drawable = TextDrawable.builder()
+                        .buildRoundRect("", Color.GRAY, 90);
+                aQuery.id(R.id.iv_bk_avg_rating).getImageView().setImageDrawable(drawable);
 
             }
 

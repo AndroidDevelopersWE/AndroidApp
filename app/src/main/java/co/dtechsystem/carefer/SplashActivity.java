@@ -31,6 +31,7 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_splash);
         //noinspection UnusedAssignment
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

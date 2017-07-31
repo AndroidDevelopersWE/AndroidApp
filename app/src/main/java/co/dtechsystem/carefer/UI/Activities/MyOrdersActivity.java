@@ -39,12 +39,13 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     private MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
     private TextView tv_title_my_orders;
     String callType = "";
-
+    RecyclerView myOrdersRecylerView;
     @Override
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_orders);
+        myOrdersRecylerView = (RecyclerView) findViewById(R.id.rv_my_orders);
         tv_title_my_orders = (TextView) findViewById(R.id.tv_title_my_orders);
 //        if (intent.getExtras() != null) {
 //            callType = intent.getStringExtra("callType");
@@ -62,23 +63,22 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     }
 
     private void SetListData() {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_my_orders);
-        recyclerView.getItemAnimator().setChangeDuration(700);
-        recyclerView.setAdapter(mMyOrdersRecycleViewAdapter);
+        myOrdersRecylerView.getItemAnimator().setChangeDuration(700);
+        myOrdersRecylerView.setAdapter(mMyOrdersRecycleViewAdapter);
         GridLayoutManager mgridLayoutManager = new GridLayoutManager(this, 1);
-        recyclerView.setLayoutManager(mgridLayoutManager);
+        myOrdersRecylerView.setLayoutManager(mgridLayoutManager);
     }
 
     @Override
     protected void onResume() {
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
-            APiGetMyorderslistData();
+            APiGetMyOrdersListData();
         }
         super.onResume();
     }
 
-    private void APiGetMyorderslistData() {
+    private void APiGetMyOrdersListData() {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, AppConfig.APiMyOrdersList + sUser_ID, null,
@@ -90,10 +90,15 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
                         MyOrdersModel mMyOrdersModel = gson.fromJson(response.toString(), MyOrdersModel.class);
                         if (mMyOrdersModel.getOrdersData() != null && mMyOrdersModel.getOrdersData().size() > 0) {
                             mMyOrdersRecycleViewAdapter = new MyOrdersRecycleViewAdapter(activity, mMyOrdersModel.getOrdersData());
+                            myOrdersRecylerView.setVisibility(View.VISIBLE);
+                            aQuery.find(R.id.tv_no_record_found).getTextView().setVisibility(View.GONE);
                             SetListData();
                             loading.close();
+
                         } else {
                             loading.close();
+                            myOrdersRecylerView.setVisibility(View.GONE);
+                            aQuery.find(R.id.tv_no_record_found).getTextView().setVisibility(View.VISIBLE);
                             showToast(getResources().getString(R.string.no_record_found));
 
                         }

@@ -123,8 +123,21 @@
                     android:id="@+id/rv_fav_shops"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/_5sdp" />
-
+                    android:layout_margin="@dimen/_5sdp"
+                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tv_no_record_found"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:text="@string/no_record_found"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    android:textSize="@dimen/_15sdp"
+                    />
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_15sdp"

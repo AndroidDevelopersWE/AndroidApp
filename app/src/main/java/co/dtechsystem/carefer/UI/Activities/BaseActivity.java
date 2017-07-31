@@ -54,10 +54,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     AnalyticsApplication sAnalyticsApplication;
 
     protected Tracker mTracker;
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        final Fabric fabric = new Fabric.Builder(this)
+//                .kits(new Crashlytics())
+//                .debuggable(true)
+//                .build();
+//        Fabric.with(fabric);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/shahd.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -178,7 +184,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private static void disableSSLCertificateChecking() {
-        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+        TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
             public X509Certificate[] getAcceptedIssuers() {
                 return null;
             }
@@ -192,7 +198,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             public void checkServerTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {
                 // Not implemented
             }
-        } };
+        }};
 
         try {
             SSLContext sc = SSLContext.getInstance("TLS");

@@ -199,6 +199,10 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+            <!--fabric metadata-->
+        <!--<meta-data-->
+            <!--android:name="io.fabric.ApiKey"-->
+            <!--android:value="aa6208b60fae6870747b02c3f26bb999fd290c04" />-->
 </application>
 
     </manifest>
