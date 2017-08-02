@@ -9,8 +9,8 @@ public class ShopsDetailsModel {
     private List<ShopsImagessRecord> shopImages;
 
     public ShopsDetailsModel() {
-        shopsDetail = new ArrayList<ShopsDetailsRecord>();
-        shopImages = new ArrayList<ShopsImagessRecord>();
+        shopsDetail = new ArrayList<>();
+        shopImages = new ArrayList<>();
     }
 
     public List<ShopsDetailsRecord> getShopsDetail() {

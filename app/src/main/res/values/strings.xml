@@ -76,7 +76,7 @@
     <string name="time">Time</string>
     <string name="btn_add_comment">Add Comment</string>
     <string name="btn_rate_this_shop">Rate This Shop</string>
-    <string name="type_comments">Type Your Comments Here...</string>
+    <string name="type_comments">Type Your Comments Here…</string>
     <string name="order_history">Your Order History</string>
     <string name="title_order_history">My Orders</string>
     <string name="tv_order_number">Order Number:</string>
@@ -106,11 +106,11 @@
     <string name="nav_fav_shop">Fav Shops</string>
     <string name="nav_share">Share</string>
     <string name="nav_about_us">About Us</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="some_went_wrong_parsing">Something went wrong parsing!</string>
-    <string name="some_went_wrong">Something went wrong...!</string>
+    <string name="some_went_wrong">Something went wrong…!</string>
     <string name="no_record_found">No record found yet!</string>
-    <string name="et_search_shop">Enter shop name...</string>
+    <string name="et_search_shop">Enter shop name…</string>
 
     <string name="phone_hint">Phone Number</string>
 
@@ -134,20 +134,20 @@
     <string name="dp_brand">Brand</string>
     <string name="dp_model">Model</string>
     <string name="toast_select_one_drop">Please Select One From DropDown</string>
-    <string name="toast_no_internet_avail">No Internet Available...!</string>
-    <string name="toast_logged_in">Logged In...!</string>
-    <string name="toast_permission">You did not give permission to access device location...!</string>
-    <string name="toast_record_updated">Record Updated Successfully...!</string>
+    <string name="toast_no_internet_avail">No Internet Available…!</string>
+    <string name="toast_logged_in">Logged In…!</string>
+    <string name="toast_permission">You did not give permission to access device location…!</string>
+    <string name="toast_record_updated">Record Updated Successfully…!</string>
     <string name="toast_order_placed">Your Order Placed.</string>
     <string name="toast_fill_all_fields">Please Fill All Fields.</string>
-    <string name="toast_carefer_policy">Please accept carefer policy first...!</string>
-    <string name="toast_no_shop_contact_found">No shop contact Number found...!</string>
+    <string name="toast_carefer_policy">Please accept carefer policy first…!</string>
+    <string name="toast_no_shop_contact_found">No shop contact Number found…!</string>
     <string name="toast_mobile_Verified">Mobile Number Verified.</string>
     <string name="toast_invalid_code">Incorrect verification code.</string>
     <string name="toast_verfication_sent_mobile">Verification code has been sent to your mobile phone for verification.</string>
     <string name="toast_will_try">Will try to resend after:</string>
-    <string name="toast_shop_deleted_fav">Shop deleted from your favourite list...</string>
-    <string name="toast_shop_added_fav">Shop Added in your favourite list...</string>
+    <string name="toast_shop_deleted_fav">Shop deleted from your favourite list…</string>
+    <string name="toast_shop_added_fav">Shop Added in your favourite list…</string>
     <string name="toast_location_not_found">Your current location could not be found.</string>
     <string name="toast_record_found_out_of">Rocord Found Out of </string>
 

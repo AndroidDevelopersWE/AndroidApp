@@ -84,16 +84,19 @@ public class MainActivity extends BaseActivity
     private boolean firstCAll = false;
     private String mPlaceName = "";
     private TextView tv_title_main;
-    Map<Integer, Bitmap> mImagesMaps = new HashMap<Integer, Bitmap>();
+    private Map<Integer, Bitmap> mImagesMaps = new HashMap<>();
     private LatLng mLatLngCurrent;
-    Location mNewLocation, mOldLocation;
-    int idle;
-    String ShopsListDataResponse = "", citiesNamesIDsResponse = "", isLocationAvail = "";
-    String CityId = "";
-    JSONArray totalDataofCurrentLatlngNames;
-    boolean SearchingCityfinished = false;
+    private Location mNewLocation;
+    private Location mOldLocation;
+    private int idle;
+    private String ShopsListDataResponse = "";
+    private String citiesNamesIDsResponse = "";
+    private String isLocationAvail = "";
+    private String CityId = "";
+    private JSONArray totalDataofCurrentLatlngNames;
+    private boolean SearchingCityfinished = false;
     String fromListLocation = "";
-    boolean locationSettings = false;
+    private boolean locationSettings = false;
 
     @Override
 
@@ -258,7 +261,7 @@ public class MainActivity extends BaseActivity
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             mMap.setMyLocationEnabled(true);
         }
-        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M && mLatLngCurrent == null && Utils.isLocationServiceEnabled(activity) == false) {
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M && mLatLngCurrent == null && !Utils.isLocationServiceEnabled(activity)) {
             mMap.setMyLocationEnabled(true);
             // User refused to grant permission. You can add AlertDialog here
             isLocationAvail = "No";
@@ -423,7 +426,7 @@ public class MainActivity extends BaseActivity
         queue.add(getRequest);
     }
 
-    public static boolean isProbablyArabic(String s) {
+    private static boolean isProbablyArabic(String s) {
         if (s != null) {
             for (int i = 0; i < s.length(); ) {
                 int c = s.codePointAt(i);
@@ -447,16 +450,16 @@ public class MainActivity extends BaseActivity
                         // display response
                         try {
                             totalDataofCurrentLatlngNames = response.getJSONArray("results");
-                            for (int i = 0; i < totalDataofCurrentLatlngNames.length() && SearchingCityfinished == false; i++) {
+                            for (int i = 0; i < totalDataofCurrentLatlngNames.length() && !SearchingCityfinished; i++) {
                                 JSONObject jsonObject = totalDataofCurrentLatlngNames.getJSONObject(i);
                                 JSONArray address_components = jsonObject.getJSONArray("address_components");
-                                for (int j = 0; j < address_components.length() && SearchingCityfinished == false; j++) {
+                                for (int j = 0; j < address_components.length() && !SearchingCityfinished; j++) {
                                     JSONObject typesLocality = address_components.getJSONObject(j);
                                     String mPlaceName1 = typesLocality.getString("short_name");
                                     if (isProbablyArabic(mPlaceName1)) {
 
 
-                                        for (int k = 0; k < jsonArray.length() && SearchingCityfinished == false; k++) {
+                                        for (int k = 0; k < jsonArray.length() && !SearchingCityfinished; k++) {
                                             JSONObject jsonObjectCities = jsonArray.getJSONObject(k);
                                             String cityName = jsonObjectCities.getString("name");
 
@@ -868,7 +871,7 @@ public class MainActivity extends BaseActivity
         }
     }
 
-    public void showPermissionDialog() {
+    private void showPermissionDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
         alertDialog.setTitle(getResources().getString(R.string.app_name));
         alertDialog.setMessage(getResources().getString(R.string.dialog_need_your_permission));

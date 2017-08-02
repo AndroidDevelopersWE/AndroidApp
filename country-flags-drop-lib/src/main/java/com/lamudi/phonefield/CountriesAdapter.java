@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 
-public class CountriesAdapter extends ArrayAdapter<Country> implements SpinnerAdapter {
+class CountriesAdapter extends ArrayAdapter<Country> implements SpinnerAdapter {
 
   private final LayoutInflater mInflater;
   public CountriesAdapter(Context context, List<Country> countries) {

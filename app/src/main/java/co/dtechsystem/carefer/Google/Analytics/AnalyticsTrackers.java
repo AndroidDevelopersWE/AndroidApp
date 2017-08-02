@@ -14,6 +14,7 @@ import co.dtechsystem.carefer.R;
  * Created by DELL on 7/7/2017.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class AnalyticsTrackers {
     public enum Target {APP,}
     private static AnalyticsTrackers sInstance;
@@ -32,7 +33,7 @@ public class AnalyticsTrackers {
         }
         return sInstance;
     }
-    private final Map<Target, Tracker> mTrackers = new HashMap<Target, Tracker>();
+    private final Map<Target, Tracker> mTrackers = new HashMap<>();
     private final Context mContext;
     private AnalyticsTrackers(Context context)
     {

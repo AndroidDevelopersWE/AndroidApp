@@ -4,10 +4,11 @@ package co.dtechsystem.carefer.Models;
  * Created by DELL on 4/26/2017.
  */
 
-public class DrawerItem {
+@SuppressWarnings("DefaultFileTemplate")
+class DrawerItem {
 
-    String ItemName;
-    int imgResID;
+    private String ItemName;
+    private int imgResID;
 
     public DrawerItem(String itemName, int imgResID) {
         super();

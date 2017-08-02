@@ -29,11 +29,10 @@ import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class ReviewActivity extends BaseActivity {
-    private String mshopID;
-    RecyclerView rv_shop_reviews;
-    ReviewsRecycleViewAdapter mReviewsRecycleViewAdapter;
-    TextView tv_title_review;
-    String shopRatings = "";
+    private RecyclerView rv_shop_reviews;
+    private ReviewsRecycleViewAdapter mReviewsRecycleViewAdapter;
+    private TextView tv_title_review;
+    private String shopRatings = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class ReviewActivity extends BaseActivity {
         setContentView(R.layout.activity_review);
         rv_shop_reviews = (RecyclerView) findViewById(R.id.rv_shop_reviews);
         tv_title_review = (TextView) findViewById(R.id.tv_title_review);
-        mshopID = intent.getStringExtra("ShopID");
+        String mshopID = intent.getStringExtra("ShopID");
         shopRatings = intent.getStringExtra("shopRatings");
         if (mshopID != null && !mshopID.equals("")) {
             if (Validations.isInternetAvailable(activity, true)) {

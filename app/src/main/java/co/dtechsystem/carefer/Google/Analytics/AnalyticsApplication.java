@@ -13,6 +13,7 @@ import co.dtechsystem.carefer.R;
  * Created by DELL on 7/7/2017.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public class AnalyticsApplication extends MultiDexApplication {
     private Tracker mTracker;
     private static AnalyticsApplication mInstance;
@@ -37,7 +38,7 @@ public class AnalyticsApplication extends MultiDexApplication {
         return mTracker;
     }
 
-    public synchronized Tracker getGoogleAnalyticsTracker()
+    private synchronized Tracker getGoogleAnalyticsTracker()
     {
         AnalyticsTrackers analyticsTrackers = AnalyticsTrackers.getInstance();
         return analyticsTrackers.get(AnalyticsTrackers.Target.APP);

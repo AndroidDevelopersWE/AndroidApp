@@ -38,7 +38,6 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
     private DrawerLayout mDrawerLayout;
     private String mshopID;
     private String morderID;
-    private String mShopName;
     private TextView tv_title_rating;
 
     @Override
@@ -69,7 +68,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
         if (intent != null) {
             mshopID = intent.getStringExtra("shopID");
             morderID = intent.getStringExtra("orderID");
-            mShopName = intent.getStringExtra("ShopName");
+            String mShopName = intent.getStringExtra("ShopName");
             aQuery.find(R.id.tv_shop_name_rating).text(mShopName);
 
         }

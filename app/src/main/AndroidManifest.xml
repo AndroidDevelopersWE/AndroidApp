@@ -126,6 +126,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.Activities.ReviewActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <!-- Firebase Notifications -->
         <service android:name=".Google.FCM.CareferFirebaseMessagingService">
             <intent-filter>
@@ -158,19 +163,7 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent"/>
-        <!-- ./Firebase Notifications -->
-        <!-- &lt;!&ndash;Sms broadcast receiver for pin receiving&ndash;&gt; -->
-        <!-- <receiver android:name=".Receiver.SMSBroadcastReceiver" android:exported="true" android:enabled="true"> -->
-        <!-- <intent-filter android:priority="999"> -->
-        <!-- <action android:name="android.provider.Telephony.SMS_RECEIVED" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
 
-        <activity
-            android:name=".UI.Activities.ReviewActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
         <receiver
             android:name="com.google.android.gms.analytics.AnalyticsReceiver"
             android:enabled="true">

@@ -50,6 +50,7 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
+@SuppressWarnings("unchecked")
 public class MyDetailsActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
     private String mcustomerName;
@@ -70,14 +71,14 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
     private final ArrayList<String> mServicesIdArray = new ArrayList<>();
     private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
     private final ArrayList<String> mModelsIdArray = new ArrayList<>();
-    public String mBrandsId;
-    public String mModelsId;
-    public boolean mModelData;
-    public boolean mBrandData;
+    private String mBrandsId;
+    private String mModelsId;
+    private boolean mModelData;
+    private boolean mBrandData;
     private final List brands = new ArrayList();
-    List models = new ArrayList();
-    boolean firstBrand = true;
-    boolean firstModel = true;
+    private List models = new ArrayList();
+    private boolean firstBrand = true;
+    private boolean firstModel = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -386,7 +387,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         });
     }
 
-    public void APiGetBrandsServiceModelsData(final String Url, final String Type, final String BrandId) {
+    private void APiGetBrandsServiceModelsData(final String Url, final String Type, final String BrandId) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
@@ -668,7 +669,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
         queue.add(postRequest);
     }
 
-    public void APiChangeUserPhone(final String customerMobile) {
+    private void APiChangeUserPhone(final String customerMobile) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiChangeUserPhone,

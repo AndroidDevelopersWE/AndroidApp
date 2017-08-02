@@ -54,7 +54,12 @@ public class NavigationsActivity extends BaseActivity
     private boolean firstCAll = false;
     private SupportMapFragment mapFragment;
     private LatLng mShopLatlng, mUserLatlng;
-    String CityId, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail, mplaceName, mPermissionsNowGiven="";
+    private String CityId;
+    private String ShopsListDataResponse;
+    private String citiesNamesIDsResponse;
+    private String isLocationAvail;
+    private String mplaceName;
+    private String mPermissionsNowGiven="";
     private TextView tv_title_navigation;
     private LatLng mLatlngCurrent;
 

@@ -88,7 +88,7 @@ public class CareferFirebaseMessagingService extends FirebaseMessagingService {
 
 
     }
-    public int generateRandom() {
+    private int generateRandom() {
         return new Random().nextInt(8999) + 1000;
     }
 

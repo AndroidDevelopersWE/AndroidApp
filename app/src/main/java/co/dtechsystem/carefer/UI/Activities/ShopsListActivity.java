@@ -60,34 +60,44 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
+@SuppressWarnings("unchecked")
 public class ShopsListActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
     @SuppressLint("StaticFieldLeak")
     private static ShopsListRecycleViewAdapter mshopsListRecycleViewAdapter;
     private DrawerLayout mDrawerLayout;
     private String mplaceName;
     private EditText et_search_shops_main;
-    private ArrayAdapter<String> adapterFilter;
     private TextView tv_total_results_shops_list;
     private TextView tv_title_shops_list;
     private ShopsListModel mShopsListModel;
     private LatLng mLatlngCurrent;
     private SwipeRefreshLayout lay_pull_refresh_shops_list;
     private String ShopsData;
-    RecyclerView recyclerView;
-    Button btn_back_top_shops_list;
-    public static String ShopsListDataResponse = "", citiesNamesIDsResponse = "", CityId = "", isLocationAvail = "";
+    private RecyclerView recyclerView;
+    private Button btn_back_top_shops_list;
+    public static String ShopsListDataResponse = "";
+    private static String citiesNamesIDsResponse = "";
+    private static String CityId = "";
+    private static String isLocationAvail = "";
     private final List listCities = new ArrayList();
     private final List listCitiesId = new ArrayList();
-    int check = 0;
-    boolean found = false;
-    String CityName = "", provide_warranty = "", provide_ReplaceParts = "", topRated = "", placeType = "", brandType = "", serviceType = "", FilterRecord = "";
-    Intent FilteredData;
-    ArrayList<Integer> CheckedServices = new ArrayList<Integer>();
-    ArrayList<Integer> CheckedBrands = new ArrayList<Integer>();
-    ArrayList<Integer> CheckedShopTypes = new ArrayList<Integer>();
-    String callType = "";
-    boolean locationSettings = false;
-    LinearLayoutManager mLinearLayoutManager;
+    private int check = 0;
+    private boolean found = false;
+    private String CityName = "";
+    private String provide_warranty = "";
+    private String provide_ReplaceParts = "";
+    private String topRated = "";
+    private String placeType = "";
+    private String brandType = "";
+    private String serviceType = "";
+    private String FilterRecord = "";
+    private Intent FilteredData;
+    private ArrayList<Integer> CheckedServices = new ArrayList<>();
+    private ArrayList<Integer> CheckedBrands = new ArrayList<>();
+    private ArrayList<Integer> CheckedShopTypes = new ArrayList<>();
+    private String callType = "";
+    private boolean locationSettings = false;
+    private LinearLayoutManager mLinearLayoutManager;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -127,7 +137,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
         getDataForView();
         setDataToView();
-        setDataToViews();
+        setFilterDataToViews();
         if (ShopsListDataResponse != null && !ShopsListDataResponse.equals("") && citiesNamesIDsResponse != null && !citiesNamesIDsResponse.equals("")) {
             ShopsData = ShopsListDataResponse;
             loading.show();
@@ -176,9 +186,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         Utils.gradientTextViewLong(tv_title_shops_list, activity);
     }
 
-    private void setDataToViews() {
+    private void setFilterDataToViews() {
         // create spinner list elements for Filter
-        adapterFilter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        ArrayAdapter<String> adapterFilter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
 
         //added searching
         adapterFilter.add(getResources().getString(R.string.spinner_provided_warranty));
@@ -299,7 +309,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     }
 
     //Sorting dialog fun
-    public void CustomSortingDialog() {
+    private void CustomSortingDialog() {
         //Sorting dialog fun
         // custom dialog
         final Dialog dialog = new Dialog(activity);
@@ -422,7 +432,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     }
 
     //Name Sorting dialog fun
-    public void CustomNameSortingDialog() {
+    private void CustomNameSortingDialog() {
         //Sorting dialog fun
         // custom dialog
         final Dialog dialog = new Dialog(activity);
@@ -510,7 +520,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    public void setCityDropDownData() {
+    private void setCityDropDownData() {
 
         final ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, listCities);
         aQuery.id(R.id.sp_city_name_shops_list).adapter(StringModeldataAdapter);
@@ -593,7 +603,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onResponse(String response) {
                         // response
-                        Log.d("Response", response);
+                        Log.d("Response: ", response);
 
                         try {
                             if (Type.equals("Shops") && City.equals("City") || City.equals("")) {
@@ -800,7 +810,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
 
                 List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration = mShopsListModel.getShopsList();
-                List<ShopsListModel.ShopslistRecord> _ShopslistAfterFiltration = new ArrayList<ShopsListModel.ShopslistRecord>();
+                List<ShopsListModel.ShopslistRecord> _ShopslistAfterFiltration = new ArrayList<>();
                 if (_ShopslistBeforeFiltration != null) {
 
 //                    if (_ShopslistBeforeFiltration.size() == 0) {

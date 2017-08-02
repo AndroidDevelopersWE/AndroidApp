@@ -3,7 +3,7 @@ package com.lamudi.phonefield;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class Countries {
+final class Countries {
 
   public static final List<Country> COUNTRIES = new ArrayList<>();
   static {

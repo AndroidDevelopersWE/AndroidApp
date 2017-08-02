@@ -1,7 +1,7 @@
 package co.dtechsystem.carefer.Widget;
 
-/**
- * Created by DELL on 5/2/2017.
+/*
+  Created by DELL on 5/2/2017.
  */
 
 import android.app.AlertDialog;
@@ -90,7 +90,7 @@ public class MultiSpinner extends android.support.v7.widget.AppCompatTextView im
         return this.mAdapter;
     }
 
-    DataSetObserver dataSetObserver = new DataSetObserver() {
+    private DataSetObserver dataSetObserver = new DataSetObserver() {
         @Override
         public void onChanged() {
             // all selected by default

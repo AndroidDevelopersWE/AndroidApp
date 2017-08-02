@@ -8,10 +8,10 @@ import java.util.List;
 
 public class ShopsListModel {
     private List<ShopslistRecord> shopsList;
-    LatLng mLatlngCurrent;
+    private LatLng mLatlngCurrent;
 
     public ShopsListModel(LatLng mLatlngCurrent) {
-        shopsList = new ArrayList<ShopslistRecord>();
+        shopsList = new ArrayList<>();
         this.mLatlngCurrent = mLatlngCurrent;
     }
 

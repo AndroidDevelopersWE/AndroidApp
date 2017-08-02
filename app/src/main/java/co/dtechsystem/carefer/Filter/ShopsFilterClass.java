@@ -14,10 +14,11 @@ import co.dtechsystem.carefer.R;
  * Created by DELL on 6/12/2017.
  */
 
+@SuppressWarnings("DefaultFileTemplate")
 public abstract class ShopsFilterClass {
-    public static List<ShopsListModel.ShopslistRecord> _ShopslistRecordList;
-    public static List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter;
-    static Activity activity;
+    private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordList;
+    private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter;
+    private static Activity activity;
 
     public static List<ShopsListModel.ShopslistRecord>
     filterShopsWithProviders(Activity activity,
@@ -26,7 +27,7 @@ public abstract class ShopsFilterClass {
                              final String topRated, final String placeType, String Brands, final String Service) {
 
         ShopsFilterClass._ShopslistRecordList = _ShopslistRecordList;
-        _ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
+        _ShopslistRecordListFilter = new ArrayList<>();
 
         _ShopslistRecordListFilter.addAll(_ShopslistRecordList);
         ShopsFilterClass.activity = activity;

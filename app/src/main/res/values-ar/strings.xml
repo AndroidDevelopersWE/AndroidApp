@@ -131,12 +131,12 @@
     <string name="toast_carefer_policy">يرجى قبول سياسة كارفر أولا …!</string>
     <string name="toast_no_shop_contact_found">لا يوجد رقم اتصال بالورشة …!</string>
     <string name="toast_mobile_Verified">تم التحقق من رقم الجوال</string>
-    <string name="toast_invalid_code">رمز التحقق غير صحيح ...!</string>
+    <string name="toast_invalid_code">رمز التحقق غير صحيح …!</string>
     <string name="toast_verfication_sent_mobile">تم إرسال رمز التحقق إلى رقم هاتفك الجوال للتحقق منه.</string>
     <string name="toast_will_try">سيحاول إعادة إرسال بعد:</string>
     <string name="toast_shop_deleted_fav">تم حذف الورشة من قائمتك المفضلة</string>
     <string name="toast_shop_added_fav">تم إضافة الورشة في قائمتك المفضلة</string>
-    <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي ...!</string>
+    <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي …!</string>
     <string name="toast_record_found_out_of"> سجل العثور على الخروج من </string>
 
     <string name="toast_review_added">تمت إضافة التعليق</string>

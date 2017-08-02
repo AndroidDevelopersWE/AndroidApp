@@ -45,6 +45,7 @@ import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
 
+@SuppressWarnings("unchecked")
 public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListRecycleViewAdapter.ViewHolder> {
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordList;
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter;
@@ -54,11 +55,11 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
     @SuppressWarnings("unused")
     private static Boolean expand;
     private static LatLng mLatlngCurrent;
-    Button btn_back_top_shops_list;
-    String isLocationAvail;
-    int selectedPosition = -2;
+    private Button btn_back_top_shops_list;
+    private String isLocationAvail;
+    private int selectedPosition = -2;
     ArrayList<Integer> totalIds = new ArrayList();
-    int coun;
+    private int coun;
 
     //    work on its main thread
     @SuppressWarnings({"unused", "Convert2Diamond"})
@@ -138,7 +139,7 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         final int height = holder.lay_details.getMeasuredHeight();
         if (selectedPosition == position) {
 
-            if (holder.lay_details.getVisibility() != View.VISIBLE && expand == false) {
+            if (holder.lay_details.getVisibility() != View.VISIBLE && !expand) {
                 holder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_orange_three_color, null));
                 int i = (int) activity.getResources().getDimension(R.dimen._80sdp);
                 expand(holder.lay_details, 500, i, holder);
@@ -603,10 +604,10 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         if (_ShopslistRecordList != null) {
             if (selectedItem.size() > 0) {
                 _ShopslistRecordList.clear();
-                final List<ShopsListModel.ShopslistRecord> _Shops1Km = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _Shops5Km = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _Shops20Km = new ArrayList<ShopsListModel.ShopslistRecord>();
-                final List<ShopsListModel.ShopslistRecord> _ShopsHighestKm = new ArrayList<ShopsListModel.ShopslistRecord>();
+                final List<ShopsListModel.ShopslistRecord> _Shops1Km = new ArrayList<>();
+                final List<ShopsListModel.ShopslistRecord> _Shops5Km = new ArrayList<>();
+                final List<ShopsListModel.ShopslistRecord> _Shops20Km = new ArrayList<>();
+                final List<ShopsListModel.ShopslistRecord> _ShopsHighestKm = new ArrayList<>();
                 for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
 
                     if (_ShopslistRecordListFilter.get(i).getShopType().toLowerCase(Locale.getDefault())
@@ -634,10 +635,6 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
                             } else if (userLoc.distanceTo(shopLoc) > 20000) {
                                 _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
                             }
-//                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
-//                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
-
-//                            sortDistance(myLocation,myShop);
                         } else {
                             Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
                         }
@@ -673,7 +670,6 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         if (_ShopslistRecordList != null) {
             Locale locale = new Locale("ar");
             if (SortingType.equals("Rating")) {
-//                _ShopslistRecordList.clear();
                 Comparator<ShopsListModel.ShopslistRecord> byFirstElement = new Comparator<ShopsListModel.ShopslistRecord>() {
                     @Override
                     public int compare(ShopsListModel.ShopslistRecord shop1, ShopsListModel.ShopslistRecord shop2) {
@@ -683,89 +679,8 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
 
                 };
                 Collections.sort(_ShopslistRecordList, byFirstElement);
-//                _ShopslistRecordList.addAll(ShopsRatingSorting.MatchRating(_ShopslistRecordListFilter, "Ascending"));
-//                Float ratingArray[] = new Float[_ShopslistRecordListFilter.size()];
-////                ArrayList<String> shopIds = new ArrayList<String>();
-//                for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-//                    ratingArray[i] = Float.parseFloat(_ShopslistRecordListFilter.get(i).getShopRating() + Float.parseFloat(_ShopslistRecordListFilter.get(i).getID()));
-////                    shopIds.add(i, _ShopslistRecordListFilter.get(i).getID());
-//                }
-//                Arrays.sort(ratingArray, Collections.reverseOrder());
-//                for (int i = 0; i < ratingArray.length; i++) {
-//                    for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
-//                        float id = ratingArray[i] - Float.parseFloat(_ShopslistRecordListFilter.get(i).getID());
-//                        if (ratingArray[i] > 0 && ratingArray[i] == Float.parseFloat(_ShopslistRecordListFilter.get(j).getShopRating())) {
-//                            _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
-//                            break;
-//                        }
-//
-//
-////                        else if (ratingArray[i] == 0&&Integer.parseInt(shopIds.get(i)) == Integer.parseInt(_ShopslistRecordListFilter.get(j).getID())) {
-////                            _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
-////                            break;
-////                        }
-//                    }
-//                }
             } else if (SortingType.equals("Distance")) {
 
-//                Float distanceArray[] = new Float[_ShopslistRecordListFilter.size()];
-
-//                if (mLatlngCurrent != null) {
-//                    for (int i = 0; i < _ShopslistRecordListFilter.size(); i++) {
-//                        LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(i).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(i).getLongitude()));
-//                        Location userLoc = new Location("");
-//                        userLoc.setLatitude(mLatlngCurrent.latitude);
-//                        userLoc.setLongitude(mLatlngCurrent.longitude);
-//                        Location shopLoc = new Location("");
-//                        shopLoc.setLatitude(shopLatlng.latitude);
-//                        shopLoc.setLongitude(shopLatlng.longitude);
-//                        float lo = userLoc.distanceTo(shopLoc);
-//                        distanceArray[i] = lo;
-////                        if (userLoc.distanceTo(shopLoc) <= 1000) {
-////                            _Shops1Km.add(_ShopslistRecordListFilter.get(i));
-////                        } else if (userLoc.distanceTo(shopLoc) <= 5000) {
-////                            _Shops5Km.add(_ShopslistRecordListFilter.get(i));
-////                        } else if (userLoc.distanceTo(shopLoc) <= 20000) {
-////                            _Shops20Km.add(_ShopslistRecordListFilter.get(i));
-////                        } else if (userLoc.distanceTo(shopLoc) > 20000) {
-////                            _ShopsHighestKm.add(_ShopslistRecordListFilter.get(i));
-////                        }
-////                            final SortByDistance.Location myLocation=new SortByDistance.Location(mLatlngCurrent.latitude,mLatlngCurrent.longitude);
-////                            final SortByDistance.Location myShop=new SortByDistance.Location(shopLatlng.latitude,shopLatlng.longitude);
-//
-////                            sortDistance(myLocation,myShop);
-//                    }
-//                    _ShopslistRecordList.clear();
-//                    Arrays.sort(distanceArray, Collections.reverseOrder());
-//                    for (int i = distanceArray.length - 1; i >= 0; i--) {
-//                        for (int j = 0; j < _ShopslistRecordListFilter.size(); j++) {
-//                            LatLng shopLatlng = new LatLng(Double.parseDouble(_ShopslistRecordListFilter.get(j).getLatitude()), Double.parseDouble(_ShopslistRecordListFilter.get(j).getLongitude()));
-//                            Location userLoc = new Location("");
-//                            userLoc.setLatitude(mLatlngCurrent.latitude);
-//                            userLoc.setLongitude(mLatlngCurrent.longitude);
-//                            Location shopLoc = new Location("");
-//                            shopLoc.setLatitude(shopLatlng.latitude);
-//                            shopLoc.setLongitude(shopLatlng.longitude);
-//                            float lo = userLoc.distanceTo(shopLoc);
-//                            if (distanceArray[i] == lo) {
-//                                _ShopslistRecordList.add(_ShopslistRecordListFilter.get(j));
-//                                break;
-//                            } else {
-////                                _ShopslistAfterFiltration.remove(i);
-////                                break;
-////                                _ShopslistBeforeFiltration.remove(i);
-////                                break;
-//                            }
-//                        }
-//                    }
-//                    int i = _ShopslistRecordList.size();
-////                    _ShopslistRecordList.addAll(_Shops1Km);
-////                    _ShopslistRecordList.addAll(_Shops5Km);
-////                    _ShopslistRecordList.addAll(_Shops20Km);
-////                    _ShopslistRecordList.addAll(_ShopsHighestKm);
-////                } else {
-//                    Toast.makeText(activity, activity.getResources().getString(R.string.toast_location_not_found), Toast.LENGTH_SHORT).show();
-//                }
                 if (mLatlngCurrent != null) {
                     Comparator<ShopsListModel.ShopslistRecord> byFirstElement = new Comparator<ShopsListModel.ShopslistRecord>() {
                         @Override

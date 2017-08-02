@@ -39,7 +39,7 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
     private FavouriteShopsRecycleViewAdapter mFavouriteShopsRecycleViewAdapter;
     private DrawerLayout mDrawerLayout;
     private TextView tv_title_fav_shops;
-    RecyclerView favShopssRecylerView;
+    private RecyclerView favShopssRecylerView;
 
 
     @Override

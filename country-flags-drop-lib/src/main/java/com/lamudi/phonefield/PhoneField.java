@@ -33,7 +33,6 @@ public abstract class PhoneField extends LinearLayout {
     private static PhoneNumberUtil mPhoneUtil = PhoneNumberUtil.getInstance();
 
     private int mDefaultCountryPosition = 0;
-    private static int mSelectedCountryPosition = 0;
     private String countryCode;
 
     /**
@@ -72,7 +71,7 @@ public abstract class PhoneField extends LinearLayout {
     /**
      * Prepare view.
      */
-    protected void prepareView() {
+    void prepareView() {
         mSpinner = (Spinner) findViewWithTag(getResources().getString(R.string.com_lamudi_phonefield_flag_spinner));
         mEditText = (EditText) findViewWithTag(getResources().getString(R.string.com_lamudi_phonefield_edittext));
         mEditTextCode = (EditText) findViewWithTag(getResources().getString(R.string.com_lamudi_phonefield_edittext_code));
@@ -242,7 +241,7 @@ public abstract class PhoneField extends LinearLayout {
             if (country.getDialCode() == dialCode) {
                 mCountry = country;
                 mSpinner.setSelection(i);
-                mSelectedCountryPosition = i;
+                int mSelectedCountryPosition = i;
             }
         }
     }
@@ -279,7 +278,7 @@ public abstract class PhoneField extends LinearLayout {
      *
      * @return the layout res id
      */
-    public abstract int getLayoutResId();
+    protected abstract int getLayoutResId();
 
     /**
      * Sets hint.
@@ -295,7 +294,7 @@ public abstract class PhoneField extends LinearLayout {
      *
      * @return the raw input
      */
-    public String getRawInput() {
+    private String getRawInput() {
         return mEditTextCode.getText().toString() + mEditText.getText().toString();
     }
 

@@ -44,16 +44,20 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
-    protected Loading loading;
+    Loading loading;
     protected Activity activity;
-    protected AQuery aQuery;
-    protected Gson gson;
-    protected Intent intent;
-    protected String sUser_Mobile = "", sUser_Mobile_Varify = "", sPrivacy_check = "", sUser_ID, sRegId = "";
+    AQuery aQuery;
+    Gson gson;
+    Intent intent;
+    protected String sUser_Mobile = "";
+    protected String sUser_Mobile_Varify = "";
+    protected String sPrivacy_check = "";
+    String sUser_ID;
+    String sRegId = "";
     Locale locale, localeEn;
-    AnalyticsApplication sAnalyticsApplication;
+    private AnalyticsApplication sAnalyticsApplication;
 
-    protected Tracker mTracker;
+    Tracker mTracker;
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -99,7 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         disableSSLCertificateChecking();
     }
 
-    public void setLanguage(Locale locale) {
+    protected void setLanguage(Locale locale) {
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
         DisplayMetrics displayMetrics = resources.getDisplayMetrics();

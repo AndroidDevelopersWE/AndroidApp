@@ -40,6 +40,7 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
+@SuppressWarnings("unchecked")
 public class ShopDetailsOrderActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout mDrawerLayout;
     private String mshopID, mshopName, mshopType, mshopRating, mlatitude, mlongitude, mshopImage, mContact;
@@ -51,7 +52,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     private String mModelsId, CityId, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
     private final List listservices = new ArrayList();
     private final List brands = new ArrayList();
-    List models = new ArrayList();
+    private List models = new ArrayList();
     private TextView tv_title_shops_details_order;
     private LatLng mLatlngCurrent;
 
@@ -127,7 +128,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
     }
 
 
-    public void APiGetBrandsServiceModelsData(final String Url, final String Type, final String BrandId) {
+    private void APiGetBrandsServiceModelsData(final String Url, final String Type, final String BrandId) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, Url,

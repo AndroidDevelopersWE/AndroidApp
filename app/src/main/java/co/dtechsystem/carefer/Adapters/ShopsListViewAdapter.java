@@ -43,7 +43,8 @@ import co.dtechsystem.carefer.Sorting.ArabicNamesSortingModel;
 import co.dtechsystem.carefer.UI.Activities.ShopDetailsActivity;
 import co.dtechsystem.carefer.Utils.AppConfig;
 
-public class ShopsListViewAdapter extends BaseAdapter {
+@SuppressWarnings("unchecked")
+class ShopsListViewAdapter extends BaseAdapter {
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordList;
     private static List<ShopsListModel.ShopslistRecord> _ShopslistRecordListFilter;
     private int lastPosition;
@@ -52,11 +53,11 @@ public class ShopsListViewAdapter extends BaseAdapter {
     @SuppressWarnings("unused")
     private static Boolean expand;
     private static LatLng mLatlngCurrent;
-    Button btn_back_top_shops_list;
-    String isLocationAvail;
-    int selectedPosition = -2;
-    int currentShopId;
-    boolean stateMaintain = false;
+    private Button btn_back_top_shops_list;
+    private String isLocationAvail;
+    private int selectedPosition = -2;
+    private int currentShopId;
+    private boolean stateMaintain = false;
     ArrayList<Integer> totalIds = new ArrayList();
     private static LayoutInflater inflater = null;
 
@@ -64,7 +65,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
     public ShopsListViewAdapter(Activity activity, List<ShopsListModel.ShopslistRecord> _ShopslistRecordList,
                                 LatLng mLatlngCurrent, Button btn_back_top_shops_list, String isLocationAvail) {
         ShopsListViewAdapter._ShopslistRecordList = _ShopslistRecordList;
-        _ShopslistRecordListFilter = new ArrayList<ShopsListModel.ShopslistRecord>();
+        _ShopslistRecordListFilter = new ArrayList<>();
         _ShopslistRecordListFilter.addAll(_ShopslistRecordList);
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ShopsListViewAdapter.activity = activity;
@@ -89,7 +90,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
         return Long.parseLong(_ShopslistRecordList.get(position).getID());
     }
 
-    public void setViews(View v, ViewHolder viewHolder) {
+    private void setViews(View v, ViewHolder viewHolder) {
         viewHolder.tv_shop_name_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_shop_list);
         viewHolder.tv_service_type_shop_list = (TextView) v.findViewById(R.id.tv_service_type_shop_list);
         viewHolder.tv_desc_shop_list = (TextView) v.findViewById(R.id.tv_desc_shop_list);
@@ -143,7 +144,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
 
     }
 
-    ViewHolder viewHolder = null;
+    private ViewHolder viewHolder = null;
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         View vi = convertView;
@@ -190,14 +191,14 @@ public class ShopsListViewAdapter extends BaseAdapter {
         int height = viewHolder.lay_details.getMeasuredHeight();
         if (currentShopId == Integer.parseInt(_ShopslistRecordList.get(position).getID())) {
 
-            if (viewHolder.lay_details.getVisibility() != View.VISIBLE && expand == false) {
+            if (viewHolder.lay_details.getVisibility() != View.VISIBLE && !expand) {
                 viewHolder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_orange_three_color, null));
                 int i = (int) activity.getResources().getDimension(R.dimen._80sdp);
                 expand(viewHolder.lay_details, 500, i);
                 expand = true;
 
             } else {
-                if (stateMaintain == true) {
+                if (stateMaintain) {
                     viewHolder.lay_shop_item.setBackground(ResourcesCompat.getDrawable(activity.getResources(), R.drawable.dr_corner_grey, null));
                     collapse(viewHolder.lay_details);
                     expand = false;
@@ -215,7 +216,7 @@ public class ShopsListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 selectedPosition = position;
-                if (stateMaintain == false) {
+                if (!stateMaintain) {
                     stateMaintain = true;
                 }
                 currentShopId = Integer.parseInt(_ShopslistRecordList.get(position).getID());

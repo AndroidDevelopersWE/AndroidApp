@@ -40,10 +40,10 @@ import co.dtechsystem.carefer.Utils.Validations;
 public class MobileNumActivity extends BaseActivity {
     private PhoneEditText phoneEditText;
     private Button submit_button;
-    String CountryID;
-    TelephonyManager tm;
-    String countryCode;
-    String number;
+    private String CountryID;
+    private TelephonyManager tm;
+    private String countryCode;
+    private String number;
     InputStream inStream = null;
     HurlStack hurlStack = null;
 
@@ -143,7 +143,7 @@ public class MobileNumActivity extends BaseActivity {
 
     }
 
-    public void APiCreateUserPhone(final String customerMobile, final String Type) {
+    private void APiCreateUserPhone(final String customerMobile, final String Type) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiCreateUserPhone,

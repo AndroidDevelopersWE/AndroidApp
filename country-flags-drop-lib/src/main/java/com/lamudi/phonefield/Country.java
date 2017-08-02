@@ -6,14 +6,14 @@ import android.content.res.Resources;
 import java.util.Locale;
 
 
-public class Country {
+class Country {
 
     private final String mCode;
 
     private final String mName;
 
     private final int mDialCode;
-    Locale mlocale = new Locale("ar");
+    private Locale mlocale = new Locale("ar");
     public Country(String code, String name, int dialCode) {
         mCode = code;
         mName = name;

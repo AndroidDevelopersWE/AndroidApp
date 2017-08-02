@@ -8,7 +8,7 @@ public class MyOrdersModel {
     private List<MyOrdersRecord> ordersData;
 
     public MyOrdersModel() {
-        ordersData = new ArrayList<MyOrdersRecord>();
+        ordersData = new ArrayList<>();
     }
 
     public List<MyOrdersRecord> getOrdersData() {

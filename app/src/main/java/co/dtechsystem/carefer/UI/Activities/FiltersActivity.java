@@ -40,27 +40,37 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
+@SuppressWarnings("unchecked")
 public class FiltersActivity extends BaseActivity {
-    ExpandableListView lv_service_type, lv_brands, lv_place_type;
+    private ExpandableListView lv_service_type;
+    private ExpandableListView lv_brands;
+    private ExpandableListView lv_place_type;
 
     public static String ShopsDataResponse = "";
 
-    public ShopsListModel mShopsListModel;
+    private ShopsListModel mShopsListModel;
 
-    SwitchCompat sw_provide_warranty_filter, sw_provide_replace_parts_filter, sw_top_rated_filter;
-    public static List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration;
-    public static List<ShopsListModel.ShopslistRecord> _ShopslistAfterFiltration;
-    String provide_warranty = "", provide_ReplaceParts = "", topRated = "", placeType = "", brandType = "", serviceType = "";
-    ArrayAdapter<String> arrayAdapterPlaceType;
-    ArrayAdapter<String> arrayAdapterBrands;
-    ArrayAdapter<String> arrayAdapterServices;
-    int TotalRecord;
-    int FilterRecord;
-    LatLng mLatlngCurrent;
-    ArrayList<Integer> CheckedServices = new ArrayList<Integer>();
-    ArrayList<Integer> CheckedBrands = new ArrayList<Integer>();
-    ArrayList<Integer> CheckedShopTypes = new ArrayList<Integer>();
-    TextView tv_title_filter;
+    private SwitchCompat sw_provide_warranty_filter;
+    private SwitchCompat sw_provide_replace_parts_filter;
+    private SwitchCompat sw_top_rated_filter;
+    private static List<ShopsListModel.ShopslistRecord> _ShopslistBeforeFiltration;
+    private static List<ShopsListModel.ShopslistRecord> _ShopslistAfterFiltration;
+    private String provide_warranty = "";
+    private String provide_ReplaceParts = "";
+    private String topRated = "";
+    private String placeType = "";
+    private String brandType = "";
+    private String serviceType = "";
+    private ArrayAdapter<String> arrayAdapterPlaceType;
+    private ArrayAdapter<String> arrayAdapterBrands;
+    private ArrayAdapter<String> arrayAdapterServices;
+    private int TotalRecord;
+    private int FilterRecord;
+    private LatLng mLatlngCurrent;
+    private ArrayList<Integer> CheckedServices = new ArrayList<>();
+    private ArrayList<Integer> CheckedBrands = new ArrayList<>();
+    private ArrayList<Integer> CheckedShopTypes = new ArrayList<>();
+    private TextView tv_title_filter;
 
     @Override
 
@@ -81,7 +91,7 @@ public class FiltersActivity extends BaseActivity {
         Utils.gradientTextView(tv_title_filter, activity);
     }
 
-    public void GetIntents() {
+    private void GetIntents() {
         if (intent.getStringExtra("provide_warranty") != null && intent.getStringExtra("provide_ReplaceParts") != null &&
                 intent.getStringExtra("topRated") != null && intent.getStringExtra("placeType") != null && intent.getStringExtra("brandType") != null && intent.getStringExtra("serviceType") != null && intent.getStringExtra("FilterRecord") != null &&
                 intent.getIntegerArrayListExtra("CheckedServices") != null && intent.getIntegerArrayListExtra("CheckedBrands") != null &&
@@ -144,7 +154,7 @@ public class FiltersActivity extends BaseActivity {
         }
     }
 
-    public void SetDragAbleFilterViews() {
+    private void SetDragAbleFilterViews() {
         lv_service_type = (ExpandableListView) findViewById(R.id.lv_service_type);
         lv_brands = (ExpandableListView) findViewById(R.id.lv_brands);
         lv_place_type = (ExpandableListView) findViewById(R.id.lv_place_type);
@@ -163,7 +173,7 @@ public class FiltersActivity extends BaseActivity {
         GetIntents();
     }
 
-    public void SetFiltersToViews() {
+    private void SetFiltersToViews() {
 
         sw_provide_warranty_filter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -384,11 +394,11 @@ public class FiltersActivity extends BaseActivity {
                                 //noinspection unchecked
                                 placeType.add(jsonObject.getString("name"));
                             }
-                            arrayAdapterServices = new ArrayAdapter<String>(activity,
+                            arrayAdapterServices = new ArrayAdapter<>(activity,
                                     android.R.layout.simple_list_item_multiple_choice, listservices);
-                            arrayAdapterBrands = new ArrayAdapter<String>(activity,
+                            arrayAdapterBrands = new ArrayAdapter<>(activity,
                                     android.R.layout.simple_list_item_multiple_choice, brands);
-                            arrayAdapterPlaceType = new ArrayAdapter<String>(activity,
+                            arrayAdapterPlaceType = new ArrayAdapter<>(activity,
                                     android.R.layout.simple_list_item_multiple_choice, placeType);
                             SetFiltersToViews();
 
@@ -428,7 +438,7 @@ public class FiltersActivity extends BaseActivity {
         queue.add(getRequest);
     }
 
-    public void ShowFilterPlaceTypeListViewDialog() {
+    private void ShowFilterPlaceTypeListViewDialog() {
         // custom dialog
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.lay_dialog_list_filter);
@@ -513,7 +523,7 @@ public class FiltersActivity extends BaseActivity {
         dialog.show();
     }
 
-    public void ShowFilterBrandsListViewDialog() {
+    private void ShowFilterBrandsListViewDialog() {
         // custom dialog
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.lay_dialog_list_filter);
@@ -535,7 +545,7 @@ public class FiltersActivity extends BaseActivity {
             public void onClick(View v) {
                 int len = lv_filter_list.getCount();
                 SparseBooleanArray checked = lv_filter_list.getCheckedItemPositions();
-                ArrayList<String> brands = new ArrayList<String>();
+                ArrayList<String> brands = new ArrayList<>();
                 CheckedBrands.clear();
                 for (int i = 0; i < len; i++) {
                     if (checked.get(i)) {
@@ -617,7 +627,7 @@ public class FiltersActivity extends BaseActivity {
     //    protected void CloseActivity(View v) {
 //        finish();
 //    }
-    public void ShowFilterServicesListViewDialog() {
+    private void ShowFilterServicesListViewDialog() {
         // custom dialog
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.lay_dialog_list_filter);
@@ -640,7 +650,7 @@ public class FiltersActivity extends BaseActivity {
             public void onClick(View v) {
                 int len = lv_filter_list.getCount();
                 CheckedServices.clear();
-                ArrayList<String> services = new ArrayList<String>();
+                ArrayList<String> services = new ArrayList<>();
                 SparseBooleanArray checked = lv_filter_list.getCheckedItemPositions();
                 for (int i = 0; i < len; i++) {
                     if (checked.get(i)) {
@@ -721,7 +731,7 @@ public class FiltersActivity extends BaseActivity {
     public void setApplyFilterBtnClick(View v) {
         ShopsListActivity shopsListActivity = new ShopsListActivity();
         if (_ShopslistAfterFiltration != null && _ShopslistAfterFiltration.size() > 0) {
-            ArrayList<String> ShopsIds = new ArrayList<String>();
+            ArrayList<String> ShopsIds = new ArrayList<>();
             for (int i = 0; i < _ShopslistAfterFiltration.size(); i++) {
                 ShopsIds.add(_ShopslistAfterFiltration.get(i).getID());
             }

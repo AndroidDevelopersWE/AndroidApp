@@ -28,7 +28,7 @@ import com.google.android.gms.analytics.Tracker;
  * the {@link Tracker}.
  */
 @SuppressLint("Registered")
-public class AnalyticsApplication extends Application {
+class AnalyticsApplication extends Application {
     private Tracker mTracker;
 
     /**

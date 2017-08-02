@@ -5,7 +5,7 @@ import android.content.Context;
 
 public class Loading {
 
-    ProgressDialog pd;
+    private ProgressDialog pd;
 
     public Loading(Context context, String msg) {
 

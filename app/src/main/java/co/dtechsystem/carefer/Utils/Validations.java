@@ -53,7 +53,7 @@ public abstract class Validations {
 	 * 2. Message
 	 * Output: It will display Toast of given message
 	 */
-	public static void showMessage(Context context, String msg)
+	private static void showMessage(Context context, String msg)
 	{
 		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 	}
@@ -75,7 +75,7 @@ public abstract class Validations {
 	 * 1. EditText
 	 * Output: True / False
 	 */
-	public static boolean isEditTextEmpty(EditText et)
+	private static boolean isEditTextEmpty(EditText et)
 	{
 		return TextUtils.isEmpty(et.getText().toString().trim());
 	}
@@ -84,14 +84,14 @@ public abstract class Validations {
 	/**
 	 * Regex pattern for Email Validation
 	 */
-	static String regExpnEmail =
+	private static String regExpnEmail =
 			"^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
 					+"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
 					+"[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
 					+"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
 					+"[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
 					+"([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$";
-	public final static Pattern EMAIL_ADDRESS_PATTERN= Pattern.compile(regExpnEmail, Pattern.CASE_INSENSITIVE);
+	private final static Pattern EMAIL_ADDRESS_PATTERN= Pattern.compile(regExpnEmail, Pattern.CASE_INSENSITIVE);
 
 	/**
 	 * Check Email String is Valid or Not

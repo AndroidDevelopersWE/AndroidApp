@@ -20,7 +20,8 @@ import static android.content.ContentValues.TAG;
  * Created by DELL on 5/25/2017.
  */
 
-public abstract class GPSServiceRequest {
+@SuppressWarnings("DefaultFileTemplate")
+abstract class GPSServiceRequest {
     public static void displayLocationSettingsRequest(final Activity context) {
         GoogleApiClient googleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(LocationServices.API).build();

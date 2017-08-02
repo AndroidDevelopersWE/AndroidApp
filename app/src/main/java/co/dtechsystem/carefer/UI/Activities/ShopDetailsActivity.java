@@ -68,7 +68,13 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     private ShopsImagesPagerAdapter mShopsImagesPagerAdapter;
     private ViewPager mViewPager;
     @SuppressWarnings("unused")
-    public static String responsePublic, ShopsListDataResponse, citiesNamesIDsResponse, isLocationAvail;
+    public static String responsePublic;
+    @SuppressWarnings("unused")
+    public static String ShopsListDataResponse;
+    @SuppressWarnings("unused")
+    private static String citiesNamesIDsResponse;
+    @SuppressWarnings("unused")
+    private static String isLocationAvail;
     private TextView tv_title_shop_details;
     private LatLng mLatlngCurrent;
 
@@ -91,7 +97,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     }
 
-    public void getIntents() {
+    private void getIntents() {
         Intent mIntent = getIntent();
         if (mIntent != null) {
             mShopID = mIntent.getStringExtra("ShopID");
@@ -507,7 +513,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 //
 //
 //    }
-    public void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
+    private void makeTextViewResizable(final TextView tv, final int maxLine, final String expandText, final boolean viewMore) {
 
         if (tv.getTag() == null) {
             tv.setTag(tv.getText());
@@ -551,8 +557,8 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
 
     }
 
-    public SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
-                                                                    final int maxLine, final String spanableText, final boolean viewMore) {
+    private SpannableStringBuilder addClickablePartTextViewResizable(final Spanned strSpanned, final TextView tv,
+                                                                     final int maxLine, final String spanableText, final boolean viewMore) {
         String str = strSpanned.toString();
         SpannableStringBuilder ssb = new SpannableStringBuilder(strSpanned);
 

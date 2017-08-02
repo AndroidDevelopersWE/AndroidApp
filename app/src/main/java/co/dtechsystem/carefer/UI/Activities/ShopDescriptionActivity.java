@@ -8,8 +8,9 @@ import co.dtechsystem.carefer.Utils.Utils;
 
 
 public class ShopDescriptionActivity extends BaseActivity {
-    String shopName, shopDescription;
-    TextView tv_shop_name_des;
+    private String shopName;
+    private String shopDescription;
+    private TextView tv_shop_name_des;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

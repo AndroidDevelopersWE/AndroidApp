@@ -8,7 +8,7 @@ public class FavouriteShopsModel {
     private List<FavouriteShopsRecord> favouriteShops;
 
     public FavouriteShopsModel() {
-        favouriteShops = new ArrayList<FavouriteShopsRecord>();
+        favouriteShops = new ArrayList<>();
     }
 
     public List<FavouriteShopsRecord> getFavouriteShops() {

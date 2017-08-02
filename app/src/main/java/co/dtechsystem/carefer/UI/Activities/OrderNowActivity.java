@@ -70,8 +70,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
     private int morderID;
     private boolean mOrderPlaced;
     private LatLng mLatlngCurrent;
-    String mPermissionsNowGiven = "";
-    boolean locationSettings = false;
+    private String mPermissionsNowGiven = "";
+    private boolean locationSettings = false;
 
     @Override
 
@@ -138,14 +138,6 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                             super.onLoadFailed(e, errorDrawable);
                         }
                     });
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    // Do network action in this function
-//                    getBitmapFromURL(mshopImage);
-//                }
-//            }).start();
-
 
         }
     }
@@ -294,8 +286,8 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
-    public void dirShopsIntents() {
-        if (mOrderPlaced == false) {
+    private void dirShopsIntents() {
+        if (!mOrderPlaced) {
             //noinspection StatementWithEmptyBody
             if (morderType != null && morderType.equals("call")) {
             } else {

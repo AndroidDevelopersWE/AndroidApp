@@ -39,7 +39,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
     private MyOrdersRecycleViewAdapter mMyOrdersRecycleViewAdapter;
     private TextView tv_title_my_orders;
     String callType = "";
-    RecyclerView myOrdersRecylerView;
+    private RecyclerView myOrdersRecylerView;
     @Override
 
     public void onCreate(Bundle savedInstanceState) {

@@ -35,7 +35,7 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
         Utils.gradientTextViewLong(tv_title_about_us, activity);
     }
 
-    public void setVersionName() {
+    private void setVersionName() {
         PackageInfo pInfo = null;
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);

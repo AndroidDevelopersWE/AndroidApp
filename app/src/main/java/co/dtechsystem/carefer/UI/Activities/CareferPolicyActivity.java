@@ -32,7 +32,7 @@ import co.dtechsystem.carefer.Utils.Validations;
 
 public class CareferPolicyActivity extends BaseActivity {
     private TextView tv_title_policy;
-    CheckBox cb_carefer_policy;
+    private CheckBox cb_carefer_policy;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
