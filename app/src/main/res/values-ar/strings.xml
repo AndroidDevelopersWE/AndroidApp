@@ -21,14 +21,14 @@
     <string name="privacy_policy_details"></string>
     <string name="title_activity_main">الخريطة</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">فتح القائمة الجانبية</string>
+    <string name="navigation_drawer_close">إغلاق القائمة الجانبية</string>
 
     <string name="action_settings">الإعدادات</string>
     <string name="btn_explorer">إستعراض الورش</string>
     <string name="btn_search_this_area">البحث في هذه المنطقة</string>
     <string name="your_mobile">رقم جوالك</string>
-    <string name="your_name">اسمك</string>
+    <string name="your_name">الاسم</string>
     <string name="btn_save">حفظ</string>
     <string name="btn_save_changes">حفظ</string>
     <string name="share_app_tv">شارك التطبيق مع أصدقائك</string>
@@ -46,14 +46,14 @@
     <string name="shops_list">قائمة الورش</string>
     <string name="prompt_service">نوع الخدمة</string>
     <string name="prompt_car_brand">ماركة السيارة</string>
-    <string name="riyadh_saduia">رياض,سعودي عربية</string>
+    <string name="riyadh_saduia">الرياض</string>
     <string name="dummy_text_list_item">تويوتا ريادة موتورز، خاصة.محدودة.</string>
     <string name="dummy_text_list_details">موتور المحوسبة عجلة المحاذاة</string>
     <string name="btn_order">أطلب الآن</string>
     <string name="title_care_policy">سياسة كاريفر</string>
     <string name="btn_call_shop">اتصل بالورشة</string>
     <string name="btn_nevegate_shop">الملاحة إلى مكان الورشة</string>
-    <string name="btn_done">تم</string>
+    <string name="btn_done">قائمة الورش</string>
     <string name="title_navigate">ملاحة</string>
     <string name="title_shop_rating">تقييم الورشة</string>
     <string name="price">السعر</string>
@@ -91,13 +91,13 @@
     <string name="nav_my_details">بياناتي</string>
     <string name="nav_my_orders">طلباتي</string>
     <string name="nav_fav_shop">الورش المفضلة</string>
-    <string name="nav_share">شارك الآن</string>
+    <string name="nav_share">شارك التطبيق</string>
     <string name="nav_about_us">عن كاريفر</string>
 
     <string name="loading">جار التحميل…</string>
     <string name="some_went_wrong_parsing">حدث خطأ في التحليل!</string>
     <string name="some_went_wrong">هناك خطأ ما…!</string>
-    <string name="no_record_found">لم يتم العثور على أي سجل حتى الآن!</string>
+    <string name="no_record_found">لم يتم العثور على أي نتائج حتى الآن!</string>
     <string name="et_search_shop">بحث باسم الورشة</string>
     <string name="phone_hint">رقم الجوال</string>
     <string name="invalid_phone_number">يرجى إدخال رقم جوال صحيح</string>
@@ -108,13 +108,13 @@
     <string name="tv_filter">تصفية</string>
     <string name="tv_car_brand">ماركة السيارة</string>
     <string name="tv_car_model">طراز السيارة</string>
-    <string name="tv_last_changed_oil">آخر تغير الزيت</string>
+    <string name="tv_last_changed_oil">تاريخ آخر تغير الزيت</string>
     <string name="tv_title_top_a_map">الخريطة</string>
     <string name="tv_title_share">شارك التطبيق</string>
     <string name="tv_website_icon">الموقع :</string>
     <string name="tv_phone_icon">الهاتف :</string>
     <string name="tv_email_icon">البريد الإلكتروني :</string>
-    <string name="tv_expand_your_choices">زد النتائج عن طريق إزالة فلتر أو فلترين.</string>
+    <string name="tv_expand_your_choices">يمكن زيادة النتائج بإزالة فلتر أو فلترين</string>
     <string name="tv_good_choice_see_shops"></string>
 
     <string name="dp_service_type">نوع الخدمة</string>
@@ -124,7 +124,7 @@
     <string name="toast_select_one_drop">الرجاء الاختيار من القائمة المنسدلة</string>
     <string name="toast_no_internet_avail">لا يتوفر انترنت …!</string>
     <string name="toast_logged_in">تم تسجيل الدخول</string>
-    <string name="toast_permission">لايوجد صلاحية للوصول إلى موقع الجهاز …!</string>
+    <string name="toast_permission">لايوجد صلاحية للوصول إلى الموقع …!</string>
     <string name="toast_record_updated">تم التحديث بنجاح</string>
     <string name="toast_order_placed">تم إنشاء طلبك</string>
     <string name="toast_fill_all_fields">نرجو ملئ كل الحقول</string>
@@ -132,17 +132,17 @@
     <string name="toast_no_shop_contact_found">لا يوجد رقم اتصال بالورشة …!</string>
     <string name="toast_mobile_Verified">تم التحقق من رقم الجوال</string>
     <string name="toast_invalid_code">رمز التحقق غير صحيح …!</string>
-    <string name="toast_verfication_sent_mobile">تم إرسال رمز التحقق إلى رقم هاتفك الجوال للتحقق منه.</string>
+    <string name="toast_verfication_sent_mobile">تم إرسال رمز التحقق إلى رقم جوالك للتحقق منه.</string>
     <string name="toast_will_try">سيحاول إعادة إرسال بعد:</string>
     <string name="toast_shop_deleted_fav">تم حذف الورشة من قائمتك المفضلة</string>
     <string name="toast_shop_added_fav">تم إضافة الورشة في قائمتك المفضلة</string>
-    <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي …!</string>
-    <string name="toast_record_found_out_of"> سجل العثور على الخروج من </string>
+    <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي…!</string>
+    <string name="toast_record_found_out_of"> ورشة من أصل </string>
 
     <string name="toast_review_added">تمت إضافة التعليق</string>
     <string name="toast_please_give_rating">يرجى إعطاء تقييم واحد على الأقل</string>
-    <string name="toast_please_add_comments">الرجاء إضافة تعليق</string>
-    <string name="toast_review_already_added">تمت إضافة المراجعة من قبل</string>
+    <string name="toast_please_add_comments">الرجاء إضافة تعليقات</string>
+    <string name="toast_review_already_added">تمت إضافة التعليق من قبل</string>
     <string name="toast_please_wait">أرجو الإنتظار</string>
 
     <string name="dialog_cancel">إلغاء</string>
@@ -153,7 +153,7 @@
     <string name="dialog_ascending">تصاعدي</string>
     <string name="dialog_descending"> تنازلي</string>
     <string name="dialog_language_english">الإنجليزية</string>
-    <string name="dialog_language_arabic">عربى</string>
+    <string name="dialog_language_arabic">العربية</string>
     <string name="dialog_language_choose">اختر اللغة</string>
 
 
@@ -163,12 +163,12 @@
     <string name="spinner_top_rated">أعلى تقييم</string>
     <string name="spinner_distance">المسافة</string>
     <string name="order_type_call">مكالمة</string>
-    <string name="order_type_shop">الخريطة</string>
+    <string name="order_type_shop">ملاحة</string>
 
     <string name="btn_apply_filter">تطبيق التصفية</string>
-    <string name="btn_reset_filter">إعادة تعيين الفلتر</string>
+    <string name="btn_reset_filter">إعادة تعيين</string>
     <string name="tv_city">المدينة</string>
-    <string name="tv_reviews">إظهار التعليقات</string>
+    <string name="tv_reviews">التعليقات</string>
     <string name="tv_name_anonymous">مجهول الإسم</string>
     <string name="tv_yes">نعم</string>
     <string name="tv_no"> لا</string>
