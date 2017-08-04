@@ -369,6 +369,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         rv_images_shop_details.setAdapter(mShopsImagesRecycleViewAdapter);
         LinearLayoutManager mgridLayoutManager = new LinearLayoutManager(this);
         mgridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mgridLayoutManager.setReverseLayout(true);
         rv_images_shop_details.setLayoutManager(mgridLayoutManager);
         aQuery.find(R.id.iv_fav_shop_list).background(R.drawable.ic_fav_star_fill);
         initPagerImages();
