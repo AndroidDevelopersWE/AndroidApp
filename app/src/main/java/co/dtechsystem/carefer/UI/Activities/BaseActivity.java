@@ -69,7 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 //                .build();
 //        Fabric.with(fabric);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/shahd.ttf")
+                .setDefaultFontPath("fonts/jf_flat regular_0.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
