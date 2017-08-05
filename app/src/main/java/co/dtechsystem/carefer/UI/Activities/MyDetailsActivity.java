@@ -487,7 +487,9 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
 
 
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_my_details, activity);
         Utils.gradientTextViewShort(tv_mobile_number_my_details, activity);

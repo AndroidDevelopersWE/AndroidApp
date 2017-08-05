@@ -55,11 +55,17 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
             APiGetFavShopslistData(sUser_ID);
         }
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_fav_shops, activity);
     }
+    /**
+     * Handle api call for user favourite shops list
+     * @param User_ID Takes String as param of user id and fetch data on the basis of this id
 
+     */
     private void APiGetFavShopslistData(String User_ID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -104,6 +110,9 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
         queue.add(getRequest);
     }
 
+    /**
+     * Handle recyler view data to show user a list of his favourite shops
+     */
     private void SetListData() {
         favShopssRecylerView.getItemAnimator().setChangeDuration(700);
         favShopssRecylerView.setAdapter(mFavouriteShopsRecycleViewAdapter);
@@ -111,18 +120,28 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
         favShopssRecylerView.setLayoutManager(mgridLayoutManager);
     }
 
+    /**
+     * Handle left bar menu
+     */
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * Handle app left menu for user when he clicks on menu button
+     * @param v
+     */
     @SuppressWarnings("UnusedParameters")
     @SuppressLint("RtlHardcoded")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.RIGHT);
     }
 
+    /**
+     * Handle user generic button back pressed
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

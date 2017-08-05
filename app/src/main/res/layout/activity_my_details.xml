@@ -271,7 +271,7 @@
                             android:padding="@dimen/_4sdp"
                             android:text="@string/tv_km_after_oil_change"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_9sdp"/>
+                            android:textSize="@dimen/_8sdp"/>
 
 
                         <EditText
@@ -306,7 +306,7 @@
                             android:padding="@dimen/_4sdp"
                             android:text="@string/tv_last_changed_oil"
                             android:textColor="@android:color/black"
-                            android:textSize="@dimen/_9sdp"/>
+                            android:textSize="@dimen/_8sdp"/>
 
 
                         <TextView

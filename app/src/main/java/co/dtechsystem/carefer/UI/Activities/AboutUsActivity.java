@@ -35,29 +35,28 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
         Utils.gradientTextViewLong(tv_title_about_us, activity);
     }
 
+    //Handle version name and code for about application text
     private void setVersionName() {
         PackageInfo pInfo = null;
         try {
             pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
-            aQuery.id(R.id.tv_version_name_app).text(getResources().getString(R.string.tv_version_name) +" "+ version);
+            aQuery.id(R.id.tv_version_name_app).text(getResources().getString(R.string.tv_version_name) + " " + version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
+    //set up left menu bar to show user menu
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-//        // get menu from navigationView
-//        Menu menu = navigationView.getMenu();
-//        // find MenuItem you want to change
-//        MenuItem nav_about_us = menu.findItem(R.id.nav_about_us);
-//        nav_about_us.setIcon(getResources().getDrawable(R.drawable.ic_about_white_nav));
+
     }
 
+    //Opens the drawyer menu/leftbar
     @SuppressWarnings("UnusedParameters")
     public void btn_drawyerMenuOpen(View v) {
         mDrawerLayout.openDrawer(Gravity.RIGHT);
@@ -75,7 +74,6 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -119,8 +117,7 @@ public class AboutUsActivity extends BaseActivity implements NavigationView.OnNa
             startActivity(i);
 
         } else if (id == R.id.nav_about_us) {
-//            Intent i = new Intent(this, ShareActivity.class);
-//            startActivity(i);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

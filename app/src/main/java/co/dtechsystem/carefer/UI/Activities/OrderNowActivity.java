@@ -87,7 +87,9 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
         GetDataForViews();
         SetdataToViews();
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_order_now, activity);
     }

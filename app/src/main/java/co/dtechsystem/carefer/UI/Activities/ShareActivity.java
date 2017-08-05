@@ -29,7 +29,9 @@ public class ShareActivity extends BaseActivity implements NavigationView.OnNavi
         SetUpLeftbar();
         setlistenrstosharebtns();
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_share_app, activity);
     }

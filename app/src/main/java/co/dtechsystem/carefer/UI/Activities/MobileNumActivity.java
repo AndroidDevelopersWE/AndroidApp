@@ -73,6 +73,9 @@ public class MobileNumActivity extends BaseActivity {
 
     }
 
+    /**
+     * Handle user Mobile number to auto fetch from the mobile
+     */
     private void AutoDetectMobileSim1() {
 
         try {
@@ -105,6 +108,9 @@ public class MobileNumActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Handle user mobile number if it is valid or not
+     */
     private void phoneDropAndValid() {
 
         assert phoneEditText != null;
@@ -129,7 +135,7 @@ public class MobileNumActivity extends BaseActivity {
                                 if (Phone.startsWith("+")) {
                                     Phone = Phone.replaceFirst("\\u002B", "");
                                 }
-                                APiCreateUserPhone(Phone, "Mobile");
+                                APiCreateUserPhone(Phone);
                             } else {
                                 showToast(getResources().getString(R.string.invalid_phone_number));
                             }
@@ -143,7 +149,12 @@ public class MobileNumActivity extends BaseActivity {
 
     }
 
-    private void APiCreateUserPhone(final String customerMobile, final String Type) {
+    /**
+     * Web API for create user profile for first time
+     *
+     * @param customerMobile Takes String as pram for customer mobile
+     */
+    private void APiCreateUserPhone(final String customerMobile) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, AppConfig.APiCreateUserPhone,

@@ -26,7 +26,9 @@ public class ShopDescriptionActivity extends BaseActivity {
 
         }
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_shop_name_des, activity);
     }

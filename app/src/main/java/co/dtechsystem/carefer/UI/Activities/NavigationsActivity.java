@@ -75,7 +75,9 @@ public class NavigationsActivity extends BaseActivity
         GetDataForViews();
 
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_navigation, activity);
     }

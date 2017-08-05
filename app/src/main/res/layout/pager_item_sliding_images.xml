@@ -7,10 +7,7 @@
 
     >
 
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+
 
     <ImageView
         android:id="@+id/image"
@@ -20,4 +17,9 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         tools:ignore="ContentDescription"/>
+    <ProgressBar
+        android:id="@+id/pg_image_load_large_shops"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 </FrameLayout>

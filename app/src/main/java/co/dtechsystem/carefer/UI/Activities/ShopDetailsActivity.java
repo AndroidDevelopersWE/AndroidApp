@@ -42,6 +42,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -142,10 +144,15 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
                         if (mShopsDetailsModel.getShopImages() != null && mShopsDetailsModel.getShopImages().size() > 0) {
                             lay_full_image.setVisibility(View.VISIBLE);
                             lay_shop_details.setVisibility(View.GONE);
-                            mShopsImagesPagerAdapter = new ShopsImagesPagerAdapter(activity, mShopsDetailsModel.getShopImages(), mShopID);
+                            ArrayList<ShopsDetailsModel.ShopsImagessRecord> mShopsImages = new ArrayList<ShopsDetailsModel.ShopsImagessRecord>();
+
+                            mShopsImages.addAll(mShopsDetailsModel.getShopImages());
+                            Collections.reverse(mShopsImages);
+
+                            mShopsImagesPagerAdapter = new ShopsImagesPagerAdapter(activity,mShopsImages, mShopID);
                             mViewPager = (ViewPager) findViewById(R.id.pager);
                             mViewPager.setAdapter(mShopsImagesPagerAdapter);
-                            mViewPager.setCurrentItem(position);
+                            mViewPager.setCurrentItem(mShopsImages.size()-position-1);
 //                            mShopsImagesPagerAdapter.notifyDataSetChanged();
                             final CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
                             indicator.setViewPager(mViewPager);

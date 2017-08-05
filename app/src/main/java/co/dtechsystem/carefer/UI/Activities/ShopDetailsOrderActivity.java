@@ -68,7 +68,9 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
         SetDataTOViews();
         SetSpinnerListener();
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_shops_details_order, activity);
     }

@@ -130,10 +130,18 @@ public class MainActivity extends BaseActivity
         SetShaderToViews();
     }
 
+    /**
+     * Handle all type of intents like receiving strings and bundles from previous activity
+     */
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_main, activity);
     }
 
+    /**
+     * Handle button click explorer to explore shops list against current city
+     *
+     * @param v
+     */
     @SuppressWarnings("UnusedParameters")
     public void btnExploereClick(View v) {
         if (ShopsListDataResponse != null && !ShopsListDataResponse.equals("")) {
@@ -157,6 +165,11 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    /**
+     * Handle click funtion when user click on Search this Area search in the 10km area for shops
+     *
+     * @param v
+     */
     @SuppressWarnings("UnusedParameters")
     public void btnSearchThisAreaClick(View v) {
         if (Validations.isInternetAvailable(activity, true)) {
@@ -181,12 +194,20 @@ public class MainActivity extends BaseActivity
 
     }
 
+    /**
+     * Handle left bar menu
+     */
     private void SetUpLeftbar() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    /**
+     * Handle Map to load
+     *
+     * @param googleMap
+     */
     @SuppressWarnings("deprecation")
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -285,6 +306,11 @@ public class MainActivity extends BaseActivity
 
     }
 
+    /**
+     * Web api to fetch all record of cities for fetch record of shops against current city
+     *
+     * @param location
+     */
     private void APiGetAllCities(final Location location) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -426,10 +452,16 @@ public class MainActivity extends BaseActivity
         queue.add(getRequest);
     }
 
-    private static boolean isProbablyArabic(String s) {
-        if (s != null) {
-            for (int i = 0; i < s.length(); ) {
-                int c = s.codePointAt(i);
+    /**
+     * Handle Received City name string to check if it is arabic .
+     *
+     * @param cityName Takes String as prams of city name to check its arabic
+     * @return
+     */
+    private static boolean isProbablyArabic(String cityName) {
+        if (cityName != null) {
+            for (int i = 0; i < cityName.length(); ) {
+                int c = cityName.codePointAt(i);
                 if (c >= 0x0600 && c <= 0x06E0)
                     return true;
                 i += Character.charCount(c);
@@ -438,6 +470,12 @@ public class MainActivity extends BaseActivity
         return false;
     }
 
+    /**
+     * Web APi for fetch current address of user using web api of google
+     *
+     * @param location  Takes Location as param for user current latitude and longitude
+     * @param jsonArray
+     */
     private void APiGetCurrentAddress(final Location location, final JSONArray jsonArray) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -528,6 +566,13 @@ public class MainActivity extends BaseActivity
         queue.add(getRequest);
     }
 
+    /**
+     * Web API for fetch whole record of shops with city name
+     *
+     * @param Url      Takes String as param for web api url to fetch record
+     * @param location Takes Location as param for user current latitude and longitude
+     * @param CityID   Takes String as pram of filtered city id to fetch record
+     */
     private void APiGetShopslistData(String Url, final Location location, final String CityID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -584,6 +629,12 @@ public class MainActivity extends BaseActivity
         queue.add(postRequest);
     }
 
+    /**
+     * Handle all filtred shops markers point to draw on map as it located in 10km area
+     *
+     * @param shopsList
+     * @param location  Takes Location as param for user current latitude and longitude
+     */
     private void SetShopsPointMap(final List<ShopsListModel.ShopslistRecord> shopsList, Location location) {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.ic_pin_map);
         int count = 0;
@@ -819,6 +870,13 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    /**
+     * Handle User permission for api 23 and above
+     *
+     * @param requestCode  Takes Integer value to check which permission call is selected
+     * @param permissions
+     * @param grantResults
+     */
     @SuppressWarnings({"UnnecessaryReturnStatement", "NullableProblems"})
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -871,6 +929,9 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    /**
+     * Handle user permission dialog for accept or neglect for giving permissions
+     */
     private void showPermissionDialog() {
         AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
         alertDialog.setTitle(getResources().getString(R.string.app_name));
@@ -911,6 +972,9 @@ public class MainActivity extends BaseActivity
 
     }
 
+    /**
+     * Handle Resume of activity and check if user alows permissions then restart app so apply all functions
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -931,6 +995,7 @@ public class MainActivity extends BaseActivity
         }
         mapFragment.getMapAsync(this);
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

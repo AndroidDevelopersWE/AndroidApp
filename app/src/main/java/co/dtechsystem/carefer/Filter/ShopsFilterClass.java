@@ -301,10 +301,7 @@ public abstract class ShopsFilterClass {
                 Toast.makeText(activity, activity.getResources().getString(R.string.no_record_found), Toast.LENGTH_SHORT).show();
             }
         }
-//        else {
-//            ShopsFilterClass._ShopslistRecordList.clear();
-//            ShopsFilterClass._ShopslistRecordList.addAll(_ShopslistRecordListFilter);
-//        }
+
         return ShopsFilterClass._ShopslistRecordList;
     }
 

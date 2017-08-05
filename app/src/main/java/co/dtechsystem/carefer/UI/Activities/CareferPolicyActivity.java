@@ -47,10 +47,19 @@ public class CareferPolicyActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_policy, activity);
     }
 
+    /**
+     * Handle api call for get Carefer Policy data and submit it to server as user accept it
+     * @param URL Takes String as param for url of web api
+     * @param Type Takes String as param for type get policy data or post that user accept the policy
+     * @param customerID Takes String param for customer id to post carefer policy accept.
+     */
     private void APiCareferPolicyData(String URL, final String Type, final String customerID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -122,6 +131,10 @@ public class CareferPolicyActivity extends BaseActivity {
         queue.add(postRequest);
     }
 
+    /**
+     * Handle user click for next to Main Activity as user accept the policy
+     * @param v
+     */
     @SuppressWarnings("UnusedParameters")
     public void btn_Next_to_mainmenu_Click(View v) {
         if (Validations.isInternetAvailable(activity, true)) {

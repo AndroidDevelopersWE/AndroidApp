@@ -63,11 +63,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        final Fabric fabric = new Fabric.Builder(this)
-//                .kits(new Crashlytics())
-//                .debuggable(true)
-//                .build();
-//        Fabric.with(fabric);
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("fonts/jf_flat regular_0.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -95,14 +90,24 @@ public abstract class BaseActivity extends AppCompatActivity {
         sUser_ID = Utils.readPreferences(activity, "User_ID", "");
         locale = new Locale("ar");
         localeEn = new Locale("en");
-//        String Language = Utils.readPreferences(activity, "language", "");
-//        if (Language != null && !Language.equals("")) {
-//            locale = new Locale(Language);
+
+
+      /* Uncomment this code to enable multiple language selection
+        String Language = Utils.readPreferences(activity, "language", "");
+        if (Language != null && !Language.equals("")) {
+            locale = new Locale(Language);
+            }*/
+
         setLanguage(locale);
-//        }
+
         disableSSLCertificateChecking();
     }
 
+    /**
+     * Handle multiple Language for application
+     *
+     * @param locale Takes Locality as a param to change locale of app
+     */
     protected void setLanguage(Locale locale) {
         Resources resources = getResources();
         Configuration configuration = resources.getConfiguration();
@@ -114,6 +119,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         resources.updateConfiguration(configuration, displayMetrics);
     }
 
+    /**
+     * Handle button click for back and map click to go to home back
+     *
+     * @param v
+     */
     public void GotoHome(@SuppressWarnings("UnusedParameters") View v) {
         Intent i = new Intent(activity, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -121,16 +131,30 @@ public abstract class BaseActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Handle close activity generic function can use anywhere in app activities
+     *
+     * @param v
+     */
     @SuppressWarnings({"unused", "UnusedParameters"})
     public void CloseActivity(View v) {
         finish();
     }
 
+    /**
+     * Show a small toast message to user for progress
+     *
+     * @param msg takes String as param
+     */
     @SuppressWarnings("unused")
     protected void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * show a small dialog alert with some message to user
+     * @param msg takes String as param
+     */
     @SuppressWarnings("unused")
     protected void showAlert(String msg) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -147,6 +171,10 @@ public abstract class BaseActivity extends AppCompatActivity {
                 }).create().show();
     }
 
+    /**
+     * Show progress for tasks running in background
+     * @param msg takes String as param
+     */
     @SuppressWarnings("unused")
     protected void showProgress(String msg) {
         if (mProgressDialog != null && mProgressDialog.isShowing())
@@ -155,6 +183,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         mProgressDialog = ProgressDialog.show(this, getResources().getString(R.string.app_name), msg);
     }
 
+    /**
+     * Close progress dialog as if it is running in background
+     */
     private void dismissProgress() {
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
@@ -162,12 +193,22 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handle user touch on other then edit text area and hide the keyboard
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Utils.hideKeyboard(activity);
         return true;
     }
 
+    /**
+     * Handle user touch event
+     * @param ev
+     * @return
+     */
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus();
@@ -187,6 +228,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
+    /**
+     * Handle ssl certification for api calls which uses https:// method .It will disable ssl for response
+     */
     private static void disableSSLCertificateChecking() {
         TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
             public X509Certificate[] getAcceptedIssuers() {

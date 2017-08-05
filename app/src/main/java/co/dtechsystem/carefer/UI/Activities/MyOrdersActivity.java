@@ -57,7 +57,9 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
 
     }
 
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextViewShort(tv_title_my_orders, activity);
     }

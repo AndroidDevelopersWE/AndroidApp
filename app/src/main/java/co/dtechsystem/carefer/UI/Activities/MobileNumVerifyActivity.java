@@ -65,12 +65,18 @@ public class MobileNumVerifyActivity extends BaseActivity {
         getData();
     }
 
+    /**
+     * Receive All intents send from previous activity
+     */
     private void getData() {
         if (intent.getExtras() != null) {
             mCustomerMobile = intent.getStringExtra("customerMobile");
         }
     }
 
+    /**
+     * Set Data to views as received from all intents
+     */
     private void setdataToViews() {
 //        btn_resend_code.setVisibility(View.GONE);
         StartTimer(120000);
@@ -84,6 +90,11 @@ public class MobileNumVerifyActivity extends BaseActivity {
 //        });
     }
 
+    /**
+     * Start a timer of 2 minutes wait for code receive
+     *
+     * @param Time
+     */
     private void StartTimer(long Time) {
         mCountDownTimer = new CountDownTimer(Time, 1000) {
             public void onTick(long millisUntilFinished) {
@@ -109,7 +120,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
 
 
     @SuppressWarnings("UnusedParameters")
-
+/**
+ * Handle user click when the user received his verification code
+ */
     public void ben_Next_to_carafePolicy_Click(View v) {
         if (Validations.isInternetAvailable(activity, true)) {
             if (et_1_verify.length() > 0 && et_2_verify.length() > 0 && et_3_verify.length() > 0 && et_4_verify.length() > 0) {
@@ -125,6 +138,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Handle focus for small edit texts uses for input of varify numbers
+     */
     private void SetFocusForEdit() {
 //        Utils.gradientTextView(btn_verify_pin, activity);
         et_1_verify.setFocusableInTouchMode(true);
@@ -211,7 +227,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
         });
     }
 
-    //Resend code dialog fun
+    /**
+     * Show a custom dialog to user to resend code and change number after 2 minutes
+     */
     private void CustomResendCodeDialog() {
         //Sorting dialog fun
         // custom dialog
@@ -263,6 +281,9 @@ public class MobileNumVerifyActivity extends BaseActivity {
         dialog.show();
     }
 
+    /**
+     * Handle Receiving of massages as received Web API calls to varify the code
+     */
     private final BroadcastReceiver SMSBroadcastReceiver = new BroadcastReceiver() {
         @SuppressWarnings("deprecation")
         @Override
@@ -305,6 +326,13 @@ public class MobileNumVerifyActivity extends BaseActivity {
         }
     };
 
+    /**
+     * Web API To varify customer pin code as entered by user
+     * @param UserID Takes String as pram of customer ID
+     * @param verificationCode  Takes Pin code received by user
+     * @param regID Takes String as param registration id received from Fire base
+     * @param mCustomerMobile Takes String as param of customer mobile number
+     */
     private void APiVarifyCustomer(final String UserID, final String verificationCode, final String regID, final String mCustomerMobile) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -385,6 +413,10 @@ public class MobileNumVerifyActivity extends BaseActivity {
         queue.add(postRequest);
     }
 
+    /**
+     * Web APi to create user profile as he click on resend code to given mobile number
+     * @param customerMobile
+     */
     private void APiCreateUserPhone(final String customerMobile) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);

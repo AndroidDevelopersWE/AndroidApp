@@ -2,18 +2,20 @@ package co.dtechsystem.carefer.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bogdwellers.pinchtozoom.ImageMatrixTouchHandler;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.List;
 
@@ -51,33 +53,41 @@ public class ShopsImagesPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         View itemView = mLayoutInflater.inflate(R.layout.pager_item_sliding_images, container, false);
         final ImageView iv_full_image = (ImageView) itemView.findViewById(R.id.image);
-//        if (clicked && getPosition < _ShopsImagesDetails.size()) {
-//            final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
-//            Glide.with(mActivity).load(Url + _ShopsImagesDetails.get(getPosition)
-//                    .getImageName()).into(iv_full_image);
-//            clicked = false;
-//
-//        } else {
+        final ProgressBar pg_image_load_large_shops = (ProgressBar) itemView.findViewById(R.id.pg_image_load_large_shops);
         final String Url = AppConfig.BaseUrlImages + "shop-" + mShopID + "/";
-        Glide.with(mActivity).load(Url + _ShopsImagesDetails.get(position)
-                .getImageName()).listener(new RequestListener<String, GlideDrawable>() {
-            @Override
-            public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                return false;
-            }
+        final String UrlThumbnail = AppConfig.BaseUrlImages + "shop-" + mShopID + "/thumbnails/";
 
-            @Override
-            public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                iv_full_image.setOnTouchListener(new ImageMatrixTouchHandler(mActivity));
+        pg_image_load_large_shops.setVisibility(View.VISIBLE);
+        Glide.with(mActivity)
+                .load(UrlThumbnail + _ShopsImagesDetails.get(position)
 
-                return false;
-            }
-        }).into(iv_full_image);
-
-//        }
+                        .getImageName())
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                        iv_full_image.setOnTouchListener(new ImageMatrixTouchHandler(mActivity));
+                        iv_full_image.setImageBitmap(bitmap);
+                        Glide.with(mActivity)
+                                .load(Url + _ShopsImagesDetails.get(position)
+                                        .getImageName())
+                                .asBitmap()
+                                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                .into(new SimpleTarget<Bitmap>() {
+                                    @Override
+                                    public void onResourceReady(Bitmap bitmap, GlideAnimation anim) {
+                                        // Do something with bitmap here.
+                                        pg_image_load_large_shops.setVisibility(View.GONE);
+                                        iv_full_image.setOnTouchListener(new ImageMatrixTouchHandler(mActivity));
+                                        iv_full_image.setImageBitmap(bitmap);
+                                    }
+                                });
+                    }
+                });
 
         container.addView(itemView);
 

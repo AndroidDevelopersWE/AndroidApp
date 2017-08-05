@@ -58,7 +58,9 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
             startActivity(i);
         }
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_rating, activity);
     }

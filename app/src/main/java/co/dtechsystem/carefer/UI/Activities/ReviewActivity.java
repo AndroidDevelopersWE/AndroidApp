@@ -50,14 +50,13 @@ public class ReviewActivity extends BaseActivity {
         }
         SetShaderToViews();
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_review, activity);
     }
 
-    //    public void CloseActivity(View v) {
-//        finish();
-//    }
     private void SetListData(String priceAVG, String qualityAVG, String timeAVG) {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_shop_reviews);
         recyclerView.getItemAnimator().setChangeDuration(700);

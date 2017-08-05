@@ -86,11 +86,16 @@ public class FiltersActivity extends BaseActivity {
         }
 
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextView(tv_title_filter, activity);
     }
 
+    /**
+     * Handle all type of intents like receiving strings and bundles from previous activity
+     */
     private void GetIntents() {
         if (intent.getStringExtra("provide_warranty") != null && intent.getStringExtra("provide_ReplaceParts") != null &&
                 intent.getStringExtra("topRated") != null && intent.getStringExtra("placeType") != null && intent.getStringExtra("brandType") != null && intent.getStringExtra("serviceType") != null && intent.getStringExtra("FilterRecord") != null &&
@@ -154,6 +159,9 @@ public class FiltersActivity extends BaseActivity {
         }
     }
 
+    /**
+     * Handle list view for filter like brands,service and shop type and initializes their views
+     */
     private void SetDragAbleFilterViews() {
         lv_service_type = (ExpandableListView) findViewById(R.id.lv_service_type);
         lv_brands = (ExpandableListView) findViewById(R.id.lv_brands);
@@ -173,6 +181,9 @@ public class FiltersActivity extends BaseActivity {
         GetIntents();
     }
 
+    /**
+     * Handle first call and recall after setting filter and coming back to filter activity
+     */
     private void SetFiltersToViews() {
 
         sw_provide_warranty_filter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -356,6 +367,10 @@ public class FiltersActivity extends BaseActivity {
 
     }
 
+    /**
+     * Web APi for fetch all shops data
+     * @param Url Takes string as param to fetch all shops data
+     */
     private void APiGetShopslistData(final String Url) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -437,6 +452,10 @@ public class FiltersActivity extends BaseActivity {
 
         queue.add(getRequest);
     }
+
+    /**
+     * Show user a dialog of place types list where use choose for types
+     */
 
     private void ShowFilterPlaceTypeListViewDialog() {
         // custom dialog
@@ -522,7 +541,9 @@ public class FiltersActivity extends BaseActivity {
 
         dialog.show();
     }
-
+    /**
+     * Show user a dialog of brands list where use choose for types
+     */
     private void ShowFilterBrandsListViewDialog() {
         // custom dialog
         final Dialog dialog = new Dialog(activity);
@@ -623,10 +644,9 @@ public class FiltersActivity extends BaseActivity {
 
         dialog.show();
     }
-
-    //    protected void CloseActivity(View v) {
-//        finish();
-//    }
+    /**
+     * Show user a dialog of services list where use choose for types
+     */
     private void ShowFilterServicesListViewDialog() {
         // custom dialog
         final Dialog dialog = new Dialog(activity);
@@ -728,6 +748,10 @@ public class FiltersActivity extends BaseActivity {
         dialog.show();
     }
 
+    /**
+     * Handle button click when user click on apply filter
+     * @param v
+     */
     public void setApplyFilterBtnClick(View v) {
         ShopsListActivity shopsListActivity = new ShopsListActivity();
         if (_ShopslistAfterFiltration != null && _ShopslistAfterFiltration.size() > 0) {
@@ -763,7 +787,10 @@ public class FiltersActivity extends BaseActivity {
         }
 
     }
-
+    /**
+     * Handle button click when user click on reset filter
+     * @param v
+     */
     public void setResetFilterBtnClick(View v) {
         provide_warranty = "";
         provide_ReplaceParts = "";

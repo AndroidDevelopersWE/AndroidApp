@@ -181,7 +181,9 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
 
 
     }
-
+    /**
+     * Handle shades of text view title of activity in multicolor
+     */
     private void SetShaderToViews() {
         Utils.gradientTextViewLong(tv_title_shops_list, activity);
     }
