@@ -355,7 +355,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                 if (position == 0) {
 
                     if (firstModel) {
-                        if (!mCarBrandModel.equals("0")) {
+                        if (!(mCarBrandModel.equals("false")||mCarBrandModel.equals("0"))) {
                             firstModel = false;
                             aQuery.find(R.id.et_car_model_my_details).text(mCarBrandModel);
 
@@ -415,6 +415,13 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                 loading.close();
                             } else {
                                 JSONArray modelsData = response.getJSONArray("models");
+                                models.clear();
+                                if(modelsData.length()==0) {
+//                                    models.add(0, getResources().getString(R.string.dp_model));
+
+                                    //aQuery.find(R.id.sp_brand_type_shop_details_order).text(aQuery.find(R.string.toast_select_one_drop).getText());
+
+                                }
                                 for (int i = 0; i < modelsData.length(); i++) {
                                     JSONObject jsonObject = modelsData.getJSONObject(i);
                                     //noinspection unchecked
@@ -422,7 +429,10 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                     mModelsIdArray.add(jsonObject.getString("ID"));
                                 }
                                 @SuppressWarnings("unchecked") ArrayAdapter StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
+                               // if(aQuery.id(R.id.sp_car_model_order).getSpinner().getAdapter()!=null)
+                                 //   aQuery.id(R.id.sp_car_model_order).getSpinner().removeAllViews();
                                 aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                                aQuery.find(R.id.et_car_model_my_details).text(getResources().getString(R.string.dp_model));
                                 loading.close();
 
                             }
