@@ -175,7 +175,6 @@
                                 android:gravity="right"
                                 android:maxLines="1"
 
-                                android:text="@string/dummy_text_list_item"
                                 android:textColor="@android:color/black"
                                 android:textSize="@dimen/_14sdp"
                                 android:textStyle="bold"
@@ -198,7 +197,6 @@
                             android:layout_height="wrap_content"
                             android:gravity="right"
                             android:maxLines="1"
-                            android:text="@string/dummy_text_list_details"
                             android:textColor="@android:color/black"
                             android:textSize="@dimen/_12sdp"
                             android:textStyle="bold"
@@ -450,7 +448,7 @@
                                         android:clickable="false"
                                         android:gravity="right"
                                         android:padding="@dimen/_5sdp"
-                                        android:textColor="@android:color/black"
+                                        android:textColor="@android:color/darker_gray"
                                         android:textSize="@dimen/_10sdp"/>
 
 
@@ -468,9 +466,9 @@
                                         android:layout_gravity="right"
                                         android:gravity="right"
                                         android:padding="@dimen/_5sdp"
-                                        android:text="@string/dp_brand"
+                                        android:text="@string/dp_service_type"
                                         android:textColor="@android:color/black"
-                                        android:textSize="@dimen/_12sdp"/>
+                                        android:textSize= "@dimen/_12sdp"/>
 
                                     <TextView
                                         android:id="@+id/tv_brands_shops"
@@ -478,6 +476,8 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="right"
                                         android:padding="@dimen/_5sdp"
+                                        android:clickable="false"
+
                                         android:textColor="@android:color/darker_gray"
                                         android:textSize="@dimen/_10sdp"/>
                                 </LinearLayout>

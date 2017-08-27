@@ -77,7 +77,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private Button btn_back_top_shops_list;
     public static String ShopsListDataResponse = "";
     private static String citiesNamesIDsResponse = "";
-    private static String CityId = "";
+    private static String CityId = "1"; //set city id 1 for riyadh as default
     private static String isLocationAvail = "";
     private final List listCities = new ArrayList();
     private final List listCitiesId = new ArrayList();
@@ -128,6 +128,8 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
             ShopsListDataResponse = intent.getStringExtra("ShopsListDataResponse");
             citiesNamesIDsResponse = intent.getStringExtra("citiesNamesIDsResponse");
             CityId = intent.getStringExtra("CityId");
+            if(CityId.isEmpty())
+                CityId="1";
             isLocationAvail = intent.getStringExtra("isLocationAvail");
             if (intent.getExtras().getString("callType") != null) {
                 callType = intent.getStringExtra("callType");
@@ -600,6 +602,10 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
     private void APiGetShopslistData(final String Url, final String Type, final String City, final String CityID) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
+
+
+
+
         StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
                     @Override

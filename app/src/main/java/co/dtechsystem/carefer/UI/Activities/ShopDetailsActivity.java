@@ -416,6 +416,7 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
         }
         if (mShopsDetailsModel.getShopsDetail().get(0).getBrands() != null) {
 //            String[] serviceArray = mShopsDetailsModel.getShopsDetail().get(0).getServiceType().split(",");
+            String brands =mShopsDetailsModel.getShopsDetail().get(0).getBrands();
             aQuery.id(R.id.tv_brands_shops).text(mShopsDetailsModel.getShopsDetail().get(0).getBrands());
 
         }

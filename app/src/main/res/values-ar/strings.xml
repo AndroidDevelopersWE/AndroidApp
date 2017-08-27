@@ -83,8 +83,8 @@
     <string name="title_about_us">عن كاريفر</string>
     <string name="tv_how_it_works">كيف نعمل؟</string>
     <string name="tv_contact_details">تواصل معنا</string>
-    <string name="carefer_emial">Support@carefer.com.co</string>
-    <string name="carefer_phone">920001234</string>
+    <string name="carefer_emial">Support@carefer.co</string>
+    <string name="carefer_phone">0599666521</string>
     <string name="carefer_site"> www.carefer.co</string>
     <string name="title_order_now">اطلب الآن</string>
 
@@ -175,11 +175,11 @@
     <string name="tv_specilized_brand">تخصص ماركة السيارات</string>
     <string name="tv_nationality">الجنسية</string>
     <string name="tv_about_us">تطبيق كاريفر هو منصة بين مزودين الخدمة (الورش) وبين طالبين الخدمة</string>
-    <string name="tv_share_app">أبجد هوز هو مجرد دمية النص من صناعة الطباعة والتنضيد. كان معيار الصناعة القياسية دمية من أي وقت مضى</string>
+    <string name="tv_share_app">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
 
     <string name="tv_version_name">الإصدار:  </string>
     <string name="tv_km_after_oil_change">عدد الكيلومترات عند آخر تغيير للزيت</string>
-    <string name="tv_see_all">إظهار الكل</string>
+    <string name="tv_see_all">إظهار كل</string>
     <string name="tv_excelent">ممتاز</string>
     <string name="tv_good">جيد</string>
     <string name="tv_average">مقبول</string>

@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -121,8 +122,22 @@ public class MainActivity extends BaseActivity
                 ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 123);
 //            return;
             } else {
-                mapFragment.getMapAsync(this);
+                LocationManager lm = (LocationManager)MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
+                boolean gps_enabled = false;
+                boolean network_enabled = false;
 
+                try {
+                    gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                } catch(Exception ex) {}
+
+                if(gps_enabled)
+                mapFragment.getMapAsync(this);
+                else{
+                    showLocationDialog();
+                    //request to enable gps location
+
+
+                }
             }
         }
         SetUpLeftbar();
@@ -1008,4 +1023,29 @@ public class MainActivity extends BaseActivity
             }
         }
     }
+
+    private void showLocationDialog(){
+        // notify user
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setMessage(MainActivity.this.getResources().getString(R.string.toast_location_not_found));
+        dialog.setPositiveButton(MainActivity.this.getResources().getString(R.string.dialog_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+                Intent myIntent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                MainActivity.this.startActivity(myIntent);
+                //get gps
+            }
+        });
+        dialog.setNegativeButton(MainActivity.this.getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        dialog.show();
+    }
+
 }
