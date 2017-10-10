@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "330927864050-299sqmb3djo770g2fguhguqro5vtf634.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.carefer",
+            "certificate_hash": "32a60ee8042213b3132cb3bc006b0ef5106a83bf"
+          }
+        },
+        {
+          "client_id": "330927864050-a44u0fp0ap79h01baoai21v5b9debt4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.carefer",
+            "certificate_hash": "43cd0e3feb26863de3f11a0c4c56c0b3f0e3eee8"
+          }
+        },
+        {
           "client_id": "330927864050-mbqieicas2hm5fpiuo6ev15ug8rpis4m.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,20 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330927864050-hmdckj8q4r563dbao35enhk8kbkcesn5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.carefer"
+              }
+            },
+            {
+              "client_id": "330927864050-mbqieicas2hm5fpiuo6ev15ug8rpis4m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
