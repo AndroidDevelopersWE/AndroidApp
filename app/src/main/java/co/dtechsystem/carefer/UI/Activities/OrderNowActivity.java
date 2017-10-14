@@ -183,8 +183,12 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                                     }
                                     startActivity(i);
                                 }
-
+                                /*
+                                -feedback to user when order is placed
+                                -commented out by hh on the request of client
                                 showToast(getResources().getString(R.string.toast_order_placed));
+                                 */
+
                                 mOrderPlaced = true;
                                 if (loading != null) {
                                     loading.close();
