@@ -26,6 +26,8 @@
 
     <string name="action_settings">الإعدادات</string>
     <string name="btn_explorer">إستعراض الورش</string>
+    <string name="btn_moved_shop">انتقل الورش</string>
+    <string name="btn_receive_car">استقبال السيارة</string>
     <string name="btn_search_this_area">البحث في هذه المنطقة</string>
     <string name="your_mobile">رقم جوالك</string>
     <string name="your_name">الاسم</string>
@@ -82,7 +84,7 @@
     <string name="title_fav_shops">الورش المفضلة</string>
     <string name="title_about_us">عن كاريفر</string>
     <string name="tv_how_it_works">كيف نعمل؟</string>
-    <string name="tv_contact_details">تواصل معنا</string>
+    <string name="tv_contact_details">لالنضمام أو التواصل</string>
     <string name="carefer_emial">Support@carefer.co</string>
     <string name="carefer_phone">0599666521</string>
     <string name="carefer_site"> www.carefer.co</string>
@@ -176,7 +178,7 @@
     <string name="tv_nationality">الجنسية</string>
     <string name="tv_about_us">تطبيق كاريفر هو منصة بين مزودين الخدمة (الورش) وبين طالبين الخدمة</string>
     <string name="tv_share_app">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
-
+<string name="tv_moved_shop_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
     <string name="tv_version_name">الإصدار:  </string>
     <string name="tv_km_after_oil_change">عدد الكيلومترات عند آخر تغيير للزيت</string>
     <string name="tv_see_all">إظهار كل</string>

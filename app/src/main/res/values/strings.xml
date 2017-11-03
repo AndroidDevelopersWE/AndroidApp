@@ -41,6 +41,8 @@
 
     <string name="action_settings">Settings</string>
     <string name="btn_explorer">Explorer</string>
+    <string name="btn_moved_shop">Moved Shop</string>
+    <string name="btn_receive_car">Receive Shop</string>
     <string name="btn_search_this_area">Search This Area</string>
     <string name="your_mobile">Your Mobile Number</string>
     <string name="your_name">Your Name</string>
@@ -200,5 +202,7 @@
     <string name="tv_read_full_des">Read Full Description</string>
     <string name="tv_read_less_des">Read Less Description</string>
     <string name="dialog_need_your_permission">Need Your location permissions for this action</string>
+    <dimen name="btn_width">@dimen/_100sdp</dimen>
+    <string name="tv_moved_shop_description">bljgjhgjf ghghjd fjgfghfkghfkg fkhgfkhgf kghfkghfkhgf khgfhjgf</string>
 
 </resources>

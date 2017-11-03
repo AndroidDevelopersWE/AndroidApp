@@ -115,21 +115,22 @@
                   class="com.google.android.gms.maps.SupportMapFragment"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:layout_below="@+id/cv_main_top"/>
+            android:layout_alignBottom="@+id/btn_explorer_main"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="35dp" />
 
 
         <Button
             android:id="@+id/btn_explorer_main"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_105sdp"
             android:layout_height="@dimen/_38sdp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/_30sdp"
-            android:layout_marginLeft="@dimen/_80sdp"
-            android:layout_marginRight="@dimen/_80sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
             android:background="@drawable/dr_btn_round_corner_orange_90"
             android:clickable="true"
             android:gravity="center"
@@ -140,6 +141,44 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/_15sdp"
             android:textStyle="bold"/>
+
+        <Button
+            android:id="@+id/btn_moved_shop"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/btn_explorer_main"
+            android:background="@drawable/dr_btn_round_corner_orange_90"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="btnExploereClick"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/btn_moved_shop"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold"
+            />
+        <Button
+            android:id="@+id/btn_receive_car"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@id/btn_explorer_main"
+            android:background="@drawable/dr_btn_round_corner_orange_90"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="btnExploereClick"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/btn_receive_car"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold"
+            />
+
     </RelativeLayout>
 
 

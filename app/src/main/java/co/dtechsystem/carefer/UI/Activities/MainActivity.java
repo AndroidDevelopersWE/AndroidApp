@@ -106,6 +106,7 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         // Getting Google Play availability status
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
+
         // Showing status
         if (status != ConnectionResult.SUCCESS) { // Google Play Services are not available
             int requestCode = 10;
@@ -1008,7 +1009,8 @@ public class MainActivity extends BaseActivity
                 }
             }
         }
-        mapFragment.getMapAsync(this);
+        if(mapFragment!=null)
+            mapFragment.getMapAsync(this);
     }
 
 

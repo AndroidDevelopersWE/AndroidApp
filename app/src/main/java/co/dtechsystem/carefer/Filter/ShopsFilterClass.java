@@ -1,6 +1,7 @@
 package co.dtechsystem.carefer.Filter;
 
 import android.app.Activity;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,9 +59,24 @@ public abstract class ShopsFilterClass {
                     }
 
                 } else if (placeType.equals("") && ProvideWarranty.equals("") && ProvideReplacementParts.equals("") && !topRated.equals("") && Brands.equals("") && Service.equals("")) {
-                    if (_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(localeEn)
-                            .equals(topRated)) {
-                        ShopsFilterClass._ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                    float shopRating = -1;
+                    try{
+                       shopRating = Float.valueOf(_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(localeEn));
+                    }catch (Exception e){
+                        Log.v("floatNOTConverted",_ShopslistRecordListFilter.get(i).getShopRating().toString());
+                        e.printStackTrace();
+                    }
+                    if(shopRating<0) {
+
+                        if (_ShopslistRecordListFilter.get(i).getShopRating().toLowerCase(localeEn)
+                                .equals(topRated)) {
+                            ShopsFilterClass._ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                        }
+                    }
+                    else{
+                        if (shopRating>=4.0f) {
+                            ShopsFilterClass._ShopslistRecordList.add(_ShopslistRecordListFilter.get(i));
+                        }
                     }
 
                 } else if (!placeType.equals("") && !ProvideWarranty.equals("") && ProvideReplacementParts.equals("") && topRated.equals("") && Brands.equals("") && Service.equals("")) {
