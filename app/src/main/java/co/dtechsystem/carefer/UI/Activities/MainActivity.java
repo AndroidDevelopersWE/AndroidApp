@@ -182,6 +182,24 @@ public class MainActivity extends BaseActivity
     }
 
     /**
+     * click listner for moved shop button
+     * @param v
+     */
+    public void btnMovedShopClick(View v){
+        Intent i = new Intent(this,MovedShopActivity.class);
+        startActivity(i);
+    }
+
+    /**
+     * click listner for receive car button
+     * @param v
+     */
+    public void btnReceiveCarClick(View v){
+        Intent i = new Intent(this,ReceiveCarActivity.class);
+        startActivity(i);
+    }
+
+    /**
      * Handle click funtion when user click on Search this Area search in the 10km area for shops
      *
      * @param v

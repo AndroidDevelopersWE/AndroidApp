@@ -131,6 +131,16 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.Activities.MovedShopActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".UI.Activities.ReceiveCarActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <!-- Firebase Notifications -->
         <service android:name=".Google.FCM.CareferFirebaseMessagingService">
             <intent-filter>

@@ -151,6 +151,8 @@
     <string name="toast_shop_deleted_fav">Shop deleted from your favourite list…</string>
     <string name="toast_shop_added_fav">Shop Added in your favourite list…</string>
     <string name="toast_location_not_found">Your current location could not be found.</string>
+    <string name="tv_location">Location</string>
+
     <string name="toast_record_found_out_of">Rocord Found Out of </string>
 
     <string name="toast_review_added">Review Added</string>
@@ -203,6 +205,11 @@
     <string name="tv_read_less_des">Read Less Description</string>
     <string name="dialog_need_your_permission">Need Your location permissions for this action</string>
     <dimen name="btn_width">@dimen/_100sdp</dimen>
+
+    <string name="title_moved_shop">moved shop</string>
+
+    <string name="title_receive_car">Receive Car</string>
     <string name="tv_moved_shop_description">bljgjhgjf ghghjd fjgfghfkghfkg fkhgfkhgf kghfkghfkhgf khgfhjgf</string>
+    <string name="tv_receive_car_description">bljgjhgjf ghghjd fjgfghfkghfkg fkhgfkhgf kghfkghfkhgf khgfhjgf</string>
 
 </resources>

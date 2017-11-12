@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="co.dtechsystem.carefer.UI.Activities.FiltersActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_main_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/_7sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_toRightOf="@+id/lay_dr_btn"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                tools:ignore="RtlHardcoded">
+
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/ic_arrow_back_white_48pt_3x"
+                    android:backgroundTint="#000"
+                    android:clickable="true"
+                    android:onClick="CloseActivity"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_title_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/_40sdp"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:padding="@dimen/_10sdp"
+                    android:text="@string/tv_filter"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_14sdp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_filter_rocords_found"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorNarvik"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_total_record_found_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_choice_type_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/tv_good_choice_see_shops"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_10sdp" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/lay_provide_warranty_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dr_list_item_fav_click"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp">
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_provide_warranty_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/spinner_provided_warranty"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_provide_replace_parts_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dr_list_item_fav_click"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp">
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_provide_replace_parts_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/spinner_provided_replace_parts"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lay_top_rated_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/dr_list_item_fav_click"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="@dimen/_10sdp">
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_top_rated_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="0" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:padding="@dimen/_5sdp"
+                    android:text="@string/spinner_top_rated"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                tools:ignore="DisableBaselineAlignment">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_corner_view_straight"
+                    android:visibility="gone"
+                    tools:ignore="RtlHardcoded">
+
+
+                    <ExpandableListView
+                        android:id="@+id/lv_service_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animateLayoutChanges="true" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/dr_corner_view_straight"
+                    android:padding="@dimen/_2sdp"
+                    android:visibility="gone"
+                    tools:ignore="RtlHardcoded">
+
+
+                    <ExpandableListView
+                        android:id="@+id/lv_brands"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/dr_corner_view_straight"
+                    android:padding="@dimen/_2sdp"
+                    android:visibility="gone"
+                    tools:ignore="RtlHardcoded">
+
+
+                    <ExpandableListView
+                        android:id="@+id/lv_place_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_place_type_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dr_list_item_fav_click"
+                    android:clickable="true"
+                    android:gravity="right"
+                    android:padding="@dimen/_14sdp"
+                    android:text="@string/spinner_place_type"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/tv_brand_type_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/dr_list_item_fav_click"
+                    android:clickable="true"
+                    android:gravity="right"
+                    android:maxLines="2"
+                    android:padding="@dimen/_14sdp"
+                    android:text="@string/dp_brand"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/tv_service_type_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/dr_list_item_fav_click"
+                    android:clickable="true"
+                    android:gravity="right"
+                    android:maxLines="2"
+                    android:padding="@dimen/_14sdp"
+                    android:text="@string/dp_service_type"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_weight="0"
+        android:orientation="horizontal">
+
+
+        <Button
+
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@drawable/dr_btn_round_corner_orange_90"            android:clickable="true"
+            android:onClick="setResetFilterBtnClick"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/btn_reset_filter"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_38sdp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:background="@drawable/dr_btn_round_corner_orange_90"            android:clickable="true"
+            android:onClick="setApplyFilterBtnClick"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/btn_apply_filter"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_13sdp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

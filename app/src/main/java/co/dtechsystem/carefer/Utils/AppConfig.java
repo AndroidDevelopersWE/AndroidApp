@@ -4,7 +4,11 @@ package co.dtechsystem.carefer.Utils;
 public class AppConfig {
     public static int socketTimeout = 30000;
     //live base
-    private static String BaseUrl = "https://carefer.co/public/api/";
+    //private static String BaseUrl = "https://carefer.co/public/api/";
+    //    test base
+    public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
+
+
     //live image base
     public static String BaseUrlImages = "https://carefer.co/public/uploads/";
 
@@ -33,10 +37,7 @@ public class AppConfig {
     public static String APiGetShopReviews = BaseUrl + "get-shop-reviews";
     public static String APiGetCitiesList = BaseUrl + "get-city-list";
     public static String APiPostShopsListDataByCity = BaseUrl + "city-shops-data";
-
-
-    //    test base
-    //    public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
+    public static String APiGetPriceShop = BaseUrl +"get-price";
 
     //test image base
     //    public static String BaseUrlImages = "http://carefer.dtechsystems.co/public/uploads/";

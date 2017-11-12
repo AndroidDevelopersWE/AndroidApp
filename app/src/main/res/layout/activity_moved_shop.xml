@@ -15,7 +15,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
 
+        <!-- :nextFocusUp and :nextFocusLeft have been set to the id of this component
+        to prevent the dummy from receiving focus again -->
+        <AutoCompleteTextView android:id="@+id/autotext"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:nextFocusUp="@id/autotext"
+            android:nextFocusLeft="@id/autotext"/>
+        <!--
+        Dummy code ends here
+        -->
         <android.support.v7.widget.CardView
             android:id="@+id/cv_main_top"
             android:layout_width="match_parent"
@@ -47,7 +62,6 @@
                         android:drawablePadding="@dimen/_5sdp"
                         android:drawableRight="@drawable/ic_map"
                         android:gravity="center"
-                        android:onClick="GotoHome"
                         android:padding="@dimen/_10sdp"
                         android:text="@string/tv_title_top_a_map"
                         android:textColor="@color/colorGrey"
@@ -102,6 +116,7 @@
             android:layout_below="@+id/cv_main_top"
             android:orientation="vertical">
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,140 +136,143 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 android:background="@android:color/white"
                 android:orientation="vertical">
-
-
                 <TextView
                     android:id="@+id/tv_moved_shop_description"
                     android:gravity="right"
                     android:padding="@dimen/_10sdp"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tv_moved_shop_description"
                     />
-
-
-                <TextView
-                    android:id="@+id/tv_mobile_number_my_details"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    android:text="@string/your_mobile"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"/>
-
-                <EditText
-                    android:id="@+id/et_mobile_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/dr_corner_black"
-                    android:drawableRight="@drawable/ic_edit"
-                    android:gravity="left"
-                    android:digits="0123456789"
-                    android:hint="@string/phone_eg"
-                    android:inputType="phone"
-                    android:maxLines="1"
-                    android:padding="@dimen/_4sdp"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_14sdp"
-                    tools:ignore="RtlHardcoded"/>
-
-                <TextView
-                    android:id="@+id/tv_name_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    android:text="@string/your_name"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"/>
+                    android:padding="@dimen/_5sdp"
+                    android:orientation="horizontal">
 
 
-                <EditText
-                    android:id="@+id/et_user_name_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/dr_corner_black"
-                    android:drawableLeft="@drawable/ic_edit"
-                    android:gravity="right"
-                    android:hint="@string/your_name"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:padding="@dimen/_4sdp"
-                    android:singleLine="true"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_14sdp"
-                    tools:ignore="RtlHardcoded"/>
 
+                    <TextView
+                        android:id="@+id/et_car_brand_my_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dr_corner_black"
+                        android:clickable="true"
+                        android:drawableLeft="@android:drawable/ic_menu_more"
+                        android:gravity="right|center_vertical"
+                        android:hint="@string/tv_car_brand"
+                        android:inputType="text"
+                        android:layout_weight="0.3"
+                        android:maxLines="1"
 
-                <TextView
-                    android:id="@+id/tv_car_brand_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    android:text="@string/tv_car_brand"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"/>
-
-
-                <TextView
-                    android:id="@+id/et_car_brand_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/dr_corner_black"
-                    android:clickable="true"
-                    android:drawableLeft="@drawable/ic_edit"
-                    android:editable="false"
-                    android:gravity="right"
-                    android:hint="@string/tv_car_brand"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:padding="@dimen/_4sdp"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_14sdp"
-                    tools:ignore="RtlHardcoded"/>
+                        android:padding="@dimen/_4sdp"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_14sdp"
+                        tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/tv_car_brand_my_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:gravity="right"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/tv_car_brand"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_12sdp"/>
+                </LinearLayout>
 
                 <Spinner
                     android:id="@+id/sp_brand_type_shop_details_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:gravity="center"
+                    android:visibility="visible"/>
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                android:orientation="horizontal">
+
+
+
+                    <TextView
+                        android:id="@+id/et_car_model_my_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dr_corner_black"
+                        android:clickable="true"
+                        android:drawableLeft="@android:drawable/ic_menu_more"
+                        android:gravity="right|center_vertical"
+                        android:hint="@string/tv_car_model"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:maxEms="4"
+                        android:maxLines="1"
+                        android:padding="@dimen/_4sdp"
+                        android:layout_weight="0.3"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_14sdp"
+                        tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/tv_car_model_my_details"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_weight="0.7"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/tv_car_model"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_12sdp"/>
+
+            </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/sp_car_model_order"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@drawable/dr_spinner_ic"
                     android:gravity="center"
                     android:visibility="invisible"/>
-
-                <TextView
-                    android:id="@+id/tv_car_model_my_details"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    android:text="@string/tv_car_model"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"/>
+                    android:padding="@dimen/_5sdp"
+                    android:orientation="horizontal">
 
 
-                <TextView
-                    android:id="@+id/et_car_model_my_details"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/dr_corner_black"
-                    android:clickable="true"
-                    android:drawableLeft="@drawable/ic_edit"
-                    android:editable="false"
-                    android:gravity="right"
-                    android:hint="@string/tv_car_model"
-                    android:imeOptions="actionDone"
-                    android:inputType="numberDecimal"
-                    android:maxEms="4"
-                    android:maxLines="1"
-                    android:padding="@dimen/_4sdp"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/_14sdp"
-                    tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/tv_service_type_selector"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/dr_corner_black"
+                        android:clickable="true"
+                        android:drawableLeft="@android:drawable/ic_menu_more"
+                        android:gravity="right|center_vertical"
+                        android:hint="@string/dp_service_type"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:maxEms="4"
+                        android:maxLines="1"
+                        android:layout_weight="0.3"
+                        android:padding="@dimen/_4sdp"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_14sdp"
+                        tools:ignore="RtlHardcoded"/>
 
+                    <TextView
+                        android:id="@+id/tv_service_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/_4sdp"
+                        android:layout_weight="0.7"
+                        android:text="@string/dp_service_type"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_12sdp"/>
+
+                </LinearLayout>
                 <Spinner
-                    android:id="@+id/sp_car_model_order"
+                    android:id="@+id/sp_service_type"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@drawable/dr_spinner_ic"
@@ -264,79 +282,57 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
                     android:orientation="horizontal">
-
-                    <LinearLayout
+                    <EditText
+                        android:id="@+id/et_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/_2sdp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_km_my_details"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="@dimen/_4sdp"
-                            android:text="@string/tv_km_after_oil_change"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_8sdp"/>
-
-
-                        <EditText
-                            android:id="@+id/et_oil_change_km_my_details"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/dr_corner_black"
-                            android:digits="0123456789"
-                            android:drawableLeft="@drawable/ic_edit"
-                            android:gravity="right"
-                            android:hint="@string/tv_km_after_oil_change"
-                            android:inputType="numberDecimal"
-                            android:padding="@dimen/_4sdp"
-                            android:singleLine="true"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_14sdp"
-                            tools:ignore="RtlHardcoded"/>
-                    </LinearLayout>
-
-                    <LinearLayout
+                        android:background="@drawable/dr_corner_black"
+                        android:gravity="right"
+                        android:digits="0123456789"
+                        android:inputType="numberDecimal"
+                        android:layout_weight="0.3"
+                        android:maxLines="1"
+                        android:enabled="false"
+                        android:padding="@dimen/_4sdp"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_14sdp"
+                        tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/tv_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_2sdp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:gravity="center"
+                        android:layout_weight="0.7"
+                        android:padding="@dimen/_4sdp"
+                        android:text="@string/tv_price"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/_12sdp"/>
 
-                        <TextView
-                            android:id="@+id/tv_last_oil_my_details"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="@dimen/_4sdp"
-                            android:text="@string/tv_last_changed_oil"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_8sdp"/>
-
-
-                        <TextView
-                            android:id="@+id/et_last_oil_my_details"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/dr_corner_black"
-                            android:clickable="true"
-                            android:drawableLeft="@drawable/ic_edit"
-                            android:editable="false"
-                            android:gravity="right"
-                            android:hint="@string/tv_last_changed_oil"
-                            android:inputType="text"
-                            android:padding="@dimen/_4sdp"
-                            android:singleLine="true"
-                            android:textColor="@android:color/black"
-                            android:textSize="@dimen/_14sdp"
-                            tools:ignore="Deprecated,RtlHardcoded"/>
-                    </LinearLayout>
                 </LinearLayout>
+
+
+                <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/_4sdp"
+                android:text="@string/tv_location"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_12sdp"/>
+
+                <TextView
+                    android:id="@+id/tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="@dimen/_4sdp"
+                    android:text=""
+                    android:lines="2"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/_12sdp"/>
 
                 <Button
                     android:layout_width="match_parent"

@@ -110,6 +110,7 @@
     <string name="tv_filter">تصفية</string>
     <string name="tv_car_brand">ماركة السيارة</string>
     <string name="tv_car_model">طراز السيارة</string>
+    <string name="tv_price">السعر</string>
     <string name="tv_last_changed_oil">تاريخ آخر تغير الزيت</string>
     <string name="tv_title_top_a_map">الخريطة</string>
     <string name="tv_title_share">شارك التطبيق</string>
@@ -139,6 +140,7 @@
     <string name="toast_shop_deleted_fav">تم حذف الورشة من قائمتك المفضلة</string>
     <string name="toast_shop_added_fav">تم إضافة الورشة في قائمتك المفضلة</string>
     <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي…!</string>
+    <string name="tv_location">موقعك</string>
     <string name="toast_record_found_out_of"> ورشة من أصل </string>
 
     <string name="toast_review_added">تمت إضافة التعليق</string>
@@ -178,7 +180,6 @@
     <string name="tv_nationality">الجنسية</string>
     <string name="tv_about_us">تطبيق كاريفر هو منصة بين مزودين الخدمة (الورش) وبين طالبين الخدمة</string>
     <string name="tv_share_app">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
-<string name="tv_moved_shop_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
     <string name="tv_version_name">الإصدار:  </string>
     <string name="tv_km_after_oil_change">عدد الكيلومترات عند آخر تغيير للزيت</string>
     <string name="tv_see_all">إظهار كل</string>
@@ -191,4 +192,11 @@
     <string name="tv_read_less_des">قراءة أقل الوصف</string>
 
     <string name="dialog_need_your_permission">يلزم صلاحية الموقع لتحديد المكان</string>
+
+    <string name="title_receive_car">استقبال السيارة</string>
+    <string name="title_moved_shop">انتقل متجر</string>
+
+    <string name="tv_moved_shop_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
+    <string name="tv_receive_car_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
+
 </resources>
