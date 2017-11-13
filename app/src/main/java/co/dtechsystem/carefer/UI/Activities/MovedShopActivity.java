@@ -332,7 +332,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                         // display response
                         try {
                             JSONObject response = new JSONObject(res);
-                            mServices.add(getResources().getString(R.id.tv_service_type));
+                            mServices.add(getResources().getString(R.string.dp_service_type));
                             mServicesIdArray.add("");
                                 JSONArray servicesData = response.getJSONArray("serviceTypeData");
                                 for (int i = 0; i < servicesData.length(); i++) {

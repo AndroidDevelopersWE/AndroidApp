@@ -211,5 +211,6 @@
     <string name="title_receive_car">Receive Car</string>
     <string name="tv_moved_shop_description">bljgjhgjf ghghjd fjgfghfkghfkg fkhgfkhgf kghfkghfkhgf khgfhjgf</string>
     <string name="tv_receive_car_description">bljgjhgjf ghghjd fjgfghfkghfkg fkhgfkhgf kghfkghfkhgf khgfhjgf</string>
+    <string name="tv_price">price</string>
 
 </resources>
