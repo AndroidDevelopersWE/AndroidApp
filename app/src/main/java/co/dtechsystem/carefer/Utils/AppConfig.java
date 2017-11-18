@@ -38,6 +38,9 @@ public class AppConfig {
     public static String APiGetCitiesList = BaseUrl + "get-city-list";
     public static String APiPostShopsListDataByCity = BaseUrl + "city-shops-data";
     public static String APiGetPriceShop = BaseUrl +"get-price";
+    public static String APiGetMovedShopDesc= BaseUrl +"get-service-description/id/1";
+    public static String APiGetReceiveCarDesc= BaseUrl +"get-service-description/id/2";
+
 
     //test image base
     //    public static String BaseUrlImages = "http://carefer.dtechsystems.co/public/uploads/";

@@ -39,6 +39,8 @@ public class ShopsListModel {
         private String provideReplaceParts = "";
         private String shopImage = "";
         private String city = "";
+        private String isDiscounted= "";
+        private String isTrusted= "";
 
 
         public String getID() {
@@ -145,6 +147,22 @@ public class ShopsListModel {
 
         public void setCity(String city) {
             this.city = city;
+        }
+
+        public String getIsDiscounted() {
+            return isDiscounted;
+        }
+
+        public void setIsDiscounted(String isDiscounted) {
+            this.isDiscounted = isDiscounted;
+        }
+
+        public String getIsTrusted() {
+            return isTrusted;
+        }
+
+        public void setIsTrusted(String isTrusted) {
+            this.isTrusted = isTrusted;
         }
     }
 }

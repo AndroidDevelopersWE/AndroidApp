@@ -101,6 +101,7 @@
     <string name="some_went_wrong">هناك خطأ ما…!</string>
     <string name="no_record_found">لم يتم العثور على أي نتائج حتى الآن!</string>
     <string name="et_search_shop">بحث باسم الورشة</string>
+
     <string name="phone_hint">رقم الجوال</string>
     <string name="invalid_phone_number">يرجى إدخال رقم جوال صحيح</string>
     <string name="cb_accept_policy">قبول السياسة</string>
@@ -193,10 +194,19 @@
 
     <string name="dialog_need_your_permission">يلزم صلاحية الموقع لتحديد المكان</string>
 
-    <string name="title_receive_car">استقبال السيارة</string>
-    <string name="title_moved_shop">انتقل متجر</string>
+    <string name="title_receive_car">استلام السيارة</string>
+    <string name="title_moved_shop">الورشة المتنقلة</string>
 
     <string name="tv_moved_shop_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
     <string name="tv_receive_car_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
+    <string name="search">بحث</string>
+    <string name="select_car_brand">اختر ماركة السيارة للحصول على القائمة</string>
+    <string name="discount">نسبة الخصم</string>
+    <string name="ask_to_Call">مكالمة</string>
+    <string name="call_operator_message">هل ترغب في الاتصال بنا للحصول على بعض المساعدة؟</string>
+    <string name="call">مكالمة نحن</string>
+    <string name="moved_shop_price">سعر الورشة المتنقلة</string>
+    <string name="select_location">مكان العميل   </string>
+    <string name="write_comments">ملاحظات إستلام السيارة</string>
 
 </resources>

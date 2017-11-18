@@ -138,6 +138,7 @@ public class MainActivity extends BaseActivity
                     //request to enable gps location
 
 
+
                 }
             }
         }
@@ -316,26 +317,31 @@ public class MainActivity extends BaseActivity
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             mMap.setMyLocationEnabled(true);
         }
-        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M && mLatLngCurrent == null && !Utils.isLocationServiceEnabled(activity)) {
-            mMap.setMyLocationEnabled(true);
-            // User refused to grant permission. You can add AlertDialog here
-            isLocationAvail = "No";
-            Utils.savePreferences(activity, "isLocationAvail", "No");
-            mLatLngCurrent = new LatLng(24.586867, 46.741052);
-            Utils.savePreferences(activity, "mLatLngCurrent", String.valueOf(mLatLngCurrent.latitude + "," + mLatLngCurrent.longitude));
-            mNewLocation = new Location("");
-            mOldLocation = new Location("");
-            mOldLocation.setLatitude(mLatLngCurrent.latitude);
-            mOldLocation.setLongitude(mLatLngCurrent.longitude);
-            mNewLocation.setLatitude(mLatLngCurrent.latitude);
-            mNewLocation.setLongitude(mLatLngCurrent.longitude);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLngCurrent, 13));
-            if (Validations.isInternetAvailable(activity, true) && mOldLocation != null) {
-                SearchingCityfinished = false;
-                APiGetAllCities(mOldLocation);
+        boolean isLocationServiceEnabled=Utils.isLocationServiceEnabled(activity);
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            if (mLatLngCurrent == null || !isLocationServiceEnabled) {
+                mMap.setMyLocationEnabled(true);
+                // User refused to grant permission. You can add AlertDialog here
+                isLocationAvail = "No";
+                Utils.savePreferences(activity, "isLocationAvail", "No");
+                mLatLngCurrent = new LatLng(24.586867, 46.741052);
+                Utils.savePreferences(activity, "mLatLngCurrent", String.valueOf(mLatLngCurrent.latitude + "," + mLatLngCurrent.longitude));
+                mNewLocation = new Location("");
+                mOldLocation = new Location("");
+                mOldLocation.setLatitude(mLatLngCurrent.latitude);
+                mOldLocation.setLongitude(mLatLngCurrent.longitude);
+                mNewLocation.setLatitude(mLatLngCurrent.latitude);
+                mNewLocation.setLongitude(mLatLngCurrent.longitude);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLngCurrent, 13));
+                if (Validations.isInternetAvailable(activity, true) && mOldLocation != null) {
+                    SearchingCityfinished = false;
+                    APiGetAllCities(mOldLocation);
 //                        APiGetCurrentAddress("Location", mOldLocation);
+                }
+                showToast(getResources().getString(R.string.toast_permission));
             }
-            showToast(getResources().getString(R.string.toast_permission));
+        }else{
+            //TODO: build version id greater than 23.. do something!!!1
         }
 
     }
@@ -622,6 +628,7 @@ public class MainActivity extends BaseActivity
                             ShopsListDataResponse = response;
                             Utils.savePreferences(activity, "ShopsListDataResponse", ShopsListDataResponse);
                             ShopsListModel mShopsListModel = gson.fromJson(response, ShopsListModel.class);
+
                             if (mShopsListModel.getShopsList() != null && mShopsListModel.getShopsList().size() > 0) {
 
                                 if (location != null) {
@@ -1061,11 +1068,46 @@ public class MainActivity extends BaseActivity
 
             @Override
             public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                // TODO Auto-generated method stub
+
+                // go to riyadh as default
+                mapFragment.getMapAsync(MainActivity.this);
+
 
             }
         });
+
         dialog.show();
+    }
+
+    /**
+     * this is called when phone icon is clicked on home map screen which opens the dialog which asks to make call to the operator for assistance
+     *
+     * @param view
+     */
+    public void phoneCLicked(View view){
+       AlertDialog.Builder askDialog = new AlertDialog.Builder(MainActivity.this);
+       //askDialog.setTitle(R.string.ask_to_Call);
+       askDialog.setMessage(R.string.call_operator_message);
+       askDialog.setPositiveButton(R.string.call, new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which) {
+
+               //call 0599666521 : open dialer
+               Intent intent = new Intent(Intent.ACTION_DIAL);
+               intent.setData(Uri.parse("tel:0599666521"));
+               startActivity(intent);
+
+           }
+       });
+       askDialog.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which) {
+               dialog.dismiss();
+           }
+       });
+       askDialog.show();
+
+
     }
 
 }

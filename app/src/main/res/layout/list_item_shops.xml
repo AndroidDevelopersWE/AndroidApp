@@ -60,6 +60,15 @@
                             app:sriv_right_bottom_corner_radius="@dimen/_5sdp"
                             app:sriv_right_top_corner_radius="@dimen/_5sdp"/>
 
+                        <ImageView
+                            android:id="@+id/img_discounted"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_alignParentTop="true"
+                            android:src="@drawable/discounted"
+                            android:visibility="invisible"
+                            />
                         <ProgressBar
                             android:id="@+id/pg_image_load"
                             android:layout_width="@dimen/_30sdp"
@@ -164,10 +173,19 @@
                                 android:drawablePadding="@dimen/_5sdp"
                                 android:drawableRight="@drawable/ic_km"
                                 android:gravity="top"
+                                android:layout_gravity="center_vertical"
                                 android:text=" km"
                                 android:textSize="@dimen/_11sdp"
                                 tools:ignore="HardcodedText,RtlHardcoded"/>
+                            <ImageView
+                                android:id="@+id/img_trusted"
+                                android:layout_width="@dimen/_35sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/trusted"
+                                android:visibility="gone"
+                                android:layout_gravity="center_vertical"
 
+                                />
                             <TextView
                                 android:id="@+id/tv_service_type_shop_list"
                                 android:layout_width="match_parent"
@@ -200,6 +218,7 @@
                                 android:textSize="@dimen/_8sdp"
                                 android:visibility="gone"
                                 tools:ignore="InefficientWeight,RtlHardcoded"/>
+
 
 
                         </LinearLayout>

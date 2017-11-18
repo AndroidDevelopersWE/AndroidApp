@@ -120,6 +120,14 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         holder.tv_desc_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
         holder.tv_desc_short_shop_list.setText(_ShopslistRecordList.get(position).getShopDescription());
         holder.tv_shop_name_shop_list.setText(_ShopslistRecordList.get(position).getShopName());
+        String id =_ShopslistRecordList.get(position).getID();
+        if(id.equals("725"))
+            Log.d("found","725");
+        if(_ShopslistRecordList.get(position).getIsDiscounted().equalsIgnoreCase("1"))
+            holder.img_discounted.setVisibility(View.VISIBLE);
+        if(_ShopslistRecordList.get(position).getIsTrusted().equalsIgnoreCase("1"))
+            holder.img_trusted.setVisibility(View.VISIBLE);
+
         holder.btn_details_shops_list.setOnClickListener(new View.OnClickListener() {
             @SuppressWarnings("RedundantStringToString")
             @Override
@@ -308,6 +316,8 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
         final Button btn_details_shops_list;
         public final ProgressBar pg_image_load;
         public final ProgressBar pg_image_load_large_shops;
+        final ImageView img_trusted;
+        final ImageView img_discounted;
 
         public ViewHolder(View v) {
 
@@ -336,6 +346,9 @@ public class ShopsListRecycleViewAdapter extends RecyclerView.Adapter<ShopsListR
             tv_shop_name_large_shop_list = (TextView) v.findViewById(R.id.tv_shop_name_large_shop_list);
             tv_distance_item = (TextView) v.findViewById(R.id.tv_distance_item);
             tv_distance_details = (TextView) v.findViewById(R.id.tv_distance_details);
+            img_discounted = (ImageView) v.findViewById(R.id.img_discounted);
+            img_trusted = (ImageView) v.findViewById(R.id.img_trusted);
+
 
         }
 

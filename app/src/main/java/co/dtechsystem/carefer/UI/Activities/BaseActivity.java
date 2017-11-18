@@ -45,6 +45,8 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     Loading loading;
+    Loading loading2;
+
     protected Activity activity;
     AQuery aQuery;
     Gson gson;
@@ -74,6 +76,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         aQuery = new AQuery(this);
         activity = this;
         loading = new Loading(this, getResources().getString(R.string.loading));
+        loading2 = new Loading(this, getResources().getString(R.string.loading));
+
         intent = getIntent();
         sAnalyticsApplication = (AnalyticsApplication) getApplication();
 

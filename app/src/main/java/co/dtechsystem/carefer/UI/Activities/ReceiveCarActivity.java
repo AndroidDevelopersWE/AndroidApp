@@ -15,7 +15,6 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +45,7 @@ import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
+import co.dtechsystem.carefer.Widget.SearchableSpinner;
 
 @SuppressWarnings("unchecked")
 public class ReceiveCarActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,7 +56,6 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
     private TextView tv_car_brand_my_details;
     private TextView tv_car_model_my_details;
 
-    private TextView et_models;
     private TextView tv_brands;
     private final Calendar myCalendar = Calendar.getInstance(locale);
     private final ArrayList<String> mBrandsIdArray = new ArrayList<>();
@@ -74,7 +73,8 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
     private ArrayAdapter StringModeldataAdapter;
     private LatLng latLng;
     private String mAddress;
-
+    private SearchableSpinner mSpinner_brands;
+    private SearchableSpinner mSpinner_models;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,17 +88,15 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
         setContentView(R.layout.activity_receive_car);
+
         initializeViews();
+
         SetUpLeftbar();
+
         SetSpinnerListener();
 
+        getbrandsfromserver();
 
-        if (Validations.isInternetAvailable(activity, true)) {
-            loading.show();
-          //  APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "", "", "", "", "");
-            APiGetBrandsServiceModelsData(AppConfig.APiBrandData, "Brands", "");
-
-        }
 
     }
 
@@ -114,6 +112,8 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
     }
 
     private void initializeViews() {
+        mSpinner_brands = (SearchableSpinner) findViewById(R.id.search_spinner_brands);
+        mSpinner_models = (SearchableSpinner) findViewById(R.id.search_spinner_models);
 
         tv_car_brand_my_details = (TextView) findViewById(R.id.tv_car_brand_my_details);
         tv_car_model_my_details = (TextView) findViewById(R.id.tv_car_model_my_details);
@@ -123,13 +123,21 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
 
             @Override
             public void onClick(View v) {
-                aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
+                if(brands==null || brands.isEmpty()){
+                    getbrandsfromserver();
+                }else
+
+                    mSpinner_brands.showDialog();
+
             }
         });
         aQuery.id(R.id.et_car_model_my_details).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                aQuery.id(R.id.sp_car_model_order).getSpinner().performClick();
+                if(brands==null || models.isEmpty()){
+                    getbrandsfromserver();
+                }else
+                    mSpinner_models.showDialog();
             }
         });
         aQuery.id(R.id.tv_location).clicked(new View.OnClickListener() {
@@ -152,48 +160,37 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
         SetShaderToViews();
 
     }
-
+    private void getbrandsfromserver(){
+        if (Validations.isInternetAvailable(activity, true)) {
+            loading.show();
+            loading2.show();
+            //  APiMyDetails(AppConfig.APiGetCustomerDetails + sUser_ID, "getUserDetails", "", "", "", "", "", "", "");
+            APiGetBrandsServiceModelsData(AppConfig.APiBrandData, "Brands", "");
+            APIgetDescription(AppConfig.APiGetReceiveCarDesc);
+        }
+    }
     private void SetSpinnerListener() {
-        aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSpinner_brands.setOnSelectionChangeListener(new SearchableSpinner.OnSelectionChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (firstBrand||position==0) {
-                    firstBrand = false;
-                    return;
-                }
-                tv_brands.setText(aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().getSelectedItem().toString());
+            public void onSelectionChanged(String selection) {
+                tv_brands.setText(selection);
+                int position = brands.indexOf(selection);
                 if (Validations.isInternetAvailable(activity, true)) {
                     loading.show();
                     APiGetBrandsServiceModelsData(AppConfig.APiGetBrandModels, "ModelYear", mBrandsIdArray.get(position));
                 }
                 mBrandsId = mBrandsIdArray.get(position);
-
             }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-
         });
-
-        aQuery.id(R.id.sp_car_model_order).getSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSpinner_models.setOnSelectionChangeListener(new SearchableSpinner.OnSelectionChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (firstModel||position==0) {
-                    firstModel = false;
-                    return;
-
-                }
-                    aQuery.find(R.id.et_car_model_my_details).text((aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString()));
+            public void onSelectionChanged(String selection) {
+                aQuery.find(R.id.et_car_model_my_details).text(selection);
+                int position = models.indexOf(selection);
 
                 mModelsId = mModelsIdArray.get(position);
                 if(firstService)
                     aQuery.id(R.id.tv_location).click();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
@@ -211,8 +208,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                         try {
                             JSONObject response = new JSONObject(res);
                             if (Type.equals("Brands")) {
-                                brands.add(getResources().getString(R.string.tv_car_brand));
-                                mBrandsIdArray.add("");
+
                                 JSONArray brandsData = response.getJSONArray("brandsData");
                                 for (int i = 0; i < brandsData.length(); i++) {
                                     JSONObject jsonObject = brandsData.getJSONObject(i);
@@ -221,16 +217,17 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                                     mBrandsIdArray.add(jsonObject.getString("ID"));
                                 }
 
-                                @SuppressWarnings("unchecked") ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
-                                aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
+                                //@SuppressWarnings("unchecked")
+                                //ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
 
-                                StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
-                                aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
-                               // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
+                                //aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
+
+                                //StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
+                                //aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                                // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
+                                mSpinner_brands.setList(brands.toArray(new CharSequence[brands.size()]));
                                 loading.close();
                             } else {
-                                models.add(getResources().getString(R.string.tv_car_model));
-                                mModelsIdArray.add("");
                                 JSONArray modelsData = response.getJSONArray("models");
                                 models.clear();
                                 if(modelsData.length()==0) {
@@ -239,7 +236,6 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                                     //aQuery.find(R.id.sp_brand_type_shop_details_order).text(aQuery.find(R.string.toast_select_one_drop).getText());
 
                                 }
-                                models.add(getResources().getString(R.string.tv_car_brand));
 
                                 for (int i = 0; i < modelsData.length(); i++) {
                                     JSONObject jsonObject = modelsData.getJSONObject(i);
@@ -247,10 +243,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                                     models.add(jsonObject.getString("modelName"));
                                     mModelsIdArray.add(jsonObject.getString("ID"));
                                 }
-                                 StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
-                               // if(aQuery.id(R.id.sp_car_model_order).getSpinner().getAdapter()!=null)
-                                 //   aQuery.id(R.id.sp_car_model_order).getSpinner().removeAllViews();
-                                aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
+                                mSpinner_models.setList(models.toArray(new CharSequence[models.size()]));
                                 //aQuery.find(R.id.et_car_model_my_details).text(getResources().getString(R.string.dp_model));
                                 loading.close();
 
@@ -302,7 +295,6 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
         Utils.gradientTextViewShort(tv_car_model_my_details, activity);
         Utils.gradientTextViewShort(aQuery.id(R.id.tv_problem_desc).getTextView(), activity);
         Utils.gradientTextViewShort(aQuery.id(R.id.tv_location).getTextView(), activity);
-
 
     }
 
@@ -503,6 +495,54 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                 });
         alertDialog.show();;
     }
+    public void APIgetDescription(String Url){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String res) {
+                        // display response
+                        try {
+                            JSONObject jsonObject = new JSONObject(res);
+                            String description = jsonObject.getString("description");
+                            if (description != null) {
+                                aQuery.id(R.id.tv_moved_shop_receive_car_description).text(description);
+                            }
+
+                            // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
+                            loading2.close();
+
+                        } catch (JSONException e) {
+                            loading2.close();
+                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        loading2.close();
+                        showToast(getResources().getString(R.string.some_went_wrong));
+                        // error
+                        error.printStackTrace();
+                        Log.d("Error.Response", error.toString());
+                    }
+                }
+        ) {
+            @SuppressWarnings("Convert2Diamond")
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+
 
 }
 /*

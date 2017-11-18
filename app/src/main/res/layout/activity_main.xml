@@ -118,6 +118,17 @@
             android:layout_alignBottom="@+id/btn_explorer_main"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="35dp" />
+        <Button
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:id="@+id/bt_phone_clicked"
+            android:background="@android:drawable/stat_sys_vp_phone_call"
+            android:onClick="phoneCLicked"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            />
 
 
         <Button
@@ -139,7 +150,7 @@
             android:text="@string/btn_explorer"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_13sdp"
             android:textStyle="bold"/>
 
         <Button
@@ -157,9 +168,10 @@
             android:text="@string/btn_moved_shop"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_13sdp"
             android:textStyle="bold"
             />
+
         <Button
             android:id="@+id/btn_receive_car"
             android:layout_width="@dimen/_80sdp"
@@ -175,7 +187,7 @@
             android:text="@string/btn_receive_car"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_15sdp"
+            android:textSize="@dimen/_13sdp"
             android:textStyle="bold"
             />
 

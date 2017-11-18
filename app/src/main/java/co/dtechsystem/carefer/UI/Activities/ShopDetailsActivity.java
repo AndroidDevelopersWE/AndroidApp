@@ -385,6 +385,11 @@ public class ShopDetailsActivity extends BaseActivity implements NavigationView.
     private void SetShopsDetailsData() {
         aQuery.id(R.id.tv_shop_name_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopName());
         aQuery.id(R.id.tv_shop_service_shop_details).text(mShopsDetailsModel.getShopsDetail().get(0).getShopType());
+        if(mShopsDetailsModel.getShopsDetail().get(0).getIsDiscounted().equalsIgnoreCase("1")){
+            aQuery.id(R.id.lay_discount_value).visible();
+            String amountPercent="%"+mShopsDetailsModel.getShopsDetail().get(0).getDiscountPercent()+"";
+            aQuery.id(R.id.tv_discoun_value).text(amountPercent);
+        }
 
         if (mShopsDetailsModel.getShopsDetail().get(0).getShopRating() != null && !mShopsDetailsModel.getShopsDetail().get(0).getShopRating().equals("")) {
             aQuery.id(R.id.rb_shop_rating_shop_details).rating(Float.parseFloat(mShopsDetailsModel.getShopsDetail().get(0).getShopRating()));

@@ -52,7 +52,6 @@
                         android:drawablePadding="@dimen/_5sdp"
                         android:drawableRight="@drawable/ic_map"
                         android:gravity="center"
-                        android:onClick="GotoHome"
                         android:padding="@dimen/_10sdp"
                         android:text="@string/tv_title_top_a_map"
                         android:textColor="@color/colorGrey"

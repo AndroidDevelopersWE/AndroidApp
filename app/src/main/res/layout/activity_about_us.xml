@@ -239,6 +239,8 @@
                             android:gravity="center"
                             android:text="@string/carefer_phone"
                             android:textColor="@android:color/white"
+                            android:clickable="true"
+                            android:autoLink="phone"
                             android:textSize="@dimen/_10sdp"
                             android:textStyle="bold" />
                         <TextView

@@ -15,4 +15,7 @@
         <!-- Custom Attr-->
         <item name="fontPath">assets/fonts/shahd.ttf</item>
     </style>
+    <declare-styleable name="SearchableSpinner">
+        <attr name="list" format="reference" />
+    </declare-styleable>
 </resources>

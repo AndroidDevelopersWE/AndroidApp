@@ -49,6 +49,8 @@ public class ShopsDetailsModel {
         private String specialisedBrand = "";
         private String nationality="";
         private String reviewCount="";
+        private String isDiscounted="";
+        private String discountPercent="";
 
         public String getID() {
             return ID;
@@ -190,6 +192,22 @@ public class ShopsDetailsModel {
 
         public void setReviewCount(String reviewCount) {
             this.reviewCount = reviewCount;
+        }
+
+        public String getIsDiscounted() {
+            return isDiscounted;
+        }
+
+        public void setIsDiscounted(String isDiscounted) {
+            this.isDiscounted = isDiscounted;
+        }
+
+        public String getDiscountPercent() {
+            return discountPercent;
+        }
+
+        public void setDiscountPercent(String discountPercent) {
+            this.discountPercent = discountPercent;
         }
     }
 
