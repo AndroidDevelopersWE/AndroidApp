@@ -47,7 +47,7 @@ public abstract class Utils {
         LocationManager lm = (LocationManager)
                 activity.getSystemService(Context.LOCATION_SERVICE);
         String provider = lm.getBestProvider(new Criteria(), true);
-        return (!provider.equals("") &&
+        return (provider!=null&&!provider.equals("") &&
                 !LocationManager.PASSIVE_PROVIDER.equals(provider));
     }
 

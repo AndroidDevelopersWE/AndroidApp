@@ -63,6 +63,13 @@ public class MobileNumVerifyActivity extends BaseActivity {
         SetFocusForEdit();
         setdataToViews();
         getData();
+        //openHack();
+    }
+
+    private void openHack() {
+        Intent i = new Intent(activity, CareferPolicyActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     /**

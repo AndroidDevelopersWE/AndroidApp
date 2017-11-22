@@ -3,10 +3,16 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -27,9 +33,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,9 +52,11 @@ import java.util.Map;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Constants;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 import co.dtechsystem.carefer.Widget.SearchableSpinner;
+import co.dtechsystem.carefer.services.FetchAddressIntentService;
 
 @SuppressWarnings("unchecked")
 public class MovedShopActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -106,6 +117,8 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
         SetSpinnerListener();
 
         getBrandAndDescriptionFromServer();
+
+        startGetAddressIntentService();
 
     }
 
@@ -169,7 +182,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     mSpinner_service.showDialog();
             }
         });
-        aQuery.id(R.id.tv_location).clicked(new View.OnClickListener() {
+        aQuery.id(R.id.tv_edit_location).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -390,7 +403,6 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                             mPrice = ""+price;
                             aQuery.id(R.id.et_price).text(""+price);
                             Toast.makeText(MovedShopActivity.this,"Price is "+price,Toast.LENGTH_LONG).show();
-                            aQuery.id(R.id.tv_location).click();
                             // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
                             loading.close();
 
@@ -616,7 +628,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
     }
 
     private boolean validateEntries() {
-        if(latLng!=null){
+        if(mBrandsId!=null&&!mBrandsId.isEmpty()&&mModelsId!=null&&!mModelsId.isEmpty()&&latLng!=null){
             return true;
 
         }else
@@ -629,7 +641,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
      *
      * @param Url
      */
-    private void APiSendMovedCarOrder(final String Url, final String brandID, final String modelId, final String servieId, final String customerId, final String lat, final String lng, String address, final String price) {
+    private void APiSendMovedCarOrder(final String Url, final String brandID, final String modelId, final String servieId, final String customerId, final String lat, final String lng, final String address, final String price) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
@@ -677,7 +689,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                 params.put("modelId",modelId);
                 params.put("orderServiceType","movedShop");
                 params.put("orderStatus","1");
-                params.put("address","");
+                params.put("address",address);
                 params.put("lat",lat);
                 params.put("lng",lng);
                 params.put("price",price);
@@ -707,7 +719,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                         }
                     }
                 });
-        alertDialog.show();;
+        alertDialog.show();
     }
 
     public void APIgetDescription(String Url){
@@ -757,6 +769,61 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
        queue.add(postRequest);
     }
 
+    class AddressResultReceiver extends ResultReceiver {
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+
+            // Display the address string
+            // or an error message sent from the intent service.
+            String mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+            displayAddressOutput(mAddressOutput);
+
+        }
+    }
+
+    private void displayAddressOutput(String address) {
+        aQuery.id(R.id.tv_address).text(address);
+
+    }
+
+    protected Location mLastLocation;
+    private MovedShopActivity.AddressResultReceiver mResultReceiver;
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    protected void startGetAddressIntentService() {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+
+        }else{
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                mLastLocation=location;
+                                Intent intent = new Intent(MovedShopActivity.this, FetchAddressIntentService.class);
+                                mResultReceiver = new MovedShopActivity.AddressResultReceiver(new Handler());
+                                intent.putExtra(Constants.RECEIVER, mResultReceiver);
+                                intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
+                                startService(intent);
+
+                            }
+                            else{
+                                Toast.makeText(activity,getString(R.string.toast_location_not_found),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        }
+
+    }
 }
 /*
     @SuppressWarnings("UnusedParameters")

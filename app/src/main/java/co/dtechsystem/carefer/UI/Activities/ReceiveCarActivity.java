@@ -3,10 +3,16 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
@@ -27,9 +33,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,9 +52,11 @@ import java.util.Map;
 
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
+import co.dtechsystem.carefer.Utils.Constants;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 import co.dtechsystem.carefer.Widget.SearchableSpinner;
+import co.dtechsystem.carefer.services.FetchAddressIntentService;
 
 @SuppressWarnings("unchecked")
 public class ReceiveCarActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -97,6 +108,8 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
 
         getbrandsfromserver();
 
+        startGetLocationIntentService();
+
 
     }
 
@@ -140,7 +153,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                     mSpinner_models.showDialog();
             }
         });
-        aQuery.id(R.id.tv_location).clicked(new View.OnClickListener() {
+        aQuery.id(R.id.tv_edit_location).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
@@ -154,8 +167,6 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                 }
             }
         });
-
-
 
         SetShaderToViews();
 
@@ -404,7 +415,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
     }
 
     private boolean validateEntries() {
-        if(latLng!=null){
+        if(mBrandsId!=null&&!mBrandsId.isEmpty()&&mModelsId!=null&&!mModelsId.isEmpty()&&latLng!=null){
             return true;
 
         }else
@@ -417,7 +428,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
      *
      * @param Url
      */
-    private void APiSendReceiveCarOrder(final String Url, final String brandID, final String modelId, final String comments, final String customerId, final String lat, final String lng, String address) {
+    private void APiSendReceiveCarOrder(final String Url, final String brandID, final String modelId, final String comments, final String customerId, final String lat, final String lng, final String address) {
         // prepare the Request
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
@@ -435,6 +446,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
 
                             // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
                             loading.close();
+
 
                         } catch (JSONException e) {
                             loading.close();
@@ -465,7 +477,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                 params.put("modelId",modelId);
                 params.put("orderServiceType","receivedCar");
                 params.put("orderStatus","1");
-                params.put("address","");
+                params.put("address",address);
                 params.put("lat",lat);
                 params.put("lng",lng);
                 return params;
@@ -543,211 +555,58 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
     }
 
 
+    class AddressResultReceiver extends ResultReceiver {
+        public AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
 
-}
-/*
-    @SuppressWarnings("UnusedParameters")
-    public void submitUserData(View v) {
-        if (Validations.isInternetAvailable(activity, true)) {
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
 
-            String customerName = aQuery.find(R.id.et_user_name_my_details).getText().toString();
-            String customerMobile = aQuery.find(R.id.et_mobile_my_details).getText().toString();
-            String et_car_brand_my_details = aQuery.find(R.id.et_car_brand_my_details).getText().toString();
-            String et_car_model_my_details = aQuery.find(R.id.et_car_model_my_details).getText().toString();
-            String et_last_oil_my_details = aQuery.find(R.id.et_last_oil_my_details).getText().toString();
-            String et_oil_change_km_my_details = aQuery.find(R.id.et_oil_change_km_my_details).getText().toString();
-            if (!customerMobile.equals(sUser_Mobile)) {
-                if (Utils.ValidateNumberFromLibPhone(activity, customerMobile))
-                    //showMobileChangeAlert(customerMobile);
-                return;
-            }
-            if (customerName.equals("") || customerMobile.equals("") || et_car_brand_my_details.equals("") ||
-                    et_car_model_my_details.equals("") || et_last_oil_my_details.equals("") || et_oil_change_km_my_details.equals("")) {
-                showToast(getResources().getString(R.string.toast_fill_all_fields));
-            } else if (et_car_brand_my_details.equals(getResources().getString(R.string.dp_brand)) ||
-                    et_car_model_my_details.equals(getResources().getString(R.string.dp_model))) {
-                showToast(getResources().getString(R.string.toast_select_one_drop));
-            } else {
-//                Utils.savePreferences(activity, "CustomerCarBrand", et_car_brand_my_details);
-//                Utils.savePreferences(activity, "CustomerCarModel", et_car_model_my_details);
-//                Utils.savePreferences(activity, "CustomerCarOilChange", et_last_oil_my_details);
-                if (Validations.isInternetAvailable(activity, true)) {
-                    loading.show();
-                    APiMyDetails(AppConfig.APisetCustomerDetails + sUser_ID, "setUserDetails", customerName, customerMobile, sUser_Mobile_Varify, mBrandsId, mModelsId, et_last_oil_my_details, et_oil_change_km_my_details);
-                }
-            }
+            // Display the address string
+            // or an error message sent from the intent service.
+            String mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+            displayAddressOutput(mAddressOutput);
+
         }
     }
 
+    private void displayAddressOutput(String address) {
+        aQuery.id(R.id.tv_address).text(address);
 
-    private void APiMyDetails(String URL, final String Type, final String customerName,
-                              final String customerMobile, final String isVerified, final String carBrand, final String carModel,
-                              final String lastOilChange, final String oilKm) {
-        // prepare the Request
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // response
-                        Log.d("Response", response);
-                        try {
-                            if (Type.equals("getUserDetails")) {
-                                JSONObject jsonObject = new JSONObject(response);
-                                JSONObject jsonObject1 = jsonObject.getJSONObject("customerDetail");
-                                if (jsonObject1.length() > 0) {
-                                    mcustomerName = jsonObject1.getString("customerName");
-                                    mcustomerMobile = jsonObject1.getString("customerMobile");
-                                    mCarBrandName = jsonObject1.getString("carBrand");
-                                    mCarBrandModel = jsonObject1.getString("carModel");
-                                    mLastOilChange = jsonObject1.getString("lastOilChange");
-                                    mBrandsId = jsonObject1.getString("carBrandId");
-                                    mModelsId = jsonObject1.getString("carModelId");
-                                    mOilKM = jsonObject1.getString("oilKM");
-                                    if (mBrandsId != null && !mBrandsId.equals("0")) {
-                                        mModelData = true;
-                                    }
-                                    if (mModelsId != null && !mModelsId.equals("0")) {
-                                        mBrandData = true;
-                                    }
-
-                                    aQuery.find(R.id.et_user_name_my_details).text(mcustomerName);
-                                    aQuery.find(R.id.et_mobile_my_details).text(mcustomerMobile);
-
-                                    if (!mLastOilChange.equals("null")) {
-                                        aQuery.find(R.id.et_last_oil_my_details).text(mLastOilChange);
-                                    }
-                                    if (!mOilKM.equals("null")) {
-                                        aQuery.id(R.id.et_oil_change_km_my_details).text(mOilKM);
-                                    }
-
-                                    if (Validations.isInternetAvailable(activity, true)) {
-                                        APiGetBrandsServiceModelsData(AppConfig.APiBrandData, "Brands", "");
-                                    }
-                                } else {
-                                    showToast(getResources().getString(R.string.no_record_found));
-                                }
-                            } else {
-                                showToast(getResources().getString(R.string.toast_record_updated));
-                                finish();
-                            }
-                        } catch (JSONException e) {
-
-                            loading.close();
-                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
-                            e.printStackTrace();
-                        }
-                        loading.close();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        loading.close();
-                        showToast(getResources().getString(R.string.some_went_wrong));
-                        // error
-                        error.printStackTrace();
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        ) {
-            @SuppressWarnings("Convert2Diamond")
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                if (!Type.equals("getUserDetails")) {
-                    params.put("customerName", customerName);
-                    params.put("customerMobile", customerMobile);
-                    params.put("isVerified", isVerified);
-                    params.put("carBrand", carBrand);
-                    params.put("carModel", carModel);
-                    params.put("lastOilChange", lastOilChange);
-                    params.put("oilKM", oilKm);
-
-
-                }
-
-
-                return params;
-            }
-        };
-// add it to the RequestQueue
-//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RetryPolicy policy = new DefaultRetryPolicy(AppConfig.socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        postRequest.setRetryPolicy(policy);
-        queue.add(postRequest);
     }
-*/
-/*      aQuery.id(R.id.sp_brand_type_shop_details_order).itemSelected(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
 
-                    if (firstBrand) {
-                        if (mCarBrandName!=null && !mCarBrandName.equals("0")) {
-                            aQuery.find(R.id.et_car_brand_my_details).text(mCarBrandName);
-                            firstBrand = false;
-                        } else {
-                            firstBrand = false;
-                            aQuery.find(R.id.et_car_brand_my_details).text(aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString());
+    protected Location mLastLocation;
+    private AddressResultReceiver mResultReceiver;
+    private FusedLocationProviderClient mFusedLocationClient;
 
+    protected void startGetLocationIntentService() {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+
+        }else{
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            if (location != null) {
+                                // Logic to handle location object
+                                mLastLocation=location;
+                                Intent intent = new Intent(ReceiveCarActivity.this, FetchAddressIntentService.class);
+                                mResultReceiver = new AddressResultReceiver(new Handler());
+                                intent.putExtra(Constants.RECEIVER, mResultReceiver);
+                                intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
+                                startService(intent);
+
+                            }else{
+                                Toast.makeText(activity,getString(R.string.toast_location_not_found),Toast.LENGTH_LONG).show();
+                            }
                         }
-                    } else {
-                       // aQuery.find(R.id.et_car_brand_my_details).text(aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString());
-                    }
-                } else {
-                    aQuery.find(R.id.et_car_brand_my_details).text(aQuery.id(R.id.sp_brand_type_shop_details_order).getSelectedItem().toString());
+                    });
+        }
 
-                }
-                if (mBrandData) {
-                    mBrandData = false;
-                } else {
-                    mBrandsId = mBrandsIdArray.get(position);
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        aQuery.id(R.id.sp_car_model_order).itemSelected(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
-                if (position == 0) {
-
-                    if (firstModel) {
-                        if (!(mCarBrandModel.equals("false")||mCarBrandModel.equals("0"))) {
-                            firstModel = false;
-                            aQuery.find(R.id.et_car_model_my_details).text(mCarBrandModel);
-
-                        } else {
-                            firstModel = false;
-                            aQuery.find(R.id.et_car_model_my_details).text((aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString()));
-
-                        }
-                    } else {
-                        aQuery.find(R.id.et_car_model_my_details).text((aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString()));
-
-                    }
-                } else {
-                    aQuery.find(R.id.et_car_model_my_details).text((aQuery.id(R.id.sp_car_model_order).getSelectedItem().toString()));
-
-                }
-                if (mModelData) {
-                    mModelData = false;
-                } else {
-                    mModelsId = mModelsIdArray.get(position);
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
+    }
+}

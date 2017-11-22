@@ -53,6 +53,7 @@
                         android:drawableRight="@drawable/ic_map"
                         android:gravity="center"
                         android:padding="@dimen/_10sdp"
+                        android:onClick="GotoHome"
                         android:text="@string/tv_title_top_a_map"
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"

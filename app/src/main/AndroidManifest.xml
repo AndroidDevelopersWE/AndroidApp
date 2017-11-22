@@ -204,6 +204,9 @@
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <service
+            android:name=".services.FetchAddressIntentService"
+            android:exported="false"/>
             <!--fabric metadata-->
         <!--<meta-data-->
             <!--android:name="io.fabric.ApiKey"-->

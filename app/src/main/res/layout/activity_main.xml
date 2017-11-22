@@ -122,7 +122,7 @@
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:id="@+id/bt_phone_clicked"
-            android:background="@android:drawable/stat_sys_vp_phone_call"
+            android:background="@drawable/phone"
             android:onClick="phoneCLicked"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"

@@ -3,7 +3,6 @@ package co.dtechsystem.carefer.UI.Activities;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -43,7 +42,7 @@ public class MobileNumActivity extends BaseActivity {
     private String CountryID;
     private TelephonyManager tm;
     private String countryCode;
-    private String number;
+    private String number="0000000000";
     InputStream inStream = null;
     HurlStack hurlStack = null;
 
@@ -53,14 +52,15 @@ public class MobileNumActivity extends BaseActivity {
         setContentView(R.layout.activity_mobile_num);
         submit_button = (Button) findViewById(R.id.submit_button);
         phoneEditText = (PhoneEditText) findViewById(R.id.edit_text);
-        tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-        CountryID = tm.getNetworkCountryIso();
+
         phoneDropAndValid();
+        AutoDetectMobileSim1();
+
+        /*
         if (Build.VERSION.SDK_INT >= 23) {
 
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
                     != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_SMS}, 123);
 
             } else {
                 AutoDetectMobileSim1();
@@ -69,6 +69,7 @@ public class MobileNumActivity extends BaseActivity {
             AutoDetectMobileSim1();
 
         }
+        */
 
 
     }
@@ -80,17 +81,37 @@ public class MobileNumActivity extends BaseActivity {
 
         try {
 
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 123);
+
+                return;
+            }
+            tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
+            if (tm != null) {
+                CountryID = tm.getNetworkCountryIso();
+            }
             number = tm.getLine1Number();
-            PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-            Phonenumber.PhoneNumber numberProto = phoneUtil.parse(number, CountryID.toUpperCase());
-            countryCode = String.valueOf(numberProto.getCountryCode());
+
+            if(number!=null&&!number.isEmpty()) {
+                PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
+                Phonenumber.PhoneNumber numberProto = phoneUtil.parse(number, CountryID.toUpperCase());
+                countryCode = String.valueOf(numberProto.getCountryCode());
+            }
+
             if (number.startsWith("00")) {
                 number = number.replaceFirst("00", "");
             }
             if (number.startsWith("0")) {
                 number = number.replaceFirst("0", "");
             }
-            if (number.startsWith(countryCode)) {
+            if (countryCode!=null&&number.startsWith(countryCode)) {
                 number = number.replaceFirst(countryCode, "");
             }
 //            if (!number.startsWith("+")) {
