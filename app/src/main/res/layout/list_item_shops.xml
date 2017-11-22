@@ -173,8 +173,8 @@
                                 tools:ignore="HardcodedText,RtlHardcoded"/>
                             <ImageView
                                 android:id="@+id/img_trusted"
-                                android:layout_width="@dimen/_35sdp"
-                                android:layout_height="@dimen/_10sdp"
+                                android:layout_width="@dimen/_45sdp"
+                                android:layout_height="@dimen/_13sdp"
                                 android:src="@drawable/trusted"
                                 android:visibility="gone"
                                 android:layout_gravity="center_vertical"

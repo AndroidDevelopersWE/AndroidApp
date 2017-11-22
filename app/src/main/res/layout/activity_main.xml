@@ -110,14 +110,14 @@
             android:visibility="gone"/>
 
 
+
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:id="@+id/map"
-                  class="com.google.android.gms.maps.SupportMapFragment"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/btn_explorer_main"
-            android:layout_alignParentEnd="true"
-            android:layout_marginBottom="35dp" />
+            android:id="@+id/map"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/cv_main_top"/>
+
         <Button
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
@@ -126,8 +126,8 @@
             android:onClick="phoneCLicked"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/_50sdp"
-            android:layout_marginRight="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_90sdp"
+            android:layout_marginRight="@dimen/_12sdp"
             />
 
 
@@ -165,7 +165,7 @@
             android:gravity="center"
             android:onClick="btnMovedShopClick"
             android:padding="@dimen/_5sdp"
-            android:text="@string/btn_moved_shop"
+            android:text="@string/title_moved_shop"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_13sdp"
@@ -184,7 +184,7 @@
             android:gravity="center"
             android:onClick="btnReceiveCarClick"
             android:padding="@dimen/_5sdp"
-            android:text="@string/btn_receive_car"
+            android:text="@string/title_receive_car"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="@dimen/_13sdp"

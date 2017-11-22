@@ -47,6 +47,7 @@
                         android:clickable="true"
                         android:drawablePadding="@dimen/_5sdp"
                         android:drawableRight="@drawable/ic_map"
+                        android:onClick="GotoHome"
                         android:gravity="center"
                         android:padding="@dimen/_10sdp"
                         android:text="@string/tv_title_top_a_map"
