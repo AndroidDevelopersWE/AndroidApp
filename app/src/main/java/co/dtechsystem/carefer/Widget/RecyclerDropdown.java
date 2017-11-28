@@ -114,13 +114,14 @@ public class RecyclerDropdown extends RecyclerView {
                 case EMPTY_TYPE: {
                     view = inflater.inflate(R.layout.recycler_itemviews, viewGroup, false);
                     Holder holder = new Holder(view);
-                    holder.mTextView.setGravity(Gravity.CENTER);
+                    //holder.mTextView.setGravity(Gravity.CENTER);
                     view.setTag(R.id.text, EMPTY_TEXT);
                     return holder;
                 }
                 default /*BUFFER_TYPE*/ : {
                     view = inflater.inflate(R.layout.recycler_buffer_item, viewGroup, false);
                     Holder holder = new Holder(view);
+                   // holder.mTextView.setGravity(Gravity.CENTER);
                     return holder;
                 }
             }
@@ -134,6 +135,7 @@ public class RecyclerDropdown extends RecyclerView {
                 return;
             }
             holder.mTextView.setText(mList[pos % mList.length]);
+            holder.mTextView.setGravity(Gravity.CENTER);
         }
         @Override
         public int getItemCount() {

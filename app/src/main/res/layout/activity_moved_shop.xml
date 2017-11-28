@@ -62,8 +62,8 @@
                         android:clickable="true"
                         android:drawablePadding="@dimen/_5sdp"
                         android:drawableRight="@drawable/ic_map"
-                        android:onClick="GotoHome"
                         android:gravity="center"
+                        android:onClick="GotoHome"
                         android:padding="@dimen/_10sdp"
                         android:text="@string/tv_title_top_a_map"
                         android:textColor="@color/colorGrey"
@@ -84,7 +84,6 @@
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold" />
-
 
                 </LinearLayout>
 
@@ -162,9 +161,9 @@
                     android:id="@+id/et_car_brand_my_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/brand_tv_bg"
+                    android:background="@drawable/dr_corner_black"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/down_arrow_active"
+                    android:drawableLeft="@drawable/down_arrow"
                     android:gravity="right|center_vertical"
                     android:hint="@string/select_car_brand"
                     android:inputType="text"
@@ -295,25 +294,25 @@
                     android:layout_marginTop="@dimen/_5sdp">
 
                     <TextView
+                        android:id="@+id/tv_edit_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tv_edit_location"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:drawableLeft="@drawable/edit_address"
+                        android:gravity="center"
+                        android:paddingRight="@dimen/_10sdp"
                         android:text="@string/edit_address"
                         android:textColor="@android:color/darker_gray"
-                        android:textSize="@dimen/_10sdp"
-                        android:gravity="center"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="@dimen/_10sdp"
-                        android:layout_alignParentLeft="true"/>
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/tv_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:layout_gravity="right"
                         android:drawableLeft="@drawable/location_icon"
-                        android:layout_alignParentRight="true"
                         android:padding="@dimen/_4sdp"
                         android:text="@string/select_location"
                         android:textColor="@android:color/black"
@@ -322,14 +321,15 @@
 
                 <TextView
                     android:id="@+id/tv_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
+                    android:gravity="center_vertical|right"
                     android:lines="2"
                     android:padding="@dimen/_4sdp"
                     android:text=""
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp" />
+                    android:textSize="@dimen/_11sdp"
+                    tools:ignore="RtlHardcoded" />
 
                 <Button
                     android:layout_width="match_parent"
@@ -341,7 +341,7 @@
                     android:clickable="true"
                     android:onClick="submitUserData"
                     android:padding="@dimen/_4sdp"
-                    android:text="@string/btn_save_changes"
+                    android:text="@string/btn_order"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_17sdp"

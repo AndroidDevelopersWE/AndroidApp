@@ -162,9 +162,9 @@
                     android:id="@+id/et_car_brand_my_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/brand_tv_bg"
+                    android:background="@drawable/dr_corner_black"
                     android:clickable="true"
-                    android:drawableLeft="@drawable/down_arrow_active"
+                    android:drawableLeft="@drawable/down_arrow"
                     android:gravity="right|center_vertical"
                     android:hint="@string/select_car_brand"
                     android:inputType="text"
@@ -291,7 +291,7 @@
                     android:padding="@dimen/_4sdp"
                     android:text=""
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/_12sdp"
+                    android:textSize="@dimen/_11sdp"
                     tools:ignore="RtlHardcoded" />
 
                 <Button

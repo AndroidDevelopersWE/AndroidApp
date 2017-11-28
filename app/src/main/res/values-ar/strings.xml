@@ -201,7 +201,7 @@
     <string name="tv_receive_car_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
     <string name="search">بحث</string>
     <string name="select_car_brand">اختر ماركة السيارة للحصول على القائمة</string>
-    <string name="discount">نسبة الخصم</string>
+    <string name="discount_percentage">نسبة الخصم</string>
     <string name="ask_to_Call">مكالمة</string>
     <string name="call_operator_message">هل ترغب في الاتصال بنا للحصول على بعض المساعدة؟</string>
     <string name="call">مكالمة نحن</string>
@@ -213,5 +213,6 @@
     <string name="invalid_lat_long_used">invalid lat lng</string>
     <string name="no_address_found">no address found for these coordinates</string>
     <string name="address_found">address found</string>
+    <string name="select_car_model">select the model</string>
 
 </resources>

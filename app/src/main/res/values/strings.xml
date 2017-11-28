@@ -213,7 +213,7 @@
     <string name="tv_receive_car_description">bljgjhgjf ghghjd fjgfghfkghfkg fkhgfkhgf kghfkghfkhgf khgfhjgf</string>
     <string name="tv_price">price</string>
     <string name="search">search</string>
-    <string name="discount">discount:</string>
+    <string name="discount_percentage">discount percentage:</string>
     <string name="ask_to_Call">Call Operator</string>
     <string name="call_operator_message">Would you like to make call to us for some assistance?</string>
     <string name="call">call</string>
@@ -226,6 +226,7 @@
     <string name="invalid_lat_long_used">invalid lat lng</string>
     <string name="no_address_found">no address found for these coordinates</string>
     <string name="address_found">address found</string>
+    <string name="select_car_model">select the model</string>
 
 
 </resources>

@@ -5,7 +5,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="?android:attr/listPreferredItemHeightSmall"
                  android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                 android:gravity="center_vertical|end"
+                 android:gravity="center_vertical|right"
+
                  android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
                  android:paddingStart="?android:attr/listPreferredItemPaddingStart"
                  android:paddingEnd="?android:attr/listPreferredItemPaddingEnd" />

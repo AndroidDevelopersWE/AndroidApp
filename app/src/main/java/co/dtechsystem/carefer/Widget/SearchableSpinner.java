@@ -119,7 +119,7 @@ public class SearchableSpinner extends ViewGroup implements TextWatcher, View.On
         mRecycler = (RecyclerDropdown) view.findViewById(R.id.list);
         mRecycler.setOnClickListener(this);
         mRecycler.setDropdownList(mList);
-        mRecycler.scrollToPosition(mList.length / 2);
+        mRecycler.scrollToPosition(1);
 
         builder.setView(view);
         return builder.create();

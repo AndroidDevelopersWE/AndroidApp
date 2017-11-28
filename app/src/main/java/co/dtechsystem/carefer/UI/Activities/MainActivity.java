@@ -145,6 +145,9 @@ public class MainActivity extends BaseActivity
         SetUpLeftbar();
         tv_title_main = (TextView) findViewById(R.id.tv_title_main);
         SetShaderToViews();
+
+
+
     }
 
     /**

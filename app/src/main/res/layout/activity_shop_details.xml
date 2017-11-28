@@ -325,7 +325,7 @@
                                         android:layout_weight="1"
                                         android:gravity="right"
                                         android:padding="@dimen/_5sdp"
-                                        android:text="@string/spinner_provided_warranty"
+                                        android:text="@string/discount_percentage"
                                         android:textColor="@android:color/black"
                                         android:textSize="@dimen/_12sdp"/>
 

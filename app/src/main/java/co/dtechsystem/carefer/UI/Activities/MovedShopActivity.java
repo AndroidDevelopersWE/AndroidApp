@@ -21,6 +21,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +56,7 @@ import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Constants;
 import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
-import co.dtechsystem.carefer.Widget.SearchableSpinner;
+import co.dtechsystem.carefer.Widget.ListSpinnerDialog;
 import co.dtechsystem.carefer.services.FetchAddressIntentService;
 
 @SuppressWarnings("unchecked")
@@ -78,21 +79,22 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
     private String mServicesId;
     private boolean mModelData;
     private boolean mBrandData;
-    private ArrayList <String>brands = new ArrayList<String>();
-    private ArrayList <String> models = new ArrayList();
-    private ArrayList <String> mServices = new ArrayList();
+    private ArrayList<String> brands = new ArrayList<String>();
+    private ArrayList<String> models = new ArrayList();
+    private ArrayList<String> mServices = new ArrayList();
 
     private boolean firstBrand = true;
     private boolean firstModel = true;
     private boolean firstService = true;
     private ArrayAdapter StringModeldataAdapter;
     private LatLng latLng;
-    private boolean mPriceIsSet=false;
+    private boolean mPriceIsSet = false;
     private String mPrice;
     private String mAddress;
-    private SearchableSpinner mSpinner_brands;
-    private SearchableSpinner mSpinner_models;
-    private SearchableSpinner mSpinner_service;
+
+    //private SearchableSpinner mSpinner_brands;
+    //private SearchableSpinner mSpinner_models;
+    //private SearchableSpinner mSpinner_service;
 
 
     @Override
@@ -114,7 +116,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
         SetUpLeftbar();
 
-        SetSpinnerListener();
+        //SetSpinnerListener();
 
         getBrandAndDescriptionFromServer();
 
@@ -122,7 +124,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
     }
 
-    private void getBrandAndDescriptionFromServer(){
+    private void getBrandAndDescriptionFromServer() {
         if (Validations.isInternetAvailable(activity, true)) {
             loading.show();
             loading2.show();
@@ -132,21 +134,22 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
         }
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-                Place selectedPlace = PlacePicker.getPlace(this,data);
-                latLng=selectedPlace.getLatLng();
-                mAddress= selectedPlace.getAddress().toString();
+                Place selectedPlace = PlacePicker.getPlace(this, data);
+                latLng = selectedPlace.getLatLng();
+                mAddress = selectedPlace.getAddress().toString();
                 aQuery.id(R.id.tv_address).text(selectedPlace.getAddress());
             }
         }
     }
 
     private void initializeViews() {
-        mSpinner_brands = (SearchableSpinner) findViewById(R.id.search_spinner_brands);
-        mSpinner_models = (SearchableSpinner) findViewById(R.id.search_spinner_models);
-        mSpinner_service = (SearchableSpinner) findViewById(R.id.search_spinner_service);
+//        mSpinner_brands = (SearchableSpinner) findViewById(R.id.search_spinner_brands);
+//        mSpinner_models = (SearchableSpinner) findViewById(R.id.search_spinner_models);
+//        mSpinner_service = (SearchableSpinner) findViewById(R.id.search_spinner_service);
 
 
         tv_car_brand_my_details = (TextView) findViewById(R.id.tv_car_brand_my_details);
@@ -158,28 +161,85 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
             @Override
             public void onClick(View v) {
-                if(brands==null || brands.isEmpty()){
+                if (brands == null || brands.isEmpty()) {
                     getBrandAndDescriptionFromServer();
-                }else
+                } else{
+                    ListSpinnerDialog dialog = new ListSpinnerDialog(MovedShopActivity.this, brands);
+                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            int selected=((ListSpinnerDialog) dialog).getSelected();
+                            if (selected>=0)
+                            {
+                                tv_brands.setText(brands.get(selected));
+                                if (Validations.isInternetAvailable(activity, true)) {
+                                    loading.show();
+                                    APiGetBrandsServiceModelsData(AppConfig.APiGetBrandModels, "ModelYear", mBrandsIdArray.get(selected));
+                                    aQuery.find(R.id.et_car_model_my_details).text("");
 
-                mSpinner_brands.showDialog();
+                                }
+                                mBrandsId = mBrandsIdArray.get(selected);
+                                mModelsId="";
+                            }
+                        }
+                    });
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.show();
+                }
+
+                   // mSpinner_brands.showDialog();
 
             }
         });
         aQuery.id(R.id.et_car_model_my_details).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(brands==null || models.isEmpty()){
+                if (brands == null || models.isEmpty()) {
                     getBrandAndDescriptionFromServer();
-                }else
-                mSpinner_models.showDialog();
+                } else{
+                    ListSpinnerDialog dialog = new ListSpinnerDialog(MovedShopActivity.this, models);
+                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            int selected=((ListSpinnerDialog) dialog).getSelected();
+                            if (selected>=0)
+                            {
+                                aQuery.find(R.id.et_car_model_my_details).text(models.get(selected));
+                                mModelsId = mModelsIdArray.get(selected);
+                                aQuery.find(R.id.tv_service_type_selector).text("");
+                                mServicesId="";
+
+                                if (firstService)
+                                    APiGetServicesData(AppConfig.APiServiceTypeData);
+                            }
+                        }
+                    });
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.show();
+                }
+
             }
         });
         aQuery.id(R.id.tv_service_type_selector).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mServices!=null || !mServices.isEmpty())
-                    mSpinner_service.showDialog();
+                if (mServices != null || !mServices.isEmpty()){
+                    ListSpinnerDialog dialog = new ListSpinnerDialog(MovedShopActivity.this, mServices);
+                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            int selected=((ListSpinnerDialog) dialog).getSelected();
+                            if (selected>=0)
+                            {
+                                aQuery.find(R.id.tv_service_type_selector).text(mServices.get(selected));
+                                mServicesId = mServicesIdArray.get(selected);
+                                APiGetPrice(AppConfig.APiGetPriceShop);
+                            }
+                        }
+                    });
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.show();
+                }
             }
         });
         aQuery.id(R.id.tv_edit_location).clicked(new View.OnClickListener() {
@@ -202,7 +262,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
     }
 
     private void SetSpinnerListener() {
-
+/*
         mSpinner_brands.setOnSelectionChangeListener(new SearchableSpinner.OnSelectionChangeListener() {
             @Override
             public void onSelectionChanged(String selection) {
@@ -213,6 +273,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     APiGetBrandsServiceModelsData(AppConfig.APiGetBrandModels, "ModelYear", mBrandsIdArray.get(position));
                 }
                 mBrandsId = mBrandsIdArray.get(position);
+                mModelsId="";
             }
         });
         mSpinner_models.setOnSelectionChangeListener(new SearchableSpinner.OnSelectionChangeListener() {
@@ -221,7 +282,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                 aQuery.find(R.id.et_car_model_my_details).text(selection);
                 int position = models.indexOf(selection);
                 mModelsId = mModelsIdArray.get(position);
-                if(firstService)
+                if (firstService)
                     APiGetServicesData(AppConfig.APiServiceTypeData);
             }
         });
@@ -233,7 +294,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                 mServicesId = mServicesIdArray.get(position);
                 APiGetPrice(AppConfig.APiGetPriceShop);
             }
-        });
+        });*/
 
     }
 
@@ -262,15 +323,15 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
                                 //aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
 
-                                 //StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
+                                //StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
                                 //aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
-                               // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
-                                mSpinner_brands.setList(brands.toArray(new CharSequence[brands.size()]));
+                                // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
+                                //mSpinner_brands.setList(brands.toArray(new CharSequence[brands.size()]));
                                 loading.close();
                             } else {
                                 JSONArray modelsData = response.getJSONArray("models");
                                 models.clear();
-                                if(modelsData.length()==0) {
+                                if (modelsData.length() == 0) {
 //                                    models.add(0, getResources().getString(R.string.dp_model));
 
                                     //aQuery.find(R.id.sp_brand_type_shop_details_order).text(aQuery.find(R.string.toast_select_one_drop).getText());
@@ -283,7 +344,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                                     models.add(jsonObject.getString("modelName"));
                                     mModelsIdArray.add(jsonObject.getString("ID"));
                                 }
-                                mSpinner_models.setList(models.toArray(new CharSequence[models.size()]));
+                                //mSpinner_models.setList(models.toArray(new CharSequence[models.size()]));
                                 //aQuery.find(R.id.et_car_model_my_details).text(getResources().getString(R.string.dp_model));
                                 loading.close();
 
@@ -338,19 +399,17 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                             JSONObject response = new JSONObject(res);
                             mServices.add(getResources().getString(R.string.dp_service_type));
                             mServicesIdArray.add("");
-                                JSONArray servicesData = response.getJSONArray("serviceTypeData");
-                                for (int i = 0; i < servicesData.length(); i++) {
-                                    JSONObject jsonObject = servicesData.getJSONObject(i);
-                                    //noinspection unchecked
-                                    mServices.add(jsonObject.getString("serviceTypeName"));
-                                    mServicesIdArray.add(jsonObject.getString("ID"));
-                                }
-
-                                mSpinner_service.setList(mServices.toArray(new CharSequence[mServices.size()]));
+                            JSONArray servicesData = response.getJSONArray("serviceTypeData");
+                            for (int i = 0; i < servicesData.length(); i++) {
+                                JSONObject jsonObject = servicesData.getJSONObject(i);
+                                //noinspection unchecked
+                                mServices.add(jsonObject.getString("serviceTypeName"));
+                                mServicesIdArray.add(jsonObject.getString("ID"));
+                            }
 
 
-                                // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
-                                loading.close();
+                            // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
+                            loading.close();
 
                         } catch (JSONException e) {
                             loading.close();
@@ -398,11 +457,11 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                             JSONObject response = new JSONObject(res);
 
                             Double price = response.getDouble("price");
-                            mPriceIsSet=true;
+                            mPriceIsSet = true;
 
-                            mPrice = ""+price;
-                            aQuery.id(R.id.et_price).text(""+price);
-                            Toast.makeText(MovedShopActivity.this,"Price is "+price,Toast.LENGTH_LONG).show();
+                            mPrice = "" + price;
+                            aQuery.id(R.id.et_price).text("" + price);
+                            Toast.makeText(MovedShopActivity.this, "Price is " + price, Toast.LENGTH_LONG).show();
                             // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
                             loading.close();
 
@@ -428,9 +487,9 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("brand",mBrandsId);
-                params.put("model",mModelsId);
-                params.put("servicetype",mServicesId);
+                params.put("brand", mBrandsId);
+                params.put("model", mModelsId);
+                params.put("servicetype", mServicesId);
 
                 return params;
             }
@@ -440,8 +499,6 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 //        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         queue.add(postRequest);
     }
-
-
 
 
     /**
@@ -454,8 +511,6 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
         Utils.gradientTextViewShort(tv_service_type, activity);
         Utils.gradientTextViewShort(aQuery.id(R.id.tv_price).getTextView(), activity);
         Utils.gradientTextViewShort(aQuery.id(R.id.tv_location).getTextView(), activity);
-
-
 
 
     }
@@ -539,106 +594,63 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
     /**
      * compares the starting of the brands with the given string
+     *
      * @param sequence
      * @return
      */
-    ArrayList<String> getSearchResult(CharSequence sequence){
-        ArrayList <String> resultant = new ArrayList<String>();
+    ArrayList<String> getSearchResult(CharSequence sequence) {
+        ArrayList<String> resultant = new ArrayList<String>();
         String seq = sequence.toString();
-        for(String brand: brands){
-            if(brand.startsWith(seq))
+        for (String brand : brands) {
+            if (brand.startsWith(seq))
                 resultant.add(brand);
         }
 
         return resultant;
     }
 
-    private void sendData(final String Url, final String Type, final String BrandId) {
-        // prepare the Request
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String res) {
-                        // display response
-                        try {
-                            JSONObject response = new JSONObject(res);
-                            if (Type.equals("Brands")) {
 
-                                JSONArray brandsData = response.getJSONArray("brandsData");
-                                for (int i = 0; i < brandsData.length(); i++) {
-                                    JSONObject jsonObject = brandsData.getJSONObject(i);
-                                    //noinspection unchecked
-                                    brands.add(jsonObject.getString("brandName"));
-                                    mBrandsIdArray.add(jsonObject.getString("ID"));
-                                }
+    public void submitUserData(View view) {
+        if (validateEntries()) {
+            loading.show();
 
-                                loading.close();
-                            } else {
+            APiSendMovedCarOrder(AppConfig.APiSaveOrder, mBrandsId, mModelsId, mServicesId, sUser_ID, "" + latLng.latitude, "" + latLng.longitude, mAddress, mPrice);
 
-
-                            }
-                            //SetSpinnerListener();
-                            loading.close();
-                        } catch (JSONException e) {
-                            loading.close();
-                            showToast(getResources().getString(R.string.some_went_wrong_parsing));
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        loading.close();
-                        showToast(getResources().getString(R.string.some_went_wrong));
-                        // error
-                        error.printStackTrace();
-                        Log.d("Error.Response", error.toString());
-                    }
-                }
-        ) {
-            @SuppressWarnings("Convert2Diamond")
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                if (!Type.equals("Services & Brands")) {
-                    params.put("brandID", BrandId);
-                }
-
-
-                return params;
-            }
-        };
-
-// add it to the RequestQueue
-//        postRequest.setRetryPolicy(new DefaultRetryPolicy(0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        queue.add(postRequest);
-    }
-
-
-    public void submitUserData(View view){
-       if(validateEntries()){
-           loading.show();
-
-           APiSendMovedCarOrder(AppConfig.APiSaveOrder,mBrandsId,mModelsId,mServicesId,sUser_ID,""+latLng.latitude,""+latLng.longitude,mAddress,mPrice);
-
-       }
+        }
 
     }
 
     private boolean validateEntries() {
-        if(mBrandsId!=null&&!mBrandsId.isEmpty()&&mModelsId!=null&&!mModelsId.isEmpty()&&latLng!=null){
-            return true;
 
-        }else
-        {
-            Toast.makeText(MovedShopActivity.this,R.string.toast_fill_all_fields,Toast.LENGTH_LONG);
+        if (mBrandsId == null || mBrandsId.isEmpty()) {
+            Toast.makeText(MovedShopActivity.this, R.string.select_car_brand, Toast.LENGTH_LONG).show();
+            return false;
+
         }
-        return false;
+        if (mModelsId  == null || mModelsId.isEmpty()) {
+            Toast.makeText(MovedShopActivity.this, R.string.select_car_model, Toast.LENGTH_LONG).show();
+            return false;
+
+        }
+        if (mServicesId  == null || mServicesId.isEmpty()) {
+            Toast.makeText(MovedShopActivity.this, R.string.select_car_model, Toast.LENGTH_LONG).show();
+            return false;
+
+        }
+        if (latLng == null) {
+            if (mLastLocation==null){
+                Toast.makeText(MovedShopActivity.this, R.string.select_location, Toast.LENGTH_LONG).show();
+                return false;}
+            else {
+                latLng = new LatLng(mLastLocation.getLatitude(),mLastLocation.getLongitude());
+            }
+        }
+
+        return true;
+
     }
+
     /**
-     *
      * @param Url
      */
     private void APiSendMovedCarOrder(final String Url, final String brandID, final String modelId, final String servieId, final String customerId, final String lat, final String lng, final String address, final String price) {
@@ -653,7 +665,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                             JSONObject jsonObject = new JSONObject(res);
                             int morderID = jsonObject.getInt("orderID");
                             if (morderID != 0) {
-                                orderPlaced(""+morderID);
+                                orderPlaced("" + morderID);
                             }
 
 
@@ -682,17 +694,17 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("shopID","0");
-                params.put("serviceTypeID",servieId);
-                params.put("brandId",brandID);
-                params.put("customerID",customerId);
-                params.put("modelId",modelId);
-                params.put("orderServiceType","movedShop");
-                params.put("orderStatus","1");
-                params.put("address",address);
-                params.put("lat",lat);
-                params.put("lng",lng);
-                params.put("price",price);
+                params.put("shopID", "0");
+                params.put("serviceTypeID", servieId);
+                params.put("brandId", brandID);
+                params.put("customerID", customerId);
+                params.put("modelId", modelId);
+                params.put("orderServiceType", "movedShop");
+                params.put("orderStatus", "1");
+                params.put("address", address);
+                params.put("lat", lat);
+                params.put("lng", lng);
+                params.put("price", price);
 
                 return params;
             }
@@ -703,16 +715,17 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
         queue.add(postRequest);
     }
 
-    private void orderPlaced(String orderId){
+    private void orderPlaced(String orderId) {
         AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
         alertDialog.setTitle(getResources().getString(R.string.app_name));
-        alertDialog.setMessage(getResources().getString(R.string.toast_order_placed)+" orderID = "+ orderId);
+        alertDialog.setMessage(getResources().getString(R.string.toast_order_placed) + " orderID = " + orderId);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.dialog_ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         try {
                             dialog.dismiss();
-                            MovedShopActivity.this.finish();;
+                            MovedShopActivity.this.finish();
+                            ;
                         } catch (Exception e) {
                             dialog.dismiss();
                             e.printStackTrace();
@@ -722,7 +735,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
         alertDialog.show();
     }
 
-    public void APIgetDescription(String Url){
+    public void APIgetDescription(String Url) {
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
@@ -766,7 +779,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                 return params;
             }
         };
-       queue.add(postRequest);
+        queue.add(postRequest);
     }
 
     class AddressResultReceiver extends ResultReceiver {
@@ -781,6 +794,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
             // or an error message sent from the intent service.
             String mAddressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
             displayAddressOutput(mAddressOutput);
+            mAddress=mAddressOutput;
 
         }
     }
@@ -796,11 +810,11 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
     protected void startGetAddressIntentService() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
-        }else{
+        } else {
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                         @Override
@@ -808,16 +822,15 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                             // Got last known location. In some rare situations this can be null.
                             if (location != null) {
                                 // Logic to handle location object
-                                mLastLocation=location;
+                                mLastLocation = location;
                                 Intent intent = new Intent(MovedShopActivity.this, FetchAddressIntentService.class);
                                 mResultReceiver = new MovedShopActivity.AddressResultReceiver(new Handler());
                                 intent.putExtra(Constants.RECEIVER, mResultReceiver);
                                 intent.putExtra(Constants.LOCATION_DATA_EXTRA, mLastLocation);
                                 startService(intent);
 
-                            }
-                            else{
-                                Toast.makeText(activity,getString(R.string.toast_location_not_found),Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(activity, getString(R.string.toast_location_not_found), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
