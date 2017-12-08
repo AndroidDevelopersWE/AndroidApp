@@ -32,6 +32,11 @@ public class MyOrdersModel {
         private String orderStatus = "";
         private String orderDate = "";
         private String isRated="";
+        private String orderServiceTypeID = "";
+        private String brandName = "";
+        private String modelName = "";
+        private String serviceTypeName = "";
+
 
         public String getID() {
             return ID;
@@ -111,6 +116,38 @@ public class MyOrdersModel {
 
         public void setIsRated(String isRated) {
             this.isRated = isRated;
+        }
+
+        public String getOrderServiceTypeID() {
+            return orderServiceTypeID;
+        }
+
+        public void setOrderServiceTypeID(String orderServiceTypeID) {
+            this.orderServiceTypeID = orderServiceTypeID;
+        }
+
+        public String getBrandName() {
+            return brandName;
+        }
+
+        public void setBrandName(String brandName) {
+            this.brandName = brandName;
+        }
+
+        public String getModelName() {
+            return modelName;
+        }
+
+        public void setModelName(String modelName) {
+            this.modelName = modelName;
+        }
+
+        public String getServiceTypeName() {
+            return serviceTypeName;
+        }
+
+        public void setServiceTypeName(String serviceTypeName) {
+            this.serviceTypeName = serviceTypeName;
         }
 
     }

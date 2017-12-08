@@ -180,7 +180,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
-                    android:padding="@dimen/_4sdp" />
+                    android:padding="@dimen/_4sdp"
+                    android:layout_marginRight="3dp"/>
                 <!--  <Spinner
                       android:id="@+id/sp_brand_type_shop_details_order"
                       android:layout_width="match_parent"
@@ -299,7 +300,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:drawableLeft="@drawable/edit_address"
+                        android:drawableLeft="@drawable/location_icon"
                         android:gravity="center"
                         android:paddingRight="@dimen/_10sdp"
                         android:text="@string/edit_address"
@@ -312,7 +313,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_gravity="right"
-                        android:drawableLeft="@drawable/location_icon"
+
                         android:padding="@dimen/_4sdp"
                         android:text="@string/select_location"
                         android:textColor="@android:color/black"

@@ -76,6 +76,9 @@
     <string name="tv_order_type">نوع الطلب: </string>
     <string name="tv_shop_rating">تقييم الورشة: </string>
     <string name="tv_status">الحالة: </string>
+    <string name="tv_brand_name">اسم الماركة:</string>
+    <string name="tv_model_name">اسم نوع السيارة:</string>
+    <string name="tv_service_type">نوع الخدمة:</string>
     <string name="dummy_order_no">٠٠٥٢</string>
     <string name="dummy_date">05-فبراير-2017</string>
     <string name="dummy_order_type">على المكالمة</string>

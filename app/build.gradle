@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 android {
-    signingConfigs {
-        config {
-            keyAlias 'carefer'
-            keyPassword '123carefer321'
-            storeFile file('/Users/huzaifahhussain/Documents/code work/carefer2.keystore')
-            storePassword '123carefer321'
-        }
-    }
+//    signingConfigs {
+//        config {
+////            keyAlias 'carefer'
+////            keyPassword '123carefer321'
+////            storeFile file('/Users/huzaifahhussain/Documents/code work/carefer2.keystore')
+////            storePassword '123carefer321'
+//        }
+//    }
     compileSdkVersion 25
     buildToolsVersion '26.0.2'
     useLibrary 'org.apache.http.legacy'
@@ -18,13 +18,13 @@ android {
         versionCode 39
         versionName "1.1.3.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        signingConfig signingConfigs.config
+//        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
         }
         packagingOptions {
             exclude 'META-INF/LICENSE'
@@ -37,7 +37,7 @@ android {
 //        }
         debug {
             debuggable true
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
         }
     }
     productFlavors {

@@ -51,6 +51,7 @@ public class SearchableSpinner extends ViewGroup implements TextWatcher, View.On
         mText.setBackgroundResource(R.drawable.dr_corner_black);
         mText.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
         mText.setCompoundDrawablesWithIntrinsicBounds(android.R.drawable.ic_menu_more, 0, 0, 0);
+        mText.setTextSize(18);
 
         mDropdownArrow = new TextView(context);
         //mDropdownArrow.setText("\u25BC");

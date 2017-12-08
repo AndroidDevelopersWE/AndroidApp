@@ -1088,29 +1088,11 @@ public class MainActivity extends BaseActivity
      * @param view
      */
     public void phoneCLicked(View view){
-       AlertDialog.Builder askDialog = new AlertDialog.Builder(MainActivity.this);
-       //askDialog.setTitle(R.string.ask_to_Call);
-       askDialog.setMessage(R.string.call_operator_message);
-       askDialog.setPositiveButton(R.string.call, new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialog, int which) {
 
-               //call 0599666521 : open dialer
-               Intent intent = new Intent(Intent.ACTION_DIAL);
-               intent.setData(Uri.parse("tel:0599666521"));
-               startActivity(intent);
-
-           }
-       });
-       askDialog.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialog, int which) {
-               dialog.dismiss();
-           }
-       });
-       askDialog.show();
-
-
+        //call 0599666521 : open dialer
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:0599666521"));
+        startActivity(intent);
     }
 
 }

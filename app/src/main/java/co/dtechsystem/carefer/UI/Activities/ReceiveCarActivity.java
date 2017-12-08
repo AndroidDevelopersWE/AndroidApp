@@ -375,9 +375,9 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
         int id = item.getItemId();
 
         if (id == R.id.nav_my_details) {
-//            Intent i = new Intent(this, MyDetailsActivity.class);
-//            startActivity(i);
-            // Handle the camera action
+            Intent i = new Intent(this, MyDetailsActivity.class);
+            startActivity(i);
+
         } else if (id == R.id.nav_my_orders) {
             Intent i = new Intent(this, MyOrdersActivity.class);
             startActivity(i);

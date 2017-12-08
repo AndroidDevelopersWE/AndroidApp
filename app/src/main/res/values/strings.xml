@@ -90,6 +90,9 @@
     <string name="tv_order_type">Order Type:</string>
     <string name="tv_shop_rating">Shop Rating:</string>
     <string name="tv_status">Status:</string>
+    <string name="tv_brand_name">Brand Name</string>
+    <string name="tv_model_name">Model Name</string>
+    <string name="tv_service_type">Service Type</string>
     <string name="dummy_order_no">0052</string>
     <string name="dummy_date">05-Feb-2017</string>
     <string name="dummy_order_type">On Call</string>
