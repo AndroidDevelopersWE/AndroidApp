@@ -724,14 +724,20 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     public void onClick(DialogInterface dialog, int which) {
                         try {
                             dialog.dismiss();
-                            MovedShopActivity.this.finish();
-                            ;
+
+
                         } catch (Exception e) {
                             dialog.dismiss();
                             e.printStackTrace();
                         }
                     }
                 });
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                MovedShopActivity.this.finish();
+            }
+        });
         alertDialog.show();
     }
 

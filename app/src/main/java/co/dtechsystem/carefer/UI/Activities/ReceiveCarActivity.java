@@ -519,6 +519,10 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
         queue.add(postRequest);
     }
 
+    /**
+     * this function will print the orderid on a dialog and will finish the activity on dismiss as well
+     * @param orderId
+     */
     private void orderPlaced(String orderId){
         AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
         alertDialog.setTitle(getResources().getString(R.string.app_name));
@@ -528,13 +532,18 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                     public void onClick(DialogInterface dialog, int which) {
                         try {
                             dialog.dismiss();
-                            ReceiveCarActivity.this.finish();;
                         } catch (Exception e) {
                             dialog.dismiss();
                             e.printStackTrace();
                         }
                     }
                 });
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                ReceiveCarActivity.this.finish();
+            }
+        });
         alertDialog.show();;
     }
     public void APIgetDescription(String Url){
