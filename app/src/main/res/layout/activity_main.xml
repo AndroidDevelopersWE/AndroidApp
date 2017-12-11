@@ -133,7 +133,7 @@
 
         <Button
             android:id="@+id/btn_explorer_main"
-            android:layout_width="@dimen/_105sdp"
+            android:layout_width="@dimen/_88sdp"
             android:layout_height="@dimen/_38sdp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
@@ -150,12 +150,12 @@
             android:text="@string/btn_explorer"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_11sdp"
             android:textStyle="bold"/>
 
         <Button
             android:id="@+id/btn_moved_shop"
-            android:layout_width="@dimen/_80sdp"
+            android:layout_width="@dimen/_88sdp"
             android:layout_height="@dimen/_38sdp"
             android:layout_marginBottom="20dp"
             android:layout_alignParentBottom="true"
@@ -168,13 +168,13 @@
             android:text="@string/title_moved_shop"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_11sdp"
             android:textStyle="bold"
             />
 
         <Button
             android:id="@+id/btn_receive_car"
-            android:layout_width="@dimen/_80sdp"
+            android:layout_width="@dimen/_88sdp"
             android:layout_height="@dimen/_38sdp"
             android:layout_marginBottom="20dp"
             android:layout_alignParentBottom="true"
@@ -187,7 +187,7 @@
             android:text="@string/title_receive_car"
             android:textAllCaps="false"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/_13sdp"
+            android:textSize="@dimen/_11sdp"
             android:textStyle="bold"
             />
 

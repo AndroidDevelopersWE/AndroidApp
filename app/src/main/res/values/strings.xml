@@ -4,7 +4,11 @@
     <!--development-->
     <!--<string name="google_maps_api_key">AIzaSyBEE1M4g2JVzjU8wJ_BAg0BDALhwX_CGPM</string>-->
     <!--Live-->
-    <string name="google_maps_api_key">AIzaSyB6s5zK0UW5q6GVLAz96FMJEEPinY_UEUY</string>
+    <!--<string name="google_maps_api_key">AIzaSyB6s5zK0UW5q6GVLAz96FMJEEPinY_UEUY</string>-->
+
+
+    <string name="google_maps_api_key">AIzaSyDA3qVsBW2ZQ1y_te1Tp78OSSma12SSJy8</string>
+
 
     <string name="carefer_slogan">Sologn goes here</string>
     <string name="enter_mobile">Enter Your Mobile Number</string>
@@ -103,7 +107,7 @@
     <string name="tv_how_it_works">How It Works!</string>
     <string name="tv_contact_details">Contact Details</string>
     <string name="carefer_emial">support@carefer.co</string>
-    <string name="carefer_phone">0599666521</string>
+    <string name="carefer_phone">920008629</string>
     <string name="carefer_site">www.carefer.co</string>
     <string name="title_order_now">Order Now</string>
     <string name="nav_my_details">My Details</string>

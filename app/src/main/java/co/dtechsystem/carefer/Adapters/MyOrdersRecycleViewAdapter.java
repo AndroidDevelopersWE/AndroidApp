@@ -60,92 +60,76 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 //        2 = Moved Shop
 //        3 = Received Car
 
-
+        String name;
         String DateFormed = Utils.formattedDateFromString("yyyy-MM-dd", "dd-MM-yyyy",
                 _MyOrdersRecords.get(position).getOrderDate());
 
-        // row heading
-        holder.tv_my_order_number.setText(_MyOrdersRecords.get(position).getOrderNo());
+        // Order no and order no Top
+        holder.tv_order_number_top.setText(activity.getResources().getString(R.string.tv_order_number) +
+                _MyOrdersRecords.get(position).getOrderNo());
+
         holder.tv_date_order_top.setText(DateFormed);
 
-        if(_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("0")){
+        // order no bottom ,order date and order type  bottom
+        holder.tv_my_order_number.setText(_MyOrdersRecords.get(position).getOrderNo());
+        holder.tv_my_order_date.setText(DateFormed);
+
+
+        if(_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("1")){
 
             //Order No, order date, shop name, order status, rating, order type
 
-            String orderNo =  _MyOrdersRecords.get(position).getOrderNo();
-            holder.tv_order_number_top.setText(activity.getResources().getString(R.string.tv_order_number) +
-                    _MyOrdersRecords.get(position).getOrderNo());
+            holder.tv_name1_heading.setText(activity.getResources().getString(R.string.tv_shop));
+            holder.tv_name1.setText(_MyOrdersRecords.get(position).getShopName());
 
-            holder.tv_my_order_date.setText(DateFormed);
-            holder.tv_my_order_shop_name.setText(_MyOrdersRecords.get(position).getShopName());
+            holder.tv_name2_heading.setText(activity.getResources().getString(R.string.tv_shop_rating));
+            holder.tv_name2.setText(_MyOrdersRecords.get(position).getShopRating() + "/5");
 
-            if (_MyOrdersRecords.get(position).getOrderStatus().equals("1")) {
-                holder.tv_my_order_status.setText(activity.getResources().getString(R.string.tv_completed_status));
-            } else {
-                holder.tv_my_order_status.setText(activity.getResources().getString(R.string.tv_pending_status));
-            }
-
-            holder.tv_my_order_shop_rating.setText(_MyOrdersRecords.get(position).getShopRating() + "/5");
-
+            holder.tv_name3_heading.setText(activity.getResources().getString(R.string.tv_order_type));
             String OrderType = _MyOrdersRecords.get(position).getOrderType();
             if (OrderType.equals("navigate")) {
-                holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_shop));
-            } else {
-                holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_call));
+                holder.tv_name3.setText(activity.getResources().getString(R.string.order_type_shop));
+            } else{
+                holder.tv_name3.setText(activity.getResources().getString(R.string.order_type_call));
             }
 
+
+            holder.view4.setVisibility(View.GONE);
+            holder.layout4.setVisibility(View.GONE);
 
 
         }else if(_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("2")){
             //Order No, order date, brand name, model name, service type, order type
 
-            holder.tv_order_number_top.setText(activity.getResources().getString(R.string.tv_order_number) +
-                    _MyOrdersRecords.get(position).getOrderNo());
+            holder.tv_name1_heading.setText(activity.getResources().getString(R.string.tv_brand_name));
+            holder.tv_name1.setText(_MyOrdersRecords.get(position).getBrandName());
 
-            holder.tv_my_order_date.setText(DateFormed);
+            holder.tv_name2_heading.setText(activity.getResources().getString(R.string.tv_model_name));
+            holder.tv_name2.setText(_MyOrdersRecords.get(position).getModelName());
 
-            holder.tv_name1.setText(activity.getResources().getString(R.string.tv_brand_name));
-            holder.tv_my_order_shop_name.setText(_MyOrdersRecords.get(position).getBrandName());
+            holder.tv_name3_heading.setText(activity.getResources().getString(R.string.tv_order_type));
+            holder.tv_name3.setText(activity.getResources().getString(R.string.title_moved_shop));
 
-            holder.tv_name3.setText(activity.getResources().getString(R.string.tv_model_name));
-            holder.tv_my_order_shop_rating.setText(_MyOrdersRecords.get(position).getModelName());
-
-            holder.tv_name2.setText(activity.getResources().getString(R.string.tv_service_type));
-            holder.tv_my_order_status.setText(_MyOrdersRecords.get(position).getServiceType());
+            holder.view4.setVisibility(View.GONE);
+            holder.layout4.setVisibility(View.GONE);
 
 
-            String OrderType = _MyOrdersRecords.get(position).getOrderType();
-            if (OrderType.equals("navigate")) {
-                holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_shop));
-            } else {
-                holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_call));
-            }
 
         }else if(_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("3")){
             //Order No, order date, brand name, model name, order type
 
-            holder.tv_order_number_top.setText(activity.getResources().getString(R.string.tv_order_number) +
-                    _MyOrdersRecords.get(position).getOrderNo());
+            holder.tv_name1_heading.setText(activity.getResources().getString(R.string.tv_brand_name));
+            holder.tv_name1.setText(_MyOrdersRecords.get(position).getBrandName());
 
-            holder.tv_my_order_date.setText(DateFormed);
+            holder.tv_name2_heading.setText(activity.getResources().getString(R.string.tv_model_name));
+            holder.tv_name2.setText(_MyOrdersRecords.get(position).getModelName());
 
-            holder.tv_name1.setText(activity.getResources().getString(R.string.tv_brand_name));
-            holder.tv_my_order_shop_name.setText(_MyOrdersRecords.get(position).getBrandName());
+            holder.tv_name3_heading.setText(activity.getResources().getString(R.string.tv_order_type));
+            holder.tv_name3.setText(activity.getResources().getString(R.string.title_receive_car));
 
-            holder.tv_name3.setText(activity.getResources().getString(R.string.tv_model_name));
+            holder.view4.setVisibility(View.GONE);
+            holder.layout4.setVisibility(View.GONE);
 
-            String modelname = _MyOrdersRecords.get(position).getModelName();
-            holder.tv_my_order_shop_rating.setText(_MyOrdersRecords.get(position).getModelName());
-
-//            holder.tv_name2.setVisibility(View.GONE);
-//            holder.tv_my_order_status.setVisibility(View.GONE);
-
-            String OrderType = _MyOrdersRecords.get(position).getOrderType();
-            if (OrderType.equals("navigate")) {
-                holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_shop));
-            } else {
-                holder.tv_my_order_type.setText(activity.getResources().getString(R.string.order_type_call));
-            }
         }
 
 
@@ -258,12 +242,17 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView tv_my_order_number, tv_my_order_date, tv_my_order_shop_name, tv_my_order_type,
-                tv_my_order_shop_rating, tv_my_order_status, tv_date_order_top, tv_order_number_top,tv_name1,tv_name2,tv_name3;
+        public final TextView tv_my_order_number, tv_my_order_date, tv_date_order_top, tv_order_number_top,tv_name1,tv_name2,tv_name3, tv_name4,
+        tv_name1_heading, tv_name2_heading, tv_name3_heading, tv_name4_heading;
+
         final LinearLayout lay_top_my_order;
         final LinearLayout lay_bottom_my_order;
         final LinearLayout lay_iv_down;
         final LinearLayout lay_iv_up;
+        final LinearLayout layout3;
+        final LinearLayout layout4;
+        final View view3;
+        final View view4;
         Button btn_add_rate_shop;
         @SuppressWarnings("unused")
         final ImageView iv_drop_shop_details;
@@ -271,18 +260,28 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         public ViewHolder(View v) {
 
             super(v);
+
+
+            tv_order_number_top = (TextView) v.findViewById(R.id.tv_order_number_top);
+            tv_date_order_top = (TextView) v.findViewById(R.id.tv_date_order_top);
+
             tv_my_order_number = (TextView) v.findViewById(R.id.tv_my_order_number);
             tv_my_order_date = (TextView) v.findViewById(R.id.tv_my_order_date);
-            tv_my_order_shop_name = (TextView) v.findViewById(R.id.tv_my_order_shop_name);
-            tv_my_order_type = (TextView) v.findViewById(R.id.tv_my_order_type);
-            tv_my_order_shop_rating = (TextView) v.findViewById(R.id.tv_my_order_shop_rating);
-            tv_my_order_status = (TextView) v.findViewById(R.id.tv_my_order_status);
-            tv_date_order_top = (TextView) v.findViewById(R.id.tv_date_order_top);
-            tv_order_number_top = (TextView) v.findViewById(R.id.tv_order_number_top);
+
             tv_name1 = (TextView) v.findViewById(R.id.tv_name1);
             tv_name2 = (TextView) v.findViewById(R.id.tv_name2);
             tv_name3 = (TextView) v.findViewById(R.id.tv_name3);
+            tv_name4 = (TextView) v.findViewById(R.id.tv_name4);
 
+            tv_name1_heading = (TextView) v.findViewById(R.id.tv_name1_heading);
+            tv_name2_heading = (TextView) v.findViewById(R.id.tv_name2_heading);
+            tv_name3_heading = (TextView) v.findViewById(R.id.tv_name3_heading);
+            tv_name4_heading = (TextView) v.findViewById(R.id.tv_name4_heading);
+
+            view3 = (View) v.findViewById(R.id.view3);
+            view4 = (View) v.findViewById(R.id.view4);
+            layout3 = (LinearLayout) v.findViewById(R.id.layout3);
+            layout4 = (LinearLayout) v.findViewById(R.id.layout4);
             lay_top_my_order = (LinearLayout) v.findViewById(R.id.lay_top_my_order);
             lay_bottom_my_order = (LinearLayout) v.findViewById(R.id.lay_bottom_my_order);
             lay_iv_down = (LinearLayout) v.findViewById(R.id.lay_iv_down);
