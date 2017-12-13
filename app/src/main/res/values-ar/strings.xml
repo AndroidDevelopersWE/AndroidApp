@@ -6,7 +6,7 @@
     <!--Live-->
     <!--<string name="google_maps_api_key">AIzaSyB6s5zK0UW5q6GVLAz96FMJEEPinY_UEUY</string>-->
 
-    <string name="google_maps_api_key">AIzaSyDA3qVsBW2ZQ1y_te1Tp78OSSma12SSJy8</string>
+    <string name="google_maps_api_key">AIzaSyBt1RpsN_SuCaP_fNe2RvwMnGquX8WjJn4</string>
 
     <string name="carefer_slogan">شعار يذهب هنا</string>
     <string name="enter_mobile">أدخل رقم جوالك</string>
@@ -61,6 +61,7 @@
     <string name="btn_done">قائمة الورش</string>
     <string name="title_navigate">ملاحة</string>
     <string name="title_shop_rating">تقييم الورشة</string>
+    <string name="title_order_detail">تفاصيل الطلب</string>
     <string name="price">السعر</string>
     <string name="quality">الجودة</string>
     <string name="time">الوقت</string>
@@ -82,6 +83,15 @@
     <string name="tv_brand_name">اسم الماركة:</string>
     <string name="tv_model_name">اسم نوع السيارة:</string>
     <string name="tv_service_type">نوع الخدمة:</string>
+
+    <string name="tv_order_no">رقم الطلب:</string>
+    <string name="tv_customer_mobile">قم جوال العميل:</string>
+    <string name="tv_customer_name">اسم العميل:</string>
+    <string name="tv_brand">ماركة السيارة:</string>
+    <string name="tv_moved_shop">سعر الورشة المتنقلة:</string>
+    <string name="tv_receive_comment">ملاحظات إستلام السيارة:</string>
+    <string name="tv_type">اكتب:</string>
+
     <string name="dummy_order_no">٠٠٥٢</string>
     <string name="dummy_date">05-فبراير-2017</string>
     <string name="dummy_order_type">على المكالمة</string>
@@ -147,7 +157,7 @@
     <string name="toast_shop_deleted_fav">تم حذف الورشة من قائمتك المفضلة</string>
     <string name="toast_shop_added_fav">تم إضافة الورشة في قائمتك المفضلة</string>
     <string name="toast_location_not_found">لم يتم العثور على موقعك الحالي…!</string>
-    <string name="tv_location">موقعك</string>
+    <string name="tv_location">موقعك:</string>
     <string name="toast_record_found_out_of"> ورشة من أصل </string>
 
     <string name="toast_review_added">تمت إضافة التعليق</string>
@@ -211,7 +221,7 @@
     <string name="ask_to_Call">مكالمة</string>
     <string name="call_operator_message">هل ترغب في الاتصال بنا للحصول على بعض المساعدة؟</string>
     <string name="call">مكالمة نحن</string>
-    <string name="moved_shop_price">سعر الورشة المتنقلة</string>
+    <string name="moved_shop_price">سعر الورشة المتنقلة:</string>
     <string name="select_location">مكان العميل   </string>
     <string name="write_comments">ملاحظات إستلام السيارة</string>
     <string name="edit_address">تعديل المكان</string>

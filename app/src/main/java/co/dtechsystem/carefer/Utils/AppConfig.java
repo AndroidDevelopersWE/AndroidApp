@@ -40,6 +40,7 @@ public class AppConfig {
     public static String APiGetPriceShop = BaseUrl +"get-price";
     public static String APiGetMovedShopDesc= BaseUrl +"get-service-description/id/1";
     public static String APiGetReceiveCarDesc= BaseUrl +"get-service-description/id/2";
+    public static String APIGetOrderDetails = BaseUrl + "get-order-details/id/";
 
 
     //test image base

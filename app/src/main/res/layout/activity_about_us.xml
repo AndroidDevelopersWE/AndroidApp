@@ -49,10 +49,10 @@
                         android:drawablePadding="@dimen/_5sdp"
                         android:gravity="center"
                         android:onClick="GotoHome"
-                        android:padding="@dimen/_10sdp"
                         android:text="@string/tv_title_top_a_map"
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
+                        android:padding="@dimen/_10sdp"
                         android:textStyle="bold"
                         tools:ignore="RtlHardcoded" />
 

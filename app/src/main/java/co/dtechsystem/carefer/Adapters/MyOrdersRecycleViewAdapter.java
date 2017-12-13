@@ -24,6 +24,7 @@ import java.util.List;
 
 import co.dtechsystem.carefer.Models.MyOrdersModel;
 import co.dtechsystem.carefer.R;
+import co.dtechsystem.carefer.UI.Activities.OrderDetailActivity;
 import co.dtechsystem.carefer.UI.Activities.RatingActivity;
 import co.dtechsystem.carefer.Utils.Utils;
 
@@ -56,9 +57,9 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
 
-//        1 = Shops
-//        2 = Moved Shop
-//        3 = Received Car
+//        1 = Shops ==> rating
+//        2 = Moved Shop ==> order detail
+//        3 = Received Car ==> order detail
 
         String name;
         String DateFormed = Utils.formattedDateFromString("yyyy-MM-dd", "dd-MM-yyyy",
@@ -159,15 +160,34 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         holder.btn_add_rate_shop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!_MyOrdersRecords.get(position).getIsRated().equals("1")) {
-                    Intent intent = new Intent(activity, RatingActivity.class);
-                    intent.putExtra("orderID", _MyOrdersRecords.get(position).getID());
-                    intent.putExtra("shopID", _MyOrdersRecords.get(position).getShopID());
-                    intent.putExtra("ShopName", _MyOrdersRecords.get(position).getShopName());
+
+                //shpos 1
+                //moved shops 2
+                //recevie car 3
+                if (_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("1")) {
+
+                    if (!_MyOrdersRecords.get(position).getIsRated().equals("1")) {
+                        Intent intent = new Intent(activity, RatingActivity.class);
+                        intent.putExtra("orderID", _MyOrdersRecords.get(position).getID());
+                        intent.putExtra("shopID", _MyOrdersRecords.get(position).getShopID());
+                        intent.putExtra("ShopName", _MyOrdersRecords.get(position).getShopName());
+                        activity.startActivity(intent);
+                    } else {
+                        Toast.makeText(activity, activity.getResources().getString(R.string.toast_review_already_added), Toast.LENGTH_SHORT).show();
+                    }
+
+                } else if (_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("2")) {
+
+                    Intent intent = new Intent(activity, OrderDetailActivity.class);
+                    intent.putExtra("orderID", _MyOrdersRecords.get(position).getOrderNo());
                     activity.startActivity(intent);
-                } else {
-                    Toast.makeText(activity, activity.getResources().getString(R.string.toast_review_already_added), Toast.LENGTH_SHORT).show();
+
+                } else if (_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("3")) {
+                    Intent intent = new Intent(activity, OrderDetailActivity.class);
+                    intent.putExtra("orderID", _MyOrdersRecords.get(position).getOrderNo());
+                    activity.startActivity(intent);
                 }
+
 
             }
         });

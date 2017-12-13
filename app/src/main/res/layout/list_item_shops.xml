@@ -104,6 +104,14 @@
                                 android:stepSize="0.1"
                                 tools:ignore="RtlHardcoded"/>
 
+                            <ImageView
+                                android:id="@+id/img_trusted"
+                                android:layout_width="@dimen/_45sdp"
+                                android:layout_height="@dimen/_13sdp"
+                                android:src="@drawable/thumbs_up"
+                                android:visibility="gone"
+                                android:layout_gravity="center_vertical"/>
+
                             <TextView
                                 android:id="@+id/tv_shop_name_shop_list"
                                 android:layout_width="match_parent"
@@ -171,13 +179,6 @@
                                 android:text=" km"
                                 android:textSize="@dimen/_11sdp"
                                 tools:ignore="HardcodedText,RtlHardcoded"/>
-                            <ImageView
-                                android:id="@+id/img_trusted"
-                                android:layout_width="@dimen/_45sdp"
-                                android:layout_height="@dimen/_13sdp"
-                                android:src="@drawable/trusted"
-                                android:visibility="gone"
-                                android:layout_gravity="center_vertical"
 
                                 />
                             <TextView

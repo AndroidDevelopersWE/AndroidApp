@@ -7,7 +7,7 @@
     <!--<string name="google_maps_api_key">AIzaSyB6s5zK0UW5q6GVLAz96FMJEEPinY_UEUY</string>-->
 
 
-    <string name="google_maps_api_key">AIzaSyDA3qVsBW2ZQ1y_te1Tp78OSSma12SSJy8</string>
+    <string name="google_maps_api_key">AIzaSyBt1RpsN_SuCaP_fNe2RvwMnGquX8WjJn4</string>
 
 
     <string name="carefer_slogan">Sologn goes here</string>
@@ -72,6 +72,7 @@
     <string name="dummy_text_list_details">Motor Computerized Wheel Allignment</string>
     <string name="btn_order">Order Now</string>
     <string name="title_care_policy">Carefer Policy</string>
+    <string name="title_order_detail">Order Detail</string>
     <string name="btn_call_shop">Call The Shop</string>
     <string name="btn_nevegate_shop">Nevegate To The Shop!</string>
     <string name="btn_done">Done !</string>
@@ -97,6 +98,16 @@
     <string name="tv_brand_name">Brand Name</string>
     <string name="tv_model_name">Model Name</string>
     <string name="tv_service_type">Service Type</string>
+
+    <string name="tv_order_no">Order No:</string>
+    <string name="tv_customer_mobile">Customer Mobile:</string>
+    <string name="tv_customer_name">Customer Name:</string>
+    <string name="tv_brand">Brand:</string>
+    <string name="tv_moved_shop">Moved Shop:</string>
+    <string name="tv_receive_comment">Receive Car Comment:</string>
+    <string name="tv_type">Type:</string>
+
+
     <string name="dummy_order_no">0052</string>
     <string name="dummy_date">05-Feb-2017</string>
     <string name="dummy_order_type">On Call</string>
@@ -203,7 +214,7 @@
     <string name="tv_version_name">Version:</string>
     <string name="tv_km_after_oil_change">Km after the oil was changed</string>
     <string name="tv_see_all">See All</string>
-     <string name="tv_excelent">Excelent</string>
+    <string name="tv_excelent">Excelent</string>
     <string name="tv_good">Good</string>
     <string name="tv_average">Average</string>
     <string name="tv_lower">Lower</string>
