@@ -16,6 +16,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -40,6 +42,8 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +55,8 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import co.dtechsystem.carefer.Adapters.MovedShopAdapter;
+import co.dtechsystem.carefer.Models.MovedShopPriceModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Constants;
@@ -82,15 +88,23 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
     private ArrayList<String> brands = new ArrayList<String>();
     private ArrayList<String> models = new ArrayList();
     private ArrayList<String> mServices = new ArrayList();
+    private  MovedShopPriceModel movedShopPriceModel;
 
     private boolean firstBrand = true;
     private boolean firstModel = true;
     private boolean firstService = true;
+    private boolean No_Price_list = false;
+
     private ArrayAdapter StringModeldataAdapter;
     private LatLng latLng;
     private boolean mPriceIsSet = false;
     private String mPrice;
     private String mAddress;
+
+    RecyclerView listRecyclerView;
+    private RecyclerView.Adapter listAdapter;
+    private RecyclerView.LayoutManager listLayoutManager;
+
 
 
 
@@ -114,7 +128,6 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
         SetUpLeftbar();
 
-        //SetSpinnerListener();
 
         getBrandAndDescriptionFromServer();
 
@@ -146,6 +159,13 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
     private void initializeViews() {
 
+        listRecyclerView = (RecyclerView) findViewById(R.id.moved_shoped_price_recycler_view);
+        listRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        listRecyclerView.setHasFixedSize(true);
+        listLayoutManager = new LinearLayoutManager(this);
+        listRecyclerView.setLayoutManager(listLayoutManager);
+
+
         tv_car_brand_my_details = (TextView) findViewById(R.id.tv_car_brand_my_details);
         tv_car_model_my_details = (TextView) findViewById(R.id.tv_car_model_my_details);
         tv_service_type = (TextView) findViewById(R.id.tv_service_type);
@@ -168,6 +188,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                                 tv_brands.setText(brands.get(selected));
                                 if (Validations.isInternetAvailable(activity, true)) {
                                     loading.show();
+                                    aQuery.id(R.id.tv_price_detail).text(getResources().getString(R.string.tv_price_detail));
                                     APiGetBrandsServiceModelsData(AppConfig.APiGetBrandModels, "ModelYear", mBrandsIdArray.get(selected));
                                     aQuery.find(R.id.et_car_model_my_details).text("");
 
@@ -198,6 +219,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                             int selected=((ListSpinnerDialog) dialog).getSelected();
                             if (selected>=0)
                             {
+                                aQuery.id(R.id.tv_price_detail).visibility(View.VISIBLE).text(getResources().getString(R.string.tv_price_detail));
                                 aQuery.find(R.id.et_car_model_my_details).text(models.get(selected));
                                 mModelsId = mModelsIdArray.get(selected);
                                 aQuery.find(R.id.tv_service_type_selector).text("");
@@ -266,6 +288,9 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onResponse(String res) {
                         // display response
+
+                        aQuery.id(R.id.tv_price_detail).text(getResources().getString(R.string.tv_price_detail));
+
                         try {
                             JSONObject response = new JSONObject(res);
                             if (Type.equals("Brands")) {
@@ -278,15 +303,6 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                                     mBrandsIdArray.add(jsonObject.getString("ID"));
                                 }
 
-                                //@SuppressWarnings("unchecked")
-                                //ArrayAdapter StringdataAdapterbrands = new ArrayAdapter(activity, R.layout.lay_spinner_item, brands);
-
-                                //aQuery.id(R.id.sp_brand_type_shop_details_order).adapter(StringdataAdapterbrands);
-
-                                //StringModeldataAdapter = new ArrayAdapter(activity, R.layout.lay_spinner_item, models);
-                                //aQuery.id(R.id.sp_car_model_order).adapter(StringModeldataAdapter);
-                                // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
-                                //mSpinner_brands.setList(brands.toArray(new CharSequence[brands.size()]));
                                 loading.close();
                             } else {
                                 JSONArray modelsData = response.getJSONArray("models");
@@ -355,20 +371,21 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onResponse(String res) {
                         // display response
+
                         try {
                             JSONObject response = new JSONObject(res);
                             mServices.add(getResources().getString(R.string.dp_service_type));
                             mServicesIdArray.add("");
                             JSONArray servicesData = response.getJSONArray("serviceTypeData");
+
                             for (int i = 0; i < servicesData.length(); i++) {
+
                                 JSONObject jsonObject = servicesData.getJSONObject(i);
                                 //noinspection unchecked
                                 mServices.add(jsonObject.getString("serviceTypeName"));
                                 mServicesIdArray.add(jsonObject.getString("ID"));
                             }
 
-
-                            // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
                             loading.close();
 
                         } catch (JSONException e) {
@@ -414,15 +431,32 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     public void onResponse(String res) {
                         // display response
                         try {
-                            JSONObject response = new JSONObject(res);
+                            aQuery.id(R.id.tv_price_detail).visibility(View.GONE);
 
-                            Double price = response.getDouble("price");
+                            JSONObject response = new JSONObject(res);
                             mPriceIsSet = true;
 
-                            mPrice = "" + price;
-                            aQuery.id(R.id.et_price).text("" + price);
-                            Toast.makeText(MovedShopActivity.this, "Price is " + price, Toast.LENGTH_LONG).show();
-                            // aQuery.id(R.id.sp_brand_type_shop_details_order).getSpinner().performClick();
+                            GsonBuilder gsonBuilder = new GsonBuilder();
+                            Gson gson = gsonBuilder.create();
+                            movedShopPriceModel = gson.fromJson(String.valueOf(res), MovedShopPriceModel.class);
+
+                            if(movedShopPriceModel.getPrice().isEmpty()){
+                                No_Price_list = false;
+                                aQuery.id(R.id.tv_price_detail).visibility(View.VISIBLE).text(getResources().getString(R.string.tv_service_with_out_price));
+                            }else{
+                                No_Price_list = true;
+                            }
+
+                            for(int i=0; i <movedShopPriceModel.getPrice().size(); i++){
+                                movedShopPriceModel.getPrice().get(i).setIs_selected("false");
+                            }
+
+                            // populating menu category list.
+                            listAdapter = new MovedShopAdapter(MovedShopActivity.this, movedShopPriceModel.getPrice());
+                            listRecyclerView.setAdapter(listAdapter);
+
+
+
                             loading.close();
 
                         } catch (JSONException e) {
@@ -572,28 +606,88 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
     public void submitUserData(View view) {
         if (validateEntries()) {
-            loading.show();
 
-            APiSendMovedCarOrder(AppConfig.APiSaveOrder, mBrandsId, mModelsId, mServicesId, sUser_ID, "" + latLng.latitude, "" + latLng.longitude, mAddress, mPrice);
+            if(No_Price_list){
+                JSONObject jsonPriceObj = MakingJsonObjOfPrice();
+                try{
+                    JSONArray jsonArray = jsonPriceObj.getJSONArray("PriceDetail");
+                    if(jsonArray.length()>0){
+                        loading.show();
+                        mPrice = jsonPriceObj.toString();
+                        APiSendMovedCarOrder(AppConfig.APiSaveOrder, mBrandsId, mModelsId, mServicesId, sUser_ID, "" + latLng.latitude, "" + latLng.longitude, mAddress, mPrice);
+                    }else{
+                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.invalid_price),Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e){
+                    Log.e("error",e.toString());
+                }
+            }else{
+
+                mPrice = "0.0";
+                APiSendMovedCarOrder(AppConfig.APiSaveOrder, mBrandsId, mModelsId, mServicesId, sUser_ID, "" + latLng.latitude, "" + latLng.longitude, mAddress, mPrice);
+            }
+
+
 
         }
 
     }
 
+
+    private JSONObject MakingJsonObjOfPrice(){
+
+
+        //Create json array for price and  description
+        JSONArray priceDetailArray = new JSONArray();
+
+        // creating json objects and storing in OrderDetailArray
+        try {
+
+            for(int i=0; i< movedShopPriceModel.getPrice().size(); i++)
+            {
+                if(movedShopPriceModel.getPrice().get(i).getIs_selected().equals("true")){
+
+                    JSONObject priceDetailObj =new JSONObject();
+                    priceDetailObj.put("price", movedShopPriceModel.getPrice().get(i).getPrice());
+                    priceDetailObj.put("priceDesc", movedShopPriceModel.getPrice().get(i).getPriceDesc());
+
+                    // adding objects in array
+                    priceDetailArray.put(priceDetailObj);
+                }
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        //Adding orderDetailArray to store object
+        JSONObject priceMainObj = new JSONObject();
+        try {
+            priceMainObj.put("PriceDetail",priceDetailArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return priceMainObj;
+    }
+
+
     private boolean validateEntries() {
 
         if (mBrandsId == null || mBrandsId.isEmpty()) {
-            Toast.makeText(MovedShopActivity.this, R.string.select_car_brand, Toast.LENGTH_LONG).show();
+            Toast.makeText(MovedShopActivity.this, R.string.toast_select_brand_type, Toast.LENGTH_LONG).show();
             return false;
 
         }
         if (mModelsId  == null || mModelsId.isEmpty()) {
-            Toast.makeText(MovedShopActivity.this, R.string.select_car_model, Toast.LENGTH_LONG).show();
+            Toast.makeText(MovedShopActivity.this, R.string.toast_select_model_type, Toast.LENGTH_LONG).show();
             return false;
 
         }
         if (mServicesId  == null || mServicesId.isEmpty()) {
-            Toast.makeText(MovedShopActivity.this, R.string.select_car_model, Toast.LENGTH_LONG).show();
+            Toast.makeText(MovedShopActivity.this, R.string.toast_select_brand_type, Toast.LENGTH_LONG).show();
             return false;
 
         }
@@ -803,4 +897,5 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
         }
 
     }
+
 }

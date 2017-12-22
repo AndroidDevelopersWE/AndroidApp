@@ -501,7 +501,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("shopID","0");
-                params.put("comments",comments);
+                params.put("comment",comments);
                 params.put("brandId",brandID);
                 params.put("customerID",customerId);
                 params.put("modelId",modelId);

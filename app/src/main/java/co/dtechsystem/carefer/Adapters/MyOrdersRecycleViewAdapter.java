@@ -61,7 +61,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 //        2 = Moved Shop ==> order detail
 //        3 = Received Car ==> order detail
 
-        String name;
+
         String DateFormed = Utils.formattedDateFromString("yyyy-MM-dd", "dd-MM-yyyy",
                 _MyOrdersRecords.get(position).getOrderDate());
 
@@ -102,6 +102,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         }else if(_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("2")){
             //Order No, order date, brand name, model name, service type, order type
 
+            holder.btn_add_rate_shop.setText(activity.getResources().getString(R.string.title_order_detail));
             holder.tv_name1_heading.setText(activity.getResources().getString(R.string.tv_brand_name));
             holder.tv_name1.setText(_MyOrdersRecords.get(position).getBrandName());
 
@@ -119,6 +120,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
         }else if(_MyOrdersRecords.get(position).getOrderServiceTypeID().equals("3")){
             //Order No, order date, brand name, model name, order type
 
+            holder.btn_add_rate_shop.setText(activity.getResources().getString(R.string.title_order_detail));
             holder.tv_name1_heading.setText(activity.getResources().getString(R.string.tv_brand_name));
             holder.tv_name1.setText(_MyOrdersRecords.get(position).getBrandName());
 

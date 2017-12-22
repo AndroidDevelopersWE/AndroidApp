@@ -135,6 +135,7 @@
     <string name="phone_hint">Phone Number</string>
 
     <string name="invalid_phone_number">Please enter a valid phone number</string>
+    <string name="invalid_price">One price value must be selected in moved shop price</string>
     <string name="cb_accept_policy">Accept Policy</string>
     <string name="tv_total_results">Total Results</string>
     <string name="tv_sorting">Sort</string>
@@ -169,6 +170,11 @@
     <string name="toast_shop_deleted_fav">Shop deleted from your favourite list…</string>
     <string name="toast_shop_added_fav">Shop Added in your favourite list…</string>
     <string name="toast_location_not_found">Your current location could not be found.</string>
+
+    <string name="toast_select_service_type"> Select Service Type</string>
+    <string name="toast_select_model_type">Select Model Type</string>
+    <string name="toast_select_brand_type">Select Brand Type</string>
+
     <string name="tv_location">Location</string>
 
     <string name="toast_record_found_out_of">Rocord Found Out of </string>
@@ -210,6 +216,18 @@
     <string name="tv_about_us">Carefer application is a platform between service providers (workshops) and two service applicants</string>
     <string name="tv_share_app">Abjad Hose is just a text doll of the printing and compositing industry. It was the standard industry standard doll ever</string>
 
+    <string name="tv_model_rm">Models</string>
+    <string name="tv_brand_rm">Brands</string>
+    <string name="tv_service_type_rm">Service Type</string>
+    <string name="tv_comment_rm">Comment</string>
+    <string name="tv_price_rm">Price</string>
+    <string name="tv_service_with_out_price">Service with out price</string>
+
+
+    <string name="ph_model">Select Model</string>
+    <string name="ph_brand">Select Brand</string>
+    <string name="ph_service_type">Select Service Type</string>
+    <string name="ph_comment">Please enter comment</string>
 
     <string name="tv_version_name">Version:</string>
     <string name="tv_km_after_oil_change">Km after the oil was changed</string>
@@ -221,6 +239,7 @@
     <string name="tv_not_enough_reviews">This Shop Does not have enough reviews</string>
     <string name="tv_read_full_des">Read Full Description</string>
     <string name="tv_read_less_des">Read Less Description</string>
+    <string name="tv_price_detail">Please select any combination of brand, model and service type</string>
     <string name="dialog_need_your_permission">Need Your location permissions for this action</string>
     <dimen name="btn_width">@dimen/_100sdp</dimen>
 

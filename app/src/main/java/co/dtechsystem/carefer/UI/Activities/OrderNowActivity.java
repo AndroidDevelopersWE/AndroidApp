@@ -222,6 +222,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
 //                params.put("serviceTypeID", serviceID);
 //                params.put("brandID", brandID);
 //                params.put("modelID", modelID);
+                params.put("orderServiceType", "shops");
                 params.put("orderType", orderType);
 //                params.put("customerMobileNo", customerMobileNo);
 

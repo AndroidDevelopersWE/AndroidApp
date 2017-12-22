@@ -1091,7 +1091,7 @@ public class MainActivity extends BaseActivity
 
         //call 0599666521 : open dialer
         Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:0599666521"));
+        intent.setData(Uri.parse("tel:" + getResources().getString(R.string.carefer_phone)));
         startActivity(intent);
     }
 

@@ -90,7 +90,8 @@
     <string name="tv_brand">ماركة السيارة:</string>
     <string name="tv_moved_shop">سعر الورشة المتنقلة:</string>
     <string name="tv_receive_comment">ملاحظات إستلام السيارة:</string>
-    <string name="tv_type">اكتب:</string>
+    <string name="tv_type">نوع الطلب:</string>
+    <string name="tv_service_with_out_price">عفواً.. لم يتم تحديد السعر لهذه الخدمة،، اطلب ونخدمك بعيوننا </string>
 
     <string name="dummy_order_no">٠٠٥٢</string>
     <string name="dummy_date">05-فبراير-2017</string>
@@ -100,7 +101,7 @@
     <string name="title_fav_shops">الورش المفضلة</string>
     <string name="title_about_us">عن كاريفر</string>
     <string name="tv_how_it_works">كيف نعمل؟</string>
-    <string name="tv_contact_details">لالنضمام أو التواصل</string>
+    <string name="tv_contact_details">للانضمام او التواصل</string>
     <string name="carefer_emial">Support@carefer.co</string>
     <string name="carefer_phone">920008629</string>
     <string name="carefer_site"> www.carefer.co</string>
@@ -120,6 +121,7 @@
 
     <string name="phone_hint">رقم الجوال</string>
     <string name="invalid_phone_number">يرجى إدخال رقم جوال صحيح</string>
+    <string name="invalid_price">الرجاء تحديد السعر</string>
     <string name="cb_accept_policy">قبول السياسة</string>
 
     <string name="tv_total_results"> عدد الورش</string>
@@ -165,6 +167,10 @@
     <string name="toast_please_add_comments">الرجاء إضافة تعليقات</string>
     <string name="toast_review_already_added">تمت إضافة التعليق من قبل</string>
     <string name="toast_please_wait">أرجو الإنتظار</string>
+
+    <string name="toast_select_service_type">حدد نوع الخدمة</string>
+    <string name="toast_select_model_type">حدد نوع السيارة</string>
+    <string name="toast_select_brand_type">حدد ماركة السيارة</string>
 
     <string name="dialog_cancel">إلغاء</string>
     <string name="dialog_ok">موافق</string>
@@ -213,6 +219,19 @@
     <string name="title_receive_car">استلام السيارة</string>
     <string name="title_moved_shop">الورشة المتنقلة</string>
 
+    <string name="tv_model_rm">نوع السيارة</string>
+    <string name="tv_brand_rm">ماركة السيارة</string>
+    <string name="tv_service_type_rm">نوع الخدمة</string>
+    <string name="tv_comment_rm">وصف المشكلة</string>
+    <string name="tv_price_rm">السعر</string>
+
+
+    <string name="ph_model">اختر موديل السيارة</string>
+    <string name="ph_brand">اختر ماركة السيارة</string>
+    <string name="ph_service_type">اختر نوع الخدمة</string>
+    <string name="ph_comment">الرجاء إدخال وصف المشكلة</string>
+
+    <string name="tv_price_detail">الرجاء اختيار ماركة السيارة وموديلها ونوع الخدمة للحصول على السعر</string>
     <string name="tv_moved_shop_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
     <string name="tv_receive_car_description">أكيد أصحابك مهتمين بسياراتهم مثلك، وكاريفر راح يتشرف بخدمتكم ومشاركتكم التطبيق</string>
     <string name="search">بحث</string>

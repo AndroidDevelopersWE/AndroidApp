@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:padding="@dimen/_4sdp"
-                    android:text="@string/select_car_brand"
+                    android:text="@string/tv_brand_rm"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp" />
 
@@ -166,7 +166,7 @@
                     android:clickable="true"
                     android:drawableLeft="@drawable/down_arrow"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/select_car_brand"
+                    android:hint="@string/ph_brand"
                     android:inputType="text"
                     android:maxLines="1"
                     android:padding="@dimen/_4sdp"
@@ -194,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:padding="@dimen/_4sdp"
-                    android:text="@string/tv_car_model"
+                    android:text="@string/tv_model_rm"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp" />
 
@@ -206,7 +206,7 @@
                     android:clickable="true"
                     android:drawableLeft="@drawable/down_arrow"
                     android:gravity="right|center_vertical"
-                    android:hint="@string/tv_car_model"
+                    android:hint="@string/ph_model"
                     android:imeOptions="actionDone"
                     android:inputType="numberDecimal"
                     android:maxEms="4"
@@ -231,7 +231,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:padding="@dimen/_4sdp"
-                    android:text="@string/tv_price"
+                    android:text="@string/tv_comment_rm"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/_12sdp" />
 
@@ -242,7 +242,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/dr_corner_black"
                     android:gravity="right"
-                    android:hint="@string/write_comments"
+                    android:hint="@string/ph_comment"
                     android:inputType="textCapSentences|textMultiLine"
                     android:lines="3"
                     android:padding="@dimen/_4sdp"
@@ -304,7 +304,7 @@
                     android:clickable="true"
                     android:onClick="submitUserData"
                     android:padding="@dimen/_4sdp"
-                    android:text="@string/btn_save_changes"
+                    android:text="@string/btn_order"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_17sdp"
