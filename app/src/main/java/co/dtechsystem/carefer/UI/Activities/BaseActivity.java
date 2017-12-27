@@ -20,9 +20,11 @@ import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.google.android.gms.analytics.Tracker;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -41,6 +43,8 @@ import co.dtechsystem.carefer.Utils.Utils;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 
 public abstract class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
@@ -58,6 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     String sRegId = "";
     Locale locale, localeEn;
     private AnalyticsApplication sAnalyticsApplication;
+    private FirebaseAnalytics firebaseAnalytics;
 
     Tracker mTracker;
 
@@ -80,6 +85,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         intent = getIntent();
         sAnalyticsApplication = (AnalyticsApplication) getApplication();
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, activity.getLocalClassName());
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
         mTracker = sAnalyticsApplication.getDefaultTracker();
         sRegId = Utils.readPreferences(activity, "regId", "");
@@ -263,5 +273,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+    }
+
+    public void SendFireBaseError(String exception){
+        FirebaseCrash.report(new Exception(exception));
     }
 }

@@ -196,6 +196,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                             }
                         } catch (JSONException e) {
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
+                            SendFireBaseError(String.valueOf(e));
                             loading.close();
                             e.printStackTrace();
                         }
@@ -208,6 +209,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
+                        SendFireBaseError(String.valueOf(error));
                         // error
                         error.printStackTrace();
                         Log.d("Error.Response", error.toString());
@@ -259,6 +261,7 @@ public class OrderNowActivity extends BaseActivity implements NavigationView.OnN
                     showToast(getResources().getString(R.string.toast_no_shop_contact_found));
                 }
             } catch (Exception e) {
+                SendFireBaseError(String.valueOf(e));
                 e.printStackTrace();
             }
         }

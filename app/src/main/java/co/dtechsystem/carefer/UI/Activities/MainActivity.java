@@ -59,6 +59,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.crash.FirebaseCrash;
 import com.joooonho.SelectableRoundedImageView;
 
 import org.json.JSONArray;
@@ -105,6 +106,7 @@ public class MainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Getting Google Play availability status
+
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getBaseContext());
 
         // Showing status
@@ -472,6 +474,7 @@ public class MainActivity extends BaseActivity
                             aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
+                            SendFireBaseError(String.valueOf(e));
                         }
 
 
@@ -586,6 +589,7 @@ public class MainActivity extends BaseActivity
                             }
                         } catch (JSONException e) {
                             loading.close();
+                            SendFireBaseError(String.valueOf(e));
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
@@ -597,6 +601,7 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                     }
@@ -652,6 +657,7 @@ public class MainActivity extends BaseActivity
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        SendFireBaseError(String.valueOf(error));
                         aQuery.id(R.id.pg_search_this_area).getProgressBar().setVisibility(View.INVISIBLE);
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
@@ -720,6 +726,7 @@ public class MainActivity extends BaseActivity
                                 }
                             });
                 } catch (Exception d) {
+                    SendFireBaseError(String.valueOf(d));
                     d.printStackTrace();
                 }
             } else {
@@ -755,6 +762,7 @@ public class MainActivity extends BaseActivity
                                 });
                     } catch (Exception d) {
                         d.printStackTrace();
+                        SendFireBaseError(String.valueOf(d));
                     }
                 }
 

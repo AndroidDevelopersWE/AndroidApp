@@ -25,15 +25,18 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.androidquery.AQuery;
 import com.androidquery.util.Constants;
+import com.google.firebase.crash.FirebaseCrash;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import co.dtechsystem.carefer.Google.Analytics.AnalyticsApplication;
 import co.dtechsystem.carefer.Models.OrderDetailModel;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
@@ -49,16 +52,24 @@ public class OrderDetailActivity extends BaseActivity implements NavigationView.
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
 
-        initialise();
-        SetUpLeftbar();
-        SetShaderToViews();
+        try {
+            setContentView(R.layout.activity_order_detail);
+            initialise();
+            SetUpLeftbar();
+            SetShaderToViews();
 
-        if (Validations.isInternetAvailable(activity, true)) {
-            loading.show();
-            ApiGetOrderDetails(getIntent().getExtras().getString("orderID"));
+            if (Validations.isInternetAvailable(activity, true)) {
+                loading.show();
+                ApiGetOrderDetails(getIntent().getExtras().getString("orderID"));
+            }
+        }catch (Exception e){
+
+            AnalyticsApplication.getInstance().trackException(e);
+            e.printStackTrace();
+            SendFireBaseError(String.valueOf(e));
         }
+
 
     }
 
@@ -181,100 +192,106 @@ public class OrderDetailActivity extends BaseActivity implements NavigationView.
                         Gson gson = gsonBuilder.create();
                         OrderDetailModel orderDetailModelList = gson.fromJson(String.valueOf(jObject), OrderDetailModel.class);
 
-                        String df = orderDetailModelList.getOrderDetails().get(0).getOrderNo();
-                        String dff = orderDetailModelList.getOrderDetails().get(0).getOrderType();
-                        if(orderDetailModelList.getOrderDetails().get(0).getOrderNo().isEmpty()){
-                            aq.id(R.id.tv_order_no).text("NA");
-                            aq.id(R.id.order_no_layout).visibility(View.GONE);
-                            aq.id(R.id.order_no_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_order_no).text(orderDetailModelList.getOrderDetails().get(0).getOrderNo());
-                        }
+                        try{
 
-                        if(orderDetailModelList.getOrderDetails().get(0).getOrderType().isEmpty()){
-                            aq.id(R.id.tv_order_type).text("NA");
-                            aq.id(R.id.order_type_layout).visibility(View.GONE);
-                            aq.id(R.id.order_type_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_order_type).text(orderDetailModelList.getOrderDetails().get(0).getOrderType());
-                        }
-
-                        if(orderDetailModelList.getOrderDetails().get(0).getOrderDate().isEmpty()){
-                            aq.id(R.id.tv_order_date).text("NA");
-                            aq.id(R.id.order_date_layout).visibility(View.GONE);
-                            aq.id(R.id.order_date_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_order_date).text(orderDetailModelList.getOrderDetails().get(0).getOrderDate());
-                        }
-
-                        if(orderDetailModelList.getOrderDetails().get(0).getReceiveCarComments().isEmpty()){
-                            aq.id(R.id.tv_comment).text("NA");
-                            aq.id(R.id.comment_layout).visibility(View.GONE);
-                            aq.id(R.id.comment_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_comment).text(orderDetailModelList.getOrderDetails().get(0).getReceiveCarComments());
-                        }
-
-                        if(orderDetailModelList.getOrderDetails().get(0).getMovedShopPrice().isEmpty()){
-                            aq.id(R.id.tv_moved_shop).text("NA");
-                            aq.id(R.id.moved_shop_layout).visibility(View.GONE);
-                            aq.id(R.id.moved_shop_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_moved_shop).text(orderDetailModelList.getOrderDetails().get(0).getMovedShopPrice());
-                        }
-
-                        if(orderDetailModelList.getOrderDetails().get(0).getModelName().isEmpty()){
-                            aq.id(R.id.tv_model_name).text("NA");
-                            aq.id(R.id.model_name_layout).visibility(View.GONE);
-                            aq.id(R.id.model_name_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_model_name).text(orderDetailModelList.getOrderDetails().get(0).getModelName());
-                        }
-
-                        if(orderDetailModelList.getOrderDetails().get(0).getBrandName().isEmpty()){
-                            aq.id(R.id.tv_brand).text("NA");
-                            aq.id(R.id.brand_layout).visibility(View.GONE);
-                            aq.id(R.id.brand_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_brand).text(orderDetailModelList.getOrderDetails().get(0).getBrandName());
-                        }
-
-                        if(orderDetailModelList.getOrderDetails().get(0).getServiceTypeName().isEmpty()){
-                            aq.id(R.id.tv_service_type).text("NA");
-                            aq.id(R.id.service_type_layout).visibility(View.GONE);
-                            aq.id(R.id.service_type_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_service_type).text(orderDetailModelList.getOrderDetails().get(0).getServiceTypeName());
-                        }
-
-                        if(orderDetailModelList.getOrderDetails().get(0).getType().isEmpty()){
-                            aq.id(R.id.tv_type).text("NA");
-                            aq.id(R.id.type_layout).visibility(View.GONE);
-                            aq.id(R.id.type_view).visibility(View.GONE);
-                        }else{
-                            if(orderDetailModelList.getOrderDetails().get(0).getType().equals("Receive Car")){
-                                aq.id(R.id.tv_type).text(getResources().getString(R.string.title_receive_car));
+                            if(orderDetailModelList.getOrderDetails().get(0).getOrderNo().isEmpty()){
+                                aq.id(R.id.tv_order_no).text("NA");
+                                aq.id(R.id.order_no_layout).visibility(View.GONE);
+                                aq.id(R.id.order_no_view).visibility(View.GONE);
                             }else{
-                                aq.id(R.id.tv_type).text(getResources().getString(R.string.title_moved_shop));
+                                aq.id(R.id.tv_order_no).text(orderDetailModelList.getOrderDetails().get(0).getOrderNo());
                             }
-                        }
 
-                        if(orderDetailModelList.getOrderDetails().get(0).getShopName().isEmpty()){
-                            aq.id(R.id.tv_shop_name).text("NA");
-                            aq.id(R.id.shop_name_layout).visibility(View.GONE);
-                            aq.id(R.id.shop_name_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_shop_name).text(orderDetailModelList.getOrderDetails().get(0).getShopName());
-                        }
+                            if(orderDetailModelList.getOrderDetails().get(0).getOrderType().isEmpty()){
+                                aq.id(R.id.tv_order_type).text("NA");
+                                aq.id(R.id.order_type_layout).visibility(View.GONE);
+                                aq.id(R.id.order_type_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_order_type).text(orderDetailModelList.getOrderDetails().get(0).getOrderType());
+                            }
 
-                        if(orderDetailModelList.getOrderDetails().get(0).getCustomerLocation().isEmpty()){
-                            aq.id(R.id.tv_location).text("NA");
-                            aq.id(R.id.location_layout).visibility(View.GONE);
-                            aq.id(R.id.location_view).visibility(View.GONE);
-                        }else{
-                            aq.id(R.id.tv_location).text(orderDetailModelList.getOrderDetails().get(0).getCustomerLocation());
-                        }
+                            if(orderDetailModelList.getOrderDetails().get(0).getOrderDate().isEmpty()){
+                                aq.id(R.id.tv_order_date).text("NA");
+                                aq.id(R.id.order_date_layout).visibility(View.GONE);
+                                aq.id(R.id.order_date_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_order_date).text(orderDetailModelList.getOrderDetails().get(0).getOrderDate());
+                            }
 
+                            if(orderDetailModelList.getOrderDetails().get(0).getReceiveCarComments().isEmpty()){
+                                aq.id(R.id.tv_comment).text("NA");
+                                aq.id(R.id.comment_layout).visibility(View.GONE);
+                                aq.id(R.id.comment_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_comment).text(orderDetailModelList.getOrderDetails().get(0).getReceiveCarComments());
+                            }
+
+                            if(orderDetailModelList.getOrderDetails().get(0).getMovedShopPrice().isEmpty()){
+                                aq.id(R.id.tv_moved_shop).text("NA");
+                                aq.id(R.id.moved_shop_layout).visibility(View.GONE);
+                                aq.id(R.id.moved_shop_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_moved_shop).text(orderDetailModelList.getOrderDetails().get(0).getMovedShopPrice());
+                            }
+
+                            if(orderDetailModelList.getOrderDetails().get(0).getModelName().isEmpty()){
+                                aq.id(R.id.tv_model_name).text("NA");
+                                aq.id(R.id.model_name_layout).visibility(View.GONE);
+                                aq.id(R.id.model_name_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_model_name).text(orderDetailModelList.getOrderDetails().get(0).getModelName());
+                            }
+
+                            if(orderDetailModelList.getOrderDetails().get(0).getBrandName().isEmpty()){
+                                aq.id(R.id.tv_brand).text("NA");
+                                aq.id(R.id.brand_layout).visibility(View.GONE);
+                                aq.id(R.id.brand_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_brand).text(orderDetailModelList.getOrderDetails().get(0).getBrandName());
+                            }
+
+                            if(orderDetailModelList.getOrderDetails().get(0).getServiceTypeName().isEmpty()){
+                                aq.id(R.id.tv_service_type).text("NA");
+                                aq.id(R.id.service_type_layout).visibility(View.GONE);
+                                aq.id(R.id.service_type_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_service_type).text(orderDetailModelList.getOrderDetails().get(0).getServiceTypeName());
+                            }
+
+                            if(orderDetailModelList.getOrderDetails().get(0).getType().isEmpty()){
+                                aq.id(R.id.tv_type).text("NA");
+                                aq.id(R.id.type_layout).visibility(View.GONE);
+                                aq.id(R.id.type_view).visibility(View.GONE);
+                            }else{
+                                if(orderDetailModelList.getOrderDetails().get(0).getType().equals("Receive Car")){
+                                    aq.id(R.id.tv_type).text(getResources().getString(R.string.title_receive_car));
+                                }else{
+                                    aq.id(R.id.tv_type).text(getResources().getString(R.string.title_moved_shop));
+                                }
+                            }
+
+                            if(orderDetailModelList.getOrderDetails().get(0).getShopName().isEmpty()){
+                                aq.id(R.id.tv_shop_name).text("NA");
+                                aq.id(R.id.shop_name_layout).visibility(View.GONE);
+                                aq.id(R.id.shop_name_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_shop_name).text(orderDetailModelList.getOrderDetails().get(0).getShopName());
+                            }
+
+                            if(orderDetailModelList.getOrderDetails().get(0).getCustomerLocation().isEmpty()){
+                                aq.id(R.id.tv_location).text("NA");
+                                aq.id(R.id.location_layout).visibility(View.GONE);
+                                aq.id(R.id.location_view).visibility(View.GONE);
+                            }else{
+                                aq.id(R.id.tv_location).text(orderDetailModelList.getOrderDetails().get(0).getCustomerLocation());
+                            }
+
+
+                        }catch (Exception e){
+                            AnalyticsApplication.getInstance().trackException(e);
+                            e.printStackTrace();
+                            SendFireBaseError(String.valueOf(e));
+                        }
 
                         loading.close();
                     }
@@ -284,6 +301,7 @@ public class OrderDetailActivity extends BaseActivity implements NavigationView.
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                     }
                 });
 

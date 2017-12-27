@@ -128,7 +128,6 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
         SetUpLeftbar();
 
-
         getBrandAndDescriptionFromServer();
 
         startGetAddressIntentService();
@@ -182,6 +181,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialog) {
+
                             int selected=((ListSpinnerDialog) dialog).getSelected();
                             if (selected>=0)
                             {
@@ -209,6 +209,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
         aQuery.id(R.id.et_car_model_my_details).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                aQuery.find(R.id.tv_service_type_selector).text("");
                 if (brands == null || models.isEmpty()) {
                     getBrandAndDescriptionFromServer();
                 } else{
@@ -219,14 +220,20 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                             int selected=((ListSpinnerDialog) dialog).getSelected();
                             if (selected>=0)
                             {
-                                aQuery.id(R.id.tv_price_detail).visibility(View.VISIBLE).text(getResources().getString(R.string.tv_price_detail));
-                                aQuery.find(R.id.et_car_model_my_details).text(models.get(selected));
-                                mModelsId = mModelsIdArray.get(selected);
-                                aQuery.find(R.id.tv_service_type_selector).text("");
-                                mServicesId="";
+                                try{
+                                    aQuery.id(R.id.tv_price_detail).visibility(View.VISIBLE).text(getResources().getString(R.string.tv_price_detail));
+                                    aQuery.id(R.id.moved_shoped_price_recycler_view).visibility(View.GONE);
+                                    aQuery.find(R.id.et_car_model_my_details).text(models.get(selected));
+                                    mModelsId = mModelsIdArray.get(selected);
+                                    aQuery.find(R.id.tv_service_type_selector).text("");
+                                    mServicesId="";
 
-                                if (firstService)
-                                    APiGetServicesData(AppConfig.APiServiceTypeData);
+                                    if (firstService)
+                                        APiGetServicesData(AppConfig.APiServiceTypeData);
+                                }catch (Exception e){
+                                    SendFireBaseError(String.valueOf(e));
+                                }
+
                             }
                         }
                     });
@@ -289,7 +296,13 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     public void onResponse(String res) {
                         // display response
 
-                        aQuery.id(R.id.tv_price_detail).text(getResources().getString(R.string.tv_price_detail));
+                        aQuery.id(R.id.tv_price_detail).visibility(View.VISIBLE).text(getResources().getString(R.string.tv_price_detail));
+                        aQuery.id(R.id.moved_shoped_price_recycler_view).visibility(View.GONE);
+                        aQuery.find(R.id.et_car_model_my_details).text("");
+                        aQuery.find(R.id.tv_service_type_selector).text("");
+                        mBrandsIdArray.clear();
+                        mModelsIdArray.clear();
+                        brands.clear();
 
                         try {
                             JSONObject response = new JSONObject(res);
@@ -329,6 +342,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                             loading.close();
                         } catch (JSONException e) {
                             loading.close();
+                            SendFireBaseError(String.valueOf(e));
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
@@ -338,6 +352,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();
@@ -372,10 +387,12 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     public void onResponse(String res) {
                         // display response
 
+                        mServicesIdArray.clear();
+                        mServices.clear();
                         try {
                             JSONObject response = new JSONObject(res);
-                            mServices.add(getResources().getString(R.string.dp_service_type));
-                            mServicesIdArray.add("");
+                            //mServices.add(getResources().getString(R.string.dp_service_type));
+                            //mServicesIdArray.add("");
                             JSONArray servicesData = response.getJSONArray("serviceTypeData");
 
                             for (int i = 0; i < servicesData.length(); i++) {
@@ -399,6 +416,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                       // SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();
@@ -424,6 +442,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
     private void APiGetPrice(final String Url) {
         // prepare the Request
+
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest postRequest = new StringRequest(Request.Method.POST, Url,
                 new Response.Listener<String>() {
@@ -432,6 +451,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                         // display response
                         try {
                             aQuery.id(R.id.tv_price_detail).visibility(View.GONE);
+                            aQuery.id(R.id.moved_shoped_price_recycler_view).visibility(View.VISIBLE);
 
                             JSONObject response = new JSONObject(res);
                             mPriceIsSet = true;
@@ -470,6 +490,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();
@@ -687,7 +708,7 @@ public class MovedShopActivity extends BaseActivity implements NavigationView.On
 
         }
         if (mServicesId  == null || mServicesId.isEmpty()) {
-            Toast.makeText(MovedShopActivity.this, R.string.toast_select_brand_type, Toast.LENGTH_LONG).show();
+            Toast.makeText(MovedShopActivity.this, R.string.toast_select_service_type, Toast.LENGTH_LONG).show();
             return false;
 
         }

@@ -96,10 +96,10 @@ public class FavouriteShopsActivity extends BaseActivity implements NavigationVi
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         AnalyticsApplication.getInstance().trackException(error);
-
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
+                        SendFireBaseError(String.valueOf(error));
                     }
                 }
         );

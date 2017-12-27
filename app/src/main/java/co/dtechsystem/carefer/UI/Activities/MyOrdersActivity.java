@@ -111,6 +111,7 @@ public class MyOrdersActivity extends BaseActivity implements NavigationView.OnN
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                     }

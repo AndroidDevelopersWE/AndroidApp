@@ -672,6 +672,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                             }
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
+                            SendFireBaseError(String.valueOf(e));
                         }
 
                     }
@@ -686,6 +687,7 @@ public class ShopsListActivity extends BaseActivity implements NavigationView.On
                         showToast(getResources().getString(R.string.some_went_wrong));
                         Log.d("Error.Response", String.valueOf(error));
                         error.printStackTrace();
+                        SendFireBaseError(String.valueOf(error));
                     }
                 }
         ) {

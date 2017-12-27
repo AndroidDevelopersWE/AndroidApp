@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import co.dtechsystem.carefer.Google.Analytics.AnalyticsApplication;
 import co.dtechsystem.carefer.R;
 import co.dtechsystem.carefer.Utils.AppConfig;
 import co.dtechsystem.carefer.Utils.Constants;
@@ -230,6 +231,8 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                     @Override
                     public void onResponse(String res) {
                         // display response
+                        //mBrandsIdArray.clear();
+                        mModelsIdArray.clear();
                         try {
                             JSONObject response = new JSONObject(res);
                             if (Type.equals("Brands")) {
@@ -431,12 +434,12 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
     private boolean validateEntries() {
 
         if (mBrandsId == null || mBrandsId.isEmpty()) {
-            Toast.makeText(ReceiveCarActivity.this, R.string.select_car_brand, Toast.LENGTH_LONG).show();
+            Toast.makeText(ReceiveCarActivity.this, R.string.toast_select_brand_type, Toast.LENGTH_LONG).show();
             return false;
 
         }
         if (mModelsId  == null || mModelsId.isEmpty()) {
-            Toast.makeText(ReceiveCarActivity.this, R.string.select_car_model, Toast.LENGTH_LONG).show();
+            Toast.makeText(ReceiveCarActivity.this, R.string.toast_select_model_type, Toast.LENGTH_LONG).show();
             return false;
 
         }
@@ -489,6 +492,8 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        AnalyticsApplication.getInstance().trackException(error);
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();

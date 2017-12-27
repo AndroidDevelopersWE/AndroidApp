@@ -311,7 +311,7 @@
                         android:orientation="horizontal"
                         android:weightSum="1">
 
-                        <TextView5
+                        <TextView
                             android:id="@+id/tv_model_name"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"

@@ -95,6 +95,7 @@ public class CareferPolicyActivity extends BaseActivity {
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             loading.close();
                             e.printStackTrace();
+                            SendFireBaseError(String.valueOf(e));
                         }
                         loading.close();
                     }
@@ -108,6 +109,7 @@ public class CareferPolicyActivity extends BaseActivity {
                         // error
                         error.printStackTrace();
                         Log.d("Error.Response", error.toString());
+                        SendFireBaseError(String.valueOf(error));
                     }
                 }
         ) {

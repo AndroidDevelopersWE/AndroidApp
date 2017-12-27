@@ -138,6 +138,7 @@ public class ReviewActivity extends BaseActivity {
                             }
                         } catch (Exception c) {
                             loading.close();
+                            SendFireBaseError(String.valueOf(c));
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             c.printStackTrace();
                         }
@@ -148,6 +149,7 @@ public class ReviewActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();

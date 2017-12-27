@@ -187,6 +187,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                             loading.close();
                         } catch (JSONException e) {
                             loading.close();
+                            SendFireBaseError(String.valueOf(e));
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
@@ -199,6 +200,7 @@ public class ShopDetailsOrderActivity extends BaseActivity implements Navigation
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();
+                        SendFireBaseError(String.valueOf(error));
                         Log.d("Error.Response", error.toString());
                     }
                 }

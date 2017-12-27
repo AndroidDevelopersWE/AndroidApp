@@ -430,6 +430,7 @@ public class FiltersActivity extends BaseActivity {
                             loading.close();
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
+                            SendFireBaseError(String.valueOf(e));
                         }
 
                     }

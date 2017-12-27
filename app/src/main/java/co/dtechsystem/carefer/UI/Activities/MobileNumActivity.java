@@ -203,6 +203,7 @@ public class MobileNumActivity extends BaseActivity {
                                 loading.close();
                             }
                         } catch (JSONException e) {
+                            SendFireBaseError(String.valueOf(e));
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             loading.close();
                             e.printStackTrace();
@@ -214,6 +215,7 @@ public class MobileNumActivity extends BaseActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();

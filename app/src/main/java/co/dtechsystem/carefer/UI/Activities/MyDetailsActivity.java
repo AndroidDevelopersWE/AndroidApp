@@ -440,6 +440,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                             loading.close();
                         } catch (JSONException e) {
                             loading.close();
+                            SendFireBaseError(String.valueOf(e));
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             e.printStackTrace();
                         }
@@ -449,6 +450,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();
@@ -647,6 +649,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();
@@ -706,6 +709,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                                 loading.close();
                             }
                         } catch (JSONException e) {
+                            SendFireBaseError(String.valueOf(e));
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             loading.close();
                             e.printStackTrace();
@@ -717,6 +721,7 @@ public class MyDetailsActivity extends BaseActivity implements NavigationView.On
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
+                        SendFireBaseError(String.valueOf(error));
                         showToast(getResources().getString(R.string.some_went_wrong));
                         // error
                         error.printStackTrace();

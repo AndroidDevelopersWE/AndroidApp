@@ -132,6 +132,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                             showToast(getResources().getString(R.string.some_went_wrong_parsing));
                             loading.close();
                             e.printStackTrace();
+                            SendFireBaseError(String.valueOf(e));
                         }
 
                     }
@@ -141,6 +142,7 @@ public class RatingActivity extends BaseActivity implements NavigationView.OnNav
                     public void onErrorResponse(VolleyError error) {
                         loading.close();
                         showToast(getResources().getString(R.string.some_went_wrong));
+                        SendFireBaseError(String.valueOf(error));
                         // error
                         Log.d("Error.Response", error.toString());
                     }
