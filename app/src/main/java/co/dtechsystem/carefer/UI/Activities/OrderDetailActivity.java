@@ -199,7 +199,7 @@ public class OrderDetailActivity extends BaseActivity implements NavigationView.
                                 aq.id(R.id.order_no_layout).visibility(View.GONE);
                                 aq.id(R.id.order_no_view).visibility(View.GONE);
                             }else{
-                                aq.id(R.id.tv_order_no).text(orderDetailModelList.getOrderDetails().get(0).getOrderNo());
+                                aq.id(R.id.tv_order_no).text("0000"+orderDetailModelList.getOrderDetails().get(0).getOrderNo());
                             }
 
                             if(orderDetailModelList.getOrderDetails().get(0).getOrderType().isEmpty()){

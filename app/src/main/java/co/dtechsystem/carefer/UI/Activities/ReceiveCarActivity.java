@@ -531,7 +531,7 @@ public class ReceiveCarActivity extends BaseActivity implements NavigationView.O
     private void orderPlaced(String orderId){
         AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
         alertDialog.setTitle(getResources().getString(R.string.app_name));
-        alertDialog.setMessage(getResources().getString(R.string.toast_order_placed)+" orderID = "+ orderId);
+        alertDialog.setMessage(getResources().getString(R.string.toast_order_placed)+" "+"0000"+ orderId);
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources().getString(R.string.dialog_ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

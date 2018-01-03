@@ -148,7 +148,7 @@
     <string name="toast_logged_in">تم تسجيل الدخول</string>
     <string name="toast_permission">لايوجد صلاحية للوصول إلى الموقع …!</string>
     <string name="toast_record_updated">تم التحديث بنجاح</string>
-    <string name="toast_order_placed">تم إنشاء طلبك</string>
+    <string name="toast_order_placed">تم إنشاء طلبك </string>
     <string name="toast_fill_all_fields">نرجو ملئ كل الحقول</string>
     <string name="toast_carefer_policy">يرجى قبول سياسة كارفر أولا …!</string>
     <string name="toast_no_shop_contact_found">لا يوجد رقم اتصال بالورشة …!</string>

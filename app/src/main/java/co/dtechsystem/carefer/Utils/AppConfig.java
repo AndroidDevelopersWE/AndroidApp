@@ -3,10 +3,12 @@ package co.dtechsystem.carefer.Utils;
 
 public class AppConfig {
     public static int socketTimeout = 30000;
+
     //live base
-    //private static String BaseUrl = "https://carefer.co/public/api/";
+    private static String BaseUrl = "https://carefer.co/public/api/";
+
     //    test base
-    public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
+    //public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
 
 
     //live image base
