@@ -89,10 +89,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, activity.getLocalClassName());
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        //firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
 
         mTracker = sAnalyticsApplication.getDefaultTracker();
         sRegId = Utils.readPreferences(activity, "regId", "");
+
+
+
         if (sRegId != null && !sRegId.equals("")) {
         } else {
             String refreshedToken = FirebaseInstanceId.getInstance().getToken();

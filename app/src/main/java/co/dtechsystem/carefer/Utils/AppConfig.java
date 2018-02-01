@@ -10,7 +10,6 @@ public class AppConfig {
     //    test base
     //public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
 
-
     //live image base
     public static String BaseUrlImages = "https://carefer.co/public/uploads/";
 

@@ -40,12 +40,15 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/price"
                 android:layout_toRightOf="@id/checkBox"
-                android:gravity="right"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp" />
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="right"
+                android:inputType="textMultiLine"
+                />
 
             <View
-                android:layout_below="@+id/checkBox"
+                android:layout_below="@+id/description"
+                android:layout_marginTop="3dp"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@android:color/black"/>

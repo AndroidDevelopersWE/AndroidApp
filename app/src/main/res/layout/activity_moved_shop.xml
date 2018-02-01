@@ -131,6 +131,7 @@
 
             <ScrollView
                 android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/_2sdp"
                 android:layout_height="wrap_content" >
 
             <LinearLayout
@@ -354,6 +355,7 @@
                     android:layout_marginLeft="@dimen/_80sdp"
                     android:layout_marginRight="@dimen/_80sdp"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:background="@drawable/dr_btn_round_corner_orange_90"
                     android:clickable="true"
                     android:onClick="submitUserData"
