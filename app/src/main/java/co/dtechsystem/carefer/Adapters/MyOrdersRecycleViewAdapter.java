@@ -352,7 +352,7 @@ public class MyOrdersRecycleViewAdapter extends RecyclerView.Adapter<MyOrdersRec
 
     @Override
     public int getItemCount() {
-        return _MyOrdersRecords.size();
+        return 4;
     }
 
     @Override

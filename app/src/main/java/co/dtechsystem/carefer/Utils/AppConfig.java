@@ -7,8 +7,12 @@ public class AppConfig {
     //live base
     private static String BaseUrl = "https://carefer.co/public/api/";
 
-    //    test base
+    //    dtech test base
     //public static String BaseUrl = "http://carefer.dtechsystems.co/public/api/";
+
+    // carefer tes base
+
+    //public static String BaseUrl = "https://test.carefer.co/";
 
     //live image base
     public static String BaseUrlImages = "https://carefer.co/public/uploads/";

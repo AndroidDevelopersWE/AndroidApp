@@ -54,7 +54,7 @@
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
                         android:textStyle="bold"
-                        tools:ignore="RtlHardcoded"/>
+                        tools:ignore="RtlHardcoded" />
 
                     <TextView
                         android:id="@+id/tv_title_order_now"
@@ -67,7 +67,7 @@
                         android:text="@string/title_order_now"
                         android:textColor="@color/colorGrey"
                         android:textSize="@dimen/_15sdp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
 
                 </LinearLayout>
@@ -88,7 +88,7 @@
                         android:background="@drawable/ic_menu"
                         android:backgroundTint="@color/colorGrey"
                         android:clickable="false"
-                        tools:ignore="ContentDescription,UnusedAttribute"/>
+                        tools:ignore="ContentDescription,UnusedAttribute" />
                 </LinearLayout>
             </LinearLayout>
 
