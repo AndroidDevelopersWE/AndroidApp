@@ -19,6 +19,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
@@ -79,7 +81,7 @@ import co.dtechsystem.carefer.Utils.Utils;
 import co.dtechsystem.carefer.Utils.Validations;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+        implements  OnMapReadyCallback {
     private DrawerLayout mDrawerLayout;
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
@@ -238,9 +240,12 @@ public class MainActivity extends BaseActivity
      * Handle left bar menu
      */
     private void SetUpLeftbar() {
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+      //  mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setAnimation(null);
+
+
     }
 
     /**
@@ -890,6 +895,34 @@ public class MainActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            switch (item.getItemId()) {
+                case R.id.nav_home:
+
+                    return true;
+                case R.id.nav_my_orders:
+
+                    return true;
+                case R.id.nav_fav_shops:
+
+                    return true;
+                case R.id.nav_profile:
+
+                    return true;
+                case R.id.nav_settings:
+
+                    return true;
+            }
+            return false;
+        }
+
+    };
+    /*
     @SuppressWarnings({"StatementWithEmptyBody", "NullableProblems"})
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -921,7 +954,7 @@ public class MainActivity extends BaseActivity
         drawer.closeDrawer(GravityCompat.END);
         return true;
     }
-
+*/
     /**
      * Handle User permission for api 23 and above
      *
